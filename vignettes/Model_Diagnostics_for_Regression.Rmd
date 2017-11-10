@@ -1,0 +1,44 @@
+---
+title: "Model Diagnostics for Regression"
+author: "Alicja Gosiewska"
+date: "1 listopada 2017"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Model Diagnostics for Regression}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+```{r}
+library(auditor)
+```
+
+# Goldfeld-Quandt Test
+
+```{r}
+library(car)
+head(Prestige)
+model <- lm(prestige~education + women + income, data = Prestige)
+au.wom <- auditor(model, variable = "women")
+au.wom
+au.edu <- auditor(model, variable = "education")
+au.edu
+```
+
+Let's see it on plots.
+
+
+```{r}
+plot_test_gq(au.edu)
+plot_test_gq(au.wom)
+```
