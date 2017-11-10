@@ -1,9 +1,11 @@
 #' @title Goldfeld-Quandt Test
 #'
-#' @description Test for Heteroskedasticity with the Goldfeld-Quandt Test.
+#' @description Test for homooskedasticity with the Goldfeld-Quandt Test.
 #'
 #' @param model model
 #' @param variable name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.
+#'
+#' @importFrom dplyr arrange_
 #' @importFrom stats update
 #'
 #' @export
@@ -18,7 +20,7 @@ test_gq <- function(model, variable = NULL){
     variable <- colnames(model.data)[2]
   }
 
-  model.data <- model.data[order(model.data[ , variable]),]
+  model.data <- arrange_(model.data, variable)
 
   model.dataA <- model.data[1:n1, ]
   model.dataB <- model.data[(n1+1):n, ]

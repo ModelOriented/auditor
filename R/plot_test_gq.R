@@ -11,6 +11,7 @@
 #' @importFrom ggplot2 geom_point geom_smooth geom_vline
 #' @importFrom ggplot2 ggtitle xlab ylab
 #' @importFrom ggplot2 theme_classic
+#' @importFrom stats median
 #'
 #' @export
 plot_test_gq <- function(object){

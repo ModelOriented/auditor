@@ -12,5 +12,5 @@ test_gq(model, variable = NULL)
 \item{variable}{name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.}
 }
 \description{
-Test for Heteroskedasticity with the Goldfeld-Quandt Test.
+Test for homooskedasticity with the Goldfeld-Quandt Test.
 }

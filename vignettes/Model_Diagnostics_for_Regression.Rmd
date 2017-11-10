@@ -35,7 +35,7 @@ au.edu <- auditor(model, variable = "education")
 au.edu
 ```
 
-Let's see it on plots.
+Let's see the plots.
 
 
 ```{r}

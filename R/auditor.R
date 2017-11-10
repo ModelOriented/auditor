@@ -7,10 +7,8 @@
 #'
 #' @return An object of class ModelAudit.
 #'
-#' @importFrom lmtest bptest
-#' @importFrom lmtest gqtest
-#' @importFrom lmtest hmctest
 #' @importFrom broom augment
+#' @importFrom stats model.frame pf
 #'
 #' @export
 
