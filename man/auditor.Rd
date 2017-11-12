@@ -4,12 +4,12 @@
 \alias{auditor}
 \title{auditor}
 \usage{
-auditor(model, ...)
+auditor(model, variable = NULL)
 }
 \arguments{
 \item{model}{An object of appropriate class containing a model.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{variable}{name of variable - for some tests the observations will be ordered by the values of this variable. If NULL - first variable is taken.}
 }
 \value{
 An object of class ModelAudit.

@@ -1,7 +1,9 @@
 # News
 
-## v. 0.0.0.9000 
+## v. 0.0.1.0000  
+9/11/2017 
 
-### 9/11/2017 
-
-* `test_gq` and `plot_test_gq` functions 
+* Heteroscedasticity of residuals:
+	* `test_gq` and `plot_test_gq` functions 
+* Autocorrelation of residuals
+	* `test_dw`, `test_run`, `plot_autocorr` ficntions

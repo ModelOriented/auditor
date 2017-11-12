@@ -3,7 +3,7 @@
 #' @description Function \code{auditor} validates a regression model.
 #'
 #' @param model An object of appropriate class containing a model.
-#' @param ... further arguments passed to or from other methods.
+#' @param variable name of variable - for some tests the observations will be ordered by the values of this variable. If NULL - first variable is taken.
 #'
 #' @return An object of class ModelAudit.
 #'
@@ -13,14 +13,23 @@
 #' @export
 
 
-auditor <- function(model, ...){
+auditor <- function(model, variable = NULL){
+  model.data <- model.frame(model)
   broom.aug <- augment(model)
+
+  if (is.null(variable))  variable <- colnames(model.data)[2]
+  ordered.resid <- arrange_(broom.aug, variable)$.resid
+
   tests <- list(
     model = model,
+    variable = variable,
     residuals = broom.aug$.resid,
     std.residuals = broom.aug$.std.resid,
-    data = model.frame(model),
-    gqtest = c(name = "Goldfeld-Quandt", assumption = "Homoscedasticity of residuals", test_gq(model, ...))
+    ordered.resid = ordered.resid,
+    data = model.data,
+    gqtest = c(name = "Goldfeld-Quandt", assumption = "Homoscedasticity of residuals", test_gq(model, variable)),
+    dwtest = c(name = "Durbin-Watson", assumption = "Autocorrelation of residuals", test_dw(ordered.resid)),
+    runstest = c(name = "Runs", assumption = "Autocorrelation of residuals", test_runs(ordered.resid))
   )
   class(tests) <- "ModelAudit"
   return(tests)

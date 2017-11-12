@@ -10,6 +10,8 @@ print.ModelAudit <- function(x, ...){
   print(x$model$call)
   cat("\n")
   cat_assumption(x ,"Homoscedasticity of residuals", ...)
+  cat("\n")
+  cat_assumption(x ,"Autocorrelation of residuals", ...)
 
 }
 

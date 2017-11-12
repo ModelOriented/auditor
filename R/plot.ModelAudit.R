@@ -5,9 +5,12 @@
 #' @param x object of class ModelAudit
 #' @param ... further arguments passed to or from other methods.
 #'
+#' @importFrom ggpubr ggarrange
 #'
 #' @export
 
 plot.ModelAudit <- function(x, ...){
-  graphics::plot(x=c(1,2), y=c(2,1), main = "Nothing here")
+  test_gq <- plot_test_gq(x)
+  autocorr <- plot_autocorr(x)
+  ggarrange(test_gq, autocorr, ncol = 1)
 }

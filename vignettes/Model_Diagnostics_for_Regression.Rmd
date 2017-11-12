@@ -23,22 +23,18 @@ knitr::opts_chunk$set(message = FALSE)
 library(auditor)
 ```
 
-# Goldfeld-Quandt Test
+# Validation of a regression model
 
 ```{r}
 library(car)
-head(Prestige)
 model <- lm(prestige~education + women + income, data = Prestige)
-au.wom <- auditor(model, variable = "women")
-au.wom
-au.edu <- auditor(model, variable = "education")
-au.edu
+au <- auditor(model, variable = "education")
+au
 ```
-
-Let's see the plots.
-
 
 ```{r}
-plot_test_gq(au.edu)
-plot_test_gq(au.wom)
+plot(au)
 ```
+
+
+
