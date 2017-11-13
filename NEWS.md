@@ -1,6 +1,4 @@
-# News
-
-## v. 0.0.1.0000  
+# v. 0.0.1.0000  
 9/11/2017 
 
 * Heteroscedasticity of residuals:
