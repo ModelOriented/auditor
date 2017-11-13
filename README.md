@@ -9,4 +9,6 @@ Audit / verification of regression models
 devtools::install_github("mi2-warsaw/auditor")
 ```
 
+## [Reference Manual](https://mi2-warsaw.github.io/auditor/)
+
 ## [News](NEWS.md)
