@@ -13,6 +13,7 @@ LazyData: true
 Imports: broom,
     car,
     dplyr,
+    forecast,
     ggplot2,
     ggpubr,
     tseries

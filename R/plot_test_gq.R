@@ -16,7 +16,22 @@
 #' @export
 plot_test_gq <- function(object){
   values <- sqrt.std.residuals <- NULL
+
   variable <- object$gqtest$variable
+  df <- generate_test_gq_df(object)
+
+
+  ggplot(df, aes(x = values, y = sqrt.std.residuals)) +
+    geom_vline(aes(xintercept = median(df$values))) +
+    geom_point() +
+    geom_smooth(method = "loess", se = FALSE) +
+    xlab(variable) +
+    ylab("\u221A|Standarized residuals|") +
+    ggtitle("Scale Location") +
+    theme_classic()
+}
+
+generate_test_gq_df <- function(object){
   std.residuals1 = object$gqtest$residuals[[1]]
   std.residuals2 = object$gqtest$residuals[[2]]
   values1 = object$gqtest$values[[1]]
@@ -30,13 +45,5 @@ plot_test_gq <- function(object){
                     group = rep(">med", length(values2)))
   df <- rbind(df1, df2)
   df$sqrt.std.residuals <- sqrt(abs(df$std.residuals))
-
-  ggplot(df, aes(x = values, y = sqrt.std.residuals)) +
-    geom_vline(aes(xintercept = median(df$values))) +
-    geom_point() +
-    geom_smooth(method = "loess", se = FALSE) +
-    xlab(variable) +
-    ylab("\u221A|Standarized residuals|") +
-    ggtitle("Scale Location") +
-    theme_classic()
+  return(df)
 }

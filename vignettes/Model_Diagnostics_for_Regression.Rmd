@@ -1,7 +1,6 @@
 ---
 title: "Model Diagnostics for Regression"
 author: "Alicja Gosiewska"
-date: "1 listopada 2017"
 output: 
   html_document:
     toc: true
