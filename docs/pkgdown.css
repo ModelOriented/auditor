@@ -161,18 +161,19 @@ code a, pre a {
 .error   { color: orange;  font-weight: bolder;}
 .warning { color: #6A0366; font-weight: bolder;}
 
-.navbar-default {
-    background-color: #4a3c89;
-}
 .navbar-mi2logo {
     float: left;
 	margin-right: 15px;
 	margin-top: 2px;
 }
-.navbar-default .navbar-nav > li > a {
-    color: #fff;
+.navbar-mi2 {
+	background-color: #4a3c89;
+    color: #fff !important;
+	margin-right: 0px;
 }
-.navbar-default .navbar-brand {
-    color: #fff;
-	margin-right: 150px;
+.navbar-mi2 > li > a {
+    color: #fff !important;
+}
+.navbar-mi2 > .active > a {
+    background-color: #370f54 !important;
 }
