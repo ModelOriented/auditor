@@ -69,15 +69,66 @@
     
 
 <p><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="300"></p>
-<p>Audit / verification of regression models</p>
-<section class="level2"><h2>Installation</h2>
+<section class="level2"><h2>auditor - audit/verification of regression models</h2>
+<section class="level3"><h3>Installation</h3>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("mi2-warsaw/auditor")</a></code></pre>
-</section><section class="level2"><h2><a href="https://mi2-warsaw.github.io/auditor/">Reference Manual</a></h2>
-</section><section class="level2"><h2><a href="NEWS.md">News</a></h2>
-</section>
+</section><section class="level3"><h3><a href="https://mi2-warsaw.github.io/auditor/">Reference Manual</a></h3>
+</section><section class="level3"><h3><a href="NEWS.md">News</a></h3>
+</section><section class="level3"><h3>Quick preview of the assumptions and functions</h3>
+<table style="width:25%;" class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: center;">Assumption</th>
+<th style="text-align: center;">Test</th>
+<th style="text-align: center;">Plot</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Homoscedasticity of the residuals</td>
+<td style="text-align: center;">Goldfeld-Quandt  <code>test_gq</code>
+</td>
+<td style="text-align: center;">Variable vs square root of the absolute value of the residuals <code>plot_test_gq</code>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Autocorrelation in the residuals</td>
+<td style="text-align: center;">Durbin-Watson  <code>test_dw</code>  Runs Test  <code>test_runs</code>
+</td>
+<td style="text-align: center;">i-th residual vs i+1-th residual <code>plot_autocorr</code>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Outlayers</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Influential observations</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Multicollinearity of variables</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></section></section>
 </div>
 
   <div class="col-md-3" id="sidebar">
+  	<div class="sidebar-logo">
+	<a href="http://mi2.mini.pw.edu.pl/">
+		<img src="https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt="MI2" height="75" title="MI2" class="sidebar-logo"></a>
+	 
+	 <p>
+		MI^2 (pronounce: Am I square?) is a group of mathematicians and computer scientists that love to play with data. We create tools, do consulting and share our positive attitude. 
+	 </p>
+	</div>
     <h2>License</h2>
 <p>GPL</p>
 <h2>Developers</h2>
