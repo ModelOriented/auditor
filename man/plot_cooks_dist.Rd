@@ -8,6 +8,8 @@ plot_cooks_dist(object, cut.off = 1)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
+
+\item{cut.off}{horizontal line}
 }
 \description{
 cooks distances

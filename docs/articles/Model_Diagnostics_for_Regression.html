@@ -76,9 +76,9 @@
     
 <div class="contents">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(auditor)</code></pre></div>
-<div id="validation-of-a-regression-model" class="section level1">
+<div id="basic-validation-of-a-regression-model" class="section level1">
 <h1 class="hasAnchor">
-<a href="#validation-of-a-regression-model" class="anchor"></a>Validation of a regression model</h1>
+<a href="#basic-validation-of-a-regression-model" class="anchor"></a>Basic validation of a regression model</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(car)
 model &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige<span class="op">~</span>education <span class="op">+</span><span class="st"> </span>women <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Prestige)
 au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auditor.html">auditor</a></span>(model, <span class="dt">variable =</span> <span class="st">"education"</span>)
@@ -93,18 +93,29 @@ au</code></pre></div>
 ##           Test statistic p.value
 ##  Durbin-Watson      1.87      NA
 ##           Runs     -1.39   0.165</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(au)</code></pre></div>
-<pre><code>## $`1`</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot &lt;-<span class="st"> </span><span class="kw">plot</span>(au)
+plot</code></pre></div>
 <p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<pre><code>## 
-## $`2`</code></pre>
-<p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-3-2.png" width="672"></p>
-<pre><code>## 
-## $`3`</code></pre>
-<p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-3-3.png" width="672"></p>
-<pre><code>## 
-## attr(,"class")
-## [1] "list"      "ggarrange"</code></pre>
+</div>
+<div id="influence-measures" class="section level1">
+<h1 class="hasAnchor">
+<a href="#influence-measures" class="anchor"></a>Influence measures</h1>
+<div id="cooks-distance" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cooks-distance" class="anchor"></a>Cooks distance</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_cooks_dist.html">plot_cooks_dist</a></span>(au)</code></pre></div>
+<p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+</div>
+</div>
+<div id="multicollinearity-of-variables" class="section level1">
+<h1 class="hasAnchor">
+<a href="#multicollinearity-of-variables" class="anchor"></a>Multicollinearity of variables</h1>
+<div id="vif---variance-inflation-factor" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vif---variance-inflation-factor" class="anchor"></a>VIF - Variance inflation factor</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_vif.html">plot_vif</a></span>(au)</code></pre></div>
+<p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+</div>
 </div>
 </div>
   </div>
@@ -114,7 +125,17 @@ au</code></pre></div>
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#validation-of-a-regression-model">Validation of a regression model</a></li>
+<li><a href="#basic-validation-of-a-regression-model">Basic validation of a regression model</a></li>
+      <li>
+<a href="#influence-measures">Influence measures</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#cooks-distance">Cooks distance</a></li>
+      </ul>
+</li>
+      <li>
+<a href="#multicollinearity-of-variables">Multicollinearity of variables</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#vif---variance-inflation-factor">VIF - Variance inflation factor</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>

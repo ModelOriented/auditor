@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • auditor</title>
+<title>VIF plot � plot_vif • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top navbar-mi2" role="navigation">
   <div class="container">
@@ -91,124 +91,38 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.0.2.0000</small>
-      </h1>
+    <h1>VIF plot</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    
+    <p>VIF (Variance inflation factor) computed for each variable</p>
+    
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <pre class="usage"><span class='fu'>plot_vif</span>(<span class='no'>object</span>, <span class='kw'>cut.off</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>An object of class ModelAudit</p></td>
+    </tr>
+    <tr>
+      <th>cut.off</th>
+      <td><p>horizontal line</p></td>
+    </tr>
+    </table>
+    
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="auditor.html">auditor</a></code> </p>
-          </td>
-          <td><p>auditor</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="cat_assumption.html">cat_assumption</a></code> </p>
-          </td>
-          <td><p>printing results of tests for chosen assumption</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="collect_assumption.html">collect_assumption</a></code> </p>
-          </td>
-          <td><p>Getting test name, statistic value and p.value for chosen test from ModelAudit object.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.ModelAudit.html">plot</a></code> </p>
-          </td>
-          <td><p>plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_acf.html">plot_acf</a></code> </p>
-          </td>
-          <td><p>ACF plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_autocorr.html">plot_autocorr</a></code> </p>
-          </td>
-          <td><p>Autocorrelation plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_cooks_dist.html">plot_cooks_dist</a></code> </p>
-          </td>
-          <td><p>Cooks distance plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_test_gq.html">plot_test_gq</a></code> </p>
-          </td>
-          <td><p>Scale location plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_vif.html">plot_vif</a></code> </p>
-          </td>
-          <td><p>VIF plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="print.ModelAudit.html">print</a></code> </p>
-          </td>
-          <td><p>Print ModelAudit object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.ModelAudit.html">summary</a></code> </p>
-          </td>
-          <td><p>summary of a ModelAudit object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="test_dw.html">test_dw</a></code> </p>
-          </td>
-          <td><p>Durbin-Watson Test</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="test_gq.html">test_gq</a></code> </p>
-          </td>
-          <td><p>Goldfeld-Quandt Test</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="test_runs.html">test_runs</a></code> </p>
-          </td>
-          <td><p>Runs Test</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked contents-mi2">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 

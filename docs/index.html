@@ -90,51 +90,51 @@
 <div id="quick-preview-of-the-assumptions-and-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#quick-preview-of-the-assumptions-and-functions" class="anchor"></a>Quick preview of the assumptions and functions</h3>
-<table style="width:25%;" class="table">
+<table style="width:21%;" class="table">
 <colgroup>
-<col width="8%">
-<col width="8%">
-<col width="8%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
 </colgroup>
 <thead><tr class="header">
-<th align="center">Attribute</th>
-<th align="center">Verification</th>
-<th align="center">Plot</th>
+<th align="left">Attribute</th>
+<th align="left">Verification</th>
+<th align="left">Plot</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="center">Mean of errors equals to zero</td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="left">Mean of errors equals to zero</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="center">Homoscedasticity of the errors</td>
-<td align="center">Goldfeld-Quandt test  <code>test_gq</code>
+<td align="left">Homoscedasticity of the errors</td>
+<td align="left">Goldfeld-Quandt test  <code>test_gq</code>
 </td>
-<td align="center">Variable vs square root of the absolute value of the residuals <code>plot_test_gq</code>
+<td align="left">Variable vs square root of the absolute value of the residuals <code>plot_test_gq</code>
 </td>
 </tr>
 <tr class="odd">
-<td align="center">Uncorrelated errors</td>
-<td align="center">Durbin-Watson test  <code>test_dw</code>  Runs est  <code>test_runs</code>
+<td align="left">Uncorrelated errors</td>
+<td align="left">Durbin-Watson test  <code>test_dw</code>  Runs test  <code>test_runs</code>
 </td>
-<td align="center">i-th residual vs (i+1)-th residual <code>plot_autocorr</code>
+<td align="left">i-th residual vs (i+1)-th residual <code>plot_autocorr</code>
 </td>
 </tr>
 <tr class="even">
-<td align="center">Linear independence of variables</td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="left">Linear independence of variables</td>
+<td align="left">VIF - Variable Inflation Factor</td>
+<td align="left"><code>plot_vif</code></td>
 </tr>
 <tr class="odd">
-<td align="center">Outlayers</td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="left">Outlayers</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="center">Influential observations</td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="left">Influential observations</td>
+<td align="left">Cooks distance</td>
+<td align="left"><code>plot_cooks_dist</code></td>
 </tr>
 </tbody>
 </table>

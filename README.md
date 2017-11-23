@@ -16,13 +16,13 @@ devtools::install_github("mi2-warsaw/auditor")
 
 ### Quick preview of the assumptions and functions
 
-|  Attribute | Verification  | Plot  |
-|:---:|:---:|:---:|
+| Attribute | Verification | Plot |
+|:---|:---|:---|
 | Mean of errors equals to zero |   |   |
 | Homoscedasticity of the errors | Goldfeld-Quandt test </br> `test_gq` | Variable vs square root of the absolute value of the residuals </br>`plot_test_gq`|
 | Uncorrelated errors  |  Durbin-Watson test </br> `test_dw` </br>  Runs test </br> `test_runs`| i-th residual vs (i+1)-th residual </br>`plot_autocorr`  |
-| Linear independence of variables |   |   |
+| Linear independence of variables | VIF - Variable Inflation Factor | `plot_vif` |
 | Outlayers |   |   |
-| Influential observations |   |   |
+| Influential observations | Cooks distance | `plot_cooks_dist` |
 
 

@@ -32,20 +32,25 @@ au
 ```
 
 ```{r}
-plot <- plot(au)
-plot
+plot(au)
 ```
 
 
 
-## Influeance measures
+# Influence measures
 
-### Cooks distance
+## Cooks distance
 
 ```{r}
 plot_cooks_dist(au)
 ```
 
+# Multicollinearity of variables
 
+## VIF - Variance inflation factor
+
+```{r}
+plot_vif(au)
+```
 
 

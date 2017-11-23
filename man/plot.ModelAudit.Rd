@@ -4,7 +4,7 @@
 \alias{plot.ModelAudit}
 \title{plot}
 \usage{
-plot.ModelAudit(x, ...)
+\method{plot}{ModelAudit}(x, ...)
 }
 \arguments{
 \item{x}{object of class ModelAudit}
