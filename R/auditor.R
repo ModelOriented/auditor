@@ -26,6 +26,8 @@ auditor <- function(model, variable = NULL){
     residuals = broom.aug$.resid,
     std.residuals = broom.aug$.std.resid,
     ordered.resid = ordered.resid,
+    cooks.dist = setNames(broom.aug$.cooksd, c(1:nrow(broom.aug))),
+    hat.values = setNames(broom.aug$.hat, c(1:nrow(broom.aug))),
     data = model.data,
     gqtest = c(name = "Goldfeld-Quandt", assumption = "Homoscedasticity of residuals", test_gq(model, variable)),
     dwtest = c(name = "Durbin-Watson", assumption = "Autocorrelation of residuals", test_dw(ordered.resid)),

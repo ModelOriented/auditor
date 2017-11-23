@@ -13,5 +13,5 @@ plot.ModelAudit <- function(x, ...){
   test_gq <- plot_test_gq(x)
   autocorr <- plot_autocorr(x)
   ACF <- plot_acf(x)
-  ggarrange(test_gq, autocorr, ACF, ncol = 1)
+  ggarrange(test_gq, autocorr, ACF)
 }

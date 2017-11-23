@@ -16,10 +16,13 @@ devtools::install_github("mi2-warsaw/auditor")
 
 ### Quick preview of the assumptions and functions
 
-|  Assumption | Test  | Plot  |
+|  Attribute | Verification  | Plot  |
 |:---:|:---:|:---:|
-| Homoscedasticity of the residuals | Goldfeld-Quandt </br> `test_gq` | Variable vs square root of the absolute value of the residuals </br>`plot_test_gq`|
-| Autocorrelation in the residuals  |  Durbin-Watson </br> `test_dw` </br>  Runs Test </br> `test_runs`| i-th residual vs i+1-th residual </br>`plot_autocorr`  |
-|  Outlayers |   |   |
+| Mean of errors equals to zero |   |   |
+| Homoscedasticity of the errors | Goldfeld-Quandt test </br> `test_gq` | Variable vs square root of the absolute value of the residuals </br>`plot_test_gq`|
+| Uncorrelated errors  |  Durbin-Watson test </br> `test_dw` </br>  Runs test </br> `test_runs`| i-th residual vs (i+1)-th residual </br>`plot_autocorr`  |
+| Linear independence of variables |   |   |
+| Outlayers |   |   |
 | Influential observations |   |   |
-| Multicollinearity of variables |   |   |
+
+

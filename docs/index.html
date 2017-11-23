@@ -69,56 +69,79 @@
     
 
 <p><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="300"></p>
-<section class="level2"><h2>auditor - audit/verification of regression models</h2>
-<section class="level3"><h3>Installation</h3>
+<div id="auditor---auditverification-of-regression-models" class="section level2">
+<h2 class="hasAnchor">
+<a href="#auditor---auditverification-of-regression-models" class="anchor"></a>auditor - audit/verification of regression models</h2>
+<div id="installation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h3>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("mi2-warsaw/auditor")</a></code></pre>
-</section><section class="level3"><h3><a href="https://mi2-warsaw.github.io/auditor/">Reference Manual</a></h3>
-</section><section class="level3"><h3><a href="NEWS.md">News</a></h3>
-</section><section class="level3"><h3>Quick preview of the assumptions and functions</h3>
+</div>
+<div id="reference-manual" class="section level3">
+<h3 class="hasAnchor">
+<a href="#reference-manual" class="anchor"></a><a href="https://mi2-warsaw.github.io/auditor/">Reference Manual</a>
+</h3>
+</div>
+<div id="news" class="section level3">
+<h3 class="hasAnchor">
+<a href="#news" class="anchor"></a><a href="NEWS.md">News</a>
+</h3>
+</div>
+<div id="quick-preview-of-the-assumptions-and-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#quick-preview-of-the-assumptions-and-functions" class="anchor"></a>Quick preview of the assumptions and functions</h3>
 <table style="width:25%;" class="table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
 </colgroup>
 <thead><tr class="header">
-<th style="text-align: center;">Assumption</th>
-<th style="text-align: center;">Test</th>
-<th style="text-align: center;">Plot</th>
+<th align="center">Attribute</th>
+<th align="center">Verification</th>
+<th align="center">Plot</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">Homoscedasticity of the residuals</td>
-<td style="text-align: center;">Goldfeld-Quandt  <code>test_gq</code>
-</td>
-<td style="text-align: center;">Variable vs square root of the absolute value of the residuals <code>plot_test_gq</code>
-</td>
+<td align="center">Mean of errors equals to zero</td>
+<td align="center"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">Autocorrelation in the residuals</td>
-<td style="text-align: center;">Durbin-Watson  <code>test_dw</code>  Runs Test  <code>test_runs</code>
+<td align="center">Homoscedasticity of the errors</td>
+<td align="center">Goldfeld-Quandt test  <code>test_gq</code>
 </td>
-<td style="text-align: center;">i-th residual vs i+1-th residual <code>plot_autocorr</code>
+<td align="center">Variable vs square root of the absolute value of the residuals <code>plot_test_gq</code>
 </td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">Outlayers</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td align="center">Uncorrelated errors</td>
+<td align="center">Durbin-Watson test  <code>test_dw</code>  Runs est  <code>test_runs</code>
+</td>
+<td align="center">i-th residual vs (i+1)-th residual <code>plot_autocorr</code>
+</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">Influential observations</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td align="center">Linear independence of variables</td>
+<td align="center"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">Multicollinearity of variables</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td align="center">Outlayers</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Influential observations</td>
+<td align="center"></td>
+<td align="center"></td>
 </tr>
 </tbody>
-</table></section></section>
+</table>
 </div>
+</div>
+
+  </div>
 
   <div class="col-md-3" id="sidebar">
   	<div class="sidebar-logo">

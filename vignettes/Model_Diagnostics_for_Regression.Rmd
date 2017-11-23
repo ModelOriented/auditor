@@ -22,7 +22,7 @@ knitr::opts_chunk$set(message = FALSE)
 library(auditor)
 ```
 
-# Validation of a regression model
+# Basic validation of a regression model
 
 ```{r}
 library(car)
@@ -32,8 +32,20 @@ au
 ```
 
 ```{r}
-plot(au)
+plot <- plot(au)
+plot
 ```
+
+
+
+## Influeance measures
+
+### Cooks distance
+
+```{r}
+plot_cooks_dist(au)
+```
+
 
 
 

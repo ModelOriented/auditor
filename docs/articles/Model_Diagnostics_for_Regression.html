@@ -75,14 +75,14 @@
     
     
 <div class="contents">
-<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1">
-<span class="kw">library</span>(auditor)</div></code></pre>
-<section id="validation-of-a-regression-model" class="level1"><h1>Validation of a regression model</h1>
-<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><div class="sourceLine" id="cb2-1" data-line-number="1">
-<span class="kw">library</span>(car)</div>
-<div class="sourceLine" id="cb2-2" data-line-number="2">model &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige<span class="op">~</span>education <span class="op">+</span><span class="st"> </span>women <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Prestige)</div>
-<div class="sourceLine" id="cb2-3" data-line-number="3">au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auditor.html">auditor</a></span>(model, <span class="dt">variable =</span> <span class="st">"education"</span>)</div>
-<div class="sourceLine" id="cb2-4" data-line-number="4">au</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(auditor)</code></pre></div>
+<div id="validation-of-a-regression-model" class="section level1">
+<h1 class="hasAnchor">
+<a href="#validation-of-a-regression-model" class="anchor"></a>Validation of a regression model</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(car)
+model &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige<span class="op">~</span>education <span class="op">+</span><span class="st"> </span>women <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Prestige)
+au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auditor.html">auditor</a></span>(model, <span class="dt">variable =</span> <span class="st">"education"</span>)
+au</code></pre></div>
 <pre><code>## lm(formula = prestige ~ education + women + income, data = Prestige)
 ## 
 ## Homoscedasticity of residuals 
@@ -93,8 +93,7 @@
 ##           Test statistic p.value
 ##  Durbin-Watson      1.87      NA
 ##           Runs     -1.39   0.165</code></pre>
-<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><div class="sourceLine" id="cb4-1" data-line-number="1">
-<span class="kw">plot</span>(au)</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(au)</code></pre></div>
 <pre><code>## $`1`</code></pre>
 <p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <pre><code>## 
@@ -106,7 +105,7 @@
 <pre><code>## 
 ## attr(,"class")
 ## [1] "list"      "ggarrange"</code></pre>
-</section>
+</div>
 </div>
   </div>
 
