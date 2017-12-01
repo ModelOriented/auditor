@@ -6,6 +6,7 @@
 #'
 #'
 #' @param object An object of class ModelAudit
+#' @param variable name of variable to order residuals
 #'
 #' @importFrom ggplot2 ggplot aes
 #' @importFrom ggplot2 geom_point geom_smooth geom_vline
@@ -14,11 +15,10 @@
 #' @importFrom stats median
 #'
 #' @export
-plot_test_gq <- function(object){
+plotTestGQ <- function(object, variable){
   values <- sqrt.std.residuals <- NULL
 
-  variable <- object$gqtest$variable
-  df <- generate_test_gq_df(object)
+  df <- generate_test_gq_df(object, variable)
 
 
   ggplot(df, aes(x = values, y = sqrt.std.residuals)) +
@@ -31,11 +31,12 @@ plot_test_gq <- function(object){
     theme_classic()
 }
 
-generate_test_gq_df <- function(object){
-  std.residuals1 = object$gqtest$residuals[[1]]
-  std.residuals2 = object$gqtest$residuals[[2]]
-  values1 = object$gqtest$values[[1]]
-  values2 = object$gqtest$values[[2]]
+generate_test_gq_df <- function(object, variable){
+
+  std.residuals1 = object$testGQ$GQResults[[variable]]$residualsStd[[1]]
+  std.residuals2 = object$testGQ$GQResults[[variable]]$residualsStd[[2]]
+  values1 = object$testGQ$GQResults[[variable]]$values[[1]]
+  values2 = object$testGQ$GQResults[[variable]]$values[[2]]
 
   df1 <- data.frame(std.residuals = std.residuals1,
                     values = values1,

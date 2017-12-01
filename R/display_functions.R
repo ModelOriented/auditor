@@ -6,13 +6,8 @@
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @export
-print.ModelAudit <- function(x, ...){
+print.modelAudit <- function(x, ...){
   print(x$model$call)
-  cat("\n")
-  cat_assumption(x ,"Homoscedasticity of residuals", ...)
-  cat("\n")
-  cat_assumption(x ,"Autocorrelation of residuals", ...)
-
 }
 
 #' @title summary of a ModelAudit object
@@ -23,6 +18,6 @@ print.ModelAudit <- function(x, ...){
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @export
-summary.ModelAudit <- function(object, ...){
+summary.modelAudit <- function(object, ...){
   print(object, ...)
 }

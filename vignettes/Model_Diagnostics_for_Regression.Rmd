@@ -27,12 +27,12 @@ library(auditor)
 ```{r}
 library(car)
 model <- lm(prestige~education + women + income, data = Prestige)
-au <- auditor(model, variable = "education")
+au <- auditor(model)
 au
 ```
 
 ```{r}
-plot(au)
+plot(au, variable = "income")
 ```
 
 

@@ -3,7 +3,7 @@
 #' @description Function \code{auditor} validates a regression model.
 #'
 #' @param model An object of appropriate class containing a model.
-#' @param variable name of variable - for some tests the observations will be ordered by the values of this variable. If NULL - first variable is taken.
+#' @param vars name of variable - for some tests the observations will be ordered by the values of this variable. If NULL - first variable is taken.
 #'
 #' @return An object of class ModelAudit.
 #'
@@ -15,28 +15,35 @@
 #' @export
 
 
-auditor <- function(model, variable = NULL){
-  model.data <- model.frame(model)
-  broom.aug <- augment(model)
 
-  if (is.null(variable))  variable <- colnames(model.data)[2]
-  ordered.resid <- arrange_(broom.aug, variable)$.resid
-
-  tests <- list(
-    model = model,
-    variable = variable,
-    data = model.data,
-    residuals = broom.aug$.resid,
-    std.residuals = broom.aug$.std.resid,
-    ordered.resid = ordered.resid,
-    cooks.dist = setNames(broom.aug$.cooksd, c(1:nrow(broom.aug))),
-    hat.values = setNames(broom.aug$.hat, c(1:nrow(broom.aug))),
-    VIF = vif(lm(model.data)),
-    gqtest = c(name = "Goldfeld-Quandt", assumption = "Homoscedasticity of residuals", test_gq(model, variable)),
-    dwtest = c(name = "Durbin-Watson", assumption = "Autocorrelation of residuals", test_dw(ordered.resid)),
-    runstest = c(name = "Runs", assumption = "Autocorrelation of residuals", test_runs(ordered.resid))
-  )
-  class(tests) <- "ModelAudit"
-  return(tests)
+auditor <- function(model, vars = NULL){
+  UseMethod("auditor")
 }
+
+auditor.default <- function(model, vars = NULL) {
+  stop("augment doesn't know how to deal with data of class ", class(model), call. = FALSE)
+}
+
+#' @export
+auditor.lm <- function(model, vars = NULL){
+  dataFromModel <- model.frame(model)
+  augmentModel <- augment(model)
+  if (is.null(vars))  vars <- colnames(dataFromModel)[-1]
+  result <- list(
+    model = model,
+    data = dataFromModel,
+    variables = vars,
+    residuals = augmentModel$.resid,
+    std.residuals = augmentModel$.std.resid,
+    cooks.dist = setNames(augmentModel$.cooksd, c(1:nrow(augmentModel))),
+    hat.values = setNames(augmentModel$.hat, c(1:nrow(augmentModel))),
+    VIF = vif(lm(dataFromModel)),
+    testGQ = c(name = "Goldfeld-Quandt", assumption = "Homoscedasticity of residuals", testGQ(model, vars)),
+    dwtest = c(name = "Durbin-Watson", assumption = "Autocorrelation of residuals", testDW(model, vars)),
+    testRuns = c(name = "Runs", assumption = "Autocorrelation of residuals", testRuns(model, vars))
+  )
+  class(result) <- "modelAudit"
+  return(result)
+}
+
 

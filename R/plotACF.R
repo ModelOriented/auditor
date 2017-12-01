@@ -5,6 +5,7 @@
 #'
 #'
 #' @param object An object of class ModelAudit
+#' @param variable name of variable to order residuals
 #'
 #' @importFrom ggplot2 ggplot aes
 #' @importFrom ggplot2 ggtitle xlab ylab
@@ -12,8 +13,12 @@
 #' @importFrom forecast Acf ggAcf
 #'
 #' @export
-plot_acf <- function(object){
-  ggAcf(object$ordered.resid) +
+plotACF <- function(object, variable){
+  modelData <- object$data
+  modelData$residuals <- object$residuals
+  orderedResiduals <- arrange_(modelData, variable)$residuals
+
+  ggAcf(orderedResiduals) +
     geom_point() +
     ggtitle("Autocorrelation Function") +
     theme_classic()

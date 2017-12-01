@@ -5,6 +5,7 @@
 #'
 #'
 #' @param object An object of class ModelAudit
+#' @param variable name of variable to order residuals
 #'
 #' @importFrom ggplot2 ggplot aes
 #' @importFrom ggplot2 geom_point geom_hline
@@ -12,12 +13,14 @@
 #' @importFrom ggplot2 theme_classic
 #'
 #' @export
-plot_autocorr <- function(object){
+plotAutocorr <- function(object, variable){
   x <- y <- NULL
+  modelData <- object$data
+  modelData$residuals <- object$residuals
+  orderedResiduals <- arrange_(modelData, variable)$residuals
 
-  resid <- object$ordered.resid
-  n <- length(resid)
-  df <- data.frame(x = resid[-n], y = resid[-1])
+  n <- length(orderedResiduals)
+  df <- data.frame(x = orderedResiduals[-n], y = orderedResiduals[-1])
 
   ggplot(df, aes(x, y)) +
     geom_point() +
