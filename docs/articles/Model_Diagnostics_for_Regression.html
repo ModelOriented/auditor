@@ -81,19 +81,10 @@
 <a href="#basic-validation-of-a-regression-model" class="anchor"></a>Basic validation of a regression model</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(car)
 model &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige<span class="op">~</span>education <span class="op">+</span><span class="st"> </span>women <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Prestige)
-au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auditor.html">auditor</a></span>(model, <span class="dt">variable =</span> <span class="st">"education"</span>)
+au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auditor.html">auditor</a></span>(model)
 au</code></pre></div>
-<pre><code>## lm(formula = prestige ~ education + women + income, data = Prestige)
-## 
-## Homoscedasticity of residuals 
-##             Test statistic p.value
-##  Goldfeld-Quandt      1.83  0.0416
-## 
-## Autocorrelation of residuals 
-##           Test statistic p.value
-##  Durbin-Watson      1.87      NA
-##           Runs     -1.39   0.165</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(au)</code></pre></div>
+<pre><code>## lm(formula = prestige ~ education + women + income, data = Prestige)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(au, <span class="dt">variable =</span> <span class="st">"income"</span>)</code></pre></div>
 <p><img src="Model_Diagnostics_for_Regression_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 </div>
 <div id="influence-measures" class="section level1">

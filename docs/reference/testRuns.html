@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot — plot.modelAudit â€¢ auditor</title>
+<title>Runs Test — testRuns â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,30 +93,25 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot</h1>
+    <h1>Runs Test</h1>
     </div>
 
     
-    <p>plot</p>
+    <p>Note that this test is not very strong. It utilizes only signs of the residuals.</p>
     
 
-    <pre class="usage"><span class='co'># S3 method for modelAudit</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>variable</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>testRuns</span>(<span class='no'>model</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>object of class ModelAudit</p></td>
+      <th>model</th>
+      <td><p>model</p></td>
     </tr>
     <tr>
-      <th>variable</th>
-      <td><p>name of variable to order residuals</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>further arguments passed to or from other methods.</p></td>
+      <th>vars</th>
+      <td><p>name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.</p></td>
     </tr>
     </table>
     
