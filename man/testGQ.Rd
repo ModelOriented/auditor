@@ -7,10 +7,21 @@
 testGQ(model, vars = NULL)
 }
 \arguments{
-\item{model}{model}
+\item{model}{model for example lm, glm, randomForest object.}
 
 \item{vars}{name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.}
 }
 \description{
-Test for homooskedasticity with the Goldfeld-Quandt Test.
+Goldfeld-Quandt test checks for homoscedasticity of residuals in regression analyses.
+
+Test is based on a comparison of the residual sum of squares (RSS) using the F-statistic.
+The test consists of dividing dataset into two groups. Then estimating models separately for each subset and calculating
+the residual sum of squares for each group (RSS1 and RSS2).
+
+The test statistic is the ratio of the mean square residual errors for two groups, which corresponds to the F-test of equality of variances.
+\eqn{F = (MSE_1)/(MSE_2)}
+where \eqn{MSE = (RSS)/(n-p)}
+where n is the number of observations and p is the number of variables .
+
+\code{testGQ} function uses a two-sided F-test.
 }
