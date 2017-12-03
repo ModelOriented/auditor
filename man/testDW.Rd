@@ -9,7 +9,7 @@ testDW(model, vars = NULL)
 \arguments{
 \item{model}{model}
 
-\item{vars}{name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.}
+\item{vars}{vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.}
 }
 \description{
 Test for autocorrelation with the Durbin-Watson Test.

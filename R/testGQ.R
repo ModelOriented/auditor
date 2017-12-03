@@ -14,7 +14,7 @@
 #' \code{testGQ} function uses a two-sided F-test.
 #'
 #' @param model model for example lm, glm, randomForest object.
-#' @param vars name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.
+#' @param vars vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.
 #'
 #' @importFrom dplyr arrange_
 #' @importFrom stats update rstandard predict

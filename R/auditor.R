@@ -3,7 +3,7 @@
 #' @description Function \code{auditor} validates a regression model.
 #'
 #' @param model An object of appropriate class containing a model.
-#' @param vars name of variable - for some tests the observations will be ordered by the values of this variable. If NULL - first variable is taken.
+#' @param vars vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.
 #'
 #' @return An object of class ModelAudit.
 #'

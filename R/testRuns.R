@@ -3,7 +3,7 @@
 #' @description Note that this test is not very strong. It utilizes only signs of the residuals.
 #'
 #' @param model model
-#' @param vars name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.
+#' @param vars vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.
 #'
 #' @importFrom tseries runs.test
 #' @importFrom broom augment

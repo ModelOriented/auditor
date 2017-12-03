@@ -3,7 +3,7 @@
 #' @description Test for autocorrelation with the Durbin-Watson Test.
 #'
 #' @param model model
-#' @param vars name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.
+#' @param vars vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.
 #'
 #' @importFrom car durbinWatsonTest
 #'

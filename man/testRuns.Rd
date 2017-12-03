@@ -9,7 +9,7 @@ testRuns(model, vars = NULL)
 \arguments{
 \item{model}{model}
 
-\item{vars}{name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.}
+\item{vars}{vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.}
 }
 \description{
 Note that this test is not very strong. It utilizes only signs of the residuals.

@@ -9,7 +9,7 @@ testGQ(model, vars = NULL)
 \arguments{
 \item{model}{model for example lm, glm, randomForest object.}
 
-\item{vars}{name of variable - the observations in the model are ordered by the values of this variable. If NULL - first variable is taken.}
+\item{vars}{vector of variables - for some tests and plots observations in the model are ordered by the values of this variables. If NULL - all variables are taken.}
 }
 \description{
 Goldfeld-Quandt test checks for homoscedasticity of residuals in regression analyses.
