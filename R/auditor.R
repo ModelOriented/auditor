@@ -46,4 +46,21 @@ auditor.lm <- function(model, vars = NULL){
   return(result)
 }
 
-
+#' @export
+auditor.randomForest <- function(model, vars = NULL){
+  dataFromModel <- model.frame(model)
+  if (is.null(vars))  vars <- colnames(dataFromModel)[-1]
+  result <- list(
+    model = model,
+    data = dataFromModel,
+    variables = vars,
+    residuals = getResiduals(model, dataFromModel[, 1]),
+    std.residuals = getStdResiduals(model, dataFromModel[, 1]),
+    VIF = vif(lm(dataFromModel)),
+    testGQ = c(name = "Goldfeld-Quandt", assumption = "Homoscedasticity of residuals", testGQ(model, vars)),
+    dwtest = c(name = "Durbin-Watson", assumption = "Autocorrelation of residuals", testDW(model, vars)),
+    testRuns = c(name = "Runs", assumption = "Autocorrelation of residuals", testRuns(model, vars))
+  )
+  class(result) <- "modelAudit"
+  return(result)
+}

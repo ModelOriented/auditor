@@ -36,8 +36,8 @@ testGQ <- function(model, vars = NULL){
     secondModelResiduals <- getResiduals(secondModel, secondModelData[, 1])
     RSSB <- sum(secondModelResiduals^2)
 
-    firstModelStdResiduals <- getStdResiduals(firstModel)
-    secondModelStdResiduals <- getStdResiduals(secondModel)
+    firstModelStdResiduals <- getStdResiduals(firstModel, firstModelData[, 1])
+    secondModelStdResiduals <- getStdResiduals(secondModel, secondModelData[, 1])
     statistic <- (RSSB/(n2 - p - 1)) / (RSSA/(n1 - p - 1))
     pValue = (2 * min(pf(statistic, df[1], df[2]), pf(statistic, df[1], df[2], lower.tail = FALSE)))
     values = list(firstModelData[ ,variable], secondModelData[ ,variable])
@@ -56,16 +56,5 @@ return(result)
 }
 
 
-getResiduals <- function(model, y){
-  y - predict(model)
-}
-
-getStdResiduals <- function(model){
-  UseMethod("getStdResiduals")
-}
-
-getStdResiduals.lm <- function(model){
-  rstandard(model)
-}
 
 
