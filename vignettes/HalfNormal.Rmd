@@ -46,16 +46,18 @@ Negative binomial type-I model using package gamlss
 library("gamlss")
 data("orange", package = "hnp")
 
-model_NBII <- gamlss(embryos ~ block + poly(dose, 2) * sugar,
+modelNBII <- gamlss(embryos ~ block + poly(dose, 2) * sugar,
   family = NBII(), data = orange, trace=FALSE)
 
-d.fun <- function(obj) resid(obj)
-s.fun <- function(n, obj) rNBII(n, obj$mu.fv, obj$sigma.fv)
-f.fun <- function(y.) gamlss(y. ~ block + poly(dose, 2) * sugar, 
+dFun <- function(obj) resid(obj)
+sFun <- function(n, obj) rNBII(n, obj$mu.fv, obj$sigma.fv)
+fFun <- function(y.) gamlss(y. ~ block + poly(dose, 2) * sugar, 
                              family = NBII(), data = orange, trace=FALSE)
 
-plotHalfNormal(model_NBII, newclass = TRUE, diagfun = d.fun, simfun = s.fun,
-  fitfun = f.fun, xlab = "Half-normal scores", ylab = "z-scores", sim = 20)
+plotHalfNormal(modelNBII,
+               newclass = TRUE,
+               diagfun = dFun, simfun = sFun, fitfun = fFun,
+               xlab = "Half-normal scores", ylab = "z-scores")
 
 ```
 

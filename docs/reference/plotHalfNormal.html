@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ACF plot — plotACF â€¢ auditor</title>
+<title>Half-Normal plot — plotHalfNormal â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,28 +96,40 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ACF plot</h1>
+    <h1>Half-Normal plot</h1>
     </div>
 
     
-    <p>Plot autocorrelation function of model residuals.
-Runs test, Durbin-Watson test</p>
+    <p>Function <code>plotHalfNormal</code>...</p>
     
 
-    <pre class="usage"><span class='fu'>plotACF</span>(<span class='no'>object</span>, <span class='no'>variable</span>)</pre>
+    <pre class="usage"><span class='fu'>plotHalfNormal</span>(<span class='no'>object</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Theoretical quantiles"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"residuals"</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class ModelAudit</p></td>
+      <td><p>fitted model object or numeric vector</p></td>
     </tr>
     <tr>
-      <th>variable</th>
-      <td><p>name of variable to order residuals</p></td>
+      <th>xlab</th>
+      <td><p>the text for the x axis</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>the text for the y axis</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>extra arguments passed to <a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class ggplot</p>
     
 
   </div>
@@ -125,7 +137,9 @@ Runs test, Durbin-Watson test</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>
