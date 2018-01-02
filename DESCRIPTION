@@ -16,9 +16,11 @@ Imports: broom,
     forecast,
     ggplot2,
     ggpubr,
+    hnp,
     tseries
 RoxygenNote: 6.0.1
-Suggests: knitr,
+Suggests: gamlss,
+    knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
