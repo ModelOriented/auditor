@@ -4,15 +4,21 @@
 \alias{plotHalfNormal}
 \title{Half-Normal plot}
 \usage{
-plotHalfNormal(object, xlab = "Theoretical quantiles", ylab = "residuals",
-  ...)
+plotHalfNormal(object, score = TRUE, quant.scale = FALSE,
+  xlab = "Half-Normal Quantiles", ylab = "Residuals", main = "", ...)
 }
 \arguments{
 \item{object}{fitted model object or numeric vector}
 
+\item{score}{if TRUE score based on probability density function}
+
+\item{quant.scale}{if TRUE values on avis are on quantile scale}
+
 \item{xlab}{the text for the x axis}
 
 \item{ylab}{the text for the y axis}
+
+\item{main}{title of plot}
 
 \item{...}{extra arguments passed to \link[hnp]{hnp}.}
 }

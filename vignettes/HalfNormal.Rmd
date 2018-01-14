@@ -28,43 +28,33 @@ head(corn)
 model <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
 
 set.seed(1234)
-plotHalfNormal(model)
+plotHalfNormal(model, score = TRUE)
 ```
-
-
-# Normal plot
 
 ```{r}
-plotHalfNormal(model, halfnormal = FALSE)
+fit2_b <- glm(cbind(y, m - y) ~ extract, family = quasibinomial, data = corn)
+plotHalfNormal(fit2_b, main = "Quasi-binomial model",  ylab = "Deviance residuals")
+
+library("aods3")
+fit3_b <- aodml(cbind(y, m - y) ~ extract, family = "bb", data = corn)
+plotHalfNormal(fit3_b, ylab = "Deviance residuals", main = "Beta-binomial model")
+library("lme4")
+x <- factor(seq_len(nrow(corn)))
+fit4_b <- glmer(cbind(y, m - y) ~ extract + (1 | x), family = binomial, data = corn)
+plotHalfNormal(fit4_b, ylab = "Deviance residuals", main = "Binomial-logit-normal model")
+
 ```
 
 
-# Implementing new model classes
 
-Negative binomial type-I model using package gamlss
+# On quantile scale
 ```{r}
-library("gamlss")
-data("orange", package = "hnp")
+library(ggpubr)
+p1 <- plotHalfNormal(model, main = "Binomial model",  ylab = "Deviance residuals quantiles", quant.scale = TRUE)
+p2 <- plotHalfNormal(fit2_b, main = "Quasi-binomial model",  ylab = "Deviance residuals quantiles", quant.scale = TRUE)
+p3 <- plotHalfNormal(fit3_b, ylab = "Deviance residuals quantiles", main = "Beta-binomial model", quant.scale = TRUE)
+p4 <- plotHalfNormal(fit4_b, ylab = "Deviance residuals quantiles", main = "Binomial-logit-normal model", quant.scale = TRUE)
+ggarrange(p1,p2,p3,p4, ncol=2)
 
-modelNBII <- gamlss(embryos ~ block + poly(dose, 2) * sugar,
-  family = NBII(), data = orange, trace=FALSE)
-
-dFun <- function(obj) resid(obj)
-sFun <- function(n, obj) rNBII(n, obj$mu.fv, obj$sigma.fv)
-fFun <- function(y.) gamlss(y. ~ block + poly(dose, 2) * sugar, 
-                             family = NBII(), data = orange, trace=FALSE)
-
-plotHalfNormal(modelNBII,
-               newclass = TRUE,
-               diagfun = dFun, simfun = sFun, fitfun = fFun,
-               xlab = "Half-normal scores", ylab = "z-scores")
 
 ```
-
-
-
-
-
-
-
-
