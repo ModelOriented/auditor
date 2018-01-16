@@ -13,7 +13,7 @@
 #' @return An object of class ggplot
 #'
 #' @importFrom hnp hnp
-#' @importFrom ggplot2 ggplot aes geom_point geom_line xlab ylab annotate scale_x_continuous scale_y_continuous ggtitle
+#' @importFrom ggplot2 ggplot aes geom_point geom_line xlab ylab annotate scale_x_continuous scale_y_continuous ggtitle coord_fixed
 #'
 #' @export
 
@@ -37,6 +37,12 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
     ggtitle(main) +
     theme_classic()
 
+  if(quant.scale==TRUE) {
+    p <- p +
+      scale_x_continuous(limits=c(0,1)) +
+      scale_y_continuous(limits=c(0,1)) +
+      coord_fixed(ratio = 1)
+  }
   if(score==TRUE) {
     envScore <- calculateScorePDF(hnpObject)
     p <- p + annotate("text", x = max(dataPlot$x)/4, y = max(dataPlot$residuals)*3/4, label = paste("Score:",round(envScore,2)))
@@ -68,7 +74,7 @@ halfNormal <- function(object, ...){
     if(halfnormal) q.x <- qnorm((i+n-1/8)/(2*n+1/2)) else q.x <- qnorm((i-3/8)/(n+1/4))
     simdata <- list(q.x, t(env)[,1], t(env)[,2], t(env)[,3], res.original, res)
     class(simdata) <- "hnp"
-    names(simdata) <- c("x", "lower", "median", "upper", "residuals","simresiduals")
+    names(simdata) <- c("x", "lower", "median", "upper", "residuals", "simresiduals")
     if(how.many.out) {
       mat <- cbind(t(env), res.original, q.x)
       out <- sum(mat[,4] > mat[,3] | mat[,4] < mat[,1])
@@ -106,6 +112,7 @@ halfNormal <- function(object, ...){
 #' Creating dataset for Half-Normal Plot
 #' @usage NULL
 #' @importFrom fdrtool phalfnorm
+#' @importFrom stats ecdf
 datasetHalfNormalPlot <- function(hnpObject, quant.scale){
   n <- length(hnpObject$residuals)
 
@@ -116,9 +123,10 @@ datasetHalfNormalPlot <- function(hnpObject, quant.scale){
   } else {
     quantilesResiduals <-  seq(0,1,length.out = n)
     quantilesTheoretical <- phalfnorm(hnpObject$residuals)
-    quantilesUpper <- phalfnorm(hnpObject$upper)
-    quantilesMedian <- phalfnorm(hnpObject$median)
-    quantilesLower <- phalfnorm(hnpObject$lower)
+    invQuantile <- ecdf(hnpObject$residuals)
+    quantilesUpper <- invQuantile(hnpObject$upper)
+    quantilesMedian <- invQuantile(hnpObject$median)
+    quantilesLower <- invQuantile(hnpObject$lower)
     dataPlot <- data.frame(x = quantilesTheoretical, lower = quantilesLower,
                            median = quantilesMedian, upper = quantilesUpper,
                            residuals = quantilesResiduals)
@@ -130,7 +138,12 @@ datasetHalfNormalPlot <- function(hnpObject, quant.scale){
 #' @usage NULL
 #' @importFrom stats dnorm density
 calculateKDE <- function(res, simres){
-  h <- density(simres)$bw
+  simres <- as.numeric(simres)
+  dx <- density(simres, kernel = "gaussian")
+  valueKDE <- approx(dx$x,dx$y,xout=res)
+  if (all(!is.na(valueKDE))) return(valueKDE$y)
+
+  h <- dx$bw
   n <- length(simres)
   kernelValues <- rep(0,n)
   for(i in 1:n){
@@ -145,10 +158,10 @@ calculateKDE <- function(res, simres){
 #' @usage NULL
 calculateScorePDF <- function(hnpObject){
   res <- hnpObject$residuals
-  simres<-as.data.frame(hnpObject$simresiduals)
+  simres <- as.data.frame(t(hnpObject$simresiduals))
   n <- length(res)
-  PDFs <- mapply(calculateKDE, res[1:n], simres[ ,1:n])
-  return(sum(PDFs))
+  PDFs <- mapply(calculateKDE, res, simres)
+  return(sum(log(PDFs)))
 }
 
 
