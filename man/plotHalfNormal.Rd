@@ -28,3 +28,6 @@ An object of class ggplot
 \description{
 Function \code{plotHalfNormal}...
 }
+\details{
+TO DO write about halfplots and scores.
+}

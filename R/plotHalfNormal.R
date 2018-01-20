@@ -10,6 +10,8 @@
 #' @param ylab the text for the y axis
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
 #'
+#' @details TO DO write about halfplots and scores.
+#'
 #' @return An object of class ggplot
 #'
 #' @importFrom hnp hnp
@@ -52,56 +54,15 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
 
 #' Calculating simulated residuals and envelope
 #' @usage NULL
-#' @importFrom graphics plot
-#' @importFrom stats density qnorm quantile
-#' @importFrom utils assignInNamespace
 halfNormal <- function(object, ...){
-  #.makehnp2 is modified .makehnp function form hnp package
-  .makehnp2 <- function(obj, conf, halfnormal, how.many.out, paint.out, col.paint.out, print.on, plot.sim, ...) {
-    # A few checks
-    if(print.on) how.many.out <- T
-    if(paint.out) {
-      how.many.out <- T
-      if(missing(col.paint.out)) col.paint.out <- 2
-    }
-    # Residuals and simulated envelope
-    res.original <- obj[,1]
-    res <- obj[,-1]
-    env <- apply(res, 1, quantile, c((1-conf)/2, .5, (1-conf)/2+conf))
-    # Saving / plotting
-    n <- nrow(res)
-    i <- 1:n
-    if(halfnormal) q.x <- qnorm((i+n-1/8)/(2*n+1/2)) else q.x <- qnorm((i-3/8)/(n+1/4))
-    simdata <- list(q.x, t(env)[,1], t(env)[,2], t(env)[,3], res.original, res)
-    class(simdata) <- "hnp"
-    names(simdata) <- c("x", "lower", "median", "upper", "residuals", "simresiduals")
-    if(how.many.out) {
-      mat <- cbind(t(env), res.original, q.x)
-      out <- sum(mat[,4] > mat[,3] | mat[,4] < mat[,1])
-      if(paint.out) {
-        simdata$out.index <- matrix(mat[mat[,4] > mat[,3] | mat[,4] < mat[,1], 4:5], ncol=2)
-        simdata$col.paint.out <- col.paint.out
-      }
-      simdata$how.many.out <- TRUE
-      simdata$total <- nrow(mat)
-      simdata$out <- out
-      simdata$print.on <- print.on
-      simdata$paint.out <- paint.out
-    } else {
-      simdata$how.many.out <- FALSE
-    }
-    if(plot.sim) {
-      plot(simdata, ...)
-      return(invisible(simdata))
-    } else {
-      return(simdata)
-    }
-  }
+trace(hnp::.makehnp, at = 13, print = FALSE,
+      tracer = quote(simdata <- list(
+        "x"=q.x,
+        "lower"=t(env)[, 1],
+        "median"=t(env)[, 2],
+        "upper"=t(env)[, 3],
+        "residuals"=res.original, "simresiduals"=res) ) )
 
-  tmpfun <- get(".makehnp", envir = asNamespace("hnp"))
-  environment(.makehnp2) <- environment(tmpfun)
-  attributes(.makehnp2) <- attributes(tmpfun)  # don't know if this is really needed
-  assignInNamespace(".makehnp", .makehnp2, ns="hnp")
 
   hnpObject <- hnp(object, plot.sim=FALSE, ...)
 }
@@ -139,18 +100,7 @@ datasetHalfNormalPlot <- function(hnpObject, quant.scale){
 #' @importFrom stats dnorm density
 calculateKDE <- function(res, simres){
   simres <- as.numeric(simres)
-  dx <- density(simres, kernel = "gaussian")
-  valueKDE <- approx(dx$x,dx$y,xout=res)
-  if (all(!is.na(valueKDE))) return(valueKDE$y)
-
-  h <- dx$bw
-  n <- length(simres)
-  kernelValues <- rep(0,n)
-  for(i in 1:n){
-    transformed = (res - simres[i]) / h
-    kernelValues[i] <- dnorm(transformed, mean = 0, sd = 1) / h
-  }
-  return(sum(kernelValues) / n)
+  (length(simres)/2 - abs(sum(res<simres) - length(simres)/2)+1)/(length(simres)/2)
 }
 
 
