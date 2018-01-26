@@ -3,7 +3,7 @@
 
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="300" />
 
-## auditor - audit/verification of regression models
+## auditor - regression model verification, validation, and error analysis
 
 ### Installation
 ```
