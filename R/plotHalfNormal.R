@@ -23,7 +23,7 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
                            xlab = "Half-Normal Quantiles", ylab = "Residuals",
                            main = "", ...){
   x <- residuals <- upper <- lower <- NULL
-  hnpObject <- halfNormal(object,...)
+  hnpObject <- hnp(object,plot.sim=FALSE, ...)
 
   dataPlot <- datasetHalfNormalPlot(hnpObject, quant.scale)
 
@@ -51,23 +51,6 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
   }
   return(p)
 }
-
-#' Calculating simulated residuals and envelope
-#' @usage NULL
-halfNormal <- function(object, ...){
-trace(hnp::.makehnp, at = 13, print = FALSE,
-      tracer = quote(simdata <- list(
-        "x"=q.x,
-        "lower"=t(env)[, 1],
-        "median"=t(env)[, 2],
-        "upper"=t(env)[, 3],
-        "residuals"=res.original, "simresiduals"=res) ) )
-
-
-  hnpObject <- hnp(object, plot.sim=FALSE, ...)
-}
-
-
 
 
 #' Creating dataset for Half-Normal Plot
@@ -100,7 +83,7 @@ datasetHalfNormalPlot <- function(hnpObject, quant.scale){
 #' @importFrom stats dnorm density
 calculateKDE <- function(res, simres){
   simres <- as.numeric(simres)
-  (length(simres)/2 - abs(sum(res<simres) - length(simres)/2)+1)/(length(simres)/2)
+  (length(simres)/2 - abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
 }
 
 
@@ -108,10 +91,10 @@ calculateKDE <- function(res, simres){
 #' @usage NULL
 calculateScorePDF <- function(hnpObject){
   res <- hnpObject$residuals
-  simres <- as.data.frame(t(hnpObject$simresiduals))
+  simres <- as.data.frame(t(hnpObject$all.sim))
   n <- length(res)
   PDFs <- mapply(calculateKDE, res, simres)
-  return(sum(log(PDFs)))
+  return(sum(PDFs))
 }
 
 
