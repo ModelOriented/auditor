@@ -12,7 +12,7 @@
 testDW <- function(model, vars = NULL){
   dataFromModel <- model.frame(model)
   dependentVariable <- dataFromModel[,1]
-  if (is.null(vars))  vars <- colnames(dataFromModel)[-1]
+  if (is.null(vars))  vars <- colnames(dataFromModel)
 
   DWResults <- list()
   for(variable in vars){
