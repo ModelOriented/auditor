@@ -2,7 +2,7 @@
 #'
 #' @description Function \code{plotHalfNormal}...
 #'
-#' @param object fitted model object or numeric vector
+#' @param object ModelAudit object, fitted model object or numeric vector
 #' @param score if TRUE score based on probability density function
 #' @param quant.scale if TRUE values on avis are on quantile scale
 #' @param main title of plot
@@ -22,6 +22,8 @@
 plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
                            xlab = "Half-Normal Quantiles", ylab = "Residuals",
                            main = "", ...){
+  if(class(object)=="modelAudit") object <- object$model
+
   x <- residuals <- upper <- lower <- NULL
   hnpObject <- hnp(object,plot.sim=FALSE, ...)
 

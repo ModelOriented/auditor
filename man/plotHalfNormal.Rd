@@ -8,7 +8,7 @@ plotHalfNormal(object, score = TRUE, quant.scale = FALSE,
   xlab = "Half-Normal Quantiles", ylab = "Residuals", main = "", ...)
 }
 \arguments{
-\item{object}{fitted model object or numeric vector}
+\item{object}{ModelAudit object, fitted model object or numeric vector}
 
 \item{score}{if TRUE score based on probability density function}
 
