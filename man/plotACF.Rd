@@ -4,12 +4,12 @@
 \alias{plotACF}
 \title{ACF plot}
 \usage{
-plotACF(object, variable)
+plotACF(object, variable = NULL)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
-\item{variable}{name of variable to order residuals}
+\item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
 }
 \description{
 Plot autocorrelation function of model residuals.
