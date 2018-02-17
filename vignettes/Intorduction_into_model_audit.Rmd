@@ -1,0 +1,78 @@
+---
+title: "Introduction into model audit"
+author: "Alicja Gosiewska"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+```{r}
+library(auditor)
+```
+
+
+```{r}
+library(car)
+library(randomForest)
+model.lm <- lm(prestige~education + women + income, data = Prestige)
+
+utils::data(anorexia, package = "MASS")
+model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
+                family = gaussian, data = anorexia)
+
+model.rf <- randomForest::randomForest(Postwt ~ Prewt + Treat, data = anorexia)
+
+```
+
+```{r}
+au.lm <- audit(model.lm)
+au.glm <- audit(model.glm)
+au.rf <- audit(model.rf)
+```
+
+
+```{r}
+plotScaleLocation(au.lm, "education")
+plotScaleLocation(au.glm, "Prewt")
+plotScaleLocation(au.rf)
+```
+
+
+```{r}
+plotAutocorrelation(au.lm, "education")
+plotAutocorrelation(au.glm, "Prewt")
+plotAutocorrelation(au.rf)
+```
+
+
+```{r}
+plotACF(au.lm, "education")
+plotACF(au.glm, "Prewt")
+plotACF(au.rf)
+```
+
+```{r}
+plotResiduals(au.lm, "education")
+plotResiduals(au.glm, "Prewt")
+plotResiduals(au.rf)
+```
+
+
+```{r}
+plotCook(au.lm)
+plotCook(au.glm)
+plotCook(au.rf)
+
+```
+
+
+
+```{r, results='hide', fig.keep='all'}
+plotHalfNormal(au.lm)
+plotHalfNormal(au.glm)
+```
+
