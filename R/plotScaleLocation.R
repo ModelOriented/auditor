@@ -7,21 +7,22 @@
 #'
 #' @param object An object of class ModelAudit
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
+#' @param score Logical, if TRUE value of \link{scoreGQ} will be added
 #'
 #' @importFrom ggplot2 ggplot aes
-#' @importFrom ggplot2 geom_point geom_smooth geom_vline
+#' @importFrom ggplot2 geom_point geom_smooth geom_vline geom_text
 #' @importFrom ggplot2 ggtitle xlab ylab
 #' @importFrom ggplot2 theme_classic
 #' @importFrom stats median
 #'
 #' @export
-plotScaleLocation <- function(object, variable=NULL){
+plotScaleLocation <- function(object, variable=NULL, score=TRUE){
   values <- sqrt.std.residuals <- NULL
   if(is.null(variable)) variable <- "Fitted values"
   plotData <- generateScaleLocationDF(object, variable)
 
 
-  ggplot(plotData, aes(x = values, y = sqrt.std.residuals)) +
+  p <- ggplot(plotData, aes(x = values, y = sqrt.std.residuals)) +
     geom_vline(aes(xintercept = median(plotData$values))) +
     geom_point() +
     geom_smooth(data=subset(plotData, group=="<med"),method = "loess", se = FALSE) +
@@ -30,6 +31,12 @@ plotScaleLocation <- function(object, variable=NULL){
     ylab("\u221A|Standarized residuals|") +
     ggtitle("Scale Location") +
     theme_classic()
+
+  if(score==TRUE){
+    score <- scoreGQ(object)
+    p <- p + geom_text(x = -Inf, y = Inf, label = paste("Score:", round(score$score,2)), hjust = -1, vjust = 1)
+  }
+  return(p)
 }
 
 generateScaleLocationDF <- function(object, variable){

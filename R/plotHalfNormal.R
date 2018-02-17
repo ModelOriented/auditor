@@ -49,8 +49,9 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
   }
   if(score==TRUE) {
     envScore <- calculateScorePDF(hnpObject)
-    p <- p + annotate("text", x = max(dataPlot$x)/4, y = max(dataPlot$residuals)*3/4, label = paste("Score:",round(envScore,2)))
-  }
+    p <- p + geom_text(x = -Inf, y = Inf, label = paste("Score:",round(envScore,2)), hjust = -1, vjust = 1)
+
+   }
   return(p)
 }
 

@@ -4,12 +4,14 @@
 \alias{plotScaleLocation}
 \title{Scale location plot}
 \usage{
-plotScaleLocation(object, variable = NULL)
+plotScaleLocation(object, variable = NULL, score = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+
+\item{score}{Logical, if TRUE value of \link{scoreGQ} will be added}
 }
 \description{
 Variable values vs square root of the absolute value of the residuals.

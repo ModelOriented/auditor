@@ -4,7 +4,7 @@
 \alias{plotCook}
 \title{Cook plot}
 \usage{
-plotCook(object, nlabel = 3)
+plotCook(object, nlabel = 3, score = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}

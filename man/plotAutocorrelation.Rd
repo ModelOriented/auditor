@@ -4,12 +4,14 @@
 \alias{plotAutocorrelation}
 \title{Autocorrelation plot}
 \usage{
-plotAutocorrelation(object, variable = NULL)
+plotAutocorrelation(object, variable = NULL, score = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+
+\item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added}
 }
 \description{
 Plot i-th residual vs i+1-th residual. Checking autocorrelation of residuals.

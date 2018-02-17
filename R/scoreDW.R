@@ -22,7 +22,7 @@ scoreDW <- function(object, variable = NULL){
 
   result <- list(
     name = "Durbin-Watson",
-    statistics = durbinWatsonTest(residuals)
+    score = durbinWatsonTest(residuals)
   )
   class(result) <- "scoreAudit"
   return(result)
