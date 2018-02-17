@@ -50,7 +50,7 @@
       <a href="articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="articles/Model_Diagnostics_for_Regression.html">Model Diagnostics for Regression</a>
+      <a href="articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
     </li>
   </ul>
 </li>
@@ -72,9 +72,9 @@
     
 
 <p><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="300"></p>
-<div id="auditor---auditverification-of-regression-models" class="section level2">
+<div id="auditor---regression-model-verification-validation-and-error-analysis" class="section level2">
 <h2 class="hasAnchor">
-<a href="#auditor---auditverification-of-regression-models" class="anchor"></a>auditor - audit/verification of regression models</h2>
+<a href="#auditor---regression-model-verification-validation-and-error-analysis" class="anchor"></a>auditor - regression model verification, validation, and error analysis</h2>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
@@ -106,38 +106,43 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Mean of errors equals to zero</td>
+<td align="left">Residuals</td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="left">Residuals vs fitted values <code>plotResiduals</code>
+</td>
 </tr>
 <tr class="even">
 <td align="left">Homoscedasticity of the errors</td>
-<td align="left">Goldfeld-Quandt test  <code>test_gq</code>
+<td align="left">Goldfeld-Quandt score  <code>scoreGQ</code>
 </td>
-<td align="left">Variable vs square root of the absolute value of the residuals <code>plot_test_gq</code>
+<td align="left">Variable vs square root of the absolute value of the residuals <code>plotScaleLocation</code>
 </td>
 </tr>
 <tr class="odd">
 <td align="left">Uncorrelated errors</td>
-<td align="left">Durbin-Watson test  <code>test_dw</code>  Runs test  <code>test_runs</code>
+<td align="left">Durbin-Watson score  <code>scoreDW</code>  Runs score  <code>scoreRuns</code>
 </td>
-<td align="left">i-th residual vs (i+1)-th residual <code>plot_autocorr</code>
+<td align="left">i-th residual vs (i+1)-th residual <code>plotAutocorrelation</code>
 </td>
 </tr>
 <tr class="even">
-<td align="left">Linear independence of variables</td>
-<td align="left">VIF - Variable Inflation Factor</td>
-<td align="left"><code>plot_vif</code></td>
+<td align="left">Uncorrelated errors</td>
+<td align="left"></td>
+<td align="left">AutoCorrelation Function <code>plotACF</code>
+</td>
 </tr>
 <tr class="odd">
-<td align="left">Outlayers</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">Influential observations</td>
+<td align="left">Cooks distance  <code>scoreCook</code>
+</td>
+<td align="left"><code>plotCook</code></td>
 </tr>
 <tr class="even">
-<td align="left">Influential observations</td>
-<td align="left">Cooks distance</td>
-<td align="left"><code>plot_cooks_dist</code></td>
+<td align="left">error distribution</td>
+<td align="left">Half-Normal score  <code>scoreHalfNormal</code>
+</td>
+<td align="left">Half-Normal plot <code>plotHalfNormal</code>
+</td>
 </tr>
 </tbody>
 </table>

@@ -18,11 +18,11 @@ devtools::install_github("mi2-warsaw/auditor")
 
 | Attribute | Verification | Plot |
 |:---|:---|:---|
-| Mean of errors equals to zero |   |   |
-| Homoscedasticity of the errors | Goldfeld-Quandt test </br> `test_gq` | Variable vs square root of the absolute value of the residuals </br>`plot_test_gq`|
-| Uncorrelated errors  |  Durbin-Watson test </br> `test_dw` </br>  Runs test </br> `test_runs`| i-th residual vs (i+1)-th residual </br>`plot_autocorr`  |
-| Linear independence of variables | VIF - Variable Inflation Factor | `plot_vif` |
-| Outlayers |   |   |
-| Influential observations | Cooks distance | `plot_cooks_dist` |
+| Residuals| |Residuals vs fitted values `plotResiduals` |
+| Homoscedasticity of the errors | Goldfeld-Quandt score </br> `scoreGQ` | Variable vs square root of the absolute value of the residuals </br>`plotScaleLocation`|
+| Uncorrelated errors  |  Durbin-Watson score </br> `scoreDW` </br>  Runs score </br> `scoreRuns`| i-th residual vs (i+1)-th residual </br>`plotAutocorrelation`  |
+| Uncorrelated errors  |  | AutoCorrelation Function </br>`plotACF`  |
+| Influential observations | Cooks distance </br> `scoreCook`| `plotCook` |
+| error distribution | Half-Normal score </br> `scoreHalfNormal`| Half-Normal plot `plotHalfNormal` |
 
 

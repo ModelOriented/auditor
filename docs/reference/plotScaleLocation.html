@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Half-Normal plot — plotHalfNormal â€¢ auditor</title>
+<title>Scale location plot — plotScaleLocation â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,56 +96,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Half-Normal plot</h1>
+    <h1>Scale location plot</h1>
     </div>
 
     
-    <p>Function <code>plotHalfNormal</code>...</p>
+    <p>Variable values vs square root of the absolute value of the residuals.
+A vertical line corresponds to median.
+Goldfeld-Quandt score - checking assumption of homoscedasticity of residuals.</p>
     
 
-    <pre class="usage"><span class='fu'>plotHalfNormal</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quant.scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Half-Normal Quantiles"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Residuals"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotScaleLocation</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>ModelAudit object, fitted model object or numeric vector</p></td>
+      <td><p>An object of class ModelAudit</p></td>
+    </tr>
+    <tr>
+      <th>variable</th>
+      <td><p>name of dependent or independent variable to order residuals. If NULL the fitted values are taken.</p></td>
     </tr>
     <tr>
       <th>score</th>
-      <td><p>if TRUE score based on probability density function</p></td>
-    </tr>
-    <tr>
-      <th>quant.scale</th>
-      <td><p>if TRUE values on avis are on quantile scale</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>the text for the x axis</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>the text for the y axis</p></td>
-    </tr>
-    <tr>
-      <th>main</th>
-      <td><p>title of plot</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>extra arguments passed to <a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a>.</p></td>
+      <td><p>Logical, if TRUE value of <a href='scoreGQ.html'>scoreGQ</a> will be added</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An object of class ggplot</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>TO DO write about halfplots and scores.</p>
     
 
   </div>
@@ -153,11 +130,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

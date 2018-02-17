@@ -1,3 +1,12 @@
+# version 0.1.0.0000  
+## 18/02/2017 
+
+Package was rebuilded 
+- Functions `auditor`, `plot_cooks_dist`, `plot_vif`, `plotAutocorr`, `plotTestGQ`, `testDW`, `testGQ`, `testRuns` were deleted
+- New functions: `audit`, `plotScaleLocation`, `plotAutocorrelation`, `plotCook`, `plotResiduals`, `scoreGQ`, `scoreDW`, `scoreRuns`, `scoreCook`, `scoreHalfNormal`.
+- New vignette: *Introduction into model audit*
+- *The half-normal plots* vignette was updated
+
 # version 0.0.2.0000  
 ## 23/11/2017 
 

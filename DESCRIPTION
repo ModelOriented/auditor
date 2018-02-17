@@ -23,5 +23,7 @@ RoxygenNote: 6.0.1
 Suggests: gamlss,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    randomForest,
+    MASS
 VignetteBuilder: knitr

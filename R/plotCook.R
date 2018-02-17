@@ -11,10 +11,11 @@
 #' @importFrom ggplot2 ggtitle xlab ylab theme
 #' @importFrom ggplot2 theme_classic
 #' @importFrom ggplot2 element_blank
+#' @importFrom dplyr desc
 #'
 #' @export
-plotCook <- function(object, nlabel = 3, score=TRUE){
-  index <- cooks.dist <- NULL
+plotCook <- function(object, nlabel = 3){
+  index <- cooks.dist <- big <- nameIndex <- NULL
 
   plotData <- data.frame(cooks.dist = scoreCook(object), index = 1:nrow(object$data),
                          nameIndex = rownames(object$data))

@@ -74,7 +74,7 @@
       <a href="../articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="../articles/Model_Diagnostics_for_Regression.html">Model Diagnostics for Regression</a>
+      <a href="../articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
     </li>
   </ul>
 </li>
@@ -104,7 +104,7 @@
 Runs test, Durbin-Watson test</p>
     
 
-    <pre class="usage"><span class='fu'>plotACF</span>(<span class='no'>object</span>, <span class='no'>variable</span>)</pre>
+    <pre class="usage"><span class='fu'>plotACF</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,7 +115,7 @@ Runs test, Durbin-Watson test</p>
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>name of variable to order residuals</p></td>
+      <td><p>name of dependent or independent variable to order residuals. If NULL the fitted values are taken.</p></td>
     </tr>
     </table>
     

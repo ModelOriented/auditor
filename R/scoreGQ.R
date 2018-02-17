@@ -19,7 +19,7 @@
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #'
 #' @importFrom dplyr arrange_
-#' @importFrom stats update rstandard predict
+#' @importFrom stats update rstandard predict pf
 #'
 #' @export
 

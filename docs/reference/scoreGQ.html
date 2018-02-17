@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Half-Normal plot — plotHalfNormal â€¢ auditor</title>
+<title>Goldfeld-Quandt Score — scoreGQ â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,56 +96,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Half-Normal plot</h1>
+    <h1>Goldfeld-Quandt Score</h1>
     </div>
 
     
-    <p>Function <code>plotHalfNormal</code>...</p>
+    <p>This score is calculated on the basis of Goldfeld-Quandt test, which is used for checking for homoscedasticity of residuals in regression analyses.</p>
+<p>Goldfeld-Quandt test is based on a comparison of the residual sum of squares (RSS) using the F-statistic.
+The test consists of dividing dataset into two groups. Then estimating models separately for each subset and calculating
+the residual sum of squares for each group (RSS1 and RSS2).</p>
+<p>The test statistic is the ratio of the mean square residual errors for two groups, which corresponds to the F-test of equality of variances.
+\(F = (MSE_1)/(MSE_2)\)
+where \(MSE = (RSS)/(n-p)\)
+where n is the number of observations and p is the number of variables .</p>
+<p>The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
+<code>scoreGQ</code> function uses a two-sided F-test.</p>
     
 
-    <pre class="usage"><span class='fu'>plotHalfNormal</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quant.scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Half-Normal Quantiles"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Residuals"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>scoreGQ</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>ModelAudit object, fitted model object or numeric vector</p></td>
+      <td><p>object An object of class ModelAudit</p></td>
     </tr>
     <tr>
-      <th>score</th>
-      <td><p>if TRUE score based on probability density function</p></td>
-    </tr>
-    <tr>
-      <th>quant.scale</th>
-      <td><p>if TRUE values on avis are on quantile scale</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>the text for the x axis</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>the text for the y axis</p></td>
-    </tr>
-    <tr>
-      <th>main</th>
-      <td><p>title of plot</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>extra arguments passed to <a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a>.</p></td>
+      <th>variable</th>
+      <td><p>name of dependent or independent variable to order residuals. If NULL the fitted values are taken.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An object of class ggplot</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>TO DO write about halfplots and scores.</p>
     
 
   </div>
@@ -153,11 +134,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

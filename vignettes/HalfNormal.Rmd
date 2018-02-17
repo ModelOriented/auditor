@@ -1,8 +1,12 @@
 ---
 title: "The half-normal plots"
 author: "Alicja Gosiewska"
-date: "13 stycznia 2018"
+date: "`r Sys.Date()`"
 output: html_document
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{The half-normal plots}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 
@@ -132,3 +136,5 @@ plotHalfNormal(fit4_b, quant.scale = TRUE)
 ### References
 
 Gosiewska Alicja, Biecek Przemysław.2018. *auditor - audit/verification of regression models* https://github.com/mi2-warsaw/auditor
+
+Moral, R., Hinde, J., & Demétrio, C. (2017). *Half-Normal Plots and Overdispersed Models in R: The hnp Package*. Journal of Statistical Software, 81(10), 1 - 23. doi:http://dx.doi.org/10.18637/jss.v081.i10
