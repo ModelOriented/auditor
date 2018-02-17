@@ -20,10 +20,12 @@ Imports: broom,
     hnp,
     tseries
 RoxygenNote: 6.0.1
-Suggests: gamlss,
+Suggests: aods3,
+    gamlss,
     knitr,
-    rmarkdown,
-    testthat,
+    lme4,
+    MASS,
     randomForest,
-    MASS
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
