@@ -16,6 +16,7 @@ audit <- function(model){
   dataFromModel <- model.frame(model)
   nColumns <- ncol(dataFromModel)
   result <- list(
+    model.class = class(model),
     model = model,
     fitted.values = predict(model),
     data = dataFromModel,
