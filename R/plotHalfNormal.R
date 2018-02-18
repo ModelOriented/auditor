@@ -16,6 +16,8 @@
 #'
 #' @importFrom hnp hnp
 #' @importFrom ggplot2 ggplot aes geom_point geom_line xlab ylab annotate scale_x_continuous scale_y_continuous ggtitle coord_fixed
+#' @importFrom fdrtool phalfnorm
+#' @importFrom stats ecdf dnorm density
 #'
 #' @export
 
@@ -56,10 +58,7 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
 }
 
 
-#' Creating dataset for Half-Normal Plot
-#' @usage NULL
-#' @importFrom fdrtool phalfnorm
-#' @importFrom stats ecdf
+# Creating dataset for Half-Normal Plot
 datasetHalfNormalPlot <- function(hnpObject, quant.scale){
   n <- length(hnpObject$residuals)
 
@@ -81,17 +80,14 @@ datasetHalfNormalPlot <- function(hnpObject, quant.scale){
   return(dataPlot)
 }
 
-#' Calculating Liklehood for each residual
-#' @usage NULL
-#' @importFrom stats dnorm density
+# Calculating Liklehood for each residual
 calculateKDE <- function(res, simres){
   simres <- as.numeric(simres)
   (length(simres)/2 - abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
 }
 
 
-#' Calculating PDF score
-#' @usage NULL
+# Calculating PDF score
 calculateScorePDF <- function(hnpObject){
   res <- hnpObject$residuals
   simres <- as.data.frame(t(hnpObject$all.sim))
@@ -101,8 +97,7 @@ calculateScorePDF <- function(hnpObject){
 }
 
 
-#' Calculating simulated residuals and envelope
-#' @usage NULL
+# Calculating simulated residuals and envelope
 halfNormal <- function(object, ...){
     trace(hnp::.makehnp, at = 13, print = FALSE,
            tracer = quote(simdata <- list(
