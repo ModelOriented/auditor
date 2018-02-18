@@ -23,5 +23,19 @@ test_that("scoreCook", {
 
 
 test_that("scoreHalfNormal", {
-  expect_is(scoreHalfNormal(au.lm), "numeric")
+  expect_is(scoreHalfNormal(au.lm), "scoreAudit")
 })
+
+test_that("score", {
+  expect_is(score(au.lm, "GQ", variable="income"), "scoreAudit")
+  expect_is(score(au.lm, "DW", variable="income"), "scoreAudit")
+  expect_is(score(au.lm, "Runs", variable="income"), "scoreAudit")
+  expect_is(score(au.lm, "HalfNormal"), "scoreAudit")
+  expect_is(score(au.lm, "Cook"), "numeric")
+  expect_error(score(model.lm))
+  expect_error(score(au.lm,"wrongScore"))
+})
+
+
+
+
