@@ -12,7 +12,7 @@
 scoreHalfNormal <- function(object, ...){
   if(class(object)=="modelAudit") object <- object$model
 
-  hnpObject <- hnp(object, plot.sim=FALSE, ...)
+  hnpObject <- halfNormal(object,...)
   res <- calculateScorePDF(hnpObject)
   return(res)
 }

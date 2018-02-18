@@ -10,13 +10,11 @@ Depends: R (>= 3.0.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: broom,
-    car,
+Imports: car,
     dplyr,
     fdrtool,
     forecast,
     ggplot2,
-    ggpubr,
     hnp,
     tseries
 RoxygenNote: 6.0.1

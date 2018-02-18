@@ -6,6 +6,7 @@ Package was rebuilded
 - New functions: `audit`, `plotScaleLocation`, `plotAutocorrelation`, `plotCook`, `plotResiduals`, `scoreGQ`, `scoreDW`, `scoreRuns`, `scoreCook`, `scoreHalfNormal`.
 - New vignette: *Introduction into model audit*
 - *The half-normal plots* vignette was updated
+- New tests
 
 # version 0.0.2.0000  
 ## 23/11/2017 

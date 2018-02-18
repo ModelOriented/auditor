@@ -18,7 +18,6 @@
 #' @param object object An object of class ModelAudit
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #'
-#' @importFrom dplyr arrange_
 #' @importFrom stats update rstandard predict pf
 #'
 #' @export
@@ -59,7 +58,7 @@ scoreGQ <- function(object, variable = NULL){
       parameter = df,
       pValue = pValue)
 
-  class(GQResults) <- "ScoreAudit"
+  class(GQResults) <- "scoreAudit"
   return(GQResults)
 }
 
