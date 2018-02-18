@@ -25,7 +25,7 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
   if(class(object)=="modelAudit") object <- object$model
 
   x <- residuals <- upper <- lower <- NULL
-  hnpObject <- hnp(object,plot.sim=FALSE, ...)
+  hnpObject <- halfNormal(object,...)
 
   dataPlot <- datasetHalfNormalPlot(hnpObject, quant.scale)
 
@@ -101,6 +101,19 @@ calculateScorePDF <- function(hnpObject){
 }
 
 
+#' Calculating simulated residuals and envelope
+#' @usage NULL
+halfNormal <- function(object, ...){
+    trace(hnp::.makehnp, at = 13, print = FALSE,
+           tracer = quote(simdata <- list(
+           "x"=q.x,
+           "lower"=t(env)[, 1],
+           "median"=t(env)[, 2],
+           "upper"=t(env)[, 3],
+           "residuals"=res.original,
+           "all.sim"=res) ) )
 
+    hnpObject <- hnp(object, plot.sim=FALSE, ...)
+}
 
 
