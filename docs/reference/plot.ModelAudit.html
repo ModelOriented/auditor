@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot — plot.modelAudit â€¢ auditor</title>
+<title>Model diagnostioc plots — plot.modelAudit â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -74,7 +74,7 @@
       <a href="../articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="../articles/Model_Diagnostics_for_Regression.html">Model Diagnostics for Regression</a>
+      <a href="../articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
     </li>
   </ul>
 </li>
@@ -96,15 +96,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot</h1>
+    <h1>Model diagnostioc plots</h1>
     </div>
 
     
-    <p>plot</p>
+    <p>This function provides many scores</p>
     
 
     <pre class="usage"><span class='co'># S3 method for modelAudit</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>variable</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"Residuals"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,14 +114,24 @@
       <td><p>object of class ModelAudit</p></td>
     </tr>
     <tr>
-      <th>variable</th>
-      <td><p>name of variable to order residuals</p></td>
+      <th>type</th>
+      <td><p>the type of score to  be calculated. Possible values: 'ACF', 'Autocorrelation', 'Cook',
+'HalfNormal', 'Residuals', 'ScaleLocation' (see the details section).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to or from other methods.</p></td>
+      <td><p>other arguments dependent on the type of plot.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>TODO: desription of plot types</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='plotACF.html'>plotACF</a>, <a href='plotAutocorrelation.html'>plotAutocorrelation</a>, <a href='plotCook.html'>plotCook</a>, <a href='plotHalfNormal.html'>plotHalfNormal</a>,
+<a href='plotResiduals.html'>plotResiduals</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a></code></p>
     
 
   </div>
@@ -129,7 +139,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>

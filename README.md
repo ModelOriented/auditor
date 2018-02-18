@@ -3,12 +3,15 @@
 
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="300" />
 
-## auditor - regression model verification, validation, and error analysis
+# auditor - regression model verification, validation, and error analysis
+
+## auditor's pipeline: **model %>% audit() %>% plot(type=...)**
 
 ### Installation
 ```
 devtools::install_github("mi2-warsaw/auditor")
 ```
+
 
 ### [Reference Manual](https://mi2-warsaw.github.io/auditor/)
 

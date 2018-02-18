@@ -33,7 +33,7 @@ plotScaleLocation <- function(object, variable=NULL, score=TRUE){
     theme_classic()
 
   if(score==TRUE){
-    score <- scoreGQ(object)
+    score <- scoreGQ(object, variable)
     p <- p + geom_text(x = -Inf, y = Inf, label = paste("Score:", round(score$score,2)), hjust = -1, vjust = 1)
   }
   return(p)

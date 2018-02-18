@@ -2,7 +2,9 @@
 title: "Introduction into model audit"
 author: "Alicja Gosiewska"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    number_sections: true
 vignette: >
   %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Introduction into model audit}
@@ -15,69 +17,108 @@ knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
 
-```{r}
-library(auditor)
-```
+This vignette demonstrates how to use the auditor package. 
+This package provides some methods for model verification and validation by error analysis. 
 
-
-```{r}
-library(car)
-library(randomForest)
-model.lm <- lm(prestige~education + women + income, data = Prestige)
-
-utils::data(anorexia, package = "MASS")
-model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
-                family = gaussian, data = anorexia)
-
-model.rf <- randomForest::randomForest(Postwt ~ Prewt + Treat, data = anorexia)
-
-```
+Many models like for example random forests and neutral networks are nowadays treated as black boxes, so there is a lack of theory that may describe the distribution of residuals in this models. Therefore 
+most methods used in auditor is model-agnostic. 
+However, it is worth to use this package also in the case of models with known error distribution.
 
 ```{r}
-au.lm <- audit(model.lm)
-au.glm <- audit(model.glm)
-au.rf <- audit(model.rf)
+set.seed(123)
 ```
 
+# Boston data
+
+We will use the Boston dataset from package MASS.
 
 ```{r}
-plotScaleLocation(au.lm, "education")
-plotScaleLocation(au.glm, "Prewt")
-plotScaleLocation(au.rf)
+data(Boston, package = "MASS")
+Boston$chas <- as.logical(Boston$chas)
+head(Boston)
 ```
 
+# Random forest model
+
+We will show the use of the auditor package on the example of a random forest model. 
 
 ```{r}
-plotAutocorrelation(au.lm, "education")
-plotAutocorrelation(au.glm, "Prewt")
-plotAutocorrelation(au.rf)
+library("randomForest")
+Boston_rf_model <- randomForest(medv ~ ., data = Boston, ntree=50)
 ```
 
+# Preparation for error analysis
+The beginning of each analysis is creation of a modelAudit object. This object contains original model, data used to build model, fitted values, residuals and standardized residuals.
 
 ```{r}
-plotACF(au.lm, "education")
-plotACF(au.glm, "Prewt")
-plotACF(au.rf)
+library("auditor")
+Boston_rf_audit <- audit(Boston_rf_model)
+```
+
+# Error analysis
+
+In this section we give short overview of a visual validation of model errors and we show the validation scores we have proposed.
+
+## Plotting residuals
+
+Function `plot()` used on modelAudit object returns object of class ggplot containing Residuals vs fitted values plot. 
+
+```{r}
+plot(Boston_rf_audit)
+```
+
+Residuals may be ordered also by values of variables used for building model. It is provided by `variable` argument which has to be given a variable name.
+
+In the following sections we will show how to use the `plot()` function to generate another diagnostic plots.
+
+## Autocorrelation
+
+```{r}
+plot(Boston_rf_audit, type="Autocorrelation", variable="crim")
+```
+
+Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a model.
+DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation are described in `scoreDW()` and `scoreRuns()` functions.
+This scores may be also computed in `score()` function with argument `score` equals "DW" or "Runs".
+```{r}
+score(Boston_rf_audit, score="DW", variable = "crim")$score
+score(Boston_rf_audit, score="Runs", variable = "crim")$score
+```
+
+
+## Scale Location
+
+```{r}
+plot(Boston_rf_audit, type="ScaleLocation")
+```
+
+GQ score is based on Goldfeld-Quandt test statistic.
+This score is computed and described in `scoreGQ()` function.
+And may be computed also in score function with argument `score` equals "GQ".
+
+## Autocorrelation Function plot
+
+```{r}
+plot(Boston_rf_audit, type="ACF")
+```
+
+## Cook's distances
+
+In the case of models of class other than `lm` and `glm` the distances are computed directly from the definition, so this may take a while.
+In this example we will compute them for a linear model. 
+
+We will use the Prestige dataset from package car.
+```{r Cook, results='hide', fig.keep='all'}
+data(Prestige, package = "car")
+head(Prestige)
 ```
 
 ```{r}
-plotResiduals(au.lm, "education")
-plotResiduals(au.glm, "Prewt")
-plotResiduals(au.rf)
+Prestige_lm_model <- lm(prestige~education + women + income, data = Prestige)
+Prestige_lm_audit <- audit(Prestige_lm_model)
+plot(Prestige_lm_audit, type="Cook")
 ```
 
+# More methods
 
-```{r}
-plotCook(au.lm)
-plotCook(au.glm)
-plotCook(au.rf)
-
-```
-
-
-
-```{r, results='hide', fig.keep='all'}
-plotHalfNormal(au.lm)
-plotHalfNormal(au.glm)
-```
-
+Package auditor provides also methods for generating HalfNormal plots with simulated envelopes and computing HalfNormal scores. Further details and use case for this tools are in [The half-normal plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html).

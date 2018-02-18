@@ -28,8 +28,8 @@ plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
       theme_classic()
 
   if(score==TRUE){
-    score1 <- scoreDW(object)
-    score2 <- scoreRuns(object)
+    score1 <- scoreDW(object, variable)
+    score2 <- scoreRuns(object, variable)
     p <- p + geom_text(x = -Inf, y = Inf,
                        label = paste("Durbin-Watson Score:", round(score1$score,2), " Runs Score:", round(score2$score,2)),
                        hjust = -1, vjust = 1)

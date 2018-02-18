@@ -22,14 +22,16 @@ computeScoreCook <- function(model, modelData){
   originalModel <- model
   n <- nrow(modelData)
   D <- numeric(n)
+  y1 <- predict(originalModel)
+  mse <- mean( (modelData[,1] - y1)^2 )
+  p <- ncol(modelData)
+  pmse <- p*mse
   for(i in 1:n){
     newModel <- update(originalModel, data = modelData[-i,])
-    y1 <- predict(originalModel)
     y2 <- predict(newModel, newdata = modelData)
-    mse <- mean( (modelData[,1] - y1)^2 )
-    p <- ncol(modelData)
-
-    D[i] <- sum( (y1 - y2)^2 ) / (p*mse)
+    D[i] <- sum( (y1 - y2)^2 ) / (pmse)
+    cat(i, "out of", n, "\r")
+    utils::flush.console()
   }
   return(D)
 }
