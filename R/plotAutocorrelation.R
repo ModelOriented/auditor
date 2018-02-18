@@ -16,7 +16,7 @@
 #' @export
 plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
   x <- y <- NULL
-  if(is.null(variable)) variable <- "Fitted values"
+  if(is.null(variable) || variable=="Fitted values") variable <- "Fitted values"
   plotData <- generateAutocorrelationDF(object, variable)
 
   p <- ggplot(plotData, aes(x, y)) +

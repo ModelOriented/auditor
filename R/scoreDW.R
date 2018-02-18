@@ -10,7 +10,7 @@
 #' @export
 
 scoreDW <- function(object, variable = NULL){
-  if(is.null(variable)) {
+  if(is.null(variable) || variable=="Fitted values") {
     variable <- "Fitted values"
     dataDW <- data.frame(variable=object$fitted.values, residuals = object$residuals)
   } else {

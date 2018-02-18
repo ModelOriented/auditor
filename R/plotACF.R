@@ -14,7 +14,7 @@
 #'
 #' @export
 plotACF <- function(object, variable=NULL){
-  if(is.null(variable)) variable <- "Fitted values"
+  if(is.null(variable) || variable=="Fitted values") variable <- "Fitted values"
   orderedResiduals <- getOrderedResiduals(object, variable)
 
   ggAcf(orderedResiduals) +

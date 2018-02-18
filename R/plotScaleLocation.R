@@ -18,7 +18,7 @@
 #' @export
 plotScaleLocation <- function(object, variable=NULL, score=TRUE){
   values <- sqrt.std.residuals <- group <- NULL
-  if(is.null(variable)) variable <- "Fitted values"
+  if(is.null(variable) || variable=="Fitted values") variable <- "Fitted values"
   plotData <- generateScaleLocationDF(object, variable)
 
 
