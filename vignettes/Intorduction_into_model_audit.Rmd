@@ -18,11 +18,15 @@ knitr::opts_chunk$set(warning = FALSE)
 ```
 
 This vignette demonstrates how to use the auditor package. 
-This package provides some methods for model verification and validation by error analysis. 
+auditor provides methods for model verification and validation by error analysis. 
 
-Many models like for example random forests and neutral networks are nowadays treated as black boxes, so there is a lack of theory that may describe the distribution of residuals in this models. Therefore 
-most methods used in auditor is model-agnostic. 
-However, it is worth to use this package also in the case of models with known error distribution.
+Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. 
+
+Most methods provided in auditor pacage are model-agnostic, so can be used regardless of knowledge about errors. 
+
+Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.
+
+
 
 ```{r}
 set.seed(123)
@@ -30,7 +34,7 @@ set.seed(123)
 
 # Boston data
 
-We will use the Boston dataset from package MASS.
+I our example we will use the Boston dataset from package MASS. It contains information about housing in the area of Boston.
 
 ```{r}
 data(Boston, package = "MASS")
@@ -40,7 +44,7 @@ head(Boston)
 
 # Random forest model
 
-We will show the use of the auditor package on the example of a random forest model. 
+We need to fit model. For example a Random Forest model.
 
 ```{r}
 library("randomForest")
@@ -48,7 +52,7 @@ Boston_rf_model <- randomForest(medv ~ ., data = Boston, ntree=50)
 ```
 
 # Preparation for error analysis
-The beginning of each analysis is creation of a modelAudit object. This object contains original model, data used to build model, fitted values, residuals and standardized residuals.
+The beginning of each analysis is creation of a modelAudit object. It’s an object that can be used to audit a model.
 
 ```{r}
 library("auditor")
@@ -57,54 +61,72 @@ Boston_rf_audit <- audit(Boston_rf_model)
 
 # Error analysis
 
-In this section we give short overview of a visual validation of model errors and we show the validation scores we have proposed.
+In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores.
 
 ## Plotting residuals
 
-Function `plot()` used on modelAudit object returns object of class ggplot containing Residuals vs fitted values plot. 
+Function `plot()` used on modelAudit object returns a **Residuals vs fitted values plot**. 
 
 ```{r}
 plot(Boston_rf_audit)
 ```
 
-Residuals may be ordered also by values of variables used for building model. It is provided by `variable` argument which has to be given a variable name.
+Residuals may be ordered by values any model variable.
+```{r}
+plot(Boston_rf_audit, variable = "medv")
+```
 
 In the following sections we will show how to use the `plot()` function to generate another diagnostic plots.
 
+
 ## Autocorrelation
+
+On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.
 
 ```{r}
 plot(Boston_rf_audit, type="Autocorrelation", variable="crim")
 ```
 
-Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a model.
-DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation are described in `scoreDW()` and `scoreRuns()` functions.
-This scores may be also computed in `score()` function with argument `score` equals "DW" or "Runs".
+Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model.
+DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in `scoreDW()` and `scoreRuns()` functions.
+
+Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions and the `score()` function with argument `score` equals to "DW" or "Runs".
+
 ```{r}
 score(Boston_rf_audit, score="DW", variable = "crim")$score
 score(Boston_rf_audit, score="Runs", variable = "crim")$score
 ```
 
-
-## Scale Location
-
-```{r}
-plot(Boston_rf_audit, type="ScaleLocation")
-```
-
-GQ score is based on Goldfeld-Quandt test statistic.
-This score is computed and described in `scoreGQ()` function.
-And may be computed also in score function with argument `score` equals "GQ".
-
 ## Autocorrelation Function plot
+
+Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
 
 ```{r}
 plot(Boston_rf_audit, type="ACF")
 ```
 
+## Scale Location
+
+This plot shows if residuals are spread equally along the ranges of predictors. 
+
+```{r}
+plot(Boston_rf_audit, type="ScaleLocation")
+```
+
+For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
+This score is computed and described in `scoreGQ()` function.
+And may be computed also in `score()` function with argument `score` equals "GQ".
+
+
 ## Cook's distances
 
-In the case of models of class other than `lm` and `glm` the distances are computed directly from the definition, so this may take a while.
+Cook's distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model. 
+
+Data points indicated by Cook's distances are worth checking for validity. Cook's distances may be also used for indicating regions of the design space where it would be good to obtain more observations.
+
+Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed. 
+
+In the case of models of classes other than `lm` and `glm` the distances are computed directly from the definition, so this may take a while.
 In this example we will compute them for a linear model. 
 
 We will use the Prestige dataset from package car.

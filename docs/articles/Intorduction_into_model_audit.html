@@ -73,19 +73,21 @@
       <h1>Introduction into model audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-02-18</h4>
+            <h4 class="date">2018-02-19</h4>
           </div>
 
     
     
 <div class="contents">
-<p>This vignette demonstrates how to use the auditor package. This package provides some methods for model verification and validation by error analysis.</p>
-<p>Many models like for example random forests and neutral networks are nowadays treated as black boxes, so there is a lack of theory that may describe the distribution of residuals in this models. Therefore most methods used in auditor is model-agnostic. However, it is worth to use this package also in the case of models with known error distribution.</p>
+<p>This vignette demonstrates how to use the auditor package. auditor provides methods for model verification and validation by error analysis.</p>
+<p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models.</p>
+<p>Most methods provided in auditor pacage are model-agnostic, so can be used regardless of knowledge about errors.</p>
+<p>Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)</code></pre></div>
 <div id="boston-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#boston-data" class="anchor"></a>Boston data</h1>
-<p>We will use the Boston dataset from package MASS.</p>
+<p>I our example we will use the Boston dataset from package MASS. It contains information about housing in the area of Boston.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 Boston<span class="op">$</span>chas &lt;-<span class="st"> </span><span class="kw">as.logical</span>(Boston<span class="op">$</span>chas)
 <span class="kw">head</span>(Boston)</code></pre></div>
@@ -107,65 +109,74 @@ Boston<span class="op">$</span>chas &lt;-<span class="st"> </span><span class="k
 <div id="random-forest-model" class="section level1">
 <h1 class="hasAnchor">
 <a href="#random-forest-model" class="anchor"></a>Random forest model</h1>
-<p>We will show the use of the auditor package on the example of a random forest model.</p>
+<p>We need to fit model. For example a Random Forest model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"randomForest"</span>)
 Boston_rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(medv <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Boston, <span class="dt">ntree=</span><span class="dv">50</span>)</code></pre></div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preparation-for-error-analysis" class="anchor"></a>Preparation for error analysis</h1>
-<p>The beginning of each analysis is creation of a modelAudit object. This object contains original model, data used to build model, fitted values, residuals and standardized residuals.</p>
+<p>The beginning of each analysis is creation of a modelAudit object. It’s an object that can be used to audit a model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
 Boston_rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(Boston_rf_model)</code></pre></div>
 </div>
 <div id="error-analysis" class="section level1">
 <h1 class="hasAnchor">
 <a href="#error-analysis" class="anchor"></a>Error analysis</h1>
-<p>In this section we give short overview of a visual validation of model errors and we show the validation scores we have proposed.</p>
+<p>In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores.</p>
 <div id="plotting-residuals" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-residuals" class="anchor"></a>Plotting residuals</h2>
-<p>Function <code>plot()</code> used on modelAudit object returns object of class ggplot containing Residuals vs fitted values plot.</p>
+<p>Function <code>plot()</code> used on modelAudit object returns a <strong>Residuals vs fitted values plot</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
-<p>Residuals may be ordered also by values of variables used for building model. It is provided by <code>variable</code> argument which has to be given a variable name.</p>
+<p>Residuals may be ordered by values any model variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">variable =</span> <span class="st">"medv"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 <p>In the following sections we will show how to use the <code>plot()</code> function to generate another diagnostic plots.</p>
 </div>
 <div id="autocorrelation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#autocorrelation" class="anchor"></a>Autocorrelation</h2>
+<p>On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"Autocorrelation"</span>, <span class="dt">variable=</span><span class="st">"crim"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
-<p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions. This scores may be also computed in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “DW” or “Runs”.</p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
+<p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions and the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(Boston_rf_audit, <span class="dt">score=</span><span class="st">"DW"</span>, <span class="dt">variable =</span> <span class="st">"crim"</span>)<span class="op">$</span>score</code></pre></div>
 <pre><code>## [1] 2.061142</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(Boston_rf_audit, <span class="dt">score=</span><span class="st">"Runs"</span>, <span class="dt">variable =</span> <span class="st">"crim"</span>)<span class="op">$</span>score</code></pre></div>
 <pre><code>## [1] 1.875449</code></pre>
 </div>
-<div id="scale-location" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scale-location" class="anchor"></a>Scale Location</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"ScaleLocation"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
-<p>GQ score is based on Goldfeld-Quandt test statistic. This score is computed and described in <code><a href="../reference/scoreGQ.html">scoreGQ()</a></code> function. And may be computed also in score function with argument <code>score</code> equals “GQ”.</p>
-</div>
 <div id="autocorrelation-function-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#autocorrelation-function-plot" class="anchor"></a>Autocorrelation Function plot</h2>
+<p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"ACF"</span>)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+</div>
+<div id="scale-location" class="section level2">
+<h2 class="hasAnchor">
+<a href="#scale-location" class="anchor"></a>Scale Location</h2>
+<p>This plot shows if residuals are spread equally along the ranges of predictors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"ScaleLocation"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. This score is computed and described in <code><a href="../reference/scoreGQ.html">scoreGQ()</a></code> function. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
 </div>
 <div id="cooks-distances" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cooks-distances" class="anchor"></a>Cook’s distances</h2>
-<p>In the case of models of class other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
+<p>Cook’s distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model.</p>
+<p>Data points indicated by Cook’s distances are worth checking for validity. Cook’s distances may be also used for indicating regions of the design space where it would be good to obtain more observations.</p>
+<p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
+<p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
 <p>We will use the Prestige dataset from package car.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Prestige, <span class="dt">package =</span> <span class="st">"car"</span>)
 <span class="kw">head</span>(Prestige)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige_lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige<span class="op">~</span>education <span class="op">+</span><span class="st"> </span>women <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Prestige)
 Prestige_lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(Prestige_lm_model)
 <span class="kw">plot</span>(Prestige_lm_audit, <span class="dt">type=</span><span class="st">"Cook"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
 </div>
 </div>
 <div id="more-methods" class="section level1">
@@ -188,8 +199,8 @@ Prestige_lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../ref
 <a href="#error-analysis">Error analysis</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#plotting-residuals">Plotting residuals</a></li>
       <li><a href="#autocorrelation">Autocorrelation</a></li>
-      <li><a href="#scale-location">Scale Location</a></li>
       <li><a href="#autocorrelation-function-plot">Autocorrelation Function plot</a></li>
+      <li><a href="#scale-location">Scale Location</a></li>
       <li><a href="#cooks-distances">Cook’s distances</a></li>
       </ul>
 </li>
