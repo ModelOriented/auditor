@@ -1,5 +1,5 @@
 getResiduals <- function(model, y){
-  y - predict(model)
+  y - predict(model, type = "response")
 }
 
 #' @importFrom stats sd
