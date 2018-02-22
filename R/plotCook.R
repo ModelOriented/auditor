@@ -5,7 +5,7 @@
 #'
 #' @param object An object of class ModelAudit
 #' @param nlabel number of observations with the biggest Cooks distances to be labeled
-#' @param ...
+#' @param ... other arguments passed \code{\link{scoreCook}} to scoreCook.
 #'
 #' @importFrom ggplot2 ggplot aes
 #' @importFrom ggplot2 geom_point geom_text

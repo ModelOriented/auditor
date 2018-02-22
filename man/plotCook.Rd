@@ -11,7 +11,7 @@ plotCook(object, nlabel = 3, ...)
 
 \item{nlabel}{number of observations with the biggest Cooks distances to be labeled}
 
-\item{...}{}
+\item{...}{other arguments passed \code{\link{scoreCook}} to scoreCook.}
 }
 \description{
 Cooks distances
