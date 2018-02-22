@@ -5,6 +5,7 @@
 #'
 #' @param object An object of class ModelAudit
 #' @param nlabel number of observations with the biggest Cooks distances to be labeled
+#' @param ...
 #'
 #' @importFrom ggplot2 ggplot aes
 #' @importFrom ggplot2 geom_point geom_text
@@ -14,10 +15,10 @@
 #' @importFrom dplyr desc
 #'
 #' @export
-plotCook <- function(object, nlabel = 3){
+plotCook <- function(object, nlabel = 3, ...){
   index <- cooks.dist <- big <- nameIndex <- NULL
 
-  plotData <- data.frame(cooks.dist = scoreCook(object), index = 1:nrow(object$data),
+  plotData <- data.frame(cooks.dist = scoreCook(object, ...), index = 1:nrow(object$data),
                          nameIndex = rownames(object$data))
   plotData <- dplyr::arrange(plotData, desc(cooks.dist))
   plotData$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(object$data)-nlabel))

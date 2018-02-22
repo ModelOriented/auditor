@@ -4,10 +4,12 @@
 \alias{scoreCook}
 \title{Score based on Cooks distance}
 \usage{
-scoreCook(object)
+scoreCook(object, print = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
+
+\item{print}{If TRUE progress is printed}
 }
 \description{
 Cooks Distance TODO: defifnition here

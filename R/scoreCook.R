@@ -3,6 +3,7 @@
 #' @description Cooks Distance TODO: defifnition here
 #'
 #' @param object An object of class ModelAudit
+#' @param print If TRUE progress is printed
 #'
 #' @importFrom stats cooks.distance update
 #'
@@ -10,15 +11,15 @@
 #' @export
 #'
 
-scoreCook <- function(object){
+scoreCook <- function(object, print=TRUE){
   if(object$model.class=="lm" || object$model.class == "glm"){
     return(  cooks.distance(object$model) )
   } else {
-    return( computeScoreCook(object$model, object$data))
+    return( computeScoreCook(object$model, object$data, print))
   }
 }
 
-computeScoreCook <- function(model, modelData){
+computeScoreCook <- function(model, modelData, print){
   originalModel <- model
   n <- nrow(modelData)
   D <- numeric(n)
@@ -30,7 +31,7 @@ computeScoreCook <- function(model, modelData){
     newModel <- update(originalModel, data = modelData[-i,])
     y2 <- predict(newModel, newdata = modelData)
     D[i] <- sum( (y1 - y2)^2 ) / (pmse)
-    cat(i, "out of", n, "\r")
+    if(print==TRUE) cat(i, "out of", n, "\r")
     utils::flush.console()
   }
   return(D)

@@ -4,12 +4,14 @@
 \alias{plotCook}
 \title{Cook plot}
 \usage{
-plotCook(object, nlabel = 3)
+plotCook(object, nlabel = 3, ...)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{nlabel}{number of observations with the biggest Cooks distances to be labeled}
+
+\item{...}{}
 }
 \description{
 Cooks distances
