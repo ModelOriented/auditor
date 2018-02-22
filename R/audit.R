@@ -18,7 +18,7 @@ audit <- function(model){
   result <- list(
     model.class = class(model),
     model = model,
-    fitted.values = predict(model),
+    fitted.values = predict(model, type = "response"),
     data = dataFromModel,
     indep.var = colnames(dataFromModel)[1],
     dep.var =colnames(dataFromModel)[2:nColumns],
