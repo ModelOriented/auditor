@@ -2,7 +2,6 @@ library(auditor)
 library(car)
 library(MASS)
 library(randomForest)
-library(xgboost)
 
 set.seed(71)
 
