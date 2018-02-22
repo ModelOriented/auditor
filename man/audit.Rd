@@ -4,10 +4,14 @@
 \alias{audit}
 \title{audit}
 \usage{
-audit(model)
+audit(model, data = NULL, y = NULL)
 }
 \arguments{
 \item{model}{An object of appropriate class containing a model}
+
+\item{data}{data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.}
+
+\item{ydata}{response used for building a model}
 }
 \value{
 An object of class ModelAudit.
