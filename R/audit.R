@@ -4,7 +4,7 @@
 #'
 #' @param model An object of appropriate class containing a model
 #' @param data data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.
-#' @param ydata response used for building a model
+#' @param y response used for building a model
 #'
 #' @return An object of class ModelAudit.
 #'

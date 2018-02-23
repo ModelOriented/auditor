@@ -11,6 +11,7 @@ model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
 model.rf <- randomForest::randomForest(Postwt ~ Prewt + Treat, data = anorexia)
 model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
                         proximity=TRUE)
+iris.rf <- randomForest(Species ~ ., data=iris)
 
 au.lm <- audit(model.lm)
 au.glm <- audit(model.glm)

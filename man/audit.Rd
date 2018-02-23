@@ -11,7 +11,7 @@ audit(model, data = NULL, y = NULL)
 
 \item{data}{data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.}
 
-\item{ydata}{response used for building a model}
+\item{y}{response used for building a model}
 }
 \value{
 An object of class ModelAudit.

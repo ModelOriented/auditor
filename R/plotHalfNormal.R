@@ -24,13 +24,56 @@
 plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
                            xlab = "Half-Normal Quantiles", ylab = "Residuals",
                            main = "", ...){
+
+  if("randomForest" %in% class(object)) {
+    p <- plotHN.randomForest(object, model.frame(object), quant.scale=quant.scale, ...)
+    return(p)
+    }
+
+
   if(class(object)=="modelAudit") object <- object$model
+  plotHN.default(object, quant.scale=quant.scale, ...)
+}
 
+
+plotHN.randomForest <- function(object, data, ...){
+  d.fun <- function(obj){
+    1 - predict(obj, type = "prob")[cbind(1:length(obj$y),obj$y)]
+  }
+  s.fun <- function(n, obj){
+    probs <- predict(obj, type = "prob")
+    yi <- apply(probs, 1, FUN = function(x)sample(x=obj$classes, 1, prob = x))
+    as.factor(yi)
+  }
+  f.fun <- function(y.) {
+    newdata <- data
+    newdata[,as.character(object$terms[[2]])] <- as.factor(y.)
+    mod <- update(object, data = newdata)
+    return(mod)
+  }
+    hnpObject <- halfNormal(object, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun)
+
+    dataPlot <- datasetHalfNormalPlot(hnpObject, ...)
+
+    plotIt(hnpObject, dataPlot, ...)
+}
+
+plotHN.default <- function(object, ...){
+
+  hnpObject <- halfNormal(object, ...)
+
+  dataPlot <- datasetHalfNormalPlot(hnpObject, ...)
+
+  plotIt(hnpObject, dataPlot, ...)
+}
+
+
+
+
+plotIt <- function(hnpObject, dataPlot, score=TRUE, quant.scale=FALSE,
+                   xlab = "Half-Normal Quantiles", ylab = "Residuals",
+                   main = "",...){
   x <- residuals <- upper <- lower <- NULL
-  hnpObject <- halfNormal(object,...)
-
-  dataPlot <- datasetHalfNormalPlot(hnpObject, quant.scale)
-
   p <- ggplot(dataPlot, aes(x = x)) +
     geom_point(aes(y = residuals)) +
     geom_line(aes(y=upper))+
@@ -53,13 +96,15 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
     envScore <- calculateScorePDF(hnpObject)
     p <- p + geom_text(x = -Inf, y = Inf, label = paste("Score:",round(envScore,2)), hjust = -1, vjust = 1)
 
-   }
+  }
   return(p)
 }
 
 
+
 # Creating dataset for Half-Normal Plot
-datasetHalfNormalPlot <- function(hnpObject, quant.scale){
+datasetHalfNormalPlot <- function(hnpObject, quant.scale, ...){
+
   n <- length(hnpObject$residuals)
 
   if (quant.scale == FALSE) {
@@ -110,5 +155,4 @@ halfNormal <- function(object, ...){
 
     hnpObject <- hnp(object, plot.sim=FALSE, ...)
 }
-
 
