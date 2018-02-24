@@ -73,7 +73,7 @@
       <h1>The half-normal plots</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-02-19</h4>
+            <h4 class="date">2018-02-24</h4>
           </div>
 
     
@@ -159,12 +159,21 @@ fit4_b &lt;-<span class="st"> </span><span class="kw">glmer</span>(<span class="
 <p>In function <code>plotHalfNormal</code> there is also a posibility to draw half-normal plot on a quantile scale.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit4_b, <span class="dt">quant.scale =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="HalfNormal_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+</div>
+</div>
+<div id="classification" class="section level1">
+<h1 class="hasAnchor">
+<a href="#classification" class="anchor"></a>Classification</h1>
+<p>HalfNormal plots works also for classification random Forest</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
+iris.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>iris)
+<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(iris.rf)</code></pre></div>
+<p><img src="HalfNormal_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 <div id="references" class="section level3">
 <h3 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h3>
 <p>Gosiewska Alicja, Biecek Przemysław.2018. <em>auditor - audit/verification of regression models</em> <a href="https://github.com/mi2-warsaw/auditor" class="uri">https://github.com/mi2-warsaw/auditor</a></p>
 <p>Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em>. Journal of Statistical Software, 81(10), 1 - 23. <a href="doi:http://dx.doi.org/10.18637/jss.v081.i10" class="uri">doi:http://dx.doi.org/10.18637/jss.v081.i10</a></p>
-</div>
 </div>
 </div>
 </div>
@@ -182,6 +191,7 @@ fit4_b &lt;-<span class="st"> </span><span class="kw">glmer</span>(<span class="
 <li><a href="#quantile-scale">Quantile scale</a></li>
       </ul>
 </li>
+      <li><a href="#classification">Classification</a></li>
       </ul>
 </div>
       </div>

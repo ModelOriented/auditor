@@ -73,7 +73,7 @@
       <h1>Introduction into model audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-02-19</h4>
+            <h4 class="date">2018-02-24</h4>
           </div>
 
     
@@ -144,9 +144,9 @@ Boston_rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../refer
 <p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
 <p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions and the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(Boston_rf_audit, <span class="dt">score=</span><span class="st">"DW"</span>, <span class="dt">variable =</span> <span class="st">"crim"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 2.061142</code></pre>
+<pre><code>## [1] 2.004283</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(Boston_rf_audit, <span class="dt">score=</span><span class="st">"Runs"</span>, <span class="dt">variable =</span> <span class="st">"crim"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 1.875449</code></pre>
+<pre><code>## [1] 2.289233</code></pre>
 </div>
 <div id="autocorrelation-function-plot" class="section level2">
 <h2 class="hasAnchor">

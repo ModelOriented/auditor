@@ -136,6 +136,7 @@ plotHalfNormal(fit4_b, quant.scale = TRUE)
 HalfNormal plots works also for classification random Forest
 
 ```{r}
+library(randomForest)
 iris.rf <- randomForest(Species ~ ., data=iris)
 plotHalfNormal(iris.rf)
 ```

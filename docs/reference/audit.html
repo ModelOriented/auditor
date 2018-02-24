@@ -103,7 +103,7 @@
     <p>Function <code>audit</code> create ModelAudit object for further validation of model.</p>
     
 
-    <pre class="usage"><span class='fu'>audit</span>(<span class='no'>model</span>)</pre>
+    <pre class="usage"><span class='fu'>audit</span>(<span class='no'>model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -111,6 +111,14 @@
     <tr>
       <th>model</th>
       <td><p>An object of appropriate class containing a model</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>response used for building a model</p></td>
     </tr>
     </table>
     
