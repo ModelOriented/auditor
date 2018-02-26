@@ -24,14 +24,18 @@
 plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
                            xlab = "Half-Normal Quantiles", ylab = "Residuals",
                            main = "", ...){
+  data <- NULL
+
+  if(class(object)=="modelAudit") {
+    object <- object$model
+    data <- object$data
+  }
 
   if("randomForest" %in% class(object)) {
-    p <- plotHN.randomForest(object, model.frame(object), quant.scale=quant.scale, ...)
+    if(is.null(data)) data <- model.frame(object)
+    p <- plotHN.randomForest(object, data, quant.scale=quant.scale, ...)
     return(p)
     }
-
-
-  if(class(object)=="modelAudit") object <- object$model
   plotHN.default(object, quant.scale=quant.scale, ...)
 }
 
