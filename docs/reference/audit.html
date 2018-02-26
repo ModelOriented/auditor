@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>audit — audit â€¢ auditor</title>
+<title>Create modelAudit object — audit â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,21 +96,23 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>audit</h1>
+    <h1>Create modelAudit object</h1>
     </div>
 
     
-    <p>Function <code>audit</code> create ModelAudit object for further validation of model.</p>
+    <p>Function <code>audit</code> create ModelAudit object for further validation of model.
+Models may have very different structures. This function creates a unified representation of a model and calculate residuals,
+which can be further processed by various error analysis functions.</p>
     
 
-    <pre class="usage"><span class='fu'>audit</span>(<span class='no'>model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>audit</span>(<span class='no'>model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>An object of appropriate class containing a model</p></td>
+      <td><p>An object containing a model.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -118,15 +120,42 @@
     </tr>
     <tr>
       <th>y</th>
-      <td><p>response used for building a model</p></td>
+      <td><p>Response used for building a model.</p></td>
+    </tr>
+    <tr>
+      <th>predict.function</th>
+      <td><p>Function that takes two arguments: model and new data and returns numeric vector with predictions.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class ModelAudit.</p>
+    <p>An object of class ModelAudit, which contains:
+#'</p><ul>
+<li><p><code>model.class</code> class of the audited model,</p></li>
+<li><p><code>model</code> the audited model,</p></li>
+<li><p><code>fitted.values</code> fitted values from model,</p></li>
+<li><p><code>data</code> data used for fitting the model,</p></li>
+<li><p><code>y</code> vecor with values of predicted variable used for fittng the model,</p></li>
+<li><p><code>predict.function</code> function that may be used for model predictions, shall return a single numerical value for each observation.</p></li>
+<li><p><code>residuals</code></p></li>
+<li><p><code>std.residuals</code> standardized residuals - the residuals divided by theirs standard deviation.</p></li>
+</ul>
+
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>MASS</span>)
+<span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>Postwt</span> ~ <span class='no'>Prewt</span> + <span class='no'>Treat</span> + <span class='fu'>offset</span>(<span class='no'>Prewt</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>anorexia</span>)
+<span class='no'>audit.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.glm</span>)
+
+<span class='no'>p.fun</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>model</span>, <span class='no'>data</span>){<span class='fu'>predict</span>(<span class='no'>model</span>, <span class='no'>data</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='st'>"link"</span>)}
+<span class='no'>audit.glm.newpred</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.glm</span>, <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='no'>p.fun</span>)
+
+
+<span class='fu'>library</span>(<span class='no'>randomForest</span>)
+<span class='no'>model.rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)
+<span class='no'>audit.rf</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.rf</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -134,7 +163,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
