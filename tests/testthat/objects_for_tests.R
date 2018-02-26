@@ -17,9 +17,3 @@ au.glm <- audit(model.glm)
 au.rf <- audit(model.rf)
 au.class.rf <- audit(model.class.rf)
 
-
-
-model.class.rf <- randomForest(factor(Species) ~ ., data=iris, importance=TRUE,
-                               proximity=TRUE)
-au.class.rf <- audit(model.class.rf)
-plotHalfNormal(au.class.rf)
