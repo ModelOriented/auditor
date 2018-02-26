@@ -9,7 +9,7 @@ model.lm <- lm(prestige~education + women + income, data = Prestige)
 model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
                  family = gaussian, data = anorexia)
 model.rf <- randomForest::randomForest(Postwt ~ Prewt + Treat, data = anorexia)
-model.class.rf <- randomForest(factor(Species) ~ ., data=iris, importance=TRUE,
+model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
                         proximity=TRUE)
 
 au.lm <- audit(model.lm)
