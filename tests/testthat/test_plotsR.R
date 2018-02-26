@@ -28,7 +28,7 @@ test_that("plotScaleLocation", {
 test_that("plotHalfNormal", {
   expect_is(plotHalfNormal(au.glm, sim=10), "gg")
   expect_is(plotHalfNormal(au.lm, sim=10, quant.scale = TRUE), "gg")
-  expect_is(plotHalfNormal(iris.rf, sim=10), "gg")
+  expect_is(plotHalfNormal(au.class.rf, sim=10), "gg")
 })
 
 
