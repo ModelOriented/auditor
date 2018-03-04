@@ -8,6 +8,7 @@
 #' @param data data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.
 #' @param y Response used for building a model.
 #' @param predict.function Function that takes two arguments: model and new data and returns numeric vector with predictions.
+#' @param residual.function Function that takes two arguments: model and response vector and returns numeric vector with model residuals. If not provided, response residuals are calculated.
 #'
 #' @return An object of class ModelAudit, which contains:
 #' #' \itemize{
@@ -22,7 +23,7 @@
 #' }
 #'
 #'
-#' @importFrom stats model.frame
+#' @importFrom stats model.frame sd
 #'
 #' @examples
 #' library(MASS)
@@ -41,10 +42,13 @@
 
 
 
-audit <- function(model, data=NULL, y = NULL, predict.function = NULL){
+audit <- function(model, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL){
 
   dataModel <- auditError(model, data, y)
   predict.function <- getPredictFunction(model, predict.function)
+  residual.function <- getResidualFunction(residual.function)
+
+  residuals <- residual.function(model, dataModel$y, dataModel$data, predict.function)
 
   result <- list(
     model.class = class(model),
@@ -53,8 +57,9 @@ audit <- function(model, data=NULL, y = NULL, predict.function = NULL){
     data = dataModel$data,
     y = dataModel$y,
     predict.function = predict.function,
-    residuals = getResiduals(model, dataModel$y, dataModel$data, predict.function),
-    std.residuals = getStdResiduals(model, dataModel$y, dataModel$data, predict.function)
+    residual.function = residual.function,
+    residuals = residuals,
+    std.residuals = residuals / sd(residuals)
   )
   class(result) <- "modelAudit"
   return(result)

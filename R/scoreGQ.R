@@ -18,7 +18,7 @@
 #' @param object object An object of class ModelAudit
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #'
-#' @importFrom stats update rstandard predict pf
+#' @importFrom stats update rstandard predict pf sd
 #'
 #' @export
 
@@ -29,6 +29,7 @@ scoreGQ <- function(object, variable = NULL){
 
   dataForModels <- getOrderedData(object, variable)
   originalModel <- object$model
+  residual.function <- object$residual.function
 
   p <- ncol(dataForModels) - 1
   n <- nrow(dataForModels)
@@ -42,13 +43,13 @@ scoreGQ <- function(object, variable = NULL){
     secondModelData <- dataForModels[(n1+1):n, ]
     firstModel <- update(originalModel, data = firstModelData)
     secondModel <- update(originalModel, data = secondModelData)
-    firstModelResiduals <- getResiduals(firstModel, firstModelData[, 1])
+    firstModelResiduals <- residual.function(firstModel, firstModelData[, 1], firstModelData, object$predict.function)
     RSSA <- sum(firstModelResiduals^2)
-    secondModelResiduals <- getResiduals(secondModel, secondModelData[, 1])
+    secondModelResiduals <- residual.function(secondModel, secondModelData[, 1], secondModelData, object$predict.function)
     RSSB <- sum(secondModelResiduals^2)
 
-    firstModelStdResiduals <- getStdResiduals(firstModel, firstModelData[, 1])
-    secondModelStdResiduals <- getStdResiduals(secondModel, secondModelData[, 1])
+    firstModelStdResiduals <- firstModelResiduals/sd(firstModelResiduals)
+    secondModelStdResiduals <- secondModelResiduals / sd(secondModelResiduals)
     statistic <- (RSSB/(n2 - p - 1)) / (RSSA/(n1 - p - 1))
     pValue = (2 * min(pf(statistic, df[1], df[2]), pf(statistic, df[1], df[2], lower.tail = FALSE)))
 
