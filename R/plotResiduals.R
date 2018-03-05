@@ -7,10 +7,7 @@
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #'
 #'
-#' @importFrom ggplot2 ggplot aes
-#' @importFrom ggplot2 geom_point geom_hline
-#' @importFrom ggplot2 ggtitle xlab ylab
-#' @importFrom ggplot2 theme_classic
+#' @import ggplot2
 #'
 #' @export
 plotResiduals <- function(object, variable=NULL){
@@ -24,7 +21,7 @@ plotResiduals <- function(object, variable=NULL){
     xlab(variable) +
     ylab("Residuals") +
     ggtitle(paste0("Residuals vs ", variable)) +
-    theme_classic()
+    theme_light()
 }
 
 

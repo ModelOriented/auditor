@@ -8,10 +8,7 @@
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #' @param score Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added
 #'
-#' @importFrom ggplot2 ggplot aes
-#' @importFrom ggplot2 geom_point geom_hline geom_text
-#' @importFrom ggplot2 ggtitle xlab ylab
-#' @importFrom ggplot2 theme_classic
+#' @import ggplot2
 #'
 #' @export
 plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
@@ -25,7 +22,7 @@ plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
       xlab("residual i") +
       ylab("residual i+1") +
       ggtitle("Autocorrelation") +
-      theme_classic()
+      theme_light()
 
   if(score==TRUE){
     score1 <- scoreDW(object, variable)

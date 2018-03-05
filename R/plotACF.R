@@ -7,9 +7,7 @@
 #' @param object An object of class ModelAudit
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #'
-#' @importFrom ggplot2 ggplot aes
-#' @importFrom ggplot2 ggtitle xlab ylab
-#' @importFrom ggplot2 theme_classic
+#' @import ggplot2
 #' @importFrom forecast Acf ggAcf
 #'
 #' @export
@@ -20,7 +18,7 @@ plotACF <- function(object, variable=NULL){
   ggAcf(orderedResiduals) +
     geom_point() +
     ggtitle("Autocorrelation Function") +
-    theme_classic()
+    theme_light()
 }
 
 getOrderedResiduals <- function(object, variable){

@@ -9,10 +9,7 @@
 #' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
 #' @param score Logical, if TRUE value of \link{scoreGQ} will be added
 #'
-#' @importFrom ggplot2 ggplot aes
-#' @importFrom ggplot2 geom_point geom_smooth geom_vline geom_text
-#' @importFrom ggplot2 ggtitle xlab ylab
-#' @importFrom ggplot2 theme_classic
+#' @import ggplot2
 #' @importFrom stats median
 #'
 #' @export
@@ -30,7 +27,7 @@ plotScaleLocation <- function(object, variable=NULL, score=TRUE){
     xlab(variable) +
     ylab("\u221A|Standarized residuals|") +
     ggtitle("Scale Location") +
-    theme_classic()
+    theme_light()
 
   if(score==TRUE){
     score <- scoreGQ(object, variable)

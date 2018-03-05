@@ -14,8 +14,8 @@
 #'
 #' @return An object of class ggplot
 #'
+#' @import ggplot2
 #' @importFrom hnp hnp
-#' @importFrom ggplot2 ggplot aes geom_point geom_line xlab ylab annotate scale_x_continuous scale_y_continuous ggtitle coord_fixed
 #' @importFrom fdrtool phalfnorm
 #' @importFrom stats ecdf dnorm density
 #'
@@ -88,7 +88,7 @@ plotIt <- function(hnpObject, dataPlot, score=TRUE, quant.scale=FALSE,
     xlab(xlab) +
     ylab(ylab) +
     ggtitle(main) +
-    theme_classic()
+    theme_light()
 
   if(quant.scale==TRUE) {
     p <- p +

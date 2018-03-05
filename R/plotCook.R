@@ -7,11 +7,7 @@
 #' @param nlabel number of observations with the biggest Cooks distances to be labeled
 #' @param ... other arguments passed \code{\link{scoreCook}} to scoreCook.
 #'
-#' @importFrom ggplot2 ggplot aes
-#' @importFrom ggplot2 geom_point geom_text
-#' @importFrom ggplot2 ggtitle xlab ylab theme
-#' @importFrom ggplot2 theme_classic
-#' @importFrom ggplot2 element_blank
+#' @import ggplot2
 #' @importFrom dplyr desc
 #'
 #' @export
@@ -29,6 +25,6 @@ plotCook <- function(object, nlabel = 3, ...){
       xlab("observation index") +
       ylab("cooks distance") +
       ggtitle("Influence of observations") +
-      theme_classic()
+      theme_light()
 }
 

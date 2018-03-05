@@ -1,6 +1,6 @@
 Package: auditor
 Title: Validation of regression model assumptions 
-Version: 0.0.2.0000
+Version: 0.1.1.0000
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre")),
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"))
