@@ -14,6 +14,6 @@ model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
 
 au.lm <- audit(model.lm)
 au.glm <- audit(model.glm)
-au.rf <- audit(model.rf)
+au.rf <- audit(model.rf, label="rf")
 au.class.rf <- audit(model.class.rf)
 

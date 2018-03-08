@@ -5,7 +5,7 @@
 \title{Create modelAudit object}
 \usage{
 audit(model, data = NULL, y = NULL, predict.function = NULL,
-  residual.function = NULL)
+  residual.function = NULL, label = NULL)
 }
 \arguments{
 \item{model}{An object containing a model.}
@@ -17,6 +17,8 @@ audit(model, data = NULL, y = NULL, predict.function = NULL,
 \item{predict.function}{Function that takes two arguments: model and new data and returns numeric vector with predictions.}
 
 \item{residual.function}{Function that takes two arguments: model and response vector and returns numeric vector with model residuals. If not provided, response residuals are calculated.}
+
+\item{label}{Character - the name of the model. By default it's extracted from the 'class' attribute of the model.}
 }
 \value{
 An object of class ModelAudit, which contains:

@@ -15,16 +15,16 @@ plotROCR(object, ...)
 ggplot object
 }
 \description{
-The basic idea of the ROC curves for regression is to showmodel asymmetry.
+The basic idea of the ROC curves for regression is to show model asymmetry.
 The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 under-estimation.
 }
 \details{
 For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
-For each observation we calculate new prediction:
-\eqn{\hat{y}′\hat{y}' + s}, where s is the shift.
-\eqn{OVER = \sum_{i}(e_i|e_i>0)}
- \eqn{UNDER = \sum_{i}(e_i|e_i<0)}
+For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s}
+ where s is the shift.
+\eqn{OVER= \sum(e_i|e_i>0)}
+ \eqn{UNDER = \sum(e_i|e_i<0)}
  The shift equals 0 is represented by dot.
 }
 \references{

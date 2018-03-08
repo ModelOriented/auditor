@@ -9,6 +9,7 @@
 #' @param y Response used for building a model.
 #' @param predict.function Function that takes two arguments: model and new data and returns numeric vector with predictions.
 #' @param residual.function Function that takes two arguments: model and response vector and returns numeric vector with model residuals. If not provided, response residuals are calculated.
+#' @param label Character - the name of the model. By default it's extracted from the 'class' attribute of the model.
 #'
 #' @return An object of class ModelAudit, which contains:
 #' #' \itemize{
@@ -42,7 +43,7 @@
 
 
 
-audit <- function(model, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL){
+audit <- function(model, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
 
   dataModel <- auditError(model, data, y)
   predict.function <- getPredictFunction(model, predict.function)
@@ -52,6 +53,7 @@ audit <- function(model, data=NULL, y = NULL, predict.function = NULL, residual.
 
   result <- list(
     model.class = class(model),
+    label = ifelse(is.null(label), class(model)[1], label),
     model = model,
     fitted.values = predict.function(model, dataModel$data),
     data = dataModel$data,
