@@ -23,13 +23,12 @@
 plotREC <- function(object, ...){
   RECX <- RECY <- RECX0 <- RECY0 <- label <- NULL
   df <- getRECDF(object)
-  df <- data.frame(df, label = object$label)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if(class(resp)=="modelAudit"){
-        df <- rbind( df, data.frame(getRECDF(resp), label = resp$label) )
+        df <- rbind( df, getRECDF(resp) )
       }
     }
   }
@@ -39,8 +38,6 @@ plotREC <- function(object, ...){
     theme_light() +
     ylab("Accuracy") +
     xlab("Absolute deviation")
-
-
 
 }
 
@@ -66,6 +63,6 @@ getRECDF <- function(object){
   RECX[n] <- Inf
   RECY[n] <- Inf
 
-  df <- data.frame(RECX = RECX, RECY = RECY)
+  df <- data.frame(RECX = RECX, RECY = RECY, label = object$label)
   return(df)
 }

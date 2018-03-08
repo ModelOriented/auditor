@@ -16,6 +16,7 @@ Imports: car,
     forecast,
     ggplot2,
     hnp,
+    plotROC,
     tseries
 RoxygenNote: 6.0.1
 Suggests: aods3,
@@ -23,6 +24,7 @@ Suggests: aods3,
     knitr,
     lme4,
     MASS,
+    mlbench,
     randomForest,
     rmarkdown,
     testthat

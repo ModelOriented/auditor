@@ -23,10 +23,9 @@
 #' @export
 
 
-plotROCR <- function(object, ...){
+plotRROC <- function(object, ...){
   RROCX <- RROCY <- RROCX0 <- RROCY0 <- label <- NULL
   df <- getRROCDF(object)
-  df <- data.frame(df, label = class(object$model)[1])
   err <- sort(object$fitted.values - object$y)
   RROCX0 <- sum(err[which(err > 0)], na.rm = TRUE )
   RROCY0 <- sum(err[which(err < 0)], na.rm = TRUE )
@@ -36,7 +35,7 @@ plotROCR <- function(object, ...){
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      df <- rbind( df, data.frame(getRROCDF(resp), label = resp$label) )
+      df <- rbind( df, getRROCDF(resp) )
       err <- sort(resp$fitted.values - resp$y)
       RROCX0 <- sum(err[which(err > 0)], na.rm = TRUE )
       RROCY0 <- sum(err[which(err < 0)], na.rm = TRUE )
@@ -75,7 +74,7 @@ getRROCDF <- function(object){
   RROCX[n+2] <- Inf
   RROCY[n+2] <- 0
 
-  df <- data.frame(RROCX = RROCX, RROCY = RROCY)
+  df <- data.frame(RROCX = RROCX, RROCY = RROCY, label = object$label)
   return(df)
 }
 
