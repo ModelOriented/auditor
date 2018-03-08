@@ -4,15 +4,15 @@
 \alias{plot.modelAudit}
 \title{Model diagnostioc plots}
 \usage{
-\method{plot}{modelAudit}(x, type = "Residuals", ...)
+\method{plot}{modelAudit}(x, ..., type = "Residuals")
 }
 \arguments{
 \item{x}{object of class ModelAudit}
 
-\item{type}{the type of score to  be calculated. Possible values: 'ACF', 'Autocorrelation', 'Cook',
-'HalfNormal', 'Residuals', 'ScaleLocation' (see the details section).}
-
 \item{...}{other arguments dependent on the type of plot.}
+
+\item{type}{the type of score to  be calculated. Possible values: 'ACF', 'Autocorrelation', 'Cook',
+'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (see the details section).}
 }
 \description{
 This function provides many scores
@@ -22,5 +22,5 @@ TODO: desription of plot types
 }
 \seealso{
 \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCook}, \link{plotHalfNormal},
-\link{plotResiduals}, \link{plotScaleLocation}}
+\link{plotResiduals}, \link{plotScaleLocation}}, \link{plotROC}, \link{plotRROC}, \link{plotREC}
 }

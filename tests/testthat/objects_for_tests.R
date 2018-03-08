@@ -14,8 +14,8 @@ model.class.glm <- glm(diabetes~., family=binomial,	data=PimaIndiansDiabetes)
 model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
                         proximity=TRUE)
 
-# model.class.glm2 <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
-# au.class.glm2 <- audit(model.class.glm2)
+model.class.glm2 <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
+au.class.glm2 <- audit(model.class.glm2)
 
 au.lm <- audit(model.lm)
 au.glm <- audit(model.glm)

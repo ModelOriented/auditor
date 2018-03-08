@@ -31,6 +31,20 @@ test_that("plotHalfNormal", {
   expect_is(plotHalfNormal(au.class.rf, sim=10), "gg")
 })
 
+test_that("plotROC", {
+  expect_is(plotROC(au.class.glm), "gg")
+  expect_is(plotROC(au.class.glm, au.class.glm2), "gg")
+})
+
+test_that("plotRROC", {
+  expect_is(plotRROC(au.glm), "gg")
+  expect_is(plotRROC(au.glm, au.rf), "gg")
+})
+
+test_that("plotREC", {
+  expect_is(plotREC(au.glm), "gg")
+  expect_is(plotREC(au.glm, au.rf), "gg")
+})
 
 test_that("plot", {
   expect_is(plot(au.lm, type="ACF"), "gg")
@@ -39,5 +53,8 @@ test_that("plot", {
   expect_is(plot(au.lm, type="Residuals"), "gg")
   expect_is(plot(au.lm, type="ScaleLocation"), "gg")
   expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
+  expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")
+  expect_is(plot(au.glm, au.rf, type="RROC"), "gg")
+  expect_is(plot(au.glm, au.rf, type="REC"), "gg")
   expect_error(plot(au.lm, type="wrongType"))
 })

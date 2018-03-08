@@ -35,11 +35,13 @@ plotRROC <- function(object, ...){
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      df <- rbind( df, getRROCDF(resp) )
-      err <- sort(resp$fitted.values - resp$y)
-      RROCX0 <- sum(err[which(err > 0)], na.rm = TRUE )
-      RROCY0 <- sum(err[which(err < 0)], na.rm = TRUE )
-      df0 <- rbind(df0, data.frame(RROCX0 = RROCX0, RROCY0 = RROCY0, label=resp$label))
+      if(class(resp)=="modelAudit"){
+        df <- rbind( df, getRROCDF(resp) )
+        err <- sort(resp$fitted.values - resp$y)
+        RROCX0 <- sum(err[which(err > 0)], na.rm = TRUE )
+        RROCY0 <- sum(err[which(err < 0)], na.rm = TRUE )
+        df0 <- rbind(df0, data.frame(RROCX0 = RROCX0, RROCY0 = RROCY0, label=resp$label))
+      }
     }
   }
 
