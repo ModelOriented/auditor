@@ -72,7 +72,7 @@ auditError <- function(model, data, y){
     possibleData <- try(model.frame(model), silent = TRUE)
     if (class(possibleData) != "try-error") {
       data <- possibleData
-      y <- data[, 1]
+      if(is.null(y)) y <- data[, 1]
     } else { stop("data cannot be extracted from the model. The audit() function requires specified 'data' parameter.")
     }
   }

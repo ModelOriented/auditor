@@ -3,7 +3,8 @@
 
 - function `audit()` has new arguments: `predict.function` and `residual.function`,
 - plots are now plotted with `theme_light()`,
-- Cheatsheet was added to README.
+- functions for ROC curves (`plotROC`) and their extensions for regression (`plotRROC`, `plotREC`),
+- Cheatsheets were added to README.
 
 # version 0.1.0.0000  
 ## 18/02/2017 

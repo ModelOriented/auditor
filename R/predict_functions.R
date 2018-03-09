@@ -15,7 +15,7 @@ getPredictFunction <- function(model, predict.function){
 
 predictRandomForest <- function(model, data){
   if (model$type == "classification") {
-    predict.function <- function(model, data){stats::predict(model, data, type="prob")}
+    predict.function <- function(model, data){stats::predict(model, data, type="prob")[,2]}
   } else {
     predict.function <- function(model, data){stats::predict(model, data, type="response")}
   }

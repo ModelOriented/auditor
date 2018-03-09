@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model diagnostioc plots — plot.modelAudit â€¢ auditor</title>
+<title>Regression Receiver Operating Characteristic (RROC) — plotRROC â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,42 +96,46 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model diagnostioc plots</h1>
+    <h1>Regression Receiver Operating Characteristic (RROC)</h1>
     </div>
 
     
-    <p>This function provides many scores</p>
+    <p>The basic idea of the ROC curves for regression is to show model asymmetry.
+The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
+under-estimation.</p>
     
 
-    <pre class="usage"><span class='co'># S3 method for modelAudit</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"Residuals"</span>)</pre>
+    <pre class="usage"><span class='fu'>plotRROC</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>object of class ModelAudit</p></td>
+      <th>object</th>
+      <td><p>An object of class ModelAudit</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments dependent on the type of plot.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>the type of score to  be calculated. Possible values: 'ACF', 'Autocorrelation', 'Cook',
-'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (see the details section).</p></td>
+      <td><p>other modelAudit objects to be plotted together</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>ggplot object</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>TODO: desription of plot types</p>
+    <p>For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
+For each observation we calculate new prediction: \(\hat{y}'=\hat{y}+s\)
+ where s is the shift.
+\(OVER= \sum(e_i|e_i&gt;0)\)
+ \(UNDER = \sum(e_i|e_i&lt;0)\)
+ The shift equals 0 is represented by dot.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><code><a href='plotACF.html'>plotACF</a>, <a href='plotAutocorrelation.html'>plotAutocorrelation</a>, <a href='plotCook.html'>plotCook</a>, <a href='plotHalfNormal.html'>plotHalfNormal</a>,
-<a href='plotResiduals.html'>plotResiduals</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a></code>, <a href='plotROC.html'>plotROC</a>, <a href='plotRROC.html'>plotRROC</a>, <a href='plotREC.html'>plotREC</a></p>
+    <p>Hernández-Orallo, J. (2013). ROC curves for regression. Pattern Recognition, 46, 3395-3411.</p>
     
 
   </div>
@@ -140,9 +144,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
 
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#references">References</a></li>
           </ul>
 
   </div>

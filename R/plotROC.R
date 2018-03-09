@@ -28,12 +28,7 @@ plotROC <- function(object, ...){
 
   ggplot(df, aes(d = D, m = m, color = label)) +
     geom_roc() +
-    theme_light() +
-    ylab("Accuracy") +
-    xlab("Absolute deviation")
-
-
-
+    theme_light()
 }
 
 getROCDF <- function(object){

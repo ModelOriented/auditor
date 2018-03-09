@@ -18,6 +18,7 @@ devtools::install_github("mi2-warsaw/auditor")
 ### [News](NEWS.md)
 
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet.png"/>
+<img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet_ROC.png"/>
 
 ### Quick preview of the assumptions and functions
 
