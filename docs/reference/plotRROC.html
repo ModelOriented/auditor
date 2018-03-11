@@ -127,17 +127,34 @@ under-estimation.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
-For each observation we calculate new prediction: \(\hat{y}'=\hat{y}+s\)
- where s is the shift.
-\(OVER= \sum(e_i|e_i&gt;0)\)
- \(UNDER = \sum(e_i|e_i&lt;0)\)
- The shift equals 0 is represented by dot.</p>
+For each observation we calculate new prediction: \(\hat{y}'=\hat{y}+s\) where s is the shift.
+Therefore, there are different error values for each shift: \(e_i = \hat{y_i}' - y_i\)</p>
+<p>Over-estimation is caluclates as: \(OVER= \sum(e_i|e_i&gt;0)\).</p>
+<p>Under-estimation is calculated as: \(UNDER = \sum(e_i|e_i&lt;0)\).</p>
+<p>The shift equals 0 is represented by a dot.</p>
+<p>The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \(frac{n^2}{2}\).</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hernández-Orallo, J. (2013). ROC curves for regression. Pattern Recognition, 46, 3395-3411.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <p><code><a href='plot.modelAudit.html'>plot.modelAudit</a>, <a href='plotROC.html'>plotROC</a>, <a href='plotREC.html'>plotREC</a></code></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>auditor</span>)
+<span class='fu'>library</span>(<span class='no'>randomForest</span>)
+<span class='fu'>library</span>(<span class='no'>car</span>)
+<span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+<span class='no'>audit_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>)
+
+<span class='fu'>plotRROC</span>(<span class='no'>audit_lm</span>)</div><div class='img'><img src='plotRROC-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+<span class='no'>audit_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_rf</span>)
+<span class='fu'>plotRROC</span>(<span class='no'>audit_lm</span>, <span class='no'>audit_rf</span>)</div><div class='img'><img src='plotRROC-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -149,7 +166,11 @@ For each observation we calculate new prediction: \(\hat{y}'=\hat{y}+s\)
       <li><a href="#details">Details</a></li>
 
       <li><a href="#references">References</a></li>
-          </ul>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

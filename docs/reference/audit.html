@@ -100,8 +100,8 @@
     </div>
 
     
-    <p>Function <code>audit</code> create ModelAudit object for further validation of model.
-Models may have very different structures. This function creates a unified representation of a model and calculate residuals,
+    <p>Function <code>audit</code> create modelAudit object for further validation of a model.
+Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 which can be further processed by various error analysis functions.</p>
     
 
@@ -117,19 +117,19 @@ which can be further processed by various error analysis functions.</p>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.</p></td>
+      <td><p>Data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>Response used for building a model.</p></td>
+      <td><p>Response used for building a model. If not provided, will be extracted from the model.</p></td>
     </tr>
     <tr>
       <th>predict.function</th>
-      <td><p>Function that takes two arguments: model and new data and returns numeric vector with predictions.</p></td>
+      <td><p>Function that takes two arguments: model and data. It should return a numeric vector with predictions.</p></td>
     </tr>
     <tr>
       <th>residual.function</th>
-      <td><p>Function that takes two arguments: model and response vector and returns numeric vector with model residuals. If not provided, response residuals are calculated.</p></td>
+      <td><p>Function that takes two arguments: model and response vector. It should return a numeric vector with model residuals. If not provided, response residuals (\(\abs{y-\hat{y}}\)) are calculated.</p></td>
     </tr>
     <tr>
       <th>label</th>
@@ -142,11 +142,13 @@ which can be further processed by various error analysis functions.</p>
     <p>An object of class ModelAudit, which contains:
 #'</p><ul>
 <li><p><code>model.class</code> class of the audited model,</p></li>
+<li><p><code>label</code> the name of the model,</p></li>
 <li><p><code>model</code> the audited model,</p></li>
 <li><p><code>fitted.values</code> fitted values from model,</p></li>
 <li><p><code>data</code> data used for fitting the model,</p></li>
 <li><p><code>y</code> vecor with values of predicted variable used for fittng the model,</p></li>
-<li><p><code>predict.function</code> function that may be used for model predictions, shall return a single numerical value for each observation.</p></li>
+<li><p><code>predict.function</code> function that were used for model predictions,</p></li>
+<li><p><code>residual.function</code> function that were used for calculating model residuals,</p></li>
 <li><p><code>residuals</code></p></li>
 <li><p><code>std.residuals</code> standardized residuals - the residuals divided by theirs standard deviation.</p></li>
 </ul>

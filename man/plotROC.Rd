@@ -16,4 +16,22 @@ ggplot object
 }
 \description{
 Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
+It is useful for measuring and comparing the accuracy of the classificators.
+}
+\examples{
+library(auditor)
+library(mlbench)
+data("PimaIndiansDiabetes")
+
+model.glm <- glm(diabetes~., family=binomial,	data=PimaIndiansDiabetes)
+au.glm <- audit(model.glm, label="class glm")
+plotROC(au.glm)
+
+model.glm.press <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
+au.glm.press <- audit(model.glm.press)
+plotROC(au.glm, au.glm.press)
+
+}
+\seealso{
+\code{\link{plot.modelAudit}, \link{plotRROC}, \link{plotREC}}
 }

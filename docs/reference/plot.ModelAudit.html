@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model diagnostioc plots — plot.modelAudit â€¢ auditor</title>
+<title>Model diagnostic plots — plot.modelAudit â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,11 +96,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model diagnostioc plots</h1>
+    <h1>Model diagnostic plots</h1>
     </div>
 
     
-    <p>This function provides many scores</p>
+    <p>This function provides several diagnostic plots for regression and classification models.</p>
     
 
     <pre class="usage"><span class='co'># S3 method for modelAudit</span>
@@ -111,27 +111,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object of class ModelAudit</p></td>
+      <td><p>object of class modelAudit</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments dependent on the type of plot.</p></td>
+      <td><p>other arguments dependent on the type of plot or additionam objects of class modelAudit</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>the type of score to  be calculated. Possible values: 'ACF', 'Autocorrelation', 'Cook',
-'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (see the details section).</p></td>
+      <td><p>the type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook',
+'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (for detailed description see functions in seealso section).</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>TODO: desription of plot types</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='plotACF.html'>plotACF</a>, <a href='plotAutocorrelation.html'>plotAutocorrelation</a>, <a href='plotCook.html'>plotCook</a>, <a href='plotHalfNormal.html'>plotHalfNormal</a>,
-<a href='plotResiduals.html'>plotResiduals</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a></code>, <a href='plotROC.html'>plotROC</a>, <a href='plotRROC.html'>plotRROC</a>, <a href='plotREC.html'>plotREC</a></p>
+<a href='plotResiduals.html'>plotResiduals</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a>, <a href='plotROC.html'>plotROC</a>, <a href='plotRROC.html'>plotRROC</a>, <a href='plotREC.html'>plotREC</a></code></p>
     
 
   </div>
@@ -140,8 +136,6 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
           </ul>
 

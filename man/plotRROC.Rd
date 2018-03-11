@@ -21,12 +21,34 @@ under-estimation.
 }
 \details{
 For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
-For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s}
- where s is the shift.
-\eqn{OVER= \sum(e_i|e_i>0)}
- \eqn{UNDER = \sum(e_i|e_i<0)}
- The shift equals 0 is represented by dot.
+For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift.
+Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
+
+Over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)}.
+
+Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
+
+ The shift equals 0 is represented by a dot.
+
+ The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
+}
+\examples{
+library(auditor)
+library(randomForest)
+library(car)
+model_lm <- lm(prestige ~ education + women + income, data = Prestige)
+audit_lm <- audit(model_lm)
+
+plotRROC(audit_lm)
+
+model_rf <- randomForest(prestige ~ education + women + income, data = Prestige)
+audit_rf <- audit(model_rf)
+plotRROC(audit_lm, audit_rf)
+
 }
 \references{
 Hernández-Orallo, J. (2013). ROC curves for regression. Pattern Recognition, 46, 3395-3411.
+}
+\seealso{
+\code{\link{plot.modelAudit}, \link{plotROC}, \link{plotREC}}
 }

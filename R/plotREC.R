@@ -2,7 +2,6 @@
 #'
 #' @description Error Characteristic curves are a generalization of ROC curves.
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
-#' The REC curve estimates the cumulative distribution function (CDF) of the error.
 #'
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
@@ -16,6 +15,22 @@
 #' @references Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth International Conference on Machine Learning (ICML-2003), Washington, DC.
 #'
 #' @import ggplot2
+#'
+#' @seealso \code{\link{plot.modelAudit}, \link{plotROC}, \link{plotRROC}}
+#'
+#' @examples
+#' library(auditor)
+#' library(randomForest)
+#' library(car)
+#' model_lm <- lm(prestige ~ education + women + income, data = Prestige)
+#' audit_lm <- audit(model_lm)
+#'
+#' plotREC(audit_lm)
+#'
+#' model_rf <- randomForest(prestige ~ education + women + income, data = Prestige)
+#' audit_rf <- audit(model_rf)
+#' plotREC(audit_lm, audit_rf)
+#'
 #'
 #' @export
 
@@ -37,7 +52,7 @@ plotREC <- function(object, ...){
     geom_line() +
     theme_light() +
     ylab("Accuracy") +
-    xlab("Absolute deviation")
+    xlab("Error tolerance")
 
 }
 
