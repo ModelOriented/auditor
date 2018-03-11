@@ -2,15 +2,18 @@
 % Please edit documentation in R/plotResiduals.R
 \name{plotResiduals}
 \alias{plotResiduals}
-\title{Residuals plot}
+\title{Plot Residuals vs Fitted or Variable Values}
 \usage{
 plotResiduals(object, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class modelAudit}
 
-\item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+\item{variable}{name of modle variable for x-axis. If NULL fitted values are taken.}
 }
 \description{
-Residuals vs fitted values or dependent or independent variable
+A plot of residuals against fitted values or any variable values.
+}
+\seealso{
+\code{\link{plot.modelAudit}}
 }

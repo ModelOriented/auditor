@@ -10,13 +10,13 @@ audit(model, data = NULL, y = NULL, predict.function = NULL,
 \arguments{
 \item{model}{An object containing a model.}
 
-\item{data}{data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.}
+\item{data}{Data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.}
 
-\item{y}{Response used for building a model.}
+\item{y}{Response used for building a model. If not provided, will be extracted from the model.}
 
-\item{predict.function}{Function that takes two arguments: model and new data and returns numeric vector with predictions.}
+\item{predict.function}{Function that takes two arguments: model and data. It should return a numeric vector with predictions.}
 
-\item{residual.function}{Function that takes two arguments: model and response vector and returns numeric vector with model residuals. If not provided, response residuals are calculated.}
+\item{residual.function}{Function that takes two arguments: model and response vector. It should return a numeric vector with model residuals. If not provided, response residuals (\eqn{\abs{y-\hat{y}}}) are calculated.}
 
 \item{label}{Character - the name of the model. By default it's extracted from the 'class' attribute of the model.}
 }
@@ -24,18 +24,20 @@ audit(model, data = NULL, y = NULL, predict.function = NULL,
 An object of class ModelAudit, which contains:
 #' \itemize{
 \item \code{model.class} class of the audited model,
+\item \code{label} the name of the model,
 \item \code{model} the audited model,
 \item \code{fitted.values} fitted values from model,
 \item \code{data} data used for fitting the model,
 \item \code{y} vecor with values of predicted variable used for fittng the model,
-\item \code{predict.function} function that may be used for model predictions, shall return a single numerical value for each observation.
+\item \code{predict.function} function that were used for model predictions,
+\item \code{residual.function} function that were used for calculating model residuals,
 \item \code{residuals}
 \item \code{std.residuals} standardized residuals - the residuals divided by theirs standard deviation.
 }
 }
 \description{
-Function \code{audit} create ModelAudit object for further validation of model.
-Models may have very different structures. This function creates a unified representation of a model and calculate residuals,
+Function \code{audit} create modelAudit object for further validation of a model.
+Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 which can be further processed by various error analysis functions.
 }
 \examples{

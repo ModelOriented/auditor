@@ -1,16 +1,14 @@
-#' @title Model diagnostioc plots
+#' @title Model diagnostic plots
 #'
-#' @description This function provides many scores
+#' @description This function provides several diagnostic plots for regression and classification models.
 #'
-#' @param x object of class ModelAudit
-#' @param type the type of score to  be calculated. Possible values: 'ACF', 'Autocorrelation', 'Cook',
-#' 'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (see the details section).
-#' @param ... other arguments dependent on the type of plot.
-#'
-#' @details TODO: desription of plot types
+#' @param x object of class modelAudit
+#' @param ... other arguments dependent on the type of plot or additionam objects of class modelAudit
+#' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook',
+#' 'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (for detailed description see functions in seealso section).
 #'
 #' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCook}, \link{plotHalfNormal},
-#' \link{plotResiduals}, \link{plotScaleLocation}}, \link{plotROC}, \link{plotRROC}, \link{plotREC}
+#' \link{plotResiduals}, \link{plotScaleLocation}, \link{plotROC}, \link{plotRROC}, \link{plotREC}}
 #'
 #' @export
 

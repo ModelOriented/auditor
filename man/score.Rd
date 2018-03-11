@@ -2,22 +2,20 @@
 % Please edit documentation in R/score.R
 \name{score}
 \alias{score}
-\title{Model scores computations}
+\title{Model Scores computations}
 \usage{
 score(object, score = "GQ", ...)
 }
 \arguments{
-\item{object}{object An object of class ModelAudit}
+\item{object}{object An object of class modelAudit}
 
-\item{score}{the type of score to  be calculated. Possible values: 'GQ', 'DW', 'Runs', 'HalfNormal', 'Cook' (see the details section).}
+\item{score}{the type of score to  be calculated. Possible values: 'GQ', 'DW', 'Runs', 'HalfNormal', 'Cook' (for detailed description see functions in seealso section).}
 
 \item{...}{other arguments dependent on the type of score.}
 }
 \description{
-This function provides many scores
-}
-\details{
-TODO: desription of scores
+This function provides several scores for model validation and performance assessment.
+Scores can be also used to compare models.
 }
 \seealso{
 \code{\link{scoreGQ}, \link{scoreDW}, \link{scoreRuns}, \link{scoreHalfNormal}, \link{scoreCook}}

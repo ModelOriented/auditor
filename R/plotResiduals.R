@@ -1,11 +1,12 @@
-#' @title Residuals plot
+#' @title Plot Residuals vs Fitted or Variable Values
 #'
-#' @description Residuals vs fitted values or dependent or independent variable
+#' @description A plot of residuals against fitted values or any variable values.
 #'
 #'
-#' @param object An object of class ModelAudit
-#' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
+#' @param object An object of class modelAudit
+#' @param variable name of modle variable for x-axis. If NULL fitted values are taken.
 #'
+#' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @import ggplot2
 #'
