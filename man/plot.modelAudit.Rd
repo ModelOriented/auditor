@@ -4,7 +4,7 @@
 \alias{plot.modelAudit}
 \title{Model diagnostic plots}
 \usage{
-\method{plot}{modelAudit}(x, ..., type = "Residuals")
+plot.modelAudit(x, ..., type = "Residuals")
 }
 \arguments{
 \item{x}{object of class modelAudit}

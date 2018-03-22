@@ -17,6 +17,7 @@ Imports: car,
     ggplot2,
     hnp,
     plotROC,
+    ROCR,
     tseries
 RoxygenNote: 6.0.1
 Suggests: aods3,
