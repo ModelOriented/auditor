@@ -32,3 +32,5 @@ devtools::install_github("mi2-warsaw/auditor")
 | error distribution | Half-Normal score </br> `scoreHalfNormal`| Half-Normal plot </br> `plotHalfNormal` |
 
 
+## Acknowledgments
+Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.
