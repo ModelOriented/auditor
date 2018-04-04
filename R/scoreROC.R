@@ -7,12 +7,12 @@
 #'
 #' @seealso \code{\link{plotROC}}
 #'
-#' @importFrom pROC auc
+#' @importFrom ModelMetrics auc
 #'
 #' @export
 
 
 scoreROC <- function(object, type="AUC"){
 
-  auc(object$y, object$fitted.values)[1]
+  auc(object$y, object$fitted.values)
 }

@@ -62,10 +62,7 @@ getRECDF <- function(object){
   n <- length(err)
   RECX <- numeric(n)
   RECY <- numeric(n)
-  RECX[1] <- -Inf
-  RECY[1] <- 0
-  correct <- 0
-  absDev <- 0
+  RECX[1] <- RECY[1] <- correct <- absDev <- 0
   for(i in 2:n){
     if (err[i] > err[i-1]) {
       absDev <- correct/n
@@ -74,9 +71,6 @@ getRECDF <- function(object){
     RECY[i] <- absDev
     correct <- correct + 1
   }
-
-  RECX[n] <- Inf
-  RECY[n] <- Inf
 
   df <- data.frame(RECX = RECX, RECY = RECY, label = object$label)
   return(df)
