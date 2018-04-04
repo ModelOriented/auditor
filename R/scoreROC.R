@@ -7,7 +7,7 @@
 #'
 #' @seealso \code{\link{plotROC}}
 #'
-#' @import pROC
+#' @importFrom pROC auc
 #'
 #' @export
 

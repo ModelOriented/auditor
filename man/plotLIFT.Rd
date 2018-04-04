@@ -4,17 +4,12 @@
 \alias{plotLIFT}
 \title{Lift Chart}
 \usage{
-plotLIFT(object, ..., newdata = NULL, newy, groups = 10,
-  cumulative = TRUE)
+plotLIFT(object, ..., groups = 10, cumulative = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{...}{other modelAudit objects to be plotted together}
-
-\item{newdata}{optionally, a data frame in which to look for variables with which to plot CGains curve. If omitted, the data used to build model will be used.}
-
-\item{newy}{optionally, required if newdata used. Response vector for new data.}
 
 \item{groups}{number of groups}
 
@@ -25,6 +20,9 @@ ggplot object
 }
 \description{
 Lift Chart shows the ratio of a model to a random guess.
+}
+\details{
+Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
 }
 \examples{
 library(auditor)

@@ -3,11 +3,11 @@
 #' @description Lift Chart shows the ratio of a model to a random guess.
 #'
 #' @param object An object of class ModelAudit
-#' @param newdata optionally, a data frame in which to look for variables with which to plot CGains curve. If omitted, the data used to build model will be used.
-#' @param newy optionally, required if newdata used. Response vector for new data.
 #' @param groups number of groups
 #' @param cumulative boolean. If TRUE cumulative lift curve will be plotted.
 #' @param ... other modelAudit objects to be plotted together
+#'
+#' @details Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
 #'
 #' @return ggplot object
 #'
@@ -33,16 +33,18 @@
 #' @export
 
 
-plotLIFT <- function(object, ..., newdata = NULL, newy, groups = 10, cumulative = TRUE){
-  if(class(object)!="modelAudit") stop("plotCGains requires object class modelAudit.")
+plotLIFT <- function(object, ..., groups = 10, cumulative = TRUE){
+  if (class(object)!="modelAudit") stop("plotCGains requires object class modelAudit.")
+  if (!(unique(au.class.glm2$y) == c(0,1) || unique(au.class.glm2$y)==c(1,0))) stop("Response vector y should be an integer vector containing binary labels with values 0,1.")
+
   depth <- lift <- label <- NULL
-  df <- getLIFTDF(object, newdata, newy, groups, cumulative)
+  df <- getLIFTDF(object, groups, cumulative)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if(class(resp)=="modelAudit"){
-        df <- rbind( df, getLIFTDF(resp, newdata, newy, groups, cumulative) )
+        df <- rbind( df, getLIFTDF(resp, groups, cumulative) )
       }
     }
   }
@@ -54,17 +56,9 @@ plotLIFT <- function(object, ..., newdata = NULL, newy, groups = 10, cumulative 
     theme_light()
 }
 
-getLIFTDF <- function(object, newdata, newy, n.groups, cumulative = TRUE){
-  pred <- NULL
-  if (is.null(newdata)) {
-    predictions <- object$fitted.values
-    y <- as.numeric(as.character(object$y))
-  } else {
-    if(is.null(newy)) stop("newy must be provided.")
-    predictions <- object$predict.function(object$model, newdata)
-    y <- as.numeric(as.character(newy))
-  }
-  df <- data.frame(pred=predictions, y=y)
+getLIFTDF <- function(object, n.groups, cumulative = TRUE){
+  y = object$y
+  df <- data.frame(pred=object$fitted.values, y=y)
   df <- arrange(df, desc(pred))
 
   group <- ceiling(seq_along(df[,2])/floor(nrow(df)/n.groups))
