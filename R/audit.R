@@ -5,8 +5,8 @@
 #' which can be further processed by various error analysis functions.
 #'
 #' @param model An object containing a model.
-#' @param data Data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.
-#' @param y Response used for building a model. If not provided, will be extracted from the model.
+#' @param data Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.
+#' @param y Response vector that will be used by further validation functions. Some functions may require an integer vector containing binary labels with values 0,1.  If not provided, will be extracted from the model.
 #' @param predict.function Function that takes two arguments: model and data. It should return a numeric vector with predictions.
 #' @param residual.function Function that takes two arguments: model and response vector. It should return a numeric vector with model residuals. If not provided, response residuals (\eqn{\abs{y-\hat{y}}}) are calculated.
 #' @param label Character - the name of the model. By default it's extracted from the 'class' attribute of the model.

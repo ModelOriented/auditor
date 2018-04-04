@@ -10,9 +10,9 @@ audit(model, data = NULL, y = NULL, predict.function = NULL,
 \arguments{
 \item{model}{An object containing a model.}
 
-\item{data}{Data.frame or matrix - data used for fitting. If not provided, will be extracted from the model.}
+\item{data}{Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.}
 
-\item{y}{Response used for building a model. If not provided, will be extracted from the model.}
+\item{y}{Response vector that will be used by further validation functions. Some functions may require an integer vector containing binary labels with values 0,1.  If not provided, will be extracted from the model.}
 
 \item{predict.function}{Function that takes two arguments: model and data. It should return a numeric vector with predictions.}
 
