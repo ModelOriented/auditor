@@ -4,12 +4,14 @@
 \alias{plotTwoSidedECDF}
 \title{Two-sided Cumulative Distribution Function}
 \usage{
-plotTwoSidedECDF(object, ..., error.scaled = TRUE)
+plotTwoSidedECDF(object, ..., error.scaled = TRUE, outliers = NA)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{...}{other modelAudit objects to be plotted together}
+
+\item{outliers}{number of outliers to be marked}
 
 \item{error.scale}{Should ECDF be scaled by proportions of positive and negative proportions?}
 }
