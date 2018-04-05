@@ -18,6 +18,7 @@ Imports: car,
     hnp,
     ModelMetrics,
     plotROC,
+    plyr,
     ROCR,
     tseries
 RoxygenNote: 6.0.1
