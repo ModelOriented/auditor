@@ -30,27 +30,26 @@ plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA){
       }
     }
   }
-  maxPos <- max(df$res[which(df$sign=="pos")])
-  minNeg <- min(df$res[which(df$sign=="neg")])
-  for(lab in unique(df$label)){
-    maxNegECDF <- max(df$ecd[which(df$sign=="neg" & df$label == lab)])
-    df <- rbind(df, data.frame(no.obs = -1, res = as.numeric(minNeg), sign = "neg", ecd = as.numeric(maxNegECDF), label = lab, big = FALSE))
-    maxPosECDF <- max(df$ecd[which(df$sign=="pos" & df$label == lab)])
-    df <- rbind(df, data.frame(no.obs = -1, res = as.numeric(maxPos), sign = "pos", ecd = as.numeric(maxPosECDF), label = lab, big = FALSE))
-  }
+  # maxPos <- max(df$res[which(df$sign=="pos")])
+  # minNeg <- min(df$res[which(df$sign=="neg")])
+  # for(lab in unique(df$label)){
+  #   maxNegECDF <- max(df$ecd[which(df$sign=="neg" & df$label == lab)])
+  #   df <- rbind(df, data.frame(no.obs = -1, res = as.numeric(minNeg), sign = "neg", ecd = as.numeric(maxNegECDF), label = lab, big = FALSE))
+  #   maxPosECDF <- max(df$ecd[which(df$sign=="pos" & df$label == lab)])
+  #   df <- rbind(df, data.frame(no.obs = -1, res = as.numeric(maxPos), sign = "pos", ecd = as.numeric(maxPosECDF), label = lab, big = FALSE))
+  # }
 
 
  ggplot(df, aes(x = res, y = ecd, color = label)) +
       geom_step() +
       theme_light() +
-      geom_text_repel(data = subset(df, big==TRUE), aes(label=as.character(no.obs))) +
-      geom_point(data = subset(df, big==TRUE), aes(x = res, y = ecd, color = label)) +
+      geom_point( aes(x = res, y = ecd, color = label), size = 2) +
+      geom_text_repel(data = subset(df, big==TRUE), aes(label=as.character(no.obs)),
+                      show.legend = FALSE, direction = "y", color="black") +
       scale_y_continuous(breaks = seq(0,1,0.1),
                          labels = paste(seq(0, 100, 10),"%"),
                          name = "") +
       xlab("residuals")
-
-
 }
 
 
