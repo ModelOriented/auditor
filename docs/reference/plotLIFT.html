@@ -147,10 +147,10 @@
 
 <span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>diabetes</span>~<span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)
 <span class='no'>au_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_rf</span>, <span class='kw'>label</span><span class='kw'>=</span><span class='st'>"rf"</span>)
-<span class='fu'>plotLIFT</span>(<span class='no'>au_rf</span>)</div><div class='output co'>#&gt; <span class='error'>Error in unique(au.class.glm2$y): object 'au.class.glm2' not found</span></div><div class='input'>
+<span class='fu'>plotLIFT</span>(<span class='no'>au_rf</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plotLIFT(au_rf): Response vector y should be an integer vector containing binary labels with values 0,1.</span></div><div class='input'>
 <span class='no'>model_glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>.</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,   <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)
 <span class='no'>au_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_glm</span>)
-<span class='fu'>plotLIFT</span>(<span class='no'>au_rf</span>, <span class='no'>au_glm</span>)</div><div class='output co'>#&gt; <span class='error'>Error in unique(au.class.glm2$y): object 'au.class.glm2' not found</span></div><div class='input'>
+<span class='fu'>plotLIFT</span>(<span class='no'>au_rf</span>, <span class='no'>au_glm</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plotLIFT(au_rf, au_glm): Response vector y should be an integer vector containing binary labels with values 0,1.</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

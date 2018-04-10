@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Regression Error Characteristic Curves (REC) — plotREC â€¢ auditor</title>
+<title>Pairs plot — plotPairs â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,15 +96,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Regression Error Characteristic Curves (REC)</h1>
+    <h1>Pairs plot</h1>
     </div>
 
     
-    <p>Error Characteristic curves are a generalization of ROC curves.
-On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.</p>
+    <p>Pairs plot of fitted values and residuals</p>
     
 
-    <pre class="usage"><span class='fu'>plotREC</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotPairs</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"fitted"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -117,41 +116,21 @@ On the x axis of the plot there is an error tolerance and on the y axis there is
       <th>...</th>
       <td><p>other modelAudit objects to be plotted together</p></td>
     </tr>
+    <tr>
+      <th>values</th>
+      <td><p>"fitted" for model fitted values or "residuals" for residuals values</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>ggplot object</p>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>REC curve estimates the Cumulative Distribution Function (CDF) of the error</p>
-<p>Area Over the REC Curve (REC) is a biased estimate of the expected error</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth International Conference on Machine Learning (ICML-2003), Washington, DC.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='plot.modelAudit.html'>plot.modelAudit</a>, <a href='plotROC.html'>plotROC</a>, <a href='plotRROC.html'>plotRROC</a></code></p>
+    <p><code><a href='plot.modelAudit.html'>plot.modelAudit</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>auditor</span>)
-<span class='fu'>library</span>(<span class='no'>randomForest</span>)
-<span class='fu'>library</span>(<span class='no'>car</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘car’ was built under R version 3.4.4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: carData</span></div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘carData’ was built under R version 3.4.1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘car’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:auditor’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    recode</span></div><div class='input'><span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>audit_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>)
-
-<span class='fu'>plotREC</span>(<span class='no'>audit_lm</span>)</div><div class='img'><img src='plotREC-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>audit_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_rf</span>)
-<span class='fu'>plotREC</span>(<span class='no'>audit_lm</span>, <span class='no'>audit_rf</span>)</div><div class='img'><img src='plotREC-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,14 +139,8 @@ On the x axis of the plot there is an error tolerance and on the y axis there is
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
