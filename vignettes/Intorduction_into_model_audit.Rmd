@@ -131,7 +131,8 @@ In this example we will compute them for a linear model.
 
 We will use the Prestige dataset from package car.
 ```{r Cook, results='hide', fig.keep='all'}
-data(Prestige, package = "car")
+library(car)
+data(Prestige)
 head(Prestige)
 ```
 

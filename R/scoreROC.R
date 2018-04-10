@@ -12,7 +12,7 @@
 #' @export
 
 
-scoreROC <- function(object, type="AUC"){
+scoreROC <- function(object){
 
   auc(object$y, object$fitted.values)
 }

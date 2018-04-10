@@ -4,7 +4,7 @@
 \alias{scoreROC}
 \title{Area Under Curve (AUC)}
 \usage{
-scoreROC(object, type = "AUC")
+scoreROC(object)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}

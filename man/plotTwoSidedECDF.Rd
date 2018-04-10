@@ -4,16 +4,21 @@
 \alias{plotTwoSidedECDF}
 \title{Two-sided Cumulative Distribution Function}
 \usage{
-plotTwoSidedECDF(object, ..., error.scaled = TRUE, outliers = NA)
+plotTwoSidedECDF(object, ..., error.scaled = TRUE, outliers = NA,
+  residuals = TRUE, y.reversed = FALSE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{...}{other modelAudit objects to be plotted together}
 
+\item{error.scaled}{Should ECDF be scaled by proportions of positive and negative proportions?}
+
 \item{outliers}{number of outliers to be marked}
 
-\item{error.scale}{Should ECDF be scaled by proportions of positive and negative proportions?}
+\item{residuals}{should residuals be marked?}
+
+\item{y.reversed}{should values on y axib be reversed}
 }
 \value{
 ggplot object

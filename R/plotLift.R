@@ -16,26 +16,13 @@
 #' @import ggplot2
 #' @import dplyr
 #'
-#' @examples
-#' library(auditor)
-#' library(mlbench)
-#' library(randomForest)
-#' data("PimaIndiansDiabetes")
-#'
-#' model_rf <- randomForest(diabetes~., data=PimaIndiansDiabetes)
-#' au_rf <- audit(model_rf, label="rf")
-#' plotLIFT(au_rf)
-#'
-#' model_glm <- glm(diabetes~., family=binomial,	data=PimaIndiansDiabetes)
-#' au_glm <- audit(model_glm)
-#' plotLIFT(au_rf, au_glm)
 #'
 #' @export
 
 
 plotLIFT <- function(object, ..., groups = 10, cumulative = TRUE){
   if (class(object)!="modelAudit") stop("plotCGains requires object class modelAudit.")
-  if (!(unique(au.class.glm2$y) == c(0,1) || unique(au.class.glm2$y)==c(1,0))) stop("Response vector y should be an integer vector containing binary labels with values 0,1.")
+  if (!(unique(object$y) == c(0,1) || unique(object$y)==c(1,0))) stop("Response vector y should be an integer vector containing binary labels with values 0,1.")
 
   depth <- lift <- label <- NULL
   df <- getLIFTDF(object, groups, cumulative)
@@ -57,6 +44,7 @@ plotLIFT <- function(object, ..., groups = 10, cumulative = TRUE){
 }
 
 getLIFTDF <- function(object, n.groups, cumulative = TRUE){
+  pred <- NULL
   y = object$y
   df <- data.frame(pred=object$fitted.values, y=y)
   df <- arrange(df, desc(pred))
