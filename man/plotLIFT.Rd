@@ -24,21 +24,6 @@ Lift Chart shows the ratio of a model to a random guess.
 \details{
 Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
 }
-\examples{
-library(auditor)
-library(mlbench)
-library(randomForest)
-data("PimaIndiansDiabetes")
-
-model_rf <- randomForest(diabetes~., data=PimaIndiansDiabetes)
-au_rf <- audit(model_rf, label="rf")
-plotLIFT(au_rf)
-
-model_glm <- glm(diabetes~., family=binomial,	data=PimaIndiansDiabetes)
-au_glm <- audit(model_glm)
-plotLIFT(au_rf, au_glm)
-
-}
 \seealso{
 \code{\link{plot.modelAudit}}
 }
