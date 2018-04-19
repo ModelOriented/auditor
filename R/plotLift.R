@@ -45,7 +45,7 @@ plotLIFT <- function(object, ..., groups = 10, cumulative = TRUE){
 
 getLIFTDF <- function(object, n.groups, cumulative = TRUE){
   pred <- NULL
-  y = object$y
+  y = as.numeric(as.character(object$y))
   df <- data.frame(pred=object$fitted.values, y=y)
   df <- arrange(df, desc(pred))
 

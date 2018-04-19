@@ -29,7 +29,7 @@ plotModelPCA <- function(object, ...){
     }
   }
 
-  res.pca <- prcomp(df, scale = TRUE)
+  res.pca <- prcomp(df, scale = FALSE)
 
   fviz_pca_biplot(res.pca,
                   repel = TRUE,
