@@ -4,10 +4,12 @@
 \alias{plotResiduals}
 \title{Plot Residuals vs Fitted or Variable Values}
 \usage{
-plotResiduals(object, variable = NULL)
+plotResiduals(object, ..., variable = NULL)
 }
 \arguments{
 \item{object}{An object of class modelAudit}
+
+\item{...}{other modelAudit objects to be plotted together}
 
 \item{variable}{name of modle variable for x-axis. If NULL fitted values are taken.}
 }

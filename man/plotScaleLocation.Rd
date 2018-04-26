@@ -4,7 +4,7 @@
 \alias{plotScaleLocation}
 \title{Scale location plot}
 \usage{
-plotScaleLocation(object, variable = NULL, score = TRUE)
+plotScaleLocation(object, variable = NULL, score = FALSE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}

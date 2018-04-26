@@ -13,7 +13,7 @@
 #' @importFrom stats median
 #'
 #' @export
-plotScaleLocation <- function(object, variable=NULL, score=TRUE){
+plotScaleLocation <- function(object, variable=NULL, score=FALSE){
   values <- sqrt.std.residuals <- group <- NULL
   if(is.null(variable) || variable=="Fitted values") variable <- "Fitted values"
   plotData <- generateScaleLocationDF(object, variable)

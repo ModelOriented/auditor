@@ -9,7 +9,7 @@ plotACF(object, variable = NULL)
 \arguments{
 \item{object}{An object of class ModelAudit}
 
-\item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+\item{variable}{name of dependent or independent variable to order residuals. If NULL the order from data is taken. If "Fitted values" then data is ordered by fitted values.}
 }
 \description{
 Plot autocorrelation function of model residuals.

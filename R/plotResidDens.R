@@ -31,6 +31,7 @@ plotResidDens <- function(object, ...){
   p <- ggplot(df, aes(x = residuals, fill = label)) +
     stat_density(color = "black", alpha = 0.3,  position = "identity")+
     geom_vline(xintercept = 0) +
+    geom_rug(aes(color = label), alpha = 0.5) +
     theme_light() +
     xlab("residuals")
 

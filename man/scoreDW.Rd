@@ -9,7 +9,7 @@ scoreDW(object, variable = NULL)
 \arguments{
 \item{object}{object An object of class ModelAudit}
 
-\item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+\item{variable}{"Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..}
 }
 \description{
 Autocorrelation based on Durbin-Watson Test.

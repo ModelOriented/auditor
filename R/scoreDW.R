@@ -3,7 +3,7 @@
 #' @description Autocorrelation based on Durbin-Watson Test.
 #'
 #' @param object object An object of class ModelAudit
-#' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
+#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..
 #'
 #' @importFrom car durbinWatsonTest
 #'
@@ -11,14 +11,16 @@
 
 scoreDW <- function(object, variable = NULL){
   if(is.null(variable) || variable=="Fitted values") {
-    variable <- "Fitted values"
     dataDW <- data.frame(variable=object$fitted.values, residuals = object$residuals)
   } else {
     dataDW <- data.frame(variable=object$data[,variable], residuals = object$residuals)
   }
 
-    dataDWOrdered <- dplyr::arrange(dataDW, variable)
-    residuals <- dataDWOrdered$residuals
+  if(!is.null(variable)){
+    dataDW <- dplyr::arrange(dataDW, variable)
+  }
+
+    residuals <- as.vector(dataDW$residuals)
 
   result <- list(
     name = "Durbin-Watson",

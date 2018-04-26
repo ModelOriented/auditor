@@ -2,6 +2,7 @@
 #'
 #' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
+#'
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
 #'

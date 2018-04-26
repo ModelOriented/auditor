@@ -18,6 +18,7 @@ plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
 
   p <- ggplot(plotData, aes(x, y)) +
       geom_point() +
+      geom_smooth(method = "loess", se = FALSE) +
       geom_hline(yintercept = 0) +
       xlab("residual i") +
       ylab("residual i+1") +
