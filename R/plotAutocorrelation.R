@@ -5,7 +5,7 @@
 #'
 #'
 #' @param object An object of class ModelAudit
-#' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
+#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..
 #' @param score Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added
 #'
 #' @import ggplot2
@@ -13,7 +13,6 @@
 #' @export
 plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
   x <- y <- NULL
-  if(is.null(variable) || variable=="Fitted values") variable <- "Fitted values"
   plotData <- generateAutocorrelationDF(object, variable)
 
   p <- ggplot(plotData, aes(x, y)) +
@@ -38,14 +37,16 @@ plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
 
 
 generateAutocorrelationDF <- function(object, variable){
-  if(variable == "Fitted values") {
+  if(is.null(variable) || variable == "Fitted values") {
     values <- object$fitted.values
   } else {
     values <- object$data[,variable]
   }
   n <- length(object$residuals)
   tmpDF <- data.frame(values = values, x = object$residuals)
-  tmpDF <- dplyr::arrange(tmpDF, values)
+  if(!is.null(variable)){
+    tmpDF <- dplyr::arrange(tmpDF, values)
+  }
   resultDF <- data.frame(x = tmpDF$x[-n], y = tmpDF$x[-1])
   return(resultDF)
 }

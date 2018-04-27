@@ -9,7 +9,7 @@ scoreRuns(object, variable = NULL)
 \arguments{
 \item{object}{object An object of class ModelAudit}
 
-\item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+\item{variable}{"Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..}
 }
 \description{
 Score based on Runs test statistic. Note that this test is not very strong. It utilizes only signs of the residuals.
