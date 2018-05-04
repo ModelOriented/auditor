@@ -11,8 +11,8 @@
 #' @import ggplot2
 #'
 #' @export
-plotPrediction <- function(object, ..., variable=NULL){
-  residuals <- values <- NULL
+plotPrediction <- function(object, ...){
+  observed <- predicted <- NULL
 
   df <- generatePredictionDF(object, variable)
 
