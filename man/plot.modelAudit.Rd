@@ -4,7 +4,7 @@
 \alias{plot.modelAudit}
 \title{Model diagnostic plots}
 \usage{
-plot.modelAudit(x, ..., type = "Residuals")
+\method{plot}{modelAudit}(x, ..., type = "Residuals", ask = TRUE)
 }
 \arguments{
 \item{x}{object of class modelAudit}
@@ -13,6 +13,8 @@ plot.modelAudit(x, ..., type = "Residuals")
 
 \item{type}{the type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook',
 'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (for detailed description see functions in seealso section).}
+
+\item{ask}{logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.}
 }
 \description{
 This function provides several diagnostic plots for regression and classification models.

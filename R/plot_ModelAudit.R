@@ -6,24 +6,65 @@
 #' @param ... other arguments dependent on the type of plot or additionam objects of class modelAudit
 #' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook',
 #' 'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (for detailed description see functions in seealso section).
+#' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #'
 #' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCook}, \link{plotHalfNormal},
 #' \link{plotResiduals}, \link{plotScaleLocation}, \link{plotROC}, \link{plotRROC}, \link{plotREC}}
 #'
+#' @importFrom grDevices devAskNewPage
+#'
+#' @method plot modelAudit
+#'
 #' @export
 
-plot.modelAudit <- function(x, ..., type="Residuals"){
+plot.modelAudit <- function(x, ..., type="Residuals", ask = TRUE){
 
+  object <- x
+
+  plotNames <- c('ACF', 'Autocorrelation', 'CGains', 'Cook', 'HalfNormal', 'Residuals', 'LIFT',
+                 'ModelPCA', 'Pairs', 'Prediction', 'REC', 'ResidDens', 'Residuals', 'ROC', 'RROC',
+                 'ScaleLocation', 'TwoSidedECDF')
+
+  if(!all(type %in% plotNames)){
+    stop(paste0("Invalid plot type. Possible values are: ", paste(plotNames, collapse = ", "),"."))
+  }
+
+  if (length(type)==1) {
+    return(plotTypePlot(object, ..., type = type))
+  }
+
+  if (ask & length(type)) {
+    oask <- devAskNewPage(TRUE)
+    on.exit(devAskNewPage(oask))
+  }
+
+  plotsList <- sapply(type, function(x) NULL)
+
+  for(name in type){
+    plotsList[[name]] <- plotTypePlot(object, ..., type = name)
+    plot(plotsList[[name]])
+  }
+  class(plotsList) <- c("auditorPlotList", "list")
+  return(plotsList)
+}
+
+plotTypePlot <- function(x, ..., type){
   switch(type,
-         ACF={ return(plotACF(x, ...)) },
-         Autocorrelation={ return(plotAutocorrelation(x, ...)) },
-         Cook={ return(plotCook(x, ...)) },
-         HalfNormal={ return(plotHalfNormal(x, ...)) },
-         Residuals = { return(plotResiduals(x, ...)) },
-         ScaleLocation = { return(plotScaleLocation(x, ...)) },
-         ROC = { return(plotROC(x, ...)) },
+         ACF = { return(plotACF(x, ...)) },
+         Autocorrelation = { return(plotAutocorrelation(x, ...)) },
+         CGains = {return(plotCGains(x, ...))},
+         Cook = { return(plotCook(x, ...)) },
+         HalfNormal = { return(plotHalfNormal(x, ...)) },
+         LIFT = {return(plotLIFT(x, ...))},
+         ModelPCA = {return(plotModelPCA(x, ...))},
+         Pairs = {return(plotPairs(x, ...))},
+         Prediction = {return(plotPrediction(x, ...))},
          REC = { return(plotREC(x, ...)) },
-         RROC = { return(plotRROC(x, ...)) })
-
-  stop( "Wrong type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook', 'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC'." )
+         ResidDens = { return(plotResidDens(x, ...)) },
+         Residuals = { return(plotResiduals(x, ...)) },
+         ROC = { return(plotROC(x, ...)) },
+         RROC = { return(plotRROC(x, ...)) },
+         ScaleLocation = { return(plotScaleLocation(x, ...)) },
+         TwoSidedECDF = { return(plotTwoSidedECDF(x, ...)) }
+  )
 }

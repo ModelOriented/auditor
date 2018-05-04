@@ -13,7 +13,7 @@
 #'
 #' @export
 plotResiduals <- function(object, ..., variable=NULL){
-  residuals <- values <- NULL
+  residuals <- values <- label <- NULL
   if(is.null(variable)) variable <- "Fitted values"
   df <- generateResidualsDF(object, variable)
 

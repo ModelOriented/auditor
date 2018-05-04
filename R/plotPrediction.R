@@ -12,15 +12,15 @@
 #'
 #' @export
 plotPrediction <- function(object, ...){
-  observed <- predicted <- NULL
+  observed <- predicted <- label <- NULL
 
-  df <- generatePredictionDF(object, variable)
+  df <- generatePredictionDF(object)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if(class(resp)=="modelAudit"){
-        df <- rbind( df, generatePredictionDF(resp, variable) )
+        df <- rbind( df, generatePredictionDF(resp) )
       }
     }
   }
@@ -30,7 +30,7 @@ plotPrediction <- function(object, ...){
     geom_abline(slope = 1, intercept = 0) +
     xlab("Observed response") +
     ylab("Predicted values") +
-    ggtitle(paste0("Observed vs Predicted", variable)) +
+    ggtitle(paste0("Observed vs Predicted")) +
     theme_light()
 }
 
