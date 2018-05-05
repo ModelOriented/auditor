@@ -2,7 +2,6 @@
 #'
 #' @description The area over the Regression Error Characteristic curve is a measure of the expected error
 #' for the regression model.
-#' It is calculated as a sample mean of errors.
 #'
 #' @param object An object of class ModelAudit
 #'
@@ -10,13 +9,14 @@
 #'
 #' @seealso \code{\link{plotREC}}
 #'
+#' @references J. Bi, and K. P. Bennet, "Regression error characteristic curves," in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50
 #'
 #' @export
 
 
 scoreREC <- function(object){
 
-  RECDF <-auditor:::getRECDF(object)
+  RECDF <- getRECDF(object)
   x <- RECDF$RECX
   y <- RECDF$RECY
 

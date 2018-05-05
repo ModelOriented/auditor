@@ -47,7 +47,7 @@ plotRROC(audit_lm, audit_rf)
 
 }
 \references{
-Hernández-Orallo, J. (2013). ROC curves for regression. Pattern Recognition, 46, 3395-3411.
+Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
 }
 \seealso{
 \code{\link{plot.modelAudit}, \link{plotROC}, \link{plotREC}}
