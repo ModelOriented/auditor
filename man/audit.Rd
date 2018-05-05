@@ -4,11 +4,11 @@
 \alias{audit}
 \title{Create modelAudit object}
 \usage{
-audit(model, data = NULL, y = NULL, predict.function = NULL,
+audit(object, data = NULL, y = NULL, predict.function = NULL,
   residual.function = NULL, label = NULL)
 }
 \arguments{
-\item{model}{An object containing a model.}
+\item{object}{An object containing a model or object of class explainer (see \link[DALEX]{explain}.}
 
 \item{data}{Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.}
 

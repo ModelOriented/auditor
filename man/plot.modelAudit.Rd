@@ -11,8 +11,9 @@
 
 \item{...}{other arguments dependent on the type of plot or additionam objects of class modelAudit}
 
-\item{type}{the type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook',
-'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (for detailed description see functions in seealso section).}
+\item{type}{the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CGains', 'Cook', 'HalfNormal', 'Residuals', 'LIFT',
+ModelPCA', 'Pairs', 'Prediction', 'REC', 'ResidDens', 'Residuals', 'ROC', 'RROC',
+ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in seealso section).}
 
 \item{ask}{logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.}
 }
@@ -20,6 +21,8 @@
 This function provides several diagnostic plots for regression and classification models.
 }
 \seealso{
-\code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCook}, \link{plotHalfNormal},
-\link{plotResiduals}, \link{plotScaleLocation}, \link{plotROC}, \link{plotRROC}, \link{plotREC}}
+\code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCGains}, \link{plotCook},
+\link{plotHalfNormal}, \link{plotResiduals}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotPairs},
+\link{plotPrediction}, \link{plotREC}, \link{plotResidDens}, \link{plotResiduals}, \link{plotROC},
+\link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
 }

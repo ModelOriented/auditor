@@ -4,7 +4,7 @@
 #' Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 #' which can be further processed by various error analysis functions.
 #'
-#' @param model An object containing a model.
+#' @param object An object containing a model or object of class explainer (see \link[DALEX]{explain}.
 #' @param data Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.
 #' @param y Response vector that will be used by further validation functions. Some functions may require an integer vector containing binary labels with values 0,1.  If not provided, will be extracted from the model.
 #' @param predict.function Function that takes two arguments: model and data. It should return a numeric vector with predictions.
@@ -43,10 +43,13 @@
 #'
 #' @export
 
+audit <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+  UseMethod("audit")
+}
 
-
-audit <- function(model, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
-
+#' @export
+audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+  model <- object
   dataModel <- auditError(model, data, y)
   predict.function <- getPredictFunction(model, predict.function)
   residual.function <- getResidualFunction(residual.function)
@@ -69,6 +72,28 @@ audit <- function(model, data=NULL, y = NULL, predict.function = NULL, residual.
   return(result)
 }
 
+#' @export
+audit.explainer <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+  explainer <- object
+  if (is.null(data)) data <- explainer$data
+  if (is.null(y)) y <- explainer$y
+  if (is.null(label)) label <- explainer$label
+
+  audit.default(
+    object = explainer$model,
+    data = data,
+    y = y,
+    predict.function = explainer$predict_function,
+    residual.function = residual.function,
+    label = label
+    )
+}
+
+
+
+
+
+
 auditError <- function(model, data, y){
   if (is.null(data)) {
     possibleData <- try(model.frame(model), silent = TRUE)
@@ -81,3 +106,8 @@ auditError <- function(model, data, y){
   if (is.null(y)) {stop("Original response cannot be extracted from the model. The audit() function requires specified 'y' parameter.") }
   return(list(data = data, y = y))
 }
+
+
+
+
+

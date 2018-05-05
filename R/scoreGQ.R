@@ -72,7 +72,7 @@ getOrderedData <- function(object, variable){
     }
 
     dataFromModel <- dplyr::arrange_(dataFromModel, variable)
-    if(variable == "Fitted values")  dataFromModel <- dataFromModel[,-ncol(dataForModels)]
+    if(variable == "Fitted values")  dataFromModel <- dataFromModel[,-ncol(dataFromModel)]
   }
 
 
