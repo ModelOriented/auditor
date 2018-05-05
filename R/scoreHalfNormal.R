@@ -14,7 +14,7 @@ scoreHalfNormal <- function(object, ...){
 
   hnpObject <- halfNormal(object,...)
   result <- list(
-    name = "Runs test",
+    name = "halfNormal",
     score = calculateScorePDF(hnpObject)
   )
 
