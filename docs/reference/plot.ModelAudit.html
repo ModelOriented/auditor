@@ -103,7 +103,8 @@
     <p>This function provides several diagnostic plots for regression and classification models.</p>
     
 
-    <pre class="usage"><span class='fu'>plot.modelAudit</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"Residuals"</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for modelAudit</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"Residuals"</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -118,15 +119,22 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>the type of plot. Possible values: 'ACF', 'Autocorrelation', 'Cook',
-'HalfNormal', 'Residuals', 'ScaleLocation', 'ROC', 'RROC', 'REC' (for detailed description see functions in seealso section).</p></td>
+      <td><p>the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CGains', 'Cook', 'HalfNormal', 'Residuals', 'LIFT',
+ModelPCA', 'Pairs', 'Prediction', 'REC', 'ResidDens', 'Residuals', 'ROC', 'RROC',
+ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in seealso section).</p></td>
+    </tr>
+    <tr>
+      <th>ask</th>
+      <td><p>logical; if TRUE, the user is asked before each plot, see <code><a href='http://www.rdocumentation.org/packages/graphics/topics/par'>par</a>(ask=)</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='plotACF.html'>plotACF</a>, <a href='plotAutocorrelation.html'>plotAutocorrelation</a>, <a href='plotCook.html'>plotCook</a>, <a href='plotHalfNormal.html'>plotHalfNormal</a>,
-<a href='plotResiduals.html'>plotResiduals</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a>, <a href='plotROC.html'>plotROC</a>, <a href='plotRROC.html'>plotRROC</a>, <a href='plotREC.html'>plotREC</a></code></p>
+    <p><code><a href='plotACF.html'>plotACF</a>, <a href='plotAutocorrelation.html'>plotAutocorrelation</a>, <a href='plotCGains.html'>plotCGains</a>, <a href='plotCook.html'>plotCook</a>,
+<a href='plotHalfNormal.html'>plotHalfNormal</a>, <a href='plotResiduals.html'>plotResiduals</a>, <a href='plotLIFT.html'>plotLIFT</a>, <a href='plotModelPCA.html'>plotModelPCA</a>, <a href='plotPairs.html'>plotPairs</a>,
+<a href='plotPrediction.html'>plotPrediction</a>, <a href='plotREC.html'>plotREC</a>, <a href='plotResidDens.html'>plotResidDens</a>, <a href='plotResiduals.html'>plotResiduals</a>, <a href='plotROC.html'>plotROC</a>,
+<a href='plotRROC.html'>plotRROC</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a>, <a href='plotTwoSidedECDF.html'>plotTwoSidedECDF</a></code></p>
     
 
   </div>

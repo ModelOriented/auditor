@@ -62,8 +62,8 @@ The beginning of each analysis is creation of a `modelAudit` object. It’s an o
 ```{r}
 library("auditor")
 
-lm_audit <- audit(lm_model)
-rf_audit <- audit(rf_model)
+lm_audit <- audit(lm_model, label = "lm")
+rf_audit <- audit(rf_model, label = "rf")
 ```
 
 
@@ -127,12 +127,64 @@ For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt te
 This score is computed and described in `scoreGQ()` function.
 And may be computed also in `score()` function with argument `score` equals "GQ".
 
+### Half-Normal plots
+```{r}
+plotHalfNormal(lm_audit)
+```
+
+
 
 
 ## Which model has better performance?
 
+### Observed vs Predicted
+
+```{r}
+plotPrediction(lm_audit, rf_audit)
+```
+
+
+### Residuals Density
+
+```{r}
+plotResidDens(lm_audit, rf_audit)
+```
+
+
+###  Regression Error Characteristic (REC) Curve
+
+```{r}
+plotREC(lm_audit, rf_audit)
+```
+
+### Two-sided ECDF
+
+```{r}
+plotTwoSidedECDF(lm_audit, rf_audit)
+```
+
+
+###   Regression Receiver Operating Characteristic (RROC)
+
+```{r}
+plotRROC(lm_audit, rf_audit)
+```
+
+
 ## How similar models are?
 
+### Model PCA
+
+```{r}
+plotModelPCA(lm_audit, rf_audit)
+```
+
+
+### Pairs TODO - change name
+
+```{r}
+plotPairs(lm_audit, rf_audit)
+```
 
 
 
@@ -157,3 +209,8 @@ We will use the Prestige dataset from package car.
 plot(lm_audit, type="Cook")
 ```
 
+
+
+#Other methods
+
+Here will be described `plotLIFT()`, `plotCGains()`, `plotROC()`

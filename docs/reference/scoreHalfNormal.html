@@ -100,7 +100,12 @@
     </div>
 
     
-    <p>Simulated score</p>
+    <p>Score is approximately:
+\( \sum{#[res_i \leq simres_{i,j}] - n } \)
+with the distinction that each element of sum is also scaled to take values from [0,1].
+
+    \(res_i\) is a residual for i-th observation, \(simres_{i,j}\) is the residual of j-th simulation for i-th observation, and \(n\) is the number of simulations for each observation.
+Scores are calculated on the basis of simulated data, so they may differ between function calls.</p>
     
 
     <pre class="usage"><span class='fu'>scoreHalfNormal</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>

@@ -100,7 +100,9 @@
     </div>
 
     
-    <p>Score based on Runs test statistic. Note that this test is not very strong. It utilizes only signs of the residuals.</p>
+    <p>Score based on Runs test statistic. Note that this test is not very strong. It utilizes only signs of the residuals.
+The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.</p>
     
 
     <pre class="usage"><span class='fu'>scoreRuns</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -114,7 +116,7 @@
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>name of dependent or independent variable to order residuals. If NULL the fitted values are taken.</p></td>
+      <td><p>"Fitted values" or name of dependent or independent variable to order residuals. If NULL original data order is taken.</p></td>
     </tr>
     </table>
     

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model Scores computations — score â€¢ auditor</title>
+<title>Area Over the Curve for REC Curves — scoreREC â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,41 +96,36 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model Scores computations</h1>
+    <h1>Area Over the Curve for REC Curves</h1>
     </div>
 
     
-    <p>This function provides several scores for model validation and performance assessment.
-Scores can be also used to compare models.</p>
+    <p>The area over the Regression Error Characteristic curve is a measure of the expected error
+for the regression model.</p>
     
 
-    <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"GQ"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>scoreREC</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>object An object of class modelAudit</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>the type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'REC', 'ROC', 'RROC', 'Runs'
-(for detailed description see functions in seealso section).</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments dependent on the type of score.</p></td>
+      <td><p>An object of class ModelAudit</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an object of class scoreAudit, except Cooks distance, where numeric vector is returned</p>
+    <p>an object of class scoreAudit</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>J. Bi, and K. P. Bennet, "Regression error characteristic curves," in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='scoreCook.html'>scoreCook</a>, <a href='scoreDW.html'>scoreDW</a>, <a href='scoreGQ.html'>scoreGQ</a>, <a href='scoreHalfNormal.html'>scoreHalfNormal</a>, <a href='scoreREC.html'>scoreREC</a>, <a href='scoreROC.html'>scoreROC</a>, <a href='scoreRROC.html'>scoreRROC</a>, <a href='scoreRuns.html'>scoreRuns</a></code></p>
+    <p><code><a href='plotREC.html'>plotREC</a></code></p>
     
 
   </div>
@@ -140,6 +135,8 @@ Scores can be also used to compare models.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>

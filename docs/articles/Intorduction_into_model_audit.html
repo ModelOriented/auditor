@@ -73,7 +73,7 @@
       <h1>Introduction into model audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-04-10</h4>
+            <h4 class="date">2018-05-06</h4>
           </div>
 
     
@@ -81,109 +81,177 @@
 <div class="contents">
 <p>This vignette demonstrates how to use the auditor package. auditor provides methods for model verification and validation by error analysis.</p>
 <p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models.</p>
-<p>Most methods provided in auditor pacage are model-agnostic, so can be used regardless of knowledge about errors.</p>
+<p>Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors.</p>
 <p>Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)</code></pre></div>
-<div id="boston-data" class="section level1">
+<div id="regression-use-case---apartments-data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#boston-data" class="anchor"></a>Boston data</h1>
-<p>I our example we will use the Boston dataset from package MASS. It contains information about housing in the area of Boston.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
-Boston<span class="op">$</span>chas &lt;-<span class="st"> </span><span class="kw">as.logical</span>(Boston<span class="op">$</span>chas)
-<span class="kw">head</span>(Boston)</code></pre></div>
-<pre><code>##      crim zn indus  chas   nox    rm  age    dis rad tax ptratio  black
-## 1 0.00632 18  2.31 FALSE 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
-## 2 0.02731  0  7.07 FALSE 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
-## 3 0.02729  0  7.07 FALSE 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
-## 4 0.03237  0  2.18 FALSE 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
-## 5 0.06905  0  2.18 FALSE 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
-## 6 0.02985  0  2.18 FALSE 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
-##   lstat medv
-## 1  4.98 24.0
-## 2  9.14 21.6
-## 3  4.03 34.7
-## 4  2.94 33.4
-## 5  5.33 36.2
-## 6  5.21 28.7</code></pre>
+<a href="#regression-use-case---apartments-data" class="anchor"></a>Regression use case - apartments data</h1>
+<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset apartments available in the <a href="https://pbiecek.github.io/DALEX/"><em>DALEX</em></a> package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX)
+<span class="kw">data</span>(<span class="st">"apartments"</span>)
+<span class="kw">head</span>(apartments)</code></pre></div>
+<pre><code>##   m2.price construction.year surface floor no.rooms    district
+## 1     5897              1953      25     3        1 Srodmiescie
+## 2     1818              1992     143     9        5     Bielany
+## 3     3643              1937      56     1        2       Praga
+## 4     3517              1995      93     7        3      Ochota
+## 5     3013              1992     144     6        5     Mokotow
+## 6     5795              1926      61     6        2 Srodmiescie</code></pre>
 </div>
-<div id="random-forest-model" class="section level1">
+<div id="models" class="section level1">
 <h1 class="hasAnchor">
-<a href="#random-forest-model" class="anchor"></a>Random forest model</h1>
-<p>We need to fit model. For example a Random Forest model.</p>
+<a href="#models" class="anchor"></a>Models</h1>
+<p>We fit two models:</p>
+<div id="linear-model" class="section level2">
+<h2 class="hasAnchor">
+<a href="#linear-model" class="anchor"></a>Linear model</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st"> </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+</div>
+<div id="random-forest" class="section level2">
+<h2 class="hasAnchor">
+<a href="#random-forest" class="anchor"></a>Random forest</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"randomForest"</span>)
-Boston_rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(medv <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Boston, <span class="dt">ntree=</span><span class="dv">50</span>)</code></pre></div>
+<span class="kw">set.seed</span>(<span class="dv">59</span>)
+rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st">  </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+</div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preparation-for-error-analysis" class="anchor"></a>Preparation for error analysis</h1>
-<p>The beginning of each analysis is creation of a modelAudit object. It’s an object that can be used to audit a model.</p>
+<p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
-Boston_rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(Boston_rf_model)</code></pre></div>
+
+lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>)
+rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>)</code></pre></div>
 </div>
-<div id="error-analysis" class="section level1">
+<div id="model-audit" class="section level1">
 <h1 class="hasAnchor">
-<a href="#error-analysis" class="anchor"></a>Error analysis</h1>
-<p>In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores.</p>
-<div id="plotting-residuals" class="section level2">
+<a href="#model-audit" class="anchor"></a>Model audit</h1>
+<p>In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.</p>
+<div id="does-the-model-fit-data-is-it-not-missing-the-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plotting-residuals" class="anchor"></a>Plotting residuals</h2>
+<a href="#does-the-model-fit-data-is-it-not-missing-the-information" class="anchor"></a>Does the model fit data? Is it not missing the information?</h2>
+<div id="plotting-residuals" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plotting-residuals" class="anchor"></a>Plotting residuals</h3>
 <p>Function <code>plot()</code> used on modelAudit object returns a <strong>Residuals vs fitted values plot</strong>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
-<p>Residuals may be ordered by values any model variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">variable =</span> <span class="st">"medv"</span>)</code></pre></div>
+<p>Residuals may be ordered by values any model variable of by fitted values. And both models may be plotted together.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, lm_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 <p>In the following sections we will show how to use the <code>plot()</code> function to generate another diagnostic plots.</p>
 </div>
-<div id="autocorrelation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#autocorrelation" class="anchor"></a>Autocorrelation</h2>
+<div id="autocorrelation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#autocorrelation" class="anchor"></a>Autocorrelation</h3>
 <p>On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"Autocorrelation"</span>, <span class="dt">variable=</span><span class="st">"crim"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, <span class="dt">type=</span><span class="st">"Autocorrelation"</span>, <span class="dt">variable=</span><span class="st">"m2.price"</span>)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 <p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
 <p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions and the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(Boston_rf_audit, <span class="dt">score=</span><span class="st">"DW"</span>, <span class="dt">variable =</span> <span class="st">"crim"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 2.004283</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(Boston_rf_audit, <span class="dt">score=</span><span class="st">"Runs"</span>, <span class="dt">variable =</span> <span class="st">"crim"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 2.289233</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(rf_audit, <span class="dt">type =</span><span class="st">"DW"</span>, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)<span class="op">$</span>score</code></pre></div>
+<pre><code>## [1] 0.4109315</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(rf_audit, <span class="dt">type =</span><span class="st">"Runs"</span>, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)<span class="op">$</span>score</code></pre></div>
+<pre><code>## [1] -17.66739</code></pre>
 </div>
-<div id="autocorrelation-function-plot" class="section level2">
-<h2 class="hasAnchor">
-<a href="#autocorrelation-function-plot" class="anchor"></a>Autocorrelation Function plot</h2>
+<div id="autocorrelation-function-plot" class="section level3">
+<h3 class="hasAnchor">
+<a href="#autocorrelation-function-plot" class="anchor"></a>Autocorrelation Function plot</h3>
 <p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"ACF"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, <span class="dt">type=</span><span class="st">"ACF"</span>)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </div>
-<div id="scale-location" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scale-location" class="anchor"></a>Scale Location</h2>
+<div id="scale-location" class="section level3">
+<h3 class="hasAnchor">
+<a href="#scale-location" class="anchor"></a>Scale Location</h3>
 <p>This plot shows if residuals are spread equally along the ranges of predictors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Boston_rf_audit, <span class="dt">type=</span><span class="st">"ScaleLocation"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, <span class="dt">type=</span><span class="st">"ScaleLocation"</span>)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
 <p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. This score is computed and described in <code><a href="../reference/scoreGQ.html">scoreGQ()</a></code> function. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
 </div>
-<div id="cooks-distances" class="section level2">
+<div id="half-normal-plots" class="section level3">
+<h3 class="hasAnchor">
+<a href="#half-normal-plots" class="anchor"></a>Half-Normal plots</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(lm_audit)</code></pre></div>
+<pre><code>## Gaussian model (lm object)</code></pre>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+</div>
+</div>
+<div id="which-model-has-better-performance" class="section level2">
 <h2 class="hasAnchor">
-<a href="#cooks-distances" class="anchor"></a>Cook’s distances</h2>
+<a href="#which-model-has-better-performance" class="anchor"></a>Which model has better performance?</h2>
+<div id="observed-vs-predicted" class="section level3">
+<h3 class="hasAnchor">
+<a href="#observed-vs-predicted" class="anchor"></a>Observed vs Predicted</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotPrediction.html">plotPrediction</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
+</div>
+<div id="residuals-density" class="section level3">
+<h3 class="hasAnchor">
+<a href="#residuals-density" class="anchor"></a>Residuals Density</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
+</div>
+<div id="regression-error-characteristic-rec-curve" class="section level3">
+<h3 class="hasAnchor">
+<a href="#regression-error-characteristic-rec-curve" class="anchor"></a>Regression Error Characteristic (REC) Curve</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotREC.html">plotREC</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+</div>
+<div id="two-sided-ecdf" class="section level3">
+<h3 class="hasAnchor">
+<a href="#two-sided-ecdf" class="anchor"></a>Two-sided ECDF</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotTwoSidedECDF.html">plotTwoSidedECDF</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+</div>
+<div id="regression-receiver-operating-characteristic-rroc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#regression-receiver-operating-characteristic-rroc" class="anchor"></a>Regression Receiver Operating Characteristic (RROC)</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotRROC.html">plotRROC</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+</div>
+</div>
+<div id="how-similar-models-are" class="section level2">
+<h2 class="hasAnchor">
+<a href="#how-similar-models-are" class="anchor"></a>How similar models are?</h2>
+<div id="model-pca" class="section level3">
+<h3 class="hasAnchor">
+<a href="#model-pca" class="anchor"></a>Model PCA</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelPCA.html">plotModelPCA</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+</div>
+<div id="pairs-todo---change-name" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pairs-todo---change-name" class="anchor"></a>Pairs TODO - change name</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotPairs.html">plotPairs</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
+</div>
+</div>
+<div id="other-questions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-questions" class="anchor"></a>Other questions</h2>
+<div id="which-observations-are-outlyers" class="section level3">
+<h3 class="hasAnchor">
+<a href="#which-observations-are-outlyers" class="anchor"></a>Which observations are outlyers?</h3>
+<div id="cooks-distances" class="section level4">
+<h4 class="hasAnchor">
+<a href="#cooks-distances" class="anchor"></a>Cook’s distances</h4>
 <p>Cook’s distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model.</p>
 <p>Data points indicated by Cook’s distances are worth checking for validity. Cook’s distances may be also used for indicating regions of the design space where it would be good to obtain more observations.</p>
 <p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
 <p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
 <p>We will use the Prestige dataset from package car.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(car)
-<span class="kw">data</span>(Prestige)
-<span class="kw">head</span>(Prestige)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige_lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige<span class="op">~</span>education <span class="op">+</span><span class="st"> </span>women <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Prestige)
-Prestige_lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(Prestige_lm_model)
-<span class="kw">plot</span>(Prestige_lm_audit, <span class="dt">type=</span><span class="st">"Cook"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, <span class="dt">type=</span><span class="st">"Cook"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 </div>
 </div>
-<div id="more-methods" class="section level1">
+</div>
+</div>
+<div id="other-methods" class="section level1">
 <h1 class="hasAnchor">
-<a href="#more-methods" class="anchor"></a>More methods</h1>
-<p>Package auditor provides also methods for generating HalfNormal plots with simulated envelopes and computing HalfNormal scores. Further details and use case for this tools are in <a href="https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html">The half-normal plots</a>.</p>
+<a href="#other-methods" class="anchor"></a>Other methods</h1>
+<p>Here will be described <code><a href="../reference/plotLIFT.html">plotLIFT()</a></code>, <code><a href="../reference/plotCGains.html">plotCGains()</a></code>, <code><a href="../reference/plotROC.html">plotROC()</a></code></p>
 </div>
 </div>
   </div>
@@ -193,19 +261,23 @@ Prestige_lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../ref
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#boston-data">Boston data</a></li>
-      <li><a href="#random-forest-model">Random forest model</a></li>
-      <li><a href="#preparation-for-error-analysis">Preparation for error analysis</a></li>
+<li><a href="#regression-use-case---apartments-data">Regression use case - apartments data</a></li>
       <li>
-<a href="#error-analysis">Error analysis</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#plotting-residuals">Plotting residuals</a></li>
-      <li><a href="#autocorrelation">Autocorrelation</a></li>
-      <li><a href="#autocorrelation-function-plot">Autocorrelation Function plot</a></li>
-      <li><a href="#scale-location">Scale Location</a></li>
-      <li><a href="#cooks-distances">Cook’s distances</a></li>
+<a href="#models">Models</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#linear-model">Linear model</a></li>
+      <li><a href="#random-forest">Random forest</a></li>
       </ul>
 </li>
-      <li><a href="#more-methods">More methods</a></li>
+      <li><a href="#preparation-for-error-analysis">Preparation for error analysis</a></li>
+      <li>
+<a href="#model-audit">Model audit</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#does-the-model-fit-data-is-it-not-missing-the-information">Does the model fit data? Is it not missing the information?</a></li>
+      <li><a href="#which-model-has-better-performance">Which model has better performance?</a></li>
+      <li><a href="#how-similar-models-are">How similar models are?</a></li>
+      <li><a href="#other-questions">Other questions</a></li>
+      </ul>
+</li>
+      <li><a href="#other-methods">Other methods</a></li>
       </ul>
 </div>
       </div>

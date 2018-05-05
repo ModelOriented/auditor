@@ -100,7 +100,9 @@
     </div>
 
     
-    <p>Autocorrelation based on Durbin-Watson Test.</p>
+    <p>Score based on Durbin-Watson test statistic.
+The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.</p>
     
 
     <pre class="usage"><span class='fu'>scoreDW</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -114,9 +116,13 @@
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>name of dependent or independent variable to order residuals. If NULL the fitted values are taken.</p></td>
+      <td><p>"Fitted values" or name of dependent or independent variable to order residuals. If NULL the original data order is taken.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>an object of class scoreAudit</p>
     
 
   </div>
@@ -124,7 +130,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>
