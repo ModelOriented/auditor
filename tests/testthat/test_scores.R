@@ -1,3 +1,5 @@
+context("Scores")
+
 source("objects_for_tests.R")
 
 test_that("scoreGQ", {

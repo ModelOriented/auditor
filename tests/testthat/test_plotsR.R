@@ -1,3 +1,5 @@
+context("plots")
+
 source("objects_for_tests.R")
 
 test_that("plotACF", {

@@ -17,7 +17,7 @@
 scoreHalfNormal <- function(object, ...){
   if(class(object)=="modelAudit") object <- object$model
 
-  hnpObject <- halfNormal(object,...)
+  hnpObject <- hnp(object,...)
   result <- list(
     name = "halfNormal",
     score = calculateScorePDF(hnpObject)

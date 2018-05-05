@@ -55,7 +55,7 @@ plotHN.randomForest <- function(object, data, ...){
     mod <- update(object, data = newdata)
     return(mod)
   }
-    hnpObject <- halfNormal(object, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun)
+    hnpObject <- hnp(object, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun)
 
     dataPlot <- datasetHalfNormalPlot(hnpObject, ...)
 
@@ -64,7 +64,7 @@ plotHN.randomForest <- function(object, data, ...){
 
 plotHN.default <- function(object, ...){
 
-  hnpObject <- halfNormal(object, ...)
+  hnpObject <- hnp(object, plot.sim=FALSE, ...)
 
   dataPlot <- datasetHalfNormalPlot(hnpObject, ...)
 
@@ -143,20 +143,5 @@ calculateScorePDF <- function(hnpObject){
   n <- length(res)
   PDFs <- mapply(calculateKDE, res, simres)
   return(sum(PDFs))
-}
-
-
-# Calculating simulated residuals and envelope
-halfNormal <- function(object, ...){
-    trace(hnp::.makehnp, at = 13, print = FALSE,
-           tracer = quote(simdata <- list(
-           "x"=q.x,
-           "lower"=t(env)[, 1],
-           "median"=t(env)[, 2],
-           "upper"=t(env)[, 3],
-           "residuals"=res.original,
-           "all.sim"=res) ) )
-
-    hnpObject <- hnp(object, plot.sim=FALSE, ...)
 }
 
