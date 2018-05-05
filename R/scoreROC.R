@@ -1,9 +1,9 @@
-#' @title Area Under Curve (AUC)
+#' @title Area Under ROC Curve (AUC)
 #'
 #' @description Area Under Curve (AUC) for Receiver Operating Characteristic
 #' @param object An object of class ModelAudit
 #'
-#' @return numeric
+#' @return an object of class scoreAudit
 #'
 #' @seealso \code{\link{plotROC}}
 #'
@@ -14,5 +14,13 @@
 
 scoreROC <- function(object){
 
-  auc(object$y, object$fitted.values)
+  auc <- auc(object$y, object$fitted.values)
+
+  ROCResults <- list(
+    name = "ROC",
+    score = auc
+  )
+
+  class(ROCResults) <- "scoreAudit"
+  return(ROCResults)
 }

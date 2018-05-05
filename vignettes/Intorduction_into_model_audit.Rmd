@@ -93,8 +93,8 @@ DW score and Runs score are based on Durbin-Watson and Runs test statistics. Det
 Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions and the `score()` function with argument `score` equals to "DW" or "Runs".
 
 ```{r}
-score(Boston_rf_audit, score="DW", variable = "crim")$score
-score(Boston_rf_audit, score="Runs", variable = "crim")$score
+score(Boston_rf_audit, type ="DW", variable = "crim")$score
+score(Boston_rf_audit, type ="Runs", variable = "crim")$score
 ```
 
 ## Autocorrelation Function plot

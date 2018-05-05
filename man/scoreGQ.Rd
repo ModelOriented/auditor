@@ -9,7 +9,10 @@ scoreGQ(object, variable = NULL)
 \arguments{
 \item{object}{object An object of class ModelAudit}
 
-\item{variable}{name of dependent or independent variable to order residuals. If NULL the fitted values are taken.}
+\item{variable}{name of dependent or independent variable to order residuals. If NULL original data order is taken.}
+}
+\value{
+an object of class scoreAudit
 }
 \description{
 This score is calculated on the basis of Goldfeld-Quandt test, which is used for checking for homoscedasticity of residuals in regression analyses.

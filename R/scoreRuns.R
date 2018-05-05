@@ -1,9 +1,11 @@
 #' @title Runs Score
 #'
 #' @description Score based on Runs test statistic. Note that this test is not very strong. It utilizes only signs of the residuals.
+#' The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+#' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
 #' @param object object An object of class ModelAudit
-#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..
+#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL original data order is taken.
 #'
 #' @importFrom tseries runs.test
 #'
@@ -24,7 +26,7 @@ scoreRuns <- function(object, variable = NULL){
 
 
   result <- list(
-    name = "Runs test",
+    name = "Runs",
     score = RunsTested$statistic[[1]],
     pValue = RunsTested$p.value
   )

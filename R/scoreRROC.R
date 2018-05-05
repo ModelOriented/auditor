@@ -4,7 +4,7 @@
 #'
 #' @param object An object of class ModelAudit
 #'
-#' @return numeric
+#' @return an object of class scoreAudit
 #'
 #' @seealso \code{\link{plotRROC}}
 #'
@@ -24,7 +24,14 @@ scoreRROC <- function(object){
     print(0.5 * (y[i+1] + y[i]) * (x[i+1] - x[i]))
     aoc <- aoc + 0.5 * (y[i+1] + y[i]) * (x[i+1] - x[i])
   }
-  aoc
+
+  RROCResults <- list(
+    name = "RROC",
+    score = aoc
+  )
+
+  class(RROCResults) <- "scoreAudit"
+  return(RROCResults)
 
 }
 

@@ -17,6 +17,7 @@
 #'
 #' @importFrom stats cooks.distance update
 #'
+#' @return numeric vector
 #'
 #' @export
 #'
@@ -44,5 +45,7 @@ computeScoreCook <- function(model, modelData, print){
     if(print==TRUE) cat(i, "out of", n, "\r")
     utils::flush.console()
   }
+
+
   return(D)
 }

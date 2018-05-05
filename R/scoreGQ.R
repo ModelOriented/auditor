@@ -16,16 +16,15 @@
 #' \code{scoreGQ} function uses a two-sided F-test.
 #'
 #' @param object object An object of class ModelAudit
-#' @param variable name of dependent or independent variable to order residuals. If NULL the fitted values are taken.
+#' @param variable name of dependent or independent variable to order residuals. If NULL original data order is taken.
 #'
 #' @importFrom stats update rstandard predict pf sd
+#'
+#' @return an object of class scoreAudit
 #'
 #' @export
 
 scoreGQ <- function(object, variable = NULL){
-  if(is.null(variable) || variable=="Fitted values") {
-    variable <- "Fitted values"
-  }
 
   dataForModels <- getOrderedData(object, variable)
   originalModel <- object$model
@@ -66,15 +65,18 @@ scoreGQ <- function(object, variable = NULL){
 
 getOrderedData <- function(object, variable){
   dataFromModel <- object$data
-  if(variable == "Fitted values") {
-    dataFromModel$fitted <- object$fitted.values
-    variable <- "fitted"
+  if(!is.null(variable)){
+    if(variable == "Fitted values") {
+      dataFromModel$fitted <- object$fitted.values
+      variable <- "fitted"
+    }
+
+    dataFromModel <- dplyr::arrange_(dataFromModel, variable)
+    if(variable == "Fitted values")  dataFromModel <- dataFromModel[,-ncol(dataForModels)]
   }
 
-  dataForModels <- dplyr::arrange_(dataFromModel, variable)
-  if(variable == "Fitted values")  dataForModels <- dataForModels[,-ncol(dataForModels)]
 
-  return(dataForModels)
+  return(dataFromModel)
 }
 
 

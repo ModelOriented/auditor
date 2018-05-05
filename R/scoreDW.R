@@ -1,11 +1,15 @@
 #' @title Durbin-Watson Score
 #'
-#' @description Autocorrelation based on Durbin-Watson Test.
+#' @description Score based on Durbin-Watson test statistic.
+#' The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+#' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
 #' @param object object An object of class ModelAudit
-#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..
+#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL the original data order is taken.
 #'
 #' @importFrom car durbinWatsonTest
+#'
+#' @return an object of class scoreAudit
 #'
 #' @export
 

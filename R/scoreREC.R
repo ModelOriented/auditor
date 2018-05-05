@@ -5,7 +5,7 @@
 #'
 #' @param object An object of class ModelAudit
 #'
-#' @return numeric
+#' @return an object of class scoreAudit
 #'
 #' @seealso \code{\link{plotREC}}
 #'
@@ -24,8 +24,14 @@ scoreREC <- function(object){
   for (i in 2:length(x)) {
     aoc <- aoc - 0.5 * (x[i] - x[i - 1]) * (y[i] + y[i - 1])
   }
-  aoc
 
+  RECResults <- list(
+    name = "REC",
+    score = aoc
+    )
+
+  class(RECResults) <- "scoreAudit"
+  return(RECResults)
 }
 
 # getRECDF is in plotREC.R file

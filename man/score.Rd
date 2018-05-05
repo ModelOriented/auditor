@@ -4,19 +4,23 @@
 \alias{score}
 \title{Model Scores computations}
 \usage{
-score(object, score = "GQ", ...)
+score(object, type = "GQ", ...)
 }
 \arguments{
 \item{object}{object An object of class modelAudit}
 
-\item{score}{the type of score to  be calculated. Possible values: 'GQ', 'DW', 'Runs', 'HalfNormal', 'Cook' (for detailed description see functions in seealso section).}
+\item{type}{the type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'REC', 'ROC', 'RROC', 'Runs'
+(for detailed description see functions in seealso section).}
 
 \item{...}{other arguments dependent on the type of score.}
+}
+\value{
+an object of class scoreAudit, except Cooks distance, where numeric vector is returned
 }
 \description{
 This function provides several scores for model validation and performance assessment.
 Scores can be also used to compare models.
 }
 \seealso{
-\code{\link{scoreGQ}, \link{scoreDW}, \link{scoreRuns}, \link{scoreHalfNormal}, \link{scoreCook}}
+\code{\link{scoreCook}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
 }

@@ -10,7 +10,7 @@ scoreRROC(object)
 \item{object}{An object of class ModelAudit}
 }
 \value{
-numeric
+an object of class scoreAudit
 }
 \description{
 The area over the Regression Receiver Operating Characteristic

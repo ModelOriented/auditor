@@ -2,7 +2,7 @@
 % Please edit documentation in R/scoreROC.R
 \name{scoreROC}
 \alias{scoreROC}
-\title{Area Under Curve (AUC)}
+\title{Area Under ROC Curve (AUC)}
 \usage{
 scoreROC(object)
 }
@@ -10,7 +10,7 @@ scoreROC(object)
 \item{object}{An object of class ModelAudit}
 }
 \value{
-numeric
+an object of class scoreAudit
 }
 \description{
 Area Under Curve (AUC) for Receiver Operating Characteristic

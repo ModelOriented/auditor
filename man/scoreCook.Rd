@@ -11,6 +11,9 @@ scoreCook(object, print = TRUE)
 
 \item{print}{If TRUE progress is printed}
 }
+\value{
+numeric vector
+}
 \description{
 Cook’s distance are used for estimate of the influence of an single observation.
 }
