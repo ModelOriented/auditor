@@ -27,6 +27,7 @@ Imports: car,
     tseries
 RoxygenNote: 6.0.1
 Suggests: aods3,
+    breakDown,
     gamlss,
     knitr,
     lme4,

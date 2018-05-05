@@ -4,7 +4,7 @@
 #' Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 #' which can be further processed by various error analysis functions.
 #'
-#' @param object An object containing a model or object of class explainer (see \link[DALEX]{explain}.
+#' @param object An object containing a model or object of class explainer (see \code{\link[DALEX]{explain}}).
 #' @param data Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.
 #' @param y Response vector that will be used by further validation functions. Some functions may require an integer vector containing binary labels with values 0,1.  If not provided, will be extracted from the model.
 #' @param predict.function Function that takes two arguments: model and data. It should return a numeric vector with predictions.

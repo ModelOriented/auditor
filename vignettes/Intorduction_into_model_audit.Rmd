@@ -22,69 +22,79 @@ auditor provides methods for model verification and validation by error analysis
 
 Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. 
 
-Most methods provided in auditor pacage are model-agnostic, so can be used regardless of knowledge about errors. 
+Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors. 
 
 Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.
 
 
 
-```{r}
-set.seed(123)
-```
+# Regression use case - apartments data
 
-# Boston data
-
-I our example we will use the Boston dataset from package MASS. It contains information about housing in the area of Boston.
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset apartments available in the [*DALEX*](https://pbiecek.github.io/DALEX/) package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.
 
 ```{r}
-data(Boston, package = "MASS")
-Boston$chas <- as.logical(Boston$chas)
-head(Boston)
+library(DALEX)
+data("apartments")
+head(apartments)
 ```
 
-# Random forest model
+# Models
 
-We need to fit model. For example a Random Forest model.
+We fit two models:
 
+## Linear model
+```{r}
+lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + district, data = apartments)
+```
+
+
+## Random forest
 ```{r}
 library("randomForest")
-Boston_rf_model <- randomForest(medv ~ ., data = Boston, ntree=50)
+set.seed(59)
+rf_model <- randomForest(m2.price ~ construction.year + surface + floor +  no.rooms + district, data = apartments)
 ```
 
+
 # Preparation for error analysis
-The beginning of each analysis is creation of a modelAudit object. It’s an object that can be used to audit a model.
+The beginning of each analysis is creation of a `modelAudit` object. It’s an object that can be used to audit a model.
 
 ```{r}
 library("auditor")
-Boston_rf_audit <- audit(Boston_rf_model)
+
+lm_audit <- audit(lm_model)
+rf_audit <- audit(rf_model)
 ```
 
-# Error analysis
 
-In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores.
+# Model audit
 
-## Plotting residuals
+In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.
+
+## Does the model fit data? Is it not missing the information?
+
+### Plotting residuals
 
 Function `plot()` used on modelAudit object returns a **Residuals vs fitted values plot**. 
 
 ```{r}
-plot(Boston_rf_audit)
+plot(rf_audit)
 ```
 
-Residuals may be ordered by values any model variable.
+Residuals may be ordered by values any model variable of by fitted values. And both models may be plotted together.
 ```{r}
-plot(Boston_rf_audit, variable = "medv")
+plot(rf_audit, lm_audit, variable = "m2.price")
 ```
 
 In the following sections we will show how to use the `plot()` function to generate another diagnostic plots.
 
 
-## Autocorrelation
+### Autocorrelation
 
 On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.
 
 ```{r}
-plot(Boston_rf_audit, type="Autocorrelation", variable="crim")
+plot(rf_audit, type="Autocorrelation", variable="m2.price")
 ```
 
 Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model.
@@ -93,24 +103,24 @@ DW score and Runs score are based on Durbin-Watson and Runs test statistics. Det
 Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions and the `score()` function with argument `score` equals to "DW" or "Runs".
 
 ```{r}
-score(Boston_rf_audit, type ="DW", variable = "crim")$score
-score(Boston_rf_audit, type ="Runs", variable = "crim")$score
+score(rf_audit, type ="DW", variable = "m2.price")$score
+score(rf_audit, type ="Runs", variable = "m2.price")$score
 ```
 
-## Autocorrelation Function plot
+### Autocorrelation Function plot
 
 Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
 
 ```{r}
-plot(Boston_rf_audit, type="ACF")
+plot(rf_audit, type="ACF")
 ```
 
-## Scale Location
+### Scale Location
 
 This plot shows if residuals are spread equally along the ranges of predictors. 
 
 ```{r}
-plot(Boston_rf_audit, type="ScaleLocation")
+plot(rf_audit, type="ScaleLocation")
 ```
 
 For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
@@ -118,7 +128,19 @@ This score is computed and described in `scoreGQ()` function.
 And may be computed also in `score()` function with argument `score` equals "GQ".
 
 
-## Cook's distances
+
+## Which model has better performance?
+
+## How similar models are?
+
+
+
+
+## Other questions
+
+### Which observations are outlyers?
+
+#### Cook's distances
 
 Cook's distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model. 
 
@@ -130,18 +152,8 @@ In the case of models of classes other than `lm` and `glm` the distances are com
 In this example we will compute them for a linear model. 
 
 We will use the Prestige dataset from package car.
-```{r Cook, results='hide', fig.keep='all'}
-library(car)
-data(Prestige)
-head(Prestige)
-```
 
 ```{r}
-Prestige_lm_model <- lm(prestige~education + women + income, data = Prestige)
-Prestige_lm_audit <- audit(Prestige_lm_model)
-plot(Prestige_lm_audit, type="Cook")
+plot(lm_audit, type="Cook")
 ```
 
-# More methods
-
-Package auditor provides also methods for generating HalfNormal plots with simulated envelopes and computing HalfNormal scores. Further details and use case for this tools are in [The half-normal plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html).

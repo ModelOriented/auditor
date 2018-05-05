@@ -8,7 +8,7 @@ audit(object, data = NULL, y = NULL, predict.function = NULL,
   residual.function = NULL, label = NULL)
 }
 \arguments{
-\item{object}{An object containing a model or object of class explainer (see \link[DALEX]{explain}.}
+\item{object}{An object containing a model or object of class explainer (see \code{\link[DALEX]{explain}}).}
 
 \item{data}{Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.}
 
