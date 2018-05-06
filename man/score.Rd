@@ -9,7 +9,7 @@ score(object, type = "GQ", ...)
 \arguments{
 \item{object}{object An object of class modelAudit}
 
-\item{type}{the type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'REC', 'ROC', 'RROC', 'Runs'
+\item{type}{the type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
 (for detailed description see functions in seealso section).}
 
 \item{...}{other arguments dependent on the type of score.}
@@ -22,5 +22,5 @@ This function provides several scores for model validation and performance asses
 Scores can be also used to compare models.
 }
 \seealso{
-\code{\link{scoreCook}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
+\code{\link{scoreCook}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
 }

@@ -21,7 +21,6 @@ scoreRROC <- function(object){
 
   aoc <- 0
   for (i in 2:(length(x) - 2)) {
-    print(0.5 * (y[i+1] + y[i]) * (x[i+1] - x[i]))
     aoc <- aoc + 0.5 * (y[i+1] + y[i]) * (x[i+1] - x[i])
   }
 

@@ -62,8 +62,8 @@ The beginning of each analysis is creation of a `modelAudit` object. It’s an o
 ```{r}
 library("auditor")
 
-lm_audit <- audit(lm_model, label = "lm")
-rf_audit <- audit(rf_model, label = "rf")
+lm_audit <- audit(lm_model, label = "lm", data = apartmentsTest, y = apartmentsTest$m2.price)
+rf_audit <- audit(rf_model, label = "rf", data = apartmentsTest, y = apartmentsTest$m2.price)
 ```
 
 
@@ -169,6 +169,11 @@ plotTwoSidedECDF(lm_audit, rf_audit)
 ```{r}
 plotRROC(lm_audit, rf_audit)
 ```
+
+```{r}
+plotModelRanking(lm_audit, rf_audit)
+```
+
 
 
 ## How similar models are?

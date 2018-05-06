@@ -13,6 +13,8 @@
 #'
 #' @export
 plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
+  lag <- acf <- ymin <- NULL
+
   df <- getOrderedResiduals(object, variable)
 
   dfl <- list(...)
