@@ -1,6 +1,6 @@
-#' @title Resid Dens
+#' @title Residual Density Plot
 #'
-#' @description Density of residuals
+#' @description Density of model residuals.
 #'
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
@@ -33,7 +33,8 @@ plotResidDens <- function(object, ...){
     geom_vline(xintercept = 0) +
     geom_rug(aes(color = label), alpha = 0.5) +
     theme_light() +
-    xlab("residuals")
+    xlab("residuals") +
+    ggtitle("Residual Density")
 
   return(p)
 }

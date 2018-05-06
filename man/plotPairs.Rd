@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotPairs.R
 \name{plotPairs}
 \alias{plotPairs}
-\title{Pairs plot}
+\title{Model Correlation Plot}
 \usage{
 plotPairs(object, ..., values = "fitted")
 }
@@ -17,7 +17,7 @@ plotPairs(object, ..., values = "fitted")
 ggplot object
 }
 \description{
-Pairs plot of fitted values and residuals
+Matrix of plots
 }
 \seealso{
 \code{\link{plot.modelAudit}}

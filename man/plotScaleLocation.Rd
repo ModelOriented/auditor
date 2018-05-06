@@ -16,5 +16,4 @@ plotScaleLocation(object, variable = NULL, score = FALSE)
 \description{
 Variable values vs square root of the absolute value of the residuals.
 A vertical line corresponds to median.
-Goldfeld-Quandt score - checking assumption of homoscedasticity of residuals.
 }

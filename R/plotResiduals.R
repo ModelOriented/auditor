@@ -27,6 +27,11 @@ plotResiduals <- function(object, ..., variable=NULL){
   }
 
   maybe_points <- if (length(unique(df$label)) ==1) df else df[0, ]
+  if (is.null(variable)) {
+    title <- "Residuals"
+  } else {
+    title <- paste0("Residuals vs ", variable)
+  }
 
 
   ggplot(df, aes(values, residuals)) +
@@ -34,7 +39,7 @@ plotResiduals <- function(object, ..., variable=NULL){
     geom_smooth(aes(color = label), method = "loess", se = FALSE) +
     xlab(variable) +
     ylab("Residuals") +
-    ggtitle(paste0("Residuals vs ", variable)) +
+    ggtitle(title) +
     theme_light()
 }
 

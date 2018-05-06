@@ -50,9 +50,12 @@ plotREC <- function(object, ...){
 
   ggplot(df, aes(x=RECX, y=RECY, color = label)) +
     geom_line() +
+    scale_y_continuous(breaks = seq(0,1,0.1),
+                       labels = paste(seq(0, 100, 10),"%"),
+                       name = "Accuracy") +
     theme_light() +
-    ylab("Accuracy") +
-    xlab("Error tolerance")
+    xlab("Error tolerance") +
+    ggtitle("REC Curve")
 
 }
 

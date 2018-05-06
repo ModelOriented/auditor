@@ -73,8 +73,9 @@ plotRROC <- function(object, ...){
     geom_line() +
     geom_point(data = df0, aes(x=RROCX0, y=RROCY0), size = 3) +
     theme_light() +
-    ylab("UNDER") +
-    xlab("OVER")
+    ylab("under-estimation") +
+    xlab("over-estimation") +
+    ggtitle("RROC Curve")
 
 }
 

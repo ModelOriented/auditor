@@ -1,6 +1,6 @@
-#' @title Pairs plot
+#' @title Model Correlation Plot
 #'
-#' @description Pairs plot of fitted values and residuals
+#' @description Matrix of plots
 #'
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
@@ -36,7 +36,8 @@ plotPairs <- function(object, ..., values = "fitted"){
   }
 
   ggpairs(df) +
-    theme_light()
+    theme_light() +
+    ggtitle("Model Correlation")
 
 }
 

@@ -12,11 +12,11 @@ plotTwoSidedECDF(object, ..., error.scaled = TRUE, outliers = NA,
 
 \item{...}{other modelAudit objects to be plotted together}
 
-\item{error.scaled}{Should ECDF be scaled by proportions of positive and negative proportions?}
+\item{error.scaled}{a logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.}
 
 \item{outliers}{number of outliers to be marked}
 
-\item{residuals}{should residuals be marked?}
+\item{residuals}{a logical value indicating whether residuals should be marked.}
 
 \item{y.reversed}{should values on y axib be reversed}
 }
@@ -24,7 +24,7 @@ plotTwoSidedECDF(object, ..., error.scaled = TRUE, outliers = NA,
 ggplot object
 }
 \description{
-Two-sided Cumulative Distribution Function
+Cumulative Distribution Function for positive and negative residuals.
 }
 \seealso{
 \code{\link{plot.modelAudit}}

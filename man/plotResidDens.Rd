@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotResidDens.R
 \name{plotResidDens}
 \alias{plotResidDens}
-\title{Resid Dens}
+\title{Residual Density Plot}
 \usage{
 plotResidDens(object, ...)
 }
@@ -15,7 +15,7 @@ plotResidDens(object, ...)
 ggplot object
 }
 \description{
-Density of residuals
+Density of model residuals.
 }
 \seealso{
 \code{\link{plot.modelAudit}}

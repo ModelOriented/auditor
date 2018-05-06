@@ -1,12 +1,12 @@
 #' @title Two-sided Cumulative Distribution Function
 #'
-#' @description Two-sided Cumulative Distribution Function
+#' @description Cumulative Distribution Function for positive and negative residuals.
 #'
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
-#' @param error.scaled Should ECDF be scaled by proportions of positive and negative proportions?
+#' @param error.scaled  a logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.
 #' @param outliers number of outliers to be marked
-#' @param residuals should residuals be marked?
+#' @param residuals a logical value indicating whether residuals should be marked.
 #' @param y.reversed should values on y axib be reversed
 #'
 #' @return ggplot object
