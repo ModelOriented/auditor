@@ -112,7 +112,7 @@ score(rf_audit, type ="Runs", variable = "m2.price")$score
 Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
 
 ```{r}
-plot(rf_audit, type="ACF")
+plot(lm_audit, rf_audit, type="ACF")
 ```
 
 ### Scale Location

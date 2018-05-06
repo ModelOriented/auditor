@@ -1,6 +1,10 @@
 #' @title Half-Normal plot
 #'
-#' @description Function \code{plotHalfNormal}...
+#' @description The half-normal plot is one of the tools designed to evaluate the goodness of fit of a
+#' statistical models. It is a graphical method for comparing two probability distributions by plotting
+#' their quantiles against each other.
+#' Points on the plot correspond to ordered absolute values of model diagnostic
+#' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
 #' @param object ModelAudit object, fitted model object or numeric vector
 #' @param score if TRUE score based on probability density function
@@ -10,14 +14,14 @@
 #' @param ylab the text for the y axis
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
 #'
-#' @details TO DO write about halfplots and scores.
-#'
 #' @return An object of class ggplot
 #'
 #' @import ggplot2
 #' @importFrom hnp hnp
 #' @importFrom fdrtool phalfnorm
 #' @importFrom stats ecdf dnorm density
+#'
+#' @seealso \code{\link{scoreHalfNormal}}
 #'
 #' @export
 
@@ -76,7 +80,7 @@ plotHN.default <- function(object, ...){
 
 plotIt <- function(hnpObject, dataPlot, score=TRUE, quant.scale=FALSE,
                    xlab = "Half-Normal Quantiles", ylab = "Residuals",
-                   main = "",...){
+                   main = "Half-Normal plot",...){
   x <- residuals <- upper <- lower <- NULL
   p <- ggplot(dataPlot, aes(x = x)) +
     geom_point(aes(y = residuals)) +

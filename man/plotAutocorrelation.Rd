@@ -2,18 +2,17 @@
 % Please edit documentation in R/plotAutocorrelation.R
 \name{plotAutocorrelation}
 \alias{plotAutocorrelation}
-\title{Autocorrelation plot}
+\title{Autocorrelation Plot}
 \usage{
 plotAutocorrelation(object, variable = NULL, score = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
-\item{variable}{"Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..}
+\item{variable}{name of dependent or independent variable to order residuals. If NULL original data order is taken.}
 
-\item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added}
+\item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.}
 }
 \description{
-Plot i-th residual vs i+1-th residual. Checking autocorrelation of residuals.
-Runs score, Durbin-Watson score
+Plot of i-th residual vs i+1-th residual.
 }

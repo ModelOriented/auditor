@@ -2,20 +2,25 @@
 % Please edit documentation in R/plotModelPCA.R
 \name{plotModelPCA}
 \alias{plotModelPCA}
-\title{Model PCA plot}
+\title{Principal Component Analysis of models}
 \usage{
-plotModelPCA(object, ...)
+plotModelPCA(object, ..., scale = TRUE, invisible = "none")
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{...}{other modelAudit objects to be plotted together}
+
+\item{scale}{a logical value indicating whether the models residuals should be scaled bfore the analysis.}
+
+\item{invisible}{a text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".}
 }
 \value{
 ggplot object
 }
 \description{
-PCA for model residuals
+Principal Component Analysis of models residuals.
+PCA can be used to assess the similarity of the models.
 }
 \seealso{
 \code{\link{plot.modelAudit}}

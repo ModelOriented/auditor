@@ -1,6 +1,6 @@
-#' @title Cumulative Gains Chart
+#' @title Cumulative Gain Chart
 #'
-#' @description Cumulative Gains Chartis a plot of the rate of positive prediction against true positive rate for the different thresholds.
+#' @description Cumulative Gain Chartis is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
@@ -34,6 +34,7 @@ plotCGains <- function(object, ...){
     geom_line() +
     xlab("Rate of Positive Prediction") +
     ylab("True Positive Rate") +
+    ggtitle("Cumulative Gain") +
     theme_light()
 }
 

@@ -1,12 +1,11 @@
-#' @title Autocorrelation plot
+#' @title Autocorrelation Plot
 #'
-#' @description Plot i-th residual vs i+1-th residual. Checking autocorrelation of residuals.
-#' Runs score, Durbin-Watson score
+#' @description Plot of i-th residual vs i+1-th residual.
 #'
 #'
 #' @param object An object of class ModelAudit
-#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..
-#' @param score Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added
+#' @param variable name of dependent or independent variable to order residuals. If NULL original data order is taken.
+#' @param score Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.
 #'
 #' @import ggplot2
 #'
@@ -21,7 +20,7 @@ plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
       geom_hline(yintercept = 0) +
       xlab("residual i") +
       ylab("residual i+1") +
-      ggtitle("Autocorrelation") +
+      ggtitle("Autocorrelation plot") +
       theme_light()
 
   if(score==TRUE){

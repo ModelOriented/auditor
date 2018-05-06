@@ -2,16 +2,19 @@
 % Please edit documentation in R/plotACF.R
 \name{plotACF}
 \alias{plotACF}
-\title{ACF plot}
+\title{Autocorrelation Function Plot}
 \usage{
-plotACF(object, variable = NULL)
+plotACF(object, ..., variable = NULL, alpha = 0.95)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
+\item{...}{other modelAudit objects to be plotted together}
+
 \item{variable}{name of dependent or independent variable to order residuals. If NULL the order from data is taken. If "Fitted values" then data is ordered by fitted values.}
+
+\item{alpha}{confidence level of the interval}
 }
 \description{
-Plot autocorrelation function of model residuals.
-Runs test, Durbin-Watson test
+Plot Autocorrelation Function of models residuals.
 }

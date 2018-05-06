@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotCook.R
 \name{plotCook}
 \alias{plotCook}
-\title{Cook plot}
+\title{Cook's Distances Plot}
 \usage{
 plotCook(object, nlabel = 3, ...)
 }
@@ -14,5 +14,16 @@ plotCook(object, nlabel = 3, ...)
 \item{...}{other arguments passed \code{\link{scoreCook}} to scoreCook.}
 }
 \description{
-Cooks distances
+Cook’s distance are used for estimate of the influence of an single observation.
+}
+\details{
+Cook’s distance is a tool for identifying observations that may negatively affect the model.
+They may be also used for indicating regions of the design space where it would be good to obtain more observations.
+Data points indicated by Cook’s distances are worth checking for validity.
+
+Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model.
+It shows how much all the values in the model change when the i-th observation is removed.
+
+Models of classes other than lm and glm the distances are computed directly from the definition,
+so this may take a while. In this example we will compute them for a linear model.
 }

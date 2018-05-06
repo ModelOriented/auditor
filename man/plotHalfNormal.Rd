@@ -26,8 +26,12 @@ plotHalfNormal(object, score = TRUE, quant.scale = FALSE,
 An object of class ggplot
 }
 \description{
-Function \code{plotHalfNormal}...
+The half-normal plot is one of the tools designed to evaluate the goodness of fit of a
+statistical models. It is a graphical method for comparing two probability distributions by plotting
+their quantiles against each other.
+Points on the plot correspond to ordered absolute values of model diagnostic
+(i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 }
-\details{
-TO DO write about halfplots and scores.
+\seealso{
+\code{\link{scoreHalfNormal}}
 }

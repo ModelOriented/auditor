@@ -1,9 +1,12 @@
-#' @title Model PCA plot
+#' @title Principal Component Analysis of models
 #'
-#' @description PCA for model residuals
+#' @description Principal Component Analysis of models residuals.
+#' PCA can be used to assess the similarity of the models.
 #'
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
+#' @param scale a logical value indicating whether the models residuals should be scaled bfore the analysis.
+#' @param invisible a text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".
 #'
 #' @return ggplot object
 #'
@@ -16,7 +19,7 @@
 #' @export
 
 
-plotModelPCA <- function(object, ...){
+plotModelPCA <- function(object, ..., scale = TRUE, invisible = "none"){
   residuals <- label <- NULL
   df <- getModelPCADF(object)
 
@@ -29,15 +32,19 @@ plotModelPCA <- function(object, ...){
     }
   }
 
-  res.pca <- prcomp(df, scale = FALSE)
+  res_pca <- prcomp(df, scale = scale)
 
-  fviz_pca_biplot(res.pca,
+  if(invisible == "model") invisible <- "var"
+  if(invisible == "observ") invisible <- "observ"
+
+  fviz_pca_biplot(res_pca,
                   repel = TRUE,
                   label = c("var"),
                   col.var = "#000000",
                   col.ind = "#d8d8d8",
-                  arrowsize = 1
-  )
+                  invisible = invisible,
+                  title = "Model PCA") +
+    theme_light()
 }
 
 

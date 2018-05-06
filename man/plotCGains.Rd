@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotCGains.R
 \name{plotCGains}
 \alias{plotCGains}
-\title{Cumulative Gains Chart}
+\title{Cumulative Gain Chart}
 \usage{
 plotCGains(object, ...)
 }
@@ -15,7 +15,7 @@ plotCGains(object, ...)
 ggplot object
 }
 \description{
-Cumulative Gains Chartis a plot of the rate of positive prediction against true positive rate for the different thresholds.
+Cumulative Gain Chartis is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \seealso{
