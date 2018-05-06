@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Autocorrelation plot — plotAutocorrelation â€¢ auditor</title>
+<title>Autocorrelation Plot — plotAutocorrelation â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,12 +96,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Autocorrelation plot</h1>
+    <h1>Autocorrelation Plot</h1>
     </div>
 
     
-    <p>Plot i-th residual vs i+1-th residual. Checking autocorrelation of residuals.
-Runs score, Durbin-Watson score</p>
+    <p>Plot of i-th residual vs i+1-th residual.</p>
     
 
     <pre class="usage"><span class='fu'>plotAutocorrelation</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -115,11 +114,11 @@ Runs score, Durbin-Watson score</p>
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>"Fitted values" or name of dependent or independent variable to order residuals. If NULL residuals won't be ordered..</p></td>
+      <td><p>name of dependent or independent variable to order residuals. If NULL original data order is taken.</p></td>
     </tr>
     <tr>
       <th>score</th>
-      <td><p>Logical, if TRUE values of <a href='scoreDW.html'>scoreDW</a> and <a href='scoreRuns.html'>scoreRuns</a> will be added</p></td>
+      <td><p>Logical, if TRUE values of <a href='scoreDW.html'>scoreDW</a> and <a href='scoreRuns.html'>scoreRuns</a> will be added to plot.</p></td>
     </tr>
     </table>
     

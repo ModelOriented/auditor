@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model PCA plot — plotModelPCA â€¢ auditor</title>
+<title>Principal Component Analysis of models — plotModelPCA â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,14 +96,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model PCA plot</h1>
+    <h1>Principal Component Analysis of models</h1>
     </div>
 
     
-    <p>PCA for model residuals</p>
+    <p>Principal Component Analysis of models residuals.
+PCA can be used to assess the similarity of the models.</p>
     
 
-    <pre class="usage"><span class='fu'>plotModelPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotModelPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>invisible</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,6 +116,14 @@
     <tr>
       <th>...</th>
       <td><p>other modelAudit objects to be plotted together</p></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>a logical value indicating whether the models residuals should be scaled bfore the analysis.</p></td>
+    </tr>
+    <tr>
+      <th>invisible</th>
+      <td><p>a text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".</p></td>
     </tr>
     </table>
     

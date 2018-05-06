@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ACF plot — plotACF â€¢ auditor</title>
+<title>Autocorrelation Function Plot — plotACF â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,15 +96,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ACF plot</h1>
+    <h1>Autocorrelation Function Plot</h1>
     </div>
 
     
-    <p>Plot autocorrelation function of model residuals.
-Runs test, Durbin-Watson test</p>
+    <p>Plot Autocorrelation Function of models residuals.</p>
     
 
-    <pre class="usage"><span class='fu'>plotACF</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plotACF</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,8 +113,16 @@ Runs test, Durbin-Watson test</p>
       <td><p>An object of class ModelAudit</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>other modelAudit objects to be plotted together</p></td>
+    </tr>
+    <tr>
       <th>variable</th>
       <td><p>name of dependent or independent variable to order residuals. If NULL the order from data is taken. If "Fitted values" then data is ordered by fitted values.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>confidence level of the interval</p></td>
     </tr>
     </table>
     

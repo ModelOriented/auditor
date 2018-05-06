@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cook plot — plotCook â€¢ auditor</title>
+<title>Cook's Distances Plot — plotCook â€¢ auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -96,11 +96,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cook plot</h1>
+    <h1>Cook's Distances Plot</h1>
     </div>
 
     
-    <p>Cooks distances</p>
+    <p>Cook’s distance are used for estimate of the influence of an single observation.</p>
     
 
     <pre class="usage"><span class='fu'>plotCook</span>(<span class='no'>object</span>, <span class='kw'>nlabel</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>)</pre>
@@ -122,13 +122,25 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Cook’s distance is a tool for identifying observations that may negatively affect the model.
+They may be also used for indicating regions of the design space where it would be good to obtain more observations.
+Data points indicated by Cook’s distances are worth checking for validity.</p>
+<p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model.
+It shows how much all the values in the model change when the i-th observation is removed.</p>
+<p>Models of classes other than lm and glm the distances are computed directly from the definition,
+so this may take a while. In this example we will compute them for a linear model.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

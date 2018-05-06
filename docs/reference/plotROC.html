@@ -135,10 +135,10 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 
 <span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>.</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,   <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)
 <span class='no'>au.glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm</span>, <span class='kw'>label</span><span class='kw'>=</span><span class='st'>"class glm"</span>)
-<span class='fu'>plotROC</span>(<span class='no'>au.glm</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: D not labeled 0/1, assuming neg = 0 and pos = 1!</span></div><div class='img'><img src='plotROC-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotROC</span>(<span class='no'>au.glm</span>)</div><div class='img'><img src='plotROC-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>model.glm.press</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>pressure</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,      <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)
 <span class='no'>au.glm.press</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm.press</span>)
-<span class='fu'>plotROC</span>(<span class='no'>au.glm</span>, <span class='no'>au.glm.press</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: D not labeled 0/1, assuming neg = 0 and pos = 1!</span></div><div class='img'><img src='plotROC-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotROC</span>(<span class='no'>au.glm</span>, <span class='no'>au.glm.press</span>)</div><div class='img'><img src='plotROC-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

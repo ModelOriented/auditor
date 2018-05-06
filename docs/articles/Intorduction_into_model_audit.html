@@ -73,7 +73,7 @@
       <h1>Introduction into model audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-05-06</h4>
+            <h4 class="date">2018-05-07</h4>
           </div>
 
     
@@ -121,8 +121,8 @@ rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.p
 <p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
 
-lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>)
-rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>)</code></pre></div>
+lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)
+rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)</code></pre></div>
 </div>
 <div id="model-audit" class="section level1">
 <h1 class="hasAnchor">
@@ -151,15 +151,15 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
 <p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions and the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(rf_audit, <span class="dt">type =</span><span class="st">"DW"</span>, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 0.4109315</code></pre>
+<pre><code>## [1] 0.4164191</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(rf_audit, <span class="dt">type =</span><span class="st">"Runs"</span>, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] -17.66739</code></pre>
+<pre><code>## [1] -55.54071</code></pre>
 </div>
 <div id="autocorrelation-function-plot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#autocorrelation-function-plot" class="anchor"></a>Autocorrelation Function plot</h3>
 <p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, <span class="dt">type=</span><span class="st">"ACF"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, rf_audit, <span class="dt">type=</span><span class="st">"ACF"</span>)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </div>
 <div id="scale-location" class="section level3">
@@ -210,6 +210,8 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#regression-receiver-operating-characteristic-rroc" class="anchor"></a>Regression Receiver Operating Characteristic (RROC)</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotRROC.html">plotRROC</a></span>(lm_audit, rf_audit)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
 </div>
 </div>
 <div id="how-similar-models-are" class="section level2">
@@ -219,13 +221,13 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <h3 class="hasAnchor">
 <a href="#model-pca" class="anchor"></a>Model PCA</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelPCA.html">plotModelPCA</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
 </div>
 <div id="pairs-todo---change-name" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pairs-todo---change-name" class="anchor"></a>Pairs TODO - change name</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotPairs.html">plotPairs</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 </div>
 </div>
 <div id="other-questions" class="section level2">
@@ -243,7 +245,7 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
 <p>We will use the Prestige dataset from package car.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, <span class="dt">type=</span><span class="st">"Cook"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
 </div>
 </div>
 </div>
