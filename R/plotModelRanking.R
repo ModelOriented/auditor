@@ -5,7 +5,7 @@
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
 #' @param type vector of score names to be plotted.
-#' @param new.scores a function or list of functions that take one argument: object of class ModelAudit and return a numeric value.
+#' @param new.score a function or list of functions that take one argument: object of class ModelAudit and return a numeric value.
 #'
 #' @return ggplot object
 #'
@@ -88,10 +88,9 @@ scaleModelRankingDF <- function(df){
 }
 
 
-coord_radar <- function(theta='x', start=0, direction=1){
-  match.arg(theta, c('x','y'))
+coord_radar <- function(){
   ggproto(NULL, CoordPolar,
-    theta=theta, r=ifelse(theta=='x','y','x'),
-    start=start, direction=sign(direction),
+    theta='x', r='y',
+    start=0, direction=1,
     is_linear=function() TRUE)
 }

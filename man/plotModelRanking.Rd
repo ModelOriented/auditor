@@ -14,7 +14,7 @@ plotModelRanking(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
 
 \item{type}{vector of score names to be plotted.}
 
-\item{new.scores}{a function or list of functions that take one argument: object of class ModelAudit and return a numeric value.}
+\item{new.score}{a function or list of functions that take one argument: object of class ModelAudit and return a numeric value.}
 }
 \value{
 ggplot object
