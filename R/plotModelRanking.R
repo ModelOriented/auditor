@@ -5,7 +5,7 @@
 #' @param object An object of class ModelAudit
 #' @param ... other modelAudit objects to be plotted together
 #' @param type vector of score names to be plotted.
-#' @param new.score a function or list of functions that take one argument: object of class ModelAudit and return a numeric value.
+#' @param new.score a function or named list of functions that take one argument: object of class ModelAudit and return a numeric value.
 #'
 #' @return ggplot object
 #'
@@ -61,7 +61,7 @@ getModelRankingDF <- function(object, type, new.score){
 
   if(!is.null(new.score)){
     if (class(new.score) == "function"){
-      df <- rbind(df, data.frame(score = new.score(object, label = object$label, name = as.character(substitute(new.score)))))
+      df <- rbind(df, data.frame(score = new.score(object), label = object$label, name = as.character(substitute(new.score))))
     }
     if(class(new.score) == "list") {
       for(i in names(new.score)){

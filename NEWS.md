@@ -1,8 +1,16 @@
 # version 0.2.0
 ## 07/05.2019
 
-
-
+- new plot functions: `plotLift()`, `plotCumulativeGain()`, `plotTwoSidedECDF()`, `plotModelCorrelation()`, `plotResidualDensity()`, `plotModelPCA()`, plotPrediction()`, plotModelRanking()`
+- new score functions: `scoreROC()`, `scoreREC()`, `scoreRROC()`, `scoreMSE()`, `scoreRMSE()`, `scoreMAE()`
+- function names changes: 
+	- `plotResiduals()` -> `plotResidual()`
+	- `plotCook()` -> `plotCooksDistance()`
+	- `scoreCook()` -> `scoreCooksDistance()`
+- `variable = NULL` parameter in `scoreDW()`, `scoreRuns()`, plotAutocorrelation()`, `plotACF()` causes the residuals to be not sorted by any variable
+- densities in `plotResidualDensity()` may be now separated by variable values
+- for function `score()` parameter `score` is renamed into `type`
+ 
 # version 0.1.1.0000  
 ## 09/03/2018
 

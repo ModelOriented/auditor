@@ -24,7 +24,7 @@
 plotCooksDistance <- function(object, nlabel = 3, ...){
   index <- cooks.dist <- big <- nameIndex <- NULL
 
-  plotData <- data.frame(cooks.dist = scoreCook(object, ...), index = 1:nrow(object$data),
+  plotData <- data.frame(cooks.dist = scoreCooksDstance(object, ...), index = 1:nrow(object$data),
                          nameIndex = rownames(object$data))
   plotData <- dplyr::arrange(plotData, desc(cooks.dist))
   plotData$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(object$data)-nlabel))

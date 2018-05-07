@@ -128,6 +128,9 @@ This score is computed and described in `scoreGQ()` function.
 And may be computed also in `score()` function with argument `score` equals "GQ".
 
 ### Half-Normal plots
+
+The half-normal plot is one of the tools designed to evaluate the goodness of fit of a statistical models. It is a graphical method for comparing two probability distributions by plotting their quantiles against each other. Points on the plot correspond to ordered absolute values of model diagnostic (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
+
 ```{r}
 plotHalfNormal(lm_audit)
 ```
@@ -161,11 +164,17 @@ plotResidualDensity(lm_audit, rf_audit, variable = "district")
 
 ###  Regression Error Characteristic (REC) Curve
 
+Error Characteristic curves are a generalization of ROC curves. On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
+REC curve estimates the Cumulative Distribution Function (CDF) of the error.
+Area Over the REC Curve (REC) is a biased estimate of the expected error.
+
 ```{r}
 plotREC(lm_audit, rf_audit)
 ```
 
 ### Two-sided ECDF
+
+Cumulative Distribution Function for positive and negative residuals.
 
 ```{r}
 plotTwoSidedECDF(lm_audit, rf_audit)
@@ -174,9 +183,27 @@ plotTwoSidedECDF(lm_audit, rf_audit)
 
 ###   Regression Receiver Operating Characteristic (RROC)
 
+The basic idea of the ROC curves for regression is to show model asymmetry. The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total under-estimation.
+
+For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
+For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift.
+Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
+
+Over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)}.
+Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
+The shift equals 0 is represented by a dot.
+
+The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
+
+
 ```{r}
 plotRROC(lm_audit, rf_audit)
 ```
+
+## Model Ranking Radar plot
+
+Measures of model performance showed on radar plot. You can add your own scores by parameter`new.score` providing a named list of funtions that take one argument: object of class ModelAudit and return a numeric value.
+.
 
 ```{r}
 plotModelRanking(lm_audit, rf_audit)
@@ -199,6 +226,8 @@ plotModelPCA(lm_audit, rf_audit)
 plotModelCorrelation(lm_audit, rf_audit)
 ```
 
+Principal Component Analysis of models residuals.
+PCA can be used to assess the similarity of the models.
 
 
 ## Other questions
