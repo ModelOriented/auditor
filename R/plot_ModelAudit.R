@@ -4,14 +4,14 @@
 #'
 #' @param x object of class modelAudit
 #' @param ... other arguments dependent on the type of plot or additionam objects of class modelAudit
-#' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CGains', 'Cook', 'HalfNormal', 'Residuals', 'LIFT',
-#' ModelPCA', 'Pairs', 'Prediction', 'REC', 'ResidDens', 'Residuals', 'ROC', 'RROC',
+#' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
+#' ModelPCA', 'ModelCorreltion', 'Prediction', 'REC', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
 #' ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in seealso section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #'
-#' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCGains}, \link{plotCook},
-#' \link{plotHalfNormal}, \link{plotResiduals}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotPairs},
-#' \link{plotPrediction}, \link{plotREC}, \link{plotResidDens}, \link{plotResiduals}, \link{plotROC},
+#' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
+#' \link{plotHalfNormal}, \link{plotResidual}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelCorrelation},
+#' \link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResiduals}, \link{plotROC},
 #' \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
 #'
 #' @importFrom grDevices devAskNewPage
@@ -24,8 +24,8 @@ plot.modelAudit <- function(x, ..., type="Residuals", ask = TRUE){
 
   object <- x
 
-  plotNames <- c('ACF', 'Autocorrelation', 'CGains', 'Cook', 'HalfNormal', 'Residuals', 'LIFT',
-                 'ModelPCA', 'Pairs', 'Prediction', 'REC', 'ResidDens', 'Residuals', 'ROC', 'RROC',
+  plotNames <- c('ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
+                 'ModelPCA', 'ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residuals', 'ROC', 'RROC',
                  'ScaleLocation', 'TwoSidedECDF')
 
   if(!all(type %in% plotNames)){
@@ -55,16 +55,16 @@ plotTypePlot <- function(x, ..., type){
   switch(type,
          ACF = { return(plotACF(x, ...)) },
          Autocorrelation = { return(plotAutocorrelation(x, ...)) },
-         CGains = {return(plotCGains(x, ...))},
-         Cook = { return(plotCook(x, ...)) },
+         CumulativeGain = {return(plotCumulativeGain(x, ...))},
+         CooksDistance = { return(plotCooksDistance(x, ...)) },
          HalfNormal = { return(plotHalfNormal(x, ...)) },
          LIFT = {return(plotLIFT(x, ...))},
          ModelPCA = {return(plotModelPCA(x, ...))},
-         Pairs = {return(plotPairs(x, ...))},
+         ModelCorrelation = {return(plotModelCorrelation(x, ...))},
          Prediction = {return(plotPrediction(x, ...))},
          REC = { return(plotREC(x, ...)) },
-         ResidDens = { return(plotResidDens(x, ...)) },
-         Residuals = { return(plotResiduals(x, ...)) },
+         ResidualDensity = { return(plotResidualDensity(x, ...)) },
+         Residual = { return(plotResiduals(x, ...)) },
          ROC = { return(plotROC(x, ...)) },
          RROC = { return(plotRROC(x, ...)) },
          ScaleLocation = { return(plotScaleLocation(x, ...)) },

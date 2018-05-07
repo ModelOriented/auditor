@@ -16,7 +16,7 @@
 #' @export
 
 
-plotCGains <- function(object, ...){
+plotCumulativeGain <- function(object, ...){
   if(class(object)!="modelAudit") stop("plotCGains requires object class modelAudit.")
   rpp <- tpr <- label <- NULL
   df <- getCGainsDF(object)
@@ -50,3 +50,5 @@ getCGainsDF <- function(object){
                     label = object$label)
   return(res)
 }
+
+

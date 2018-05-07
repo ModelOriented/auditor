@@ -147,15 +147,15 @@ plotPrediction(lm_audit, rf_audit)
 ### Residuals Density
 
 ```{r}
-plotResidDens(rf_audit, lm_audit)
+plotResidualDensity(rf_audit, lm_audit)
 ```
 
 ```{r}
-plotResidDens(lm_audit, rf_audit, variable = "m2.price")
+plotResidualDensity(lm_audit, rf_audit, variable = "m2.price")
 ```
 
 ```{r}
-plotResidDens(lm_audit, rf_audit, variable = "district")
+plotResidualDensity(lm_audit, rf_audit, variable = "district")
 ```
 
 
@@ -193,10 +193,10 @@ plotModelPCA(lm_audit, rf_audit)
 ```
 
 
-### Pairs TODO - change name
+### ModelCorrelation plot
 
 ```{r}
-plotPairs(lm_audit, rf_audit)
+plotModelCorrelation(lm_audit, rf_audit)
 ```
 
 
@@ -219,11 +219,11 @@ In this example we will compute them for a linear model.
 We will use the Prestige dataset from package car.
 
 ```{r}
-plot(lm_audit, type="Cook")
+plot(lm_audit, type="CooksDistance")
 ```
 
 
 
 #Other methods
 
-Here will be described `plotLIFT()`, `plotCGains()`, `plotROC()`
+Here will be described `plotLIFT()`, `plotCumulativeGain()`, `plotROC()`

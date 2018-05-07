@@ -12,7 +12,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotResiduals <- function(object, ..., variable=NULL){
+plotResidual <- function(object, ..., variable=NULL){
   residuals <- values <- label <- NULL
   if(is.null(variable)) variable <- "Fitted values"
   df <- generateResidualsDF(object, variable)
@@ -55,3 +55,4 @@ generateResidualsDF <- function(object, variable){
   resultDF <- dplyr::arrange(resultDF, values)
   return(resultDF)
 }
+

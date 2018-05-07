@@ -1,5 +1,10 @@
+# version 0.2.0
+## 07/05.2019
+
+
+
 # version 0.1.1.0000  
-## 18/02/2017 
+## 09/03/2018
 
 - function `audit()` has new arguments: `predict.function` and `residual.function`,
 - plots are now plotted with `theme_light()`,
@@ -7,7 +12,7 @@
 - Cheatsheets were added to README.
 
 # version 0.1.0.0000  
-## 18/02/2017 
+## 18/02/2018
 
 Package was rebuilded 
 - Functions `auditor`, `plot_cooks_dist`, `plot_vif`, `plotAutocorr`, `plotTestGQ`, `testDW`, `testGQ`, `testRuns` were deleted

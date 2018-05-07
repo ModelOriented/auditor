@@ -22,5 +22,5 @@ This function provides several scores for model validation and performance asses
 Scores can be also used to compare models.
 }
 \seealso{
-\code{\link{scoreCook}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
+\code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
 }

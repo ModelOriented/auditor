@@ -13,8 +13,8 @@ test_that("plotAutocorrelation", {
 })
 
 test_that("plotCook", {
-  expect_is(plotCook(au.lm), "gg")
-  expect_is(plotCook(au.rf), "gg")
+  expect_is(plotCooksDistance(au.lm), "gg")
+  expect_is(plotCooksDistance(au.rf), "gg")
 })
 
 test_that("plotResiduals", {
@@ -51,8 +51,8 @@ test_that("plotREC", {
 test_that("plot", {
   expect_is(plot(au.lm, type="ACF"), "gg")
   expect_is(plot(au.lm, type="Autocorrelation"), "gg")
-  expect_is(plot(au.lm, type="Cook", print=FALSE), "gg")
-  expect_is(plot(au.lm, type="Residuals"), "gg")
+  expect_is(plot(au.lm, type="CooksDistance", print=FALSE), "gg")
+  expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ScaleLocation"), "gg")
   expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
   expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")

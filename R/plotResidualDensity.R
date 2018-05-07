@@ -15,7 +15,7 @@
 #' @export
 
 
-plotResidDens <- function(object, ..., variable = NULL){
+plotResidualDensity <- function(object, ..., variable = NULL){
   residuals <- label <- NULL
   df <- getResidDensDF(object, variable)
 
@@ -69,6 +69,4 @@ getResidDensDF <- function(object, variable){
 
   return(df)
 }
-
-
 

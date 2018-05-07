@@ -16,7 +16,7 @@
 #' @export
 
 
-plotPairs <- function(object, ..., values = "fitted"){
+plotModelCorrelation <- function(object, ..., values = "fitted"){
 
   if(values == "fitted") {
     df <- cbind(data.frame(y = object$y), getPairsDF(object, values))

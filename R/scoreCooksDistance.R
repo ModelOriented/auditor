@@ -1,4 +1,4 @@
-#' @title Score based on Cooks distance
+#' @title Score based on Cooks Distance
 #'
 #' @description Cook’s distance are used for estimate of the influence of an single observation.
 #'
@@ -17,12 +17,14 @@
 #'
 #' @importFrom stats cooks.distance update
 #'
+#' @seealso \code{\link{score}}
+#'
 #' @return numeric vector
 #'
 #' @export
 #'
 
-scoreCook <- function(object, print=TRUE){
+scoreCooksDistance <- function(object, print=TRUE){
   if(object$model.class=="lm" || object$model.class == "glm"){
     return(  cooks.distance(object$model) )
   } else {
@@ -49,3 +51,5 @@ computeScoreCook <- function(model, modelData, print){
 
   return(D)
 }
+
+
