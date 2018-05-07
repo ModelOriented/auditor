@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Receiver Operating Characteristic (ROC) � plotROC • auditor</title>
+<title>Receiver Operating Characteristic (ROC) — plotROC • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">auditor</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Receiver Operating Characteristic (ROC)</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -79,7 +77,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -125,20 +123,14 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='plot.modelAudit.html'>plot.modelAudit</a>, <a href='plotRROC.html'>plotRROC</a>, <a href='plotREC.html'>plotREC</a></code></p>
+    <div class='dont-index'><p><code><a href='plot.modelAudit.html'>plot.modelAudit</a>, <a href='plotRROC.html'>plotRROC</a>, <a href='plotREC.html'>plotREC</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>auditor</span>)
-<span class='fu'>library</span>(<span class='no'>mlbench</span>)
-<span class='fu'>data</span>(<span class='st'>"PimaIndiansDiabetes"</span>)
-
-<span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>.</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,   <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)
-<span class='no'>au.glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm</span>, <span class='kw'>label</span><span class='kw'>=</span><span class='st'>"class glm"</span>)
-<span class='fu'>plotROC</span>(<span class='no'>au.glm</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: D not labeled 0/1, assuming neg = 0 and pos = 1!</span></div><div class='img'><img src='plotROC-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='no'>model.glm.press</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>pressure</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,      <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)
-<span class='no'>au.glm.press</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm.press</span>)
-<span class='fu'>plotROC</span>(<span class='no'>au.glm</span>, <span class='no'>au.glm.press</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: D not labeled 0/1, assuming neg = 0 and pos = 1!</span></div><div class='img'><img src='plotROC-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>library</span>(<span class='no'>mlbench</span>)</div><div class='output co'>#&gt; <span class='error'>Error in library(mlbench): there is no package called ‘mlbench’</span></div><div class='input'><span class='fu'>data</span>(<span class='st'>"PimaIndiansDiabetes"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: data set ‘PimaIndiansDiabetes’ not found</span></div><div class='input'>
+<span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>.</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,   <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(data): object 'PimaIndiansDiabetes' not found</span></div><div class='input'><span class='no'>au.glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm</span>, <span class='kw'>label</span><span class='kw'>=</span><span class='st'>"class glm"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in audit(model.glm, label = "class glm"): object 'model.glm' not found</span></div><div class='input'><span class='fu'>plotROC</span>(<span class='no'>au.glm</span>)</div><div class='output co'>#&gt; <span class='error'>Error in data.frame(D = object$y, m = object$fitted.values, label = object$label): object 'au.glm' not found</span></div><div class='input'>
+<span class='no'>model.glm.press</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>diabetes</span>~<span class='no'>pressure</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,      <span class='kw'>data</span><span class='kw'>=</span><span class='no'>PimaIndiansDiabetes</span>)</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(data): object 'PimaIndiansDiabetes' not found</span></div><div class='input'><span class='no'>au.glm.press</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm.press</span>)</div><div class='output co'>#&gt; <span class='error'>Error in audit(model.glm.press): object 'model.glm.press' not found</span></div><div class='input'><span class='fu'>plotROC</span>(<span class='no'>au.glm</span>, <span class='no'>au.glm.press</span>)</div><div class='output co'>#&gt; <span class='error'>Error in data.frame(D = object$y, m = object$fitted.values, label = object$label): object 'au.glm' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -170,3 +162,4 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 
   </body>
 </html>
+

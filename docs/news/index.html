@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • auditor</title>
+<title>Changelog • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">auditor</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -79,7 +77,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -97,16 +95,48 @@
 
   <div class="col-md-9">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Change log <small></small></h1>
     </div>
 
     <div class="contents">
-    <div id="version-0-1-1-0000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#version-0-1-1-0000" class="anchor"></a>version 0.1.1.0000</h1>
+    <div id="version-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#version-0-2-0" class="anchor"></a>version 0.2.0</h1>
 <div id="section" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section" class="anchor"></a>18/02/2017</h2>
+<a href="#section" class="anchor"></a>07/05.2019</h2>
+<ul>
+<li>new plot functions: <code>plotLift()</code>, <code><a href="../reference/plotCumulativeGain.html">plotCumulativeGain()</a></code>, <code><a href="../reference/plotTwoSidedECDF.html">plotTwoSidedECDF()</a></code>, <code><a href="../reference/plotModelCorrelation.html">plotModelCorrelation()</a></code>, <code><a href="../reference/plotResidualDensity.html">plotResidualDensity()</a></code>, <code><a href="../reference/plotModelPCA.html">plotModelPCA()</a></code>, plotPrediction()<code>, plotModelRanking()</code>
+</li>
+<li>new score functions: <code><a href="../reference/scoreROC.html">scoreROC()</a></code>, <code><a href="../reference/scoreREC.html">scoreREC()</a></code>, <code><a href="../reference/scoreRROC.html">scoreRROC()</a></code>, <code><a href="../reference/scoreMSE.html">scoreMSE()</a></code>, <code><a href="../reference/scoreRMSE.html">scoreRMSE()</a></code>, <code><a href="../reference/scoreMAE.html">scoreMAE()</a></code>
+</li>
+<li>function names changes:
+<ul>
+<li>
+<code>plotResiduals()</code> -&gt; <code><a href="../reference/plotResidual.html">plotResidual()</a></code>
+</li>
+<li>
+<code>plotCook()</code> -&gt; <code><a href="../reference/plotCooksDistance.html">plotCooksDistance()</a></code>
+</li>
+<li>
+<code>scoreCook()</code> -&gt; <code><a href="../reference/scoreCooksDistance.html">scoreCooksDistance()</a></code>
+</li>
+</ul>
+</li>
+<li>
+<code>variable = NULL</code> parameter in <code><a href="../reference/scoreDW.html">scoreDW()</a></code>, <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code>, plotAutocorrelation()<code>,</code>plotACF()` causes the residuals to be not sorted by any variable</li>
+<li>densities in <code><a href="../reference/plotResidualDensity.html">plotResidualDensity()</a></code> may be now separated by variable values</li>
+<li>for function <code><a href="../reference/score.html">score()</a></code> parameter <code>score</code> is renamed into <code>type</code>
+</li>
+</ul>
+</div>
+</div>
+    <div id="version-0-1-1-0000" class="section level1">
+<h1 class="page-header">
+<a href="#version-0-1-1-0000" class="anchor"></a>version 0.1.1.0000</h1>
+<div id="section-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#section-1" class="anchor"></a>09/03/2018</h2>
 <ul>
 <li>function <code><a href="../reference/audit.html">audit()</a></code> has new arguments: <code>predict.function</code> and <code>residual.function</code>,</li>
 <li>plots are now plotted with <code>theme_light()</code>,</li>
@@ -116,11 +146,11 @@
 </div>
 </div>
     <div id="version-0-1-0-0000" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#version-0-1-0-0000" class="anchor"></a>version 0.1.0.0000</h1>
-<div id="section-1" class="section level2">
+<div id="section-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section-1" class="anchor"></a>18/02/2017</h2>
+<a href="#section-2" class="anchor"></a>18/02/2018</h2>
 <p>Package was rebuilded</p>
 <ul>
 <li>Functions <code>auditor</code>, <code>plot_cooks_dist</code>, <code>plot_vif</code>, <code>plotAutocorr</code>, <code>plotTestGQ</code>, <code>testDW</code>, <code>testGQ</code>, <code>testRuns</code> were deleted</li>
@@ -134,11 +164,11 @@
 </div>
 </div>
     <div id="version-0-0-2-0000" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#version-0-0-2-0000" class="anchor"></a>version 0.0.2.0000</h1>
-<div id="section-2" class="section level2">
+<div id="section-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section-2" class="anchor"></a>23/11/2017</h2>
+<a href="#section-3" class="anchor"></a>23/11/2017</h2>
 <ul>
 <li>cooks distances, hat values, and vif added to the $ModelAudit$ object</li>
 <li>
@@ -149,11 +179,11 @@
 </div>
 </div>
     <div id="version-0-0-1-0000" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#version-0-0-1-0000" class="anchor"></a>version 0.0.1.0000</h1>
-<div id="section-3" class="section level2">
+<div id="section-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section-3" class="anchor"></a>9/11/2017</h2>
+<a href="#section-4" class="anchor"></a>9/11/2017</h2>
 <ul>
 <li>Heteroscedasticity of residuals:
 <ul>
@@ -178,6 +208,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked contents-mi2">
+        <li><a href="#version-0-2-0">0.2.0</a></li>
         <li><a href="#version-0-1-1-0000">0.1.1.0000</a></li>
         <li><a href="#version-0-1-0-0000">0.1.0.0000</a></li>
         <li><a href="#version-0-0-2-0000">0.0.2.0000</a></li>
@@ -202,3 +233,4 @@
 
   </body>
 </html>
+

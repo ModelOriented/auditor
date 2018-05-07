@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top navbar-mi2" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -26,7 +26,7 @@
       </button>
 	  <a class="navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src="https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">auditor</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -55,7 +55,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -68,17 +68,20 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction into model audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-05-07</h4>
-          </div>
+            <h4 class="date">2018-05-08</h4>
+      
+      
+      <div class="hidden name"><code>Intorduction_into_model_audit.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <p>This vignette demonstrates how to use the auditor package. auditor provides methods for model verification and validation by error analysis.</p>
 <p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models.</p>
 <p>Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors.</p>
@@ -136,10 +139,8 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#plotting-residuals" class="anchor"></a>Plotting residuals</h3>
 <p>Function <code>plot()</code> used on modelAudit object returns a <strong>Residuals vs fitted values plot</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 <p>Residuals may be ordered by values any model variable of by fitted values. And both models may be plotted together.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, lm_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 <p>In the following sections we will show how to use the <code>plot()</code> function to generate another diagnostic plots.</p>
 </div>
 <div id="autocorrelation" class="section level3">
@@ -147,35 +148,36 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#autocorrelation" class="anchor"></a>Autocorrelation</h3>
 <p>On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, <span class="dt">type=</span><span class="st">"Autocorrelation"</span>, <span class="dt">variable=</span><span class="st">"m2.price"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
 <p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions and the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(rf_audit, <span class="dt">type =</span><span class="st">"DW"</span>, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 0.4164191</code></pre>
+<pre><code>## [1] 0.4231403</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(rf_audit, <span class="dt">type =</span><span class="st">"Runs"</span>, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] -55.54071</code></pre>
+<pre><code>## [1] -54.42433</code></pre>
 </div>
 <div id="autocorrelation-function-plot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#autocorrelation-function-plot" class="anchor"></a>Autocorrelation Function plot</h3>
 <p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, rf_audit, <span class="dt">type=</span><span class="st">"ACF"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 <div id="scale-location" class="section level3">
 <h3 class="hasAnchor">
 <a href="#scale-location" class="anchor"></a>Scale Location</h3>
 <p>This plot shows if residuals are spread equally along the ranges of predictors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, <span class="dt">type=</span><span class="st">"ScaleLocation"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. This score is computed and described in <code><a href="../reference/scoreGQ.html">scoreGQ()</a></code> function. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
 </div>
 <div id="half-normal-plots" class="section level3">
 <h3 class="hasAnchor">
 <a href="#half-normal-plots" class="anchor"></a>Half-Normal plots</h3>
+<p>The half-normal plot is one of the tools designed to evaluate the goodness of fit of a statistical models. It is a graphical method for comparing two probability distributions by plotting their quantiles against each other. Points on the plot correspond to ordered absolute values of model diagnostic (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(lm_audit)</code></pre></div>
 <pre><code>## Gaussian model (lm object)</code></pre>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 </div>
 <div id="which-model-has-better-performance" class="section level2">
@@ -185,38 +187,49 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <h3 class="hasAnchor">
 <a href="#observed-vs-predicted" class="anchor"></a>Observed vs Predicted</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotPrediction.html">plotPrediction</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 <div id="residuals-density" class="section level3">
 <h3 class="hasAnchor">
 <a href="#residuals-density" class="anchor"></a>Residuals Density</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(rf_audit, lm_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(lm_audit, rf_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(lm_audit, rf_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(rf_audit, lm_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_audit, rf_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_audit, rf_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 </div>
 <div id="regression-error-characteristic-rec-curve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-error-characteristic-rec-curve" class="anchor"></a>Regression Error Characteristic (REC) Curve</h3>
+<p>Error Characteristic curves are a generalization of ROC curves. On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance. REC curve estimates the Cumulative Distribution Function (CDF) of the error. Area Over the REC Curve (REC) is a biased estimate of the expected error.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotREC.html">plotREC</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 </div>
 <div id="two-sided-ecdf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-sided-ecdf" class="anchor"></a>Two-sided ECDF</h3>
+<p>Cumulative Distribution Function for positive and negative residuals.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotTwoSidedECDF.html">plotTwoSidedECDF</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
 <div id="regression-receiver-operating-characteristic-rroc" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-receiver-operating-characteristic-rroc" class="anchor"></a>Regression Receiver Operating Characteristic (RROC)</h3>
+<p>The basic idea of the ROC curves for regression is to show model asymmetry. The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total under-estimation.</p>
+<p>For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves. For each observation we calculate new prediction:  where s is the shift. Therefore, there are different error values for each shift: </p>
+<p>Over-estimation is caluclates as: . Under-estimation is calculated as: . The shift equals 0 is represented by a dot.</p>
+<p>The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by .</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotRROC.html">plotRROC</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 </div>
+</div>
+<div id="model-ranking-radar-plot" class="section level2">
+<h2 class="hasAnchor">
+<a href="#model-ranking-radar-plot" class="anchor"></a>Model Ranking Radar plot</h2>
+<p>Measures of model performance showed on radar plot. You can add your own scores by parameter<code>new.score</code> providing a named list of funtions that take one argument: object of class ModelAudit and return a numeric value. .</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 </div>
 <div id="how-similar-models-are" class="section level2">
 <h2 class="hasAnchor">
@@ -225,13 +238,14 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <h3 class="hasAnchor">
 <a href="#model-pca" class="anchor"></a>Model PCA</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelPCA.html">plotModelPCA</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 </div>
-<div id="pairs-todo---change-name" class="section level3">
+<div id="modelcorrelation-plot" class="section level3">
 <h3 class="hasAnchor">
-<a href="#pairs-todo---change-name" class="anchor"></a>Pairs TODO - change name</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotPairs.html">plotPairs</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
+<a href="#modelcorrelation-plot" class="anchor"></a>ModelCorrelation plot</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelCorrelation.html">plotModelCorrelation</a></span>(lm_audit, rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p>Principal Component Analysis of models residuals. PCA can be used to assess the similarity of the models.</p>
 </div>
 </div>
 <div id="other-questions" class="section level2">
@@ -248,8 +262,8 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
 <p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
 <p>We will use the Prestige dataset from package car.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, <span class="dt">type=</span><span class="st">"Cook"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-22-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, <span class="dt">type=</span><span class="st">"CooksDistance"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 </div>
 </div>
 </div>
@@ -257,8 +271,7 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <div id="other-methods" class="section level1">
 <h1 class="hasAnchor">
 <a href="#other-methods" class="anchor"></a>Other methods</h1>
-<p>Here will be described <code><a href="../reference/plotLIFT.html">plotLIFT()</a></code>, <code><a href="../reference/plotCGains.html">plotCGains()</a></code>, <code><a href="../reference/plotROC.html">plotROC()</a></code></p>
-</div>
+<p>Here will be described <code><a href="../reference/plotLIFT.html">plotLIFT()</a></code>, <code><a href="../reference/plotCumulativeGain.html">plotCumulativeGain()</a></code>, <code><a href="../reference/plotROC.html">plotROC()</a></code></p>
 </div>
   </div>
 
@@ -279,6 +292,7 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#model-audit">Model audit</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#does-the-model-fit-data-is-it-not-missing-the-information">Does the model fit data? Is it not missing the information?</a></li>
       <li><a href="#which-model-has-better-performance">Which model has better performance?</a></li>
+      <li><a href="#model-ranking-radar-plot">Model Ranking Radar plot</a></li>
       <li><a href="#how-similar-models-are">How similar models are?</a></li>
       <li><a href="#other-questions">Other questions</a></li>
       </ul>

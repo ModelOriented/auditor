@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Half-Normal Score � scoreHalfNormal • auditor</title>
+<title>Half-Normal Score — scoreHalfNormal • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">auditor</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Half-Normal Score</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -79,7 +77,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -102,9 +100,8 @@
     
     <p>Score is approximately:
 \( \sum{#[res_i \leq simres_{i,j}] - n } \)
-with the distinction that each element of sum is also scaled to take values from [0,1].
-
-    \(res_i\) is a residual for i-th observation, \(simres_{i,j}\) is the residual of j-th simulation for i-th observation, and \(n\) is the number of simulations for each observation.
+with the distinction that each element of sum is also scaled to take values from [0,1].</p>
+<p>\(res_i\) is a residual for i-th observation, \(simres_{i,j}\) is the residual of j-th simulation for i-th observation, and \(n\) is the number of simulations for each observation.
 Scores are calculated on the basis of simulated data, so they may differ between function calls.</p>
     
 
@@ -148,3 +145,4 @@ Scores are calculated on the basis of simulated data, so they may differ between
 
   </body>
 </html>
+
