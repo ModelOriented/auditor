@@ -190,28 +190,32 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <div id="residuals-density" class="section level3">
 <h3 class="hasAnchor">
 <a href="#residuals-density" class="anchor"></a>Residuals Density</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(lm_audit, rf_audit)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(rf_audit, lm_audit)</code></pre></div>
 <p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(lm_audit, rf_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidDens.html">plotResidDens</a></span>(lm_audit, rf_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
 </div>
 <div id="regression-error-characteristic-rec-curve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-error-characteristic-rec-curve" class="anchor"></a>Regression Error Characteristic (REC) Curve</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotREC.html">plotREC</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
 </div>
 <div id="two-sided-ecdf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-sided-ecdf" class="anchor"></a>Two-sided ECDF</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotTwoSidedECDF.html">plotTwoSidedECDF</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
 </div>
 <div id="regression-receiver-operating-characteristic-rroc" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-receiver-operating-characteristic-rroc" class="anchor"></a>Regression Receiver Operating Characteristic (RROC)</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotRROC.html">plotRROC</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 </div>
 </div>
 <div id="how-similar-models-are" class="section level2">
@@ -221,13 +225,13 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <h3 class="hasAnchor">
 <a href="#model-pca" class="anchor"></a>Model PCA</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotModelPCA.html">plotModelPCA</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
 </div>
 <div id="pairs-todo---change-name" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pairs-todo---change-name" class="anchor"></a>Pairs TODO - change name</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotPairs.html">plotPairs</a></span>(lm_audit, rf_audit)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
 </div>
 </div>
 <div id="other-questions" class="section level2">
@@ -245,7 +249,7 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
 <p>We will use the Prestige dataset from package car.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_audit, <span class="dt">type=</span><span class="st">"Cook"</span>)</code></pre></div>
-<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-22-1.png" width="672"></p>
 </div>
 </div>
 </div>

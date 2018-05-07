@@ -147,7 +147,15 @@ plotPrediction(lm_audit, rf_audit)
 ### Residuals Density
 
 ```{r}
-plotResidDens(lm_audit, rf_audit)
+plotResidDens(rf_audit, lm_audit)
+```
+
+```{r}
+plotResidDens(lm_audit, rf_audit, variable = "m2.price")
+```
+
+```{r}
+plotResidDens(lm_audit, rf_audit, variable = "district")
 ```
 
 

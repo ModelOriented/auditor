@@ -103,7 +103,7 @@
     <p>Density of model residuals.</p>
     
 
-    <pre class="usage"><span class='fu'>plotResidDens</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotResidDens</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,6 +115,10 @@
     <tr>
       <th>...</th>
       <td><p>other modelAudit objects to be plotted together</p></td>
+    </tr>
+    <tr>
+      <th>variable</th>
+      <td><p>a variable name. Residuals will be plotted separately for different values of variable. or continuous variables, they will be separated by a mean.</p></td>
     </tr>
     </table>
     

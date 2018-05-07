@@ -4,12 +4,14 @@
 \alias{plotResidDens}
 \title{Residual Density Plot}
 \usage{
-plotResidDens(object, ...)
+plotResidDens(object, ..., variable = NULL)
 }
 \arguments{
 \item{object}{An object of class ModelAudit}
 
 \item{...}{other modelAudit objects to be plotted together}
+
+\item{variable}{a variable name. Residuals will be plotted separately for different values of variable. or continuous variables, they will be separated by a mean.}
 }
 \value{
 ggplot object

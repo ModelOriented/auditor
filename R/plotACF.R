@@ -9,7 +9,7 @@
 #' @param alpha confidence level of the interval
 #'
 #' @import ggplot2
-#' @import stats qnorm
+#' @importFrom stats qnorm
 #' @importFrom forecast Acf
 #'
 #' @export
