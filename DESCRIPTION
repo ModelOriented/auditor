@@ -26,6 +26,7 @@ Imports: car,
 RoxygenNote: 6.0.1
 Suggests: aods3,
     breakDown,
+    DALEX,
     gamlss,
     knitr,
     lme4,
