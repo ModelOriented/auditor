@@ -1,13 +1,13 @@
 getResidualFunction <- function(residual.function){
   if (!is.null(residual.function)) {
-    res <- function(model, y=NULL, data=NULL, predict.function=NULL){residual.function(model, y)}
+    res <- function(model, y=NULL, data=NULL, predict.function=NULL){residual.function(model, data, y)}
   } else {
     res <- getResiduals
   }
   return(res)
 }
 
-getResiduals <- function(model, y=NULL, data=NULL, predict.function=NULL){
+getResiduals <- function(model, data=NULL, y = NULL, predict.function=NULL){
 
   if (!is.null(model$type) && model$type == "classification") {
     res <- 1 - predict.function(model, data)[cbind(1:nrow(data),y)]

@@ -16,7 +16,7 @@ audit(object, data = NULL, y = NULL, predict.function = NULL,
 
 \item{predict.function}{Function that takes two arguments: model and data. It should return a numeric vector with predictions.}
 
-\item{residual.function}{Function that takes two arguments: model and response vector. It should return a numeric vector with model residuals. If not provided, response residuals (\eqn{\abs{y-\hat{y}}}) are calculated.}
+\item{residual.function}{Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\eqn{y-\hat{y}}) are calculated.}
 
 \item{label}{Character - the name of the model. By default it's extracted from the 'class' attribute of the model.}
 }

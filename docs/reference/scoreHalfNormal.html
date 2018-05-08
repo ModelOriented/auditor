@@ -99,7 +99,7 @@
 
     
     <p>Score is approximately:
-\( \sum{#[res_i \leq simres_{i,j}] - n } \)
+\( \sum{\#[res_i \leq simres_{i,j}] - n } \)
 with the distinction that each element of sum is also scaled to take values from [0,1].</p>
 <p>\(res_i\) is a residual for i-th observation, \(simres_{i,j}\) is the residual of j-th simulation for i-th observation, and \(n\) is the number of simulations for each observation.
 Scores are calculated on the basis of simulated data, so they may differ between function calls.</p>
@@ -112,11 +112,11 @@ Scores are calculated on the basis of simulated data, so they may differ between
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>ModelAudit object or fitted model</p></td>
+      <td><p>ModelAudit object or fitted model.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>extra arguments passed to <a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a>.</p></td>
+      <td><p>Extra arguments passed to <a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a>.</p></td>
     </tr>
     </table>
     

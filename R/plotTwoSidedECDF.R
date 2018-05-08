@@ -57,6 +57,7 @@ plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
 getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed){
   res <- object$residuals
   resids <- data.frame(no.obs = 1:(length(res)), res=res, sign = ifelse(res>=0, "pos", "neg"))
+  df <- resids
 
   dfLower <- df[which(df$sign=="neg"),]
   dfHigher <- df[which(df$sign=="pos"),]

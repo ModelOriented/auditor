@@ -42,9 +42,9 @@ scoreGQ <- function(object, variable = NULL){
     secondModelData <- dataForModels[(n1+1):n, ]
     firstModel <- update(originalModel, data = firstModelData)
     secondModel <- update(originalModel, data = secondModelData)
-    firstModelResiduals <- residual.function(firstModel, firstModelData[, 1], firstModelData, object$predict.function)
+    firstModelResiduals <- residual.function(firstModel, firstModelData, firstModelData[, 1],  object$predict.function)
     RSSA <- sum(firstModelResiduals^2)
-    secondModelResiduals <- residual.function(secondModel, secondModelData[, 1], secondModelData, object$predict.function)
+    secondModelResiduals <- residual.function(secondModel, secondModelData, secondModelData[, 1], object$predict.function)
     RSSB <- sum(secondModelResiduals^2)
 
     firstModelStdResiduals <- firstModelResiduals/sd(firstModelResiduals)

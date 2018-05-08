@@ -9,9 +9,13 @@ orderResidualsDF <- function(object, variable, is.df = FALSE){
     } else {
       values <- object$data[,variable]
     }
-    tmpDF$values <- values
-    tmpDF <- tmpDF[order(values), ]
+
+  } else {
+    values <- 1:nrow(tmpDF)
   }
+
+  tmpDF$values <- values
+  tmpDF <- tmpDF[order(values), ]
   if(isFALSE(is.df)){
     return(tmpDF$residuals)
   } else {

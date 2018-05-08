@@ -73,7 +73,7 @@
       <h1>Introduction into model audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-05-08</h4>
+            <h4 class="date">2018-05-09</h4>
       
       
       <div class="hidden name"><code>Intorduction_into_model_audit.Rmd</code></div>
@@ -139,8 +139,10 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#plotting-residuals" class="anchor"></a>Plotting residuals</h3>
 <p>Function <code>plot()</code> used on modelAudit object returns a <strong>Residuals vs fitted values plot</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Residuals may be ordered by values any model variable of by fitted values. And both models may be plotted together.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_audit, lm_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)</code></pre></div>
+<p><img src="Intorduction_into_model_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>In the following sections we will show how to use the <code>plot()</code> function to generate another diagnostic plots.</p>
 </div>
 <div id="autocorrelation" class="section level3">

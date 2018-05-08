@@ -8,7 +8,7 @@
 #' @param data Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.
 #' @param y Response vector that will be used by further validation functions. Some functions may require an integer vector containing binary labels with values 0,1.  If not provided, will be extracted from the model.
 #' @param predict.function Function that takes two arguments: model and data. It should return a numeric vector with predictions.
-#' @param residual.function Function that takes two arguments: model and response vector. It should return a numeric vector with model residuals. If not provided, response residuals (\eqn{\abs{y-\hat{y}}}) are calculated.
+#' @param residual.function Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\eqn{y-\hat{y}}) are calculated.
 #' @param label Character - the name of the model. By default it's extracted from the 'class' attribute of the model.
 #'
 #' @return An object of class ModelAudit, which contains:
@@ -54,7 +54,7 @@ audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, 
   predict.function <- getPredictFunction(model, predict.function)
   residual.function <- getResidualFunction(residual.function)
 
-  residuals <- residual.function(model, dataModel$y, dataModel$data, predict.function)
+  residuals <- residual.function(model = model, data =  dataModel$data, y = dataModel$y, predict.function = predict.function)
 
   result <- list(
     model.class = class(model),

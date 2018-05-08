@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cook's Distance Plot — plotCooksDistance • auditor</title>
+<title>Influence of observations plot — plotCooksDistance • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Cook's Distance Plot</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Influence of observations plot</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -94,11 +94,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cook's Distance Plot</h1>
+    <h1>Influence of observations plot</h1>
     </div>
 
     
-    <p>Cook’s distance are used for estimate of the influence of an single observation.</p>
+    <p>Cook’s distances are used for estimate the influence of an single observation.</p>
     
 
     <pre class="usage"><span class='fu'>plotCooksDistance</span>(<span class='no'>object</span>, <span class='kw'>nlabel</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>)</pre>
@@ -108,15 +108,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class ModelAudit</p></td>
+      <td><p>An object of class ModelAudit.</p></td>
     </tr>
     <tr>
       <th>nlabel</th>
-      <td><p>number of observations with the biggest Cooks distances to be labeled</p></td>
+      <td><p>Number of observations with the biggest Cook's distances to be labeled.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed <code><a href='scoreCooksDistance.html'>scoreCooksDistance</a></code> to scoreCooksDistance.</p></td>
+      <td><p>Other arguments passed to <code><a href='scoreCooksDistance.html'>scoreCooksDistance</a></code>.</p></td>
     </tr>
     </table>
     
@@ -127,8 +127,7 @@ They may be also used for indicating regions of the design space where it would 
 Data points indicated by Cook’s distances are worth checking for validity.</p>
 <p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model.
 It shows how much all the values in the model change when the i-th observation is removed.</p>
-<p>Models of classes other than lm and glm the distances are computed directly from the definition,
-so this may take a while. In this example we will compute them for a linear model.</p>
+<p>For model classes other than lm and glm the distances are computed directly from the definition.</p>
     
 
   </div>

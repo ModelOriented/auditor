@@ -114,7 +114,7 @@ when the test assumptions are satisfied. Otherwise test statistic may be conside
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>"Fitted values" or name of dependent or independent variable to order residuals. If NULL the original data order is taken.</p></td>
+      <td><p>Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
     </tr>
     </table>
     

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Residuals vs Fitted or Variable Values — plotResidual • auditor</title>
+<title>Plot Residuals vs Observed, Fitted or Variable Values — plotResidual • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Plot Residuals vs Fitted or Variable Values</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Plot Residuals vs Observed, Fitted or Variable Values</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -94,11 +94,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Residuals vs Fitted or Variable Values</h1>
+    <h1>Plot Residuals vs Observed, Fitted or Variable Values</h1>
     </div>
 
     
-    <p>A plot of residuals against fitted values or any variable values.</p>
+    <p>A plot of residuals against fitted values, observed values or any variable.</p>
     
 
     <pre class="usage"><span class='fu'>plotResidual</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -108,15 +108,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class modelAudit</p></td>
+      <td><p>An object of class modelAudit.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other modelAudit objects to be plotted together</p></td>
+      <td><p>Other modelAudit objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>name of modle variable for x-axis. If NULL fitted values are taken.</p></td>
+      <td><p>Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
     </tr>
     </table>
     

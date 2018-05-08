@@ -127,7 +127,7 @@ which can be further processed by various error analysis functions.</p>
     </tr>
     <tr>
       <th>residual.function</th>
-      <td><p>Function that takes two arguments: model and response vector. It should return a numeric vector with model residuals. If not provided, response residuals (\(\abs{y-\hat{y}}\)) are calculated.</p></td>
+      <td><p>Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\(y-\hat{y}\)) are calculated.</p></td>
     </tr>
     <tr>
       <th>label</th>
@@ -163,7 +163,7 @@ which can be further processed by various error analysis functions.</p>
 
 
 <span class='fu'>library</span>(<span class='no'>randomForest</span>)
-<span class='no'>model.rf</span> <span class='kw'>&lt;-</span> <span class='fu'>randomForest</span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)
+<span class='no'>model.rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)
 <span class='no'>audit.rf</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.rf</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
