@@ -5,7 +5,7 @@ Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre")),
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"))
   )
-Description: The auditor package provides an easy to use unified interface for creating validation
+Description: The 'auditor' package provides an easy to use unified interface for creating validation
   plots for any model. This visualizations allow to asses and compare the goodness of fit, performance,
   and similarity of models. The auditor help statisticians, data scientists, and researchers can avoid
   repetitive work consisting of writing code needed to create residuals plots. 
@@ -40,3 +40,5 @@ Suggests: aods3,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
+URL: https://mi2-warsaw.github.io/auditor/
+BugReports: https://github.com/mi2-warsaw/auditor/issues
