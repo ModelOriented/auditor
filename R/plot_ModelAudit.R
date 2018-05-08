@@ -20,7 +20,7 @@
 #'
 #' @export
 
-plot.modelAudit <- function(x, ..., type="Residuals", ask = TRUE){
+plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE){
 
   object <- x
 
