@@ -18,8 +18,8 @@ test_that("plotCook", {
 })
 
 test_that("plotResiduals", {
-  expect_is(plotResiduals(au.glm), "gg")
-  expect_is(plotResiduals(au.rf, "Prewt"), "gg")
+  expect_is(plotResidual(au.glm), "gg")
+  expect_is(plotResidual(au.rf, "Prewt"), "gg")
 })
 
 test_that("plotScaleLocation", {

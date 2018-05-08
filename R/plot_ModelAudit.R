@@ -64,7 +64,7 @@ plotTypePlot <- function(x, ..., type){
          Prediction = {return(plotPrediction(x, ...))},
          REC = { return(plotREC(x, ...)) },
          ResidualDensity = { return(plotResidualDensity(x, ...)) },
-         Residual = { return(plotResiduals(x, ...)) },
+         Residual = { return(plotResidual(x, ...)) },
          ROC = { return(plotROC(x, ...)) },
          RROC = { return(plotRROC(x, ...)) },
          ScaleLocation = { return(plotScaleLocation(x, ...)) },
