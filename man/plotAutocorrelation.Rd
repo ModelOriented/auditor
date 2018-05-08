@@ -7,9 +7,9 @@
 plotAutocorrelation(object, variable = NULL, score = TRUE)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 
-\item{variable}{name of dependent or independent variable to order residuals. If NULL original data order is taken.}
+\item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 
 \item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.}
 }

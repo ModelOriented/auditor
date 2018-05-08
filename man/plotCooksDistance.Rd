@@ -2,19 +2,19 @@
 % Please edit documentation in R/plotCooksDistance.R
 \name{plotCooksDistance}
 \alias{plotCooksDistance}
-\title{Cook's Distance Plot}
+\title{Influence of observations plot}
 \usage{
 plotCooksDistance(object, nlabel = 3, ...)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 
-\item{nlabel}{number of observations with the biggest Cooks distances to be labeled}
+\item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
 
-\item{...}{other arguments passed \code{\link{scoreCooksDistance}} to scoreCooksDistance.}
+\item{...}{Other arguments passed to \code{\link{scoreCooksDistance}}.}
 }
 \description{
-Cook’s distance are used for estimate of the influence of an single observation.
+Cook’s distances are used for estimate the influence of an single observation.
 }
 \details{
 Cook’s distance is a tool for identifying observations that may negatively affect the model.
@@ -24,6 +24,5 @@ Data points indicated by Cook’s distances are worth checking for validity.
 Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model.
 It shows how much all the values in the model change when the i-th observation is removed.
 
-Models of classes other than lm and glm the distances are computed directly from the definition,
-so this may take a while. In this example we will compute them for a linear model.
+For model classes other than lm and glm the distances are computed directly from the definition.
 }

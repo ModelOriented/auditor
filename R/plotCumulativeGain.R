@@ -2,15 +2,15 @@
 #'
 #' @description Cumulative Gain Chartis is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @return ggplot object
 #'
 #' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @import ggplot2
-#' @import ROCR
+#' @importFrom ROCR performance prediction
 #'
 #'
 #' @export
@@ -32,8 +32,8 @@ plotCumulativeGain <- function(object, ...){
 
   ggplot(df, aes(x = rpp, y = tpr, color = label)) +
     geom_line() +
-    xlab("Rate of Positive Prediction") +
-    ylab("True Positive Rate") +
+    xlab("rate of positive prediction") +
+    ylab("true positive rate") +
     ggtitle("Cumulative Gain") +
     theme_light()
 }

@@ -7,13 +7,13 @@
 plotModelPCA(object, ..., scale = TRUE, invisible = "none")
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit,}
 
-\item{...}{other modelAudit objects to be plotted together}
+\item{...}{Other modelAudit objects to be plotted together.}
 
-\item{scale}{a logical value indicating whether the models residuals should be scaled bfore the analysis.}
+\item{scale}{A logical value indicating whether the models residuals should be scaled bfore the analysis.}
 
-\item{invisible}{a text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".}
+\item{invisible}{A text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".}
 }
 \value{
 ggplot object

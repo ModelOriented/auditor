@@ -7,13 +7,13 @@
 scoreMAE(object)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 }
 \value{
 an object of class scoreAudit
 }
 \description{
-Mean Absolute Error
+Mean Absolute Error.
 }
 \seealso{
 \code{\link{score}}

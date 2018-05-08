@@ -4,25 +4,19 @@
 #' The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
 #' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
-#' @param object object An object of class ModelAudit
-#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL original data order is taken.
+#' @param object object An object of class ModelAudit.
+#' @param variable name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @importFrom tseries runs.test
 #'
 #' @export
 
 scoreRuns <- function(object, variable = NULL){
-  if(is.null(variable) || variable=="Fitted values") {
-    dataRuns <- data.frame(variable=object$fitted.values, residuals = object$residuals)
-  } else {
-    dataRuns <- data.frame(variable=object$data[,variable], residuals = object$residuals)
-  }
-    if(!is.null(variable)){
-      dataRuns <- dplyr::arrange(dataRuns, variable)
-    }
-    residuals <- dataRuns$residuals
-    signumOfResiduals <- factor(sign(residuals))
-    RunsTested <- runs.test(signumOfResiduals)
+
+  orderedResiduals <- orderResidualsDF(object, variable)
+
+  signumOfResiduals <- factor(sign(orderedResiduals))
+  RunsTested <- runs.test(signumOfResiduals)
 
 
   result <- list(

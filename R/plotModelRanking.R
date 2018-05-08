@@ -2,10 +2,10 @@
 #'
 #' @description Radar plot with model scores. Scores are scaled to [0,1], each score is inversed and divided by maximum score value.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
-#' @param type vector of score names to be plotted.
-#' @param new.score a function or named list of functions that take one argument: object of class ModelAudit and return a numeric value.
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param type Vector of score names to be plotted.
+#' @param new.score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #'
 #' @return ggplot object
 #'
@@ -78,6 +78,7 @@ scaleModelRankingDF <- function(df){
   for(i in type){
     typeDF <- df[which(df$name == i),]
     if (!(i %in% c("ROC"))) {
+      typeDF$name <- paste("inv", typeDF$name)
       typeDF$score <- 1 / typeDF$score
       maxScore <- max(typeDF$score)
       typeDF$score <- typeDF$score / maxScore

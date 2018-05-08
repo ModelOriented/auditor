@@ -1,8 +1,8 @@
 #' @title Mean Absolute Error
 #'
-#' @description Mean Absolute Error
+#' @description Mean Absolute Error.
 #'
-#' @param object An object of class ModelAudit
+#' @param object An object of class ModelAudit.
 #'
 #' @return an object of class scoreAudit
 #'

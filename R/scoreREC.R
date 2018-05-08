@@ -3,7 +3,7 @@
 #' @description The area over the Regression Error Characteristic curve is a measure of the expected error
 #' for the regression model.
 #'
-#' @param object An object of class ModelAudit
+#' @param object An object of class ModelAudit.
 #'
 #' @return an object of class scoreAudit
 #'

@@ -1,8 +1,8 @@
 #' @title Area Over the Curve for RROC Curves
 #'
-#' @description The area over the Regression Receiver Operating Characteristic
+#' @description The area over the Regression Receiver Operating Characteristic.
 #'
-#' @param object An object of class ModelAudit
+#' @param object An object of class ModelAudit.
 #'
 #' @return an object of class scoreAudit
 #'

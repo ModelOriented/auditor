@@ -1,8 +1,8 @@
 #' @title Mean Square Error
 #'
-#' @description Mean Square Error
+#' @description Mean Square Error.
 #'
-#' @param object An object of class ModelAudit
+#' @param object An object of class ModelAudit.
 #'
 #' @return an object of class scoreAudit
 #'

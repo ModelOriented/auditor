@@ -2,24 +2,24 @@
 % Please edit documentation in R/plotLIFT.R
 \name{plotLIFT}
 \alias{plotLIFT}
-\title{Lift Chart}
+\title{LIFT Chart}
 \usage{
 plotLIFT(object, ..., groups = 10, cumulative = TRUE)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 
-\item{...}{other modelAudit objects to be plotted together}
+\item{...}{Other modelAudit objects to be plotted together.}
 
-\item{groups}{number of groups}
+\item{groups}{Number of groups.}
 
-\item{cumulative}{boolean. If TRUE cumulative lift curve will be plotted.}
+\item{cumulative}{If TRUE cumulative lift curve will be plotted.}
 }
 \value{
 ggplot object
 }
 \description{
-Lift Chart shows the ratio of a model to a random guess.
+LIFT Chart shows the ratio of a model to a random guess.
 }
 \details{
 Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.

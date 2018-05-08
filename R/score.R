@@ -3,10 +3,10 @@
 #' @description This function provides several scores for model validation and performance assessment.
 #' Scores can be also used to compare models.
 #'
-#' @param object object An object of class modelAudit
-#' @param type the type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
+#' @param object Object An object of class modelAudit.
+#' @param type The type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
 #' (for detailed description see functions in seealso section).
-#' @param ... other arguments dependent on the type of score.
+#' @param ... Other arguments dependent on the type of score.
 #'
 #' @seealso \code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
 #'
@@ -14,7 +14,7 @@
 #'
 #' @export
 
-score <- function(object, type = 'GQ', ...){
+score <- function(object, type = 'MSE', ...){
 
   if(class(object)!="modelAudit") stop( paste0(deparse(substitute(object)), ' not of class modelAudit. Try to use audit(', deparse(substitute(object)), ') first.'))
 

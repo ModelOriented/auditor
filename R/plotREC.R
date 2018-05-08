@@ -3,8 +3,8 @@
 #' @description Error Characteristic curves are a generalization of ROC curves.
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @return ggplot object
 #'
@@ -51,10 +51,9 @@ plotREC <- function(object, ...){
   ggplot(df, aes(x=RECX, y=RECY, color = label)) +
     geom_line() +
     scale_y_continuous(breaks = seq(0,1,0.1),
-                       labels = paste(seq(0, 100, 10),"%"),
-                       name = "Accuracy") +
+                       labels = paste(seq(0, 100, 10),"%")) +
     theme_light() +
-    xlab("Error tolerance") +
+    xlab("error tolerance") +
     ggtitle("REC Curve")
 
 }

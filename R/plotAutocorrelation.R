@@ -3,8 +3,8 @@
 #' @description Plot of i-th residual vs i+1-th residual.
 #'
 #'
-#' @param object An object of class ModelAudit
-#' @param variable name of dependent or independent variable to order residuals. If NULL original data order is taken.
+#' @param object An object of class ModelAudit.
+#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param score Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.
 #'
 #' @import ggplot2
@@ -36,16 +36,11 @@ plotAutocorrelation <- function(object, variable=NULL, score=TRUE){
 
 
 generateAutocorrelationDF <- function(object, variable){
-  if(is.null(variable) || variable == "Fitted values") {
-    values <- object$fitted.values
-  } else {
-    values <- object$data[,variable]
-  }
+
+  orderedResiduals <- orderResidualsDF(object, variable)
+
   n <- length(object$residuals)
-  tmpDF <- data.frame(values = values, x = object$residuals)
-  if(!is.null(variable)){
-    tmpDF <- dplyr::arrange(tmpDF, values)
-  }
-  resultDF <- data.frame(x = tmpDF$x[-n], y = tmpDF$x[-1])
+  resultDF <- data.frame(x = orderedResiduals[-n], y = orderedResiduals[-1])
+
   return(resultDF)
 }

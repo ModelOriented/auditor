@@ -4,15 +4,15 @@
 \alias{score}
 \title{Model Scores computations}
 \usage{
-score(object, type = "GQ", ...)
+score(object, type = "MSE", ...)
 }
 \arguments{
-\item{object}{object An object of class modelAudit}
+\item{object}{Object An object of class modelAudit.}
 
-\item{type}{the type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
+\item{type}{The type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
 (for detailed description see functions in seealso section).}
 
-\item{...}{other arguments dependent on the type of score.}
+\item{...}{Other arguments dependent on the type of score.}
 }
 \value{
 an object of class scoreAudit, except Cooks distance, where numeric vector is returned

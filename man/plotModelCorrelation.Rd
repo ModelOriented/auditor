@@ -4,14 +4,14 @@
 \alias{plotModelCorrelation}
 \title{Model Correlation Plot}
 \usage{
-plotModelCorrelation(object, ..., values = "fitted")
+plotModelCorrelation(object, ..., values = "Fitted values")
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 
-\item{...}{other modelAudit objects to be plotted together}
+\item{...}{Other modelAudit objects to be plotted together.}
 
-\item{values}{"fitted" for model fitted values or "residuals" for residuals values}
+\item{values}{"Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.}
 }
 \value{
 ggplot object

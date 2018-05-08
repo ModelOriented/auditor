@@ -14,18 +14,13 @@ License: GPL
 Encoding: UTF-8
 LazyData: true
 Imports: car,
-    DALEX,
-    dplyr,
     factoextra,
     fdrtool,
-    forecast,
     GGally,
     ggplot2,
     ggrepel,
     hnp,
-    ModelMetrics,
     plotROC,
-    plyr,
     ROCR,
     tseries
 RoxygenNote: 6.0.1

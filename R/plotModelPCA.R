@@ -3,10 +3,10 @@
 #' @description Principal Component Analysis of models residuals.
 #' PCA can be used to assess the similarity of the models.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
-#' @param scale a logical value indicating whether the models residuals should be scaled bfore the analysis.
-#' @param invisible a text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".
+#' @param object An object of class ModelAudit,
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param scale A logical value indicating whether the models residuals should be scaled bfore the analysis.
+#' @param invisible A text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".
 #'
 #' @return ggplot object
 #'

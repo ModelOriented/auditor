@@ -1,11 +1,11 @@
-#' @title Cook's Distance Plot
+#' @title Influence of observations plot
 #'
-#' @description Cook’s distance are used for estimate of the influence of an single observation.
+#' @description Cook’s distances are used for estimate the influence of an single observation.
 #'
 #'
-#' @param object An object of class ModelAudit
-#' @param nlabel number of observations with the biggest Cooks distances to be labeled
-#' @param ... other arguments passed \code{\link{scoreCooksDistance}} to scoreCooksDistance.
+#' @param object An object of class ModelAudit.
+#' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
+#' @param ... Other arguments passed to \code{\link{scoreCooksDistance}}.
 #'
 #' @details Cook’s distance is a tool for identifying observations that may negatively affect the model.
 #' They may be also used for indicating regions of the design space where it would be good to obtain more observations.
@@ -14,11 +14,9 @@
 #' Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model.
 #' It shows how much all the values in the model change when the i-th observation is removed.
 #'
-#' Models of classes other than lm and glm the distances are computed directly from the definition,
-#' so this may take a while. In this example we will compute them for a linear model.
+#' For model classes other than lm and glm the distances are computed directly from the definition.
 #'
 #' @import ggplot2
-#' @importFrom dplyr desc
 #'
 #' @export
 plotCooksDistance <- function(object, nlabel = 3, ...){
@@ -26,14 +24,14 @@ plotCooksDistance <- function(object, nlabel = 3, ...){
 
   plotData <- data.frame(cooks.dist = scoreCooksDistance(object, ...), index = 1:nrow(object$data),
                          nameIndex = rownames(object$data))
-  plotData <- dplyr::arrange(plotData, desc(cooks.dist))
+  plotData <- plotData[order(-plotData$cooks.dist),]
   plotData$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(object$data)-nlabel))
 
   ggplot(plotData, aes(index, cooks.dist)) +
       geom_point() +
       geom_text(data = subset(plotData, big==TRUE), aes(label=as.character(nameIndex)),hjust=-0.2,vjust=-0.2) +
       xlab("observation index") +
-      ylab("cooks distance") +
+      ylab("cook's distance") +
       ggtitle("Influence of observations") +
       theme_light()
 }

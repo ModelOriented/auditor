@@ -8,17 +8,17 @@ plotTwoSidedECDF(object, ..., error.scaled = TRUE, outliers = NA,
   residuals = TRUE, y.reversed = FALSE)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 
-\item{...}{other modelAudit objects to be plotted together}
+\item{...}{Other modelAudit objects to be plotted together.}
 
-\item{error.scaled}{a logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.}
+\item{error.scaled}{A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.}
 
-\item{outliers}{number of outliers to be marked}
+\item{outliers}{Number of outliers to be marked.}
 
-\item{residuals}{a logical value indicating whether residuals should be marked.}
+\item{residuals}{A logical value indicating whether residuals should be marked.}
 
-\item{y.reversed}{should values on y axib be reversed}
+\item{y.reversed}{A logical value indicating whether values on y axis should be reversed.}
 }
 \value{
 ggplot object

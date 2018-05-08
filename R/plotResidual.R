@@ -1,11 +1,10 @@
-#' @title Plot Residuals vs Fitted or Variable Values
+#' @title Plot Residuals vs Observed, Fitted or Variable Values
 #'
-#' @description A plot of residuals against fitted values or any variable values.
+#' @description A plot of residuals against fitted values, observed values or any variable.
 #'
-#'
-#' @param object An object of class modelAudit
-#' @param variable name of modle variable for x-axis. If NULL fitted values are taken.
-#' @param ... other modelAudit objects to be plotted together
+#' @param object An object of class modelAudit.
+#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @seealso \code{\link{plot.modelAudit}}
 #'
@@ -14,7 +13,7 @@
 #' @export
 plotResidual <- function(object, ..., variable=NULL){
   residuals <- values <- label <- NULL
-  if(is.null(variable)) variable <- "Fitted values"
+
   df <- generateResidualsDF(object, variable)
 
   dfl <- list(...)
@@ -38,21 +37,16 @@ plotResidual <- function(object, ..., variable=NULL){
     geom_point(data = maybe_points) +
     geom_smooth(aes(color = label), method = "loess", se = FALSE) +
     xlab(variable) +
-    ylab("Residuals") +
+    ylab("residuals") +
     ggtitle(title) +
     theme_light()
 }
 
 
 generateResidualsDF <- function(object, variable){
-  if(variable == "Fitted values") {
-    values <- object$fitted.values
-  } else {
-    values <- object$data[,variable]
-  }
-  n <- length(object$residuals)
-  resultDF <- data.frame(values = values, residuals = object$residuals, label = object$label)
-  resultDF <- dplyr::arrange(resultDF, values)
+  resultDF <- orderResidualsDF(object, variable, is.df = TRUE)
+  resultDF$label <- object$label
+  resultDF <- resultDF[order(resultDF$values),]
   return(resultDF)
 }
 

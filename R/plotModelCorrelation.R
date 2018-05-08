@@ -2,9 +2,9 @@
 #'
 #' @description Matrix of plots
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
-#' @param values "fitted" for model fitted values or "residuals" for residuals values
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param values "Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.
 #'
 #' @return ggplot object
 #'
@@ -16,9 +16,9 @@
 #' @export
 
 
-plotModelCorrelation <- function(object, ..., values = "fitted"){
+plotModelCorrelation <- function(object, ..., values = "Fitted values"){
 
-  if(values == "fitted") {
+  if((values == "Fitted values") || (values == "Predicted response")) {
     df <- cbind(data.frame(y = object$y), getPairsDF(object, values))
   } else {
     df <- getPairsDF(object, values)
@@ -43,10 +43,10 @@ plotModelCorrelation <- function(object, ..., values = "fitted"){
 
 
 getPairsDF <- function(object, values){
-  if (values == "fitted") {
+  if ((values == "Fitted values") || (values == "Predicted response")) {
     df <- data.frame(values = object$fitted.values)
   }
-  if (values == "residuals") {
+  if (values == "Residuals") {
     df <- data.frame(values = object$residuals)
   }
 

@@ -7,9 +7,9 @@
 scoreCooksDistance(object, print = TRUE)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 
-\item{print}{If TRUE progress is printed}
+\item{print}{If TRUE progress is printed.}
 }
 \value{
 numeric vector
@@ -26,7 +26,7 @@ Cook’s Distances are calculated by removing the i-th observation from the data
 It shows how much all the values in the model change when the i-th observation is removed.
 
 Models of classes other than lm and glm the distances are computed directly from the definition,
-so this may take a while. In this example we will compute them for a linear model.
+so this may take a while.
 }
 \seealso{
 \code{\link{score}}

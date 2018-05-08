@@ -3,8 +3,8 @@
 #' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @return ggplot object
 #'
@@ -44,6 +44,9 @@ plotROC <- function(object, ...){
 
   ggplot(df, aes(d = D, m = m, color = label)) +
     geom_roc() +
+    xlab("false positive fraction") +
+    ylab("true positive fraction") +
+    ggtitle("ROC Curve") +
     theme_light()
 }
 

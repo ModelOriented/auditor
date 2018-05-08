@@ -7,7 +7,7 @@
 scoreREC(object)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 }
 \value{
 an object of class scoreAudit

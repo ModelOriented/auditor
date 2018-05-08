@@ -7,13 +7,13 @@
 scoreRMSE(object)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 }
 \value{
 an object of class scoreAudit
 }
 \description{
-Root Mean Square Error
+Root Mean Square Error.
 }
 \seealso{
 \code{\link{score}}

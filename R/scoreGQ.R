@@ -15,8 +15,8 @@
 #' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #' \code{scoreGQ} function uses a two-sided F-test.
 #'
-#' @param object object An object of class ModelAudit
-#' @param variable name of dependent or independent variable to order residuals. If NULL original data order is taken.
+#' @param object Object An object of class ModelAudit.
+#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @importFrom stats update rstandard predict pf sd
 #'
@@ -65,18 +65,17 @@ scoreGQ <- function(object, variable = NULL){
 
 getOrderedData <- function(object, variable){
   dataFromModel <- object$data
-  if(!is.null(variable)){
-    if(variable == "Fitted values") {
-      dataFromModel$fitted <- object$fitted.values
-      variable <- "fitted"
-    }
 
-    dataFromModel <- dplyr::arrange_(dataFromModel, variable)
-    if(variable == "Fitted values")  dataFromModel <- dataFromModel[,-ncol(dataFromModel)]
+  if(!is.null(variable)){
+    if((variable == "Predicted response") || (variable == "Fitted values")) {
+      values <- object$fitted.values
+    } else {
+      values <- object$data[,variable]
+    }
+    dataFromModel <- dataFromModel[order(values), ]
   }
 
-
-  return(dataFromModel)
+    return(dataFromModel)
 }
 
 

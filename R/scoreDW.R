@@ -5,7 +5,7 @@
 #' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
 #' @param object object An object of class ModelAudit
-#' @param variable "Fitted values" or name of dependent or independent variable to order residuals. If NULL the original data order is taken.
+#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @importFrom car durbinWatsonTest
 #'
@@ -14,21 +14,12 @@
 #' @export
 
 scoreDW <- function(object, variable = NULL){
-  if(is.null(variable) || variable=="Fitted values") {
-    dataDW <- data.frame(variable=object$fitted.values, residuals = object$residuals)
-  } else {
-    dataDW <- data.frame(variable=object$data[,variable], residuals = object$residuals)
-  }
 
-  if(!is.null(variable)){
-    dataDW <- dplyr::arrange(dataDW, variable)
-  }
-
-    residuals <- as.vector(dataDW$residuals)
+  orderedResiduals <- orderResidualsDF(object, variable)
 
   result <- list(
     name = "Durbin-Watson",
-    score = durbinWatsonTest(residuals)
+    score = durbinWatsonTest(orderedResiduals)
   )
   class(result) <- "scoreAudit"
   return(result)

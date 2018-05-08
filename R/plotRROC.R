@@ -4,8 +4,8 @@
 #' The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 #' under-estimation.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @return ggplot object
 #'

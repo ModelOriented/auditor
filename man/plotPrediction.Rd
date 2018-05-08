@@ -2,17 +2,19 @@
 % Please edit documentation in R/plotPrediction.R
 \name{plotPrediction}
 \alias{plotPrediction}
-\title{Observed response values vs Predicted response}
+\title{Predicted response vs Observed or Variable Values}
 \usage{
-plotPrediction(object, ...)
+plotPrediction(object, ..., variable = "Observed response")
 }
 \arguments{
-\item{object}{An object of class modelAudit}
+\item{object}{An object of class modelAudit.}
 
-\item{...}{other modelAudit objects to be plotted together}
+\item{...}{Other modelAudit objects to be plotted together.}
+
+\item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 }
 \description{
-Plot of predicted vs actual response.
+Plot of predicted response vs observed or variable Values.
 }
 \seealso{
 \code{\link{plot.modelAudit}}

@@ -5,20 +5,20 @@
 \title{Half-Normal plot}
 \usage{
 plotHalfNormal(object, score = TRUE, quant.scale = FALSE,
-  xlab = "Half-Normal Quantiles", ylab = "Residuals", main = "", ...)
+  xlab = "half-normal Quantiles", ylab = "residuals", main = "", ...)
 }
 \arguments{
-\item{object}{ModelAudit object, fitted model object or numeric vector}
+\item{object}{ModelAudit object, fitted model object or numeric vector.}
 
-\item{score}{if TRUE score based on probability density function}
+\item{score}{If TRUE score based on probability density function is displayed on the plot.}
 
-\item{quant.scale}{if TRUE values on avis are on quantile scale}
+\item{quant.scale}{if TRUE values on avis are on quantile scale.}
 
-\item{xlab}{the text for the x axis}
+\item{xlab}{The text for the x axis.}
 
-\item{ylab}{the text for the y axis}
+\item{ylab}{The text for the y axis.}
 
-\item{main}{title of plot}
+\item{main}{Title of plot.}
 
 \item{...}{extra arguments passed to \link[hnp]{hnp}.}
 }

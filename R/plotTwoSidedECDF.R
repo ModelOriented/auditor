@@ -2,12 +2,12 @@
 #'
 #' @description Cumulative Distribution Function for positive and negative residuals.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
-#' @param error.scaled  a logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.
-#' @param outliers number of outliers to be marked
-#' @param residuals a logical value indicating whether residuals should be marked.
-#' @param y.reversed should values on y axib be reversed
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param error.scaled  A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.
+#' @param outliers Number of outliers to be marked.
+#' @param residuals A logical value indicating whether residuals should be marked.
+#' @param y.reversed A logical value indicating whether values on y axis should be reversed.
 #'
 #' @return ggplot object
 #'
@@ -15,7 +15,6 @@
 #'
 #' @import ggplot2
 #' @importFrom ggrepel geom_text_repel
-#' @importFrom plyr ddply
 #'
 #' @export
 
@@ -41,7 +40,8 @@ plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
     scale_y_continuous(breaks = seq(0,1,0.1),
                        labels = paste(seq(0, 100, 10),"%"),
                        name = "") +
-    xlab("residuals")
+    xlab("residuals") +
+    ggtitle("Two-sided Cumulative Distribution Function")
 
   if (residuals == TRUE) {
     p <- p +
@@ -58,7 +58,11 @@ getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed){
   res <- object$residuals
   resids <- data.frame(no.obs = 1:(length(res)), res=res, sign = ifelse(res>=0, "pos", "neg"))
 
-  df <- ddply(resids, "sign", transform, ecd = ecdf(res)(res))
+  dfLower <- df[which(df$sign=="neg"),]
+  dfHigher <- df[which(df$sign=="pos"),]
+  dfLower$ecd <- ecdf(dfLower$res)(dfLower$res)
+  dfHigher$ecd <- ecdf(dfHigher$res)(dfHigher$res)
+  df <- rbind(dfLower, dfHigher)
 
   if (y.reversed == FALSE){
     df$ecd <- ifelse(df$sign == "neg", 1 - df$ecd, df$ecd)

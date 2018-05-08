@@ -3,14 +3,13 @@
 #' @description Plot Autocorrelation Function of models residuals.
 #'
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
-#' @param variable name of dependent or independent variable to order residuals. If NULL the order from data is taken. If "Fitted values" then data is ordered by fitted values.
-#' @param alpha confidence level of the interval
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param alpha Confidence level of the interval.
 #'
 #' @import ggplot2
-#' @importFrom stats qnorm
-#' @importFrom forecast Acf
+#' @importFrom stats qnorm acf
 #'
 #' @export
 plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
@@ -42,19 +41,9 @@ plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
 
 getOrderedResiduals <- function(object, variable){
 
-  if(is.null(variable)){
-    values <- seq(1, nrow(object$data))
-  } else {
-    if(variable == "Fitted values") {
-      values <- object$fitted.values
-    } else {
-      values <- object$data[,variable]
-    }
-  }
+  orderedResiduals <- orderResidualsDF(object, variable)
 
-  tmpDF <- data.frame(values = values, residuals=object$residuals)
-  orderedResiduals <- dplyr::arrange(tmpDF, values)$residuals
-  acf <- Acf(orderedResiduals, plot = FALSE, calc.ci = TRUE)
+  acf <- acf(orderedResiduals, plot = FALSE)
 
   resultDF <- data.frame(acf = acf$acf[-1], label = object$label, lag = acf$lag[-1], ymin = 0)
 

@@ -6,12 +6,12 @@
 #' Points on the plot correspond to ordered absolute values of model diagnostic
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
-#' @param object ModelAudit object, fitted model object or numeric vector
-#' @param score if TRUE score based on probability density function
-#' @param quant.scale if TRUE values on avis are on quantile scale
-#' @param main title of plot
-#' @param xlab the text for the x axis
-#' @param ylab the text for the y axis
+#' @param object ModelAudit object, fitted model object or numeric vector.
+#' @param score If TRUE score based on probability density function is displayed on the plot.
+#' @param quant.scale if TRUE values on avis are on quantile scale.
+#' @param main Title of plot.
+#' @param xlab The text for the x axis.
+#' @param ylab The text for the y axis.
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
 #'
 #' @return An object of class ggplot
@@ -26,7 +26,7 @@
 #' @export
 
 plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
-                           xlab = "Half-Normal Quantiles", ylab = "Residuals",
+                           xlab = "half-normal Quantiles", ylab = "residuals",
                            main = "", ...){
   data <- NULL
 

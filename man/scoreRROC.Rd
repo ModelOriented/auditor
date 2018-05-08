@@ -7,13 +7,13 @@
 scoreRROC(object)
 }
 \arguments{
-\item{object}{An object of class ModelAudit}
+\item{object}{An object of class ModelAudit.}
 }
 \value{
 an object of class scoreAudit
 }
 \description{
-The area over the Regression Receiver Operating Characteristic
+The area over the Regression Receiver Operating Characteristic.
 }
 \references{
 Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.

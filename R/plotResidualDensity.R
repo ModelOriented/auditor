@@ -2,9 +2,9 @@
 #'
 #' @description Density of model residuals.
 #'
-#' @param object An object of class ModelAudit
-#' @param ... other modelAudit objects to be plotted together
-#' @param variable a variable name. Residuals will be plotted separately for different values of variable. or continuous variables, they will be separated by a mean.
+#' @param object An object of class ModelAudit.
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param variable A variable name. Residuals will be plotted separately for different values of variable. or continuous variables, they will be separated by a median.
 #'
 #' @return ggplot object
 #'
@@ -59,9 +59,9 @@ getResidDensDF <- function(object, variable){
   if (!is.null(variable)) {
     modelData <- object$data
 
-    if (class(modelData[, variable]) == "numeric") {
-      varMean <- mean(modelData[,variable])
-      df$variable <- ifelse(modelData[,variable] > varMean, paste(">", variable, "mean"), paste("<=", variable, "mean"))
+    if (class(modelData[, variable]) %in% c("numeric","integer")) {
+      varMedian <- median(modelData[,variable])
+      df$variable <- ifelse(modelData[,variable] > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
     } else {
       df$variable <-modelData[,variable]
     }
