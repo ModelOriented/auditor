@@ -23,6 +23,6 @@ This function provides several diagnostic plots for regression and classificatio
 \seealso{
 \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
 \link{plotHalfNormal}, \link{plotResidual}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelCorrelation},
-\link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResiduals}, \link{plotROC},
+\link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResidual}, \link{plotROC},
 \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
 }

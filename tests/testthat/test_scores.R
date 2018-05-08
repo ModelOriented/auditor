@@ -19,8 +19,8 @@ test_that("scoreRuns", {
 })
 
 test_that("scoreCook", {
-  expect_is(scoreCook(au.lm), "numeric")
-  expect_is(scoreCook(au.rf), "numeric")
+  expect_is(scoreCooksDistance(au.lm), "numeric")
+  expect_is(scoreCooksDistance(au.rf), "numeric")
 })
 
 
