@@ -15,6 +15,7 @@
 #' \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
 #'
 #' @importFrom grDevices devAskNewPage
+#' @importFrom graphics plot
 #'
 #' @method plot modelAudit
 #'

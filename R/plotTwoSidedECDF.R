@@ -79,7 +79,7 @@ getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed){
   }
 
   if (!is.na(outliers)) {
-    df <- dplyr::arrange(df, res)
+    df <- df[order(df$res), ]
     df$big <- c(rep(TRUE, outliers), rep(FALSE, nrow(object$data) - 2 * outliers), rep(TRUE, outliers))
   } else {
     df$big <- FALSE
