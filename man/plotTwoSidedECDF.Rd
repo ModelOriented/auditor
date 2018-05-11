@@ -26,6 +26,18 @@ ggplot object
 \description{
 Cumulative Distribution Function for positive and negative residuals.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+plotTwoSidedECDF(lm_au)
+
+library(randomForest)
+rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+plotTwoSidedECDF(lm_au, rf_au, y.reversed = TRUE)
+
+}
 \seealso{
 \code{\link{plot.modelAudit}}
 }

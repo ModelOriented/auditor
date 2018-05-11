@@ -24,17 +24,15 @@ REC curve estimates the Cumulative Distribution Function (CDF) of the error
 Area Over the REC Curve (REC) is a biased estimate of the expected error
 }
 \examples{
-library(auditor)
-library(randomForest)
 library(car)
-model_lm <- lm(prestige ~ education + women + income, data = Prestige)
-audit_lm <- audit(model_lm)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+plotREC(lm_au)
 
-plotREC(audit_lm)
-
-model_rf <- randomForest(prestige ~ education + women + income, data = Prestige)
-audit_rf <- audit(model_rf)
-plotREC(audit_lm, audit_rf)
+library(randomForest)
+rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+plotREC(lm_au, rf_au)
 
 
 }

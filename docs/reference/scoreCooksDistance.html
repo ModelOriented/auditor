@@ -135,6 +135,80 @@ so this may take a while.</p>
     <div class='dont-index'><p><code><a href='score.html'>score</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
+<span class='fu'>scoreCooksDistance</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;        gov.administrators          general.managers               accountants 
+#&gt;              2.428267e-03              2.832697e-01              1.626121e-03 
+#&gt;       purchasing.officers                  chemists                physicists 
+#&gt;              1.082658e-03              1.377992e-02              4.882702e-03 
+#&gt;                biologists                architects           civil.engineers 
+#&gt;              6.387086e-03              6.269429e-04              2.971297e-03 
+#&gt;          mining.engineers                 surveyors               draughtsmen 
+#&gt;              5.231977e-06              1.622283e-02              4.172801e-03 
+#&gt;       computer.programers                economists             psychologists 
+#&gt;              9.065386e-03              3.516136e-04              2.169004e-02 
+#&gt;            social.workers                   lawyers                librarians 
+#&gt;              4.736014e-03              2.362512e-03              5.954443e-04 
+#&gt;    vocational.counsellors                 ministers       university.teachers 
+#&gt;              1.987192e-02              8.388665e-02              1.484911e-02 
+#&gt;   primary.school.teachers secondary.school.teachers                physicians 
+#&gt;              1.584048e-03              2.548978e-05              6.166504e-02 
+#&gt;             veterinarians  osteopaths.chiropractors                    nurses 
+#&gt;              3.858089e-02              3.102104e-02              5.185906e-02 
+#&gt;             nursing.aides          physio.therapsts               pharmacists 
+#&gt;              4.911175e-04              5.498177e-02              1.893992e-04 
+#&gt;       medical.technicians        commercial.artists       radio.tv.announcers 
+#&gt;              3.391784e-02              5.101554e-03              1.935625e-04 
+#&gt;                  athletes               secretaries                   typists 
+#&gt;              3.390048e-04              6.852068e-06              1.779877e-03 
+#&gt;               bookkeepers          tellers.cashiers        computer.operators 
+#&gt;              1.487824e-03              1.014634e-03              5.068692e-04 
+#&gt;           shipping.clerks               file.clerks              receptionsts 
+#&gt;              3.824718e-03              3.959903e-02              3.093447e-03 
+#&gt;             mail.carriers             postal.clerks       telephone.operators 
+#&gt;              6.563431e-04              4.892611e-04              1.462173e-03 
+#&gt;                collectors           claim.adjustors             travel.clerks 
+#&gt;              1.760987e-02              1.937443e-03              8.541219e-03 
+#&gt;             office.clerks         sales.supervisors     commercial.travellers 
+#&gt;              6.700605e-03              3.567173e-04              8.673946e-03 
+#&gt;              sales.clerks                  newsboys service.station.attendant 
+#&gt;              1.562527e-02              1.177427e-01              4.948243e-02 
+#&gt;          insurance.agents      real.estate.salesmen                    buyers 
+#&gt;              1.459960e-03              9.756845e-05              9.584963e-05 
+#&gt;              firefighters                 policemen                     cooks 
+#&gt;              1.019968e-04              6.862129e-05              2.592845e-05 
+#&gt;                bartenders         funeral.directors               babysitters 
+#&gt;              1.659973e-02              3.232608e-03              1.266394e-02 
+#&gt;                launderers                  janitors        elevator.operators 
+#&gt;              8.930962e-03              1.188528e-02              8.503645e-03 
+#&gt;                   farmers              farm.workers      rotary.well.drillers 
+#&gt;              4.899856e-02              1.148605e-02              1.561217e-03 
+#&gt;                    bakers            slaughterers.1            slaughterers.2 
+#&gt;              8.279081e-03              4.390716e-03              9.233956e-04 
+#&gt;                   canners           textile.weavers         textile.labourers 
+#&gt;              1.749033e-03              6.540165e-03              1.489118e-03 
+#&gt;           tool.die.makers                machinists       sheet.metal.workers 
+#&gt;              9.062896e-04              2.451712e-03              1.151053e-04 
+#&gt;                   welders              auto.workers          aircraft.workers 
+#&gt;              5.388366e-03              9.738267e-07              2.200670e-03 
+#&gt;        electronic.workers        radio.tv.repairmen     sewing.mach.operators 
+#&gt;              4.934191e-02              4.137224e-03              1.397534e-02 
+#&gt;            auto.repairmen        aircraft.repairmen        railway.sectionmen 
+#&gt;              1.269647e-03              1.665114e-03              1.638252e-10 
+#&gt;        electrical.linemen              electricians      construction.foremen 
+#&gt;              1.183954e-04              2.873767e-03              2.019788e-02 
+#&gt;                carpenters                    masons            house.painters 
+#&gt;              1.491918e-02              1.027504e-02              4.754342e-04 
+#&gt;                  plumbers    construction.labourers                    pilots 
+#&gt;              3.493312e-03              1.594688e-03              1.748322e-03 
+#&gt;           train.engineers               bus.drivers              taxi.drivers 
+#&gt;              9.635459e-03              1.574710e-03              5.745797e-03 
+#&gt;              longshoremen               typesetters               bookbinders 
+#&gt;              8.498365e-03              8.455003e-05              7.186315e-04 </div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,7 +220,9 @@ so this may take a while.</p>
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

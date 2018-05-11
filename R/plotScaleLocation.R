@@ -8,6 +8,13 @@
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param score A logical value. If TRUE value of \link{scoreGQ} will be added.
 #'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' plotScaleLocation(lm_au)
+#'
+#'
 #' @import ggplot2
 #' @importFrom stats median
 #'

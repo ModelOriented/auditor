@@ -24,6 +24,16 @@ LIFT Chart shows the ratio of a model to a random guess.
 \details{
 Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
 }
+\examples{
+library(mlbench)
+data("PimaIndiansDiabetes")
+Pima <- PimaIndiansDiabetes
+Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
+glm_model <- glm(diabetes~., family=binomial,	data=Pima)
+glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
+plotLIFT(glm_au)
+
+}
 \seealso{
 \code{\link{plot.modelAudit}}
 }

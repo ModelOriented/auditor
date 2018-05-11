@@ -1,4 +1,4 @@
-# version 0.2.0
+# version 0.2.0 - released on CRAN
 ## 07/05.2019
 
 - new plot functions: `plotLift()`, `plotCumulativeGain()`, `plotTwoSidedECDF()`, `plotModelCorrelation()`, `plotResidualDensity()`, `plotModelPCA()`, plotPrediction()`, plotModelRanking()`
@@ -10,6 +10,7 @@
 - `variable = NULL` parameter in `scoreDW()`, `scoreRuns()`, plotAutocorrelation()`, `plotACF()` causes the residuals to be not sorted by any variable
 - densities in `plotResidualDensity()` may be now separated by variable values
 - for function `score()` parameter `score` is renamed into `type`
+- new examples 
  
 # version 0.1.1.0000  
 ## 09/03/2018

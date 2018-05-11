@@ -12,7 +12,7 @@ plotHalfNormal(object, score = TRUE, quant.scale = FALSE,
 
 \item{score}{If TRUE score based on probability density function is displayed on the plot.}
 
-\item{quant.scale}{if TRUE values on avis are on quantile scale.}
+\item{quant.scale}{if TRUE values on axis are on quantile scale.}
 
 \item{xlab}{The text for the x axis.}
 

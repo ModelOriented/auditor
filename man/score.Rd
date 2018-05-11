@@ -10,7 +10,7 @@ score(object, type = "MSE", ...)
 \item{object}{Object An object of class modelAudit.}
 
 \item{type}{The type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
-(for detailed description see functions in seealso section).}
+(for detailed description see functions in see also section).}
 
 \item{...}{Other arguments dependent on the type of score.}
 }
@@ -20,6 +20,13 @@ an object of class scoreAudit, except Cooks distance, where numeric vector is re
 \description{
 This function provides several scores for model validation and performance assessment.
 Scores can be also used to compare models.
+}
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+score(lm_au, type = 'Runs')
+
 }
 \seealso{
 \code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}

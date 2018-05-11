@@ -17,3 +17,11 @@ plotScaleLocation(object, variable = NULL, score = FALSE)
 Variable values vs square root of the absolute value of the residuals.
 A vertical line corresponds to median.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+plotScaleLocation(lm_au)
+
+
+}

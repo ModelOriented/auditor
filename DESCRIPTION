@@ -1,14 +1,13 @@
 Package: auditor
-Title: Model audit - verification, validation, and error analysis 
+Title: Model Audit - Verification, Validation, and Error Analysis 
 Version: 0.2.0
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre")),
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"))
   )
-Description: The 'auditor' package provides an easy to use unified interface for creating validation
-  plots for any model. This visualizations allow to asses and compare the goodness of fit, performance,
-  and similarity of models. The auditor help statisticians, data scientists, and researchers can avoid
-  repetitive work consisting of writing code needed to create residuals plots. 
+Description: Provides an easy to use unified interface for creating validation plots for any model. 
+  The 'auditor' helps to avoid repetitive work consisting of writing code needed to create residual plots. 
+  This visualizations allow to asses and compare the goodness of fit, performance, and similarity of models. 
 Depends: R (>= 3.0.0)
 License: GPL
 Encoding: UTF-8

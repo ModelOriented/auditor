@@ -8,7 +8,7 @@
 #'
 #' @param object ModelAudit object, fitted model object or numeric vector.
 #' @param score If TRUE score based on probability density function is displayed on the plot.
-#' @param quant.scale if TRUE values on avis are on quantile scale.
+#' @param quant.scale if TRUE values on axis are on quantile scale.
 #' @param main Title of plot.
 #' @param xlab The text for the x axis.
 #' @param ylab The text for the y axis.

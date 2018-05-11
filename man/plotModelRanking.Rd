@@ -22,6 +22,16 @@ ggplot object
 \description{
 Radar plot with model scores. Scores are scaled to [0,1], each score is inversed and divided by maximum score value.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+library(randomForest)
+rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+plotModelRanking(lm_au, rf_au)
+
+}
 \seealso{
 \code{\link{plot.modelAudit}}
 }

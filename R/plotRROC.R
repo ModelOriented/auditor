@@ -9,11 +9,11 @@
 #'
 #' @return ggplot object
 #'
-#' @details For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
+#' @details For RROC curves we use a shift, which is an equivalent to the threshold for ROC curves.
 #' For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift.
 #' Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
 #'
-#' Over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)}.
+#' Over-estimation is calculated as: \eqn{OVER= \sum(e_i|e_i>0)}.
 #'
 #' Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
 #'
@@ -27,17 +27,15 @@
 #'
 #'
 #' @examples
-#' library(auditor)
-#' library(randomForest)
 #' library(car)
-#' model_lm <- lm(prestige ~ education + women + income, data = Prestige)
-#' audit_lm <- audit(model_lm)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' plotRROC(lm_au)
 #'
-#' plotRROC(audit_lm)
-#'
-#' model_rf <- randomForest(prestige ~ education + women + income, data = Prestige)
-#' audit_rf <- audit(model_rf)
-#' plotRROC(audit_lm, audit_rf)
+#' library(randomForest)
+#' rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+#' rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+#' plotRROC(lm_au, rf_au)
 #'
 #' @import ggplot2
 #'

@@ -19,6 +19,18 @@ ggplot object
 \description{
 Density of model residuals.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+plotResidualDensity(lm_au)
+
+library(randomForest)
+rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+plotResidualDensity(lm_au, rf_au)
+
+}
 \seealso{
 \code{\link{plot.modelAudit}}
 }

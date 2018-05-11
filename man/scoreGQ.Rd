@@ -26,7 +26,14 @@ The test statistic is the ratio of the mean square residual errors for two group
 where \eqn{MSE = (RSS)/(n-p)}
 where n is the number of observations and p is the number of variables .
 
-The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+The score value is helpful in comparing models. It is worth pointing out that results of tests like p-value makes sense only
 when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 \code{scoreGQ} function uses a two-sided F-test.
+}
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+scoreGQ(lm_au)
+
 }

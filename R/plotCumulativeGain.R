@@ -1,6 +1,6 @@
 #' @title Cumulative Gain Chart
 #'
-#' @description Cumulative Gain Chartis is a plot of the rate of positive prediction against true positive rate for the different thresholds.
+#' @description Cumulative Gain Chart is is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #' @param object An object of class ModelAudit.
 #' @param ... Other modelAudit objects to be plotted together.
@@ -8,6 +8,15 @@
 #' @return ggplot object
 #'
 #' @seealso \code{\link{plot.modelAudit}}
+#'
+#' @examples
+#' library(mlbench)
+#' data("PimaIndiansDiabetes")
+#' Pima <- PimaIndiansDiabetes
+#' Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
+#' glm_model <- glm(diabetes~., family=binomial,	data=Pima)
+#' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
+#' plotCumulativeGain(glm_au)
 #'
 #' @import ggplot2
 #' @importFrom ROCR performance prediction

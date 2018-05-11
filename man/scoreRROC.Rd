@@ -15,6 +15,14 @@ an object of class scoreAudit
 \description{
 The area over the Regression Receiver Operating Characteristic.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+scoreRROC(lm_au)
+
+
+}
 \references{
 Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
 }

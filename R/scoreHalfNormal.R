@@ -10,6 +10,13 @@
 #' @param object ModelAudit object or fitted model.
 #' @param ... Extra arguments passed to \link[hnp]{hnp}.
 #'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' plotHalfNormal(lm_au)
+#'
+#'
 #' @importFrom hnp hnp
 #'
 #' @export

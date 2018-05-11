@@ -28,7 +28,7 @@ An object of class ModelAudit, which contains:
 \item \code{model} the audited model,
 \item \code{fitted.values} fitted values from model,
 \item \code{data} data used for fitting the model,
-\item \code{y} vecor with values of predicted variable used for fittng the model,
+\item \code{y} vector with values of predicted variable used for fitting the model,
 \item \code{predict.function} function that were used for model predictions,
 \item \code{residual.function} function that were used for calculating model residuals,
 \item \code{residuals}

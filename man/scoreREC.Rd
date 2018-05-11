@@ -16,6 +16,14 @@ an object of class scoreAudit
 The area over the Regression Error Characteristic curve is a measure of the expected error
 for the regression model.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+scoreREC(lm_au)
+
+
+}
 \references{
 J. Bi, and K. P. Bennet, "Regression error characteristic curves," in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50
 }

@@ -106,7 +106,7 @@ the residual sum of squares for each group (RSS1 and RSS2).</p>
 \(F = (MSE_1)/(MSE_2)\)
 where \(MSE = (RSS)/(n-p)\)
 where n is the number of observations and p is the number of variables .</p>
-<p>The score value is helpful in comparing models. It is worth ponting out that results of tests like p-value makes sense only
+<p>The score value is helpful in comparing models. It is worth pointing out that results of tests like p-value makes sense only
 when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 <code>scoreGQ</code> function uses a two-sided F-test.</p>
     
@@ -131,6 +131,26 @@ when the test assumptions are satisfied. Otherwise test statistic may be conside
     <p>an object of class scoreAudit</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
+<span class='fu'>scoreGQ</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt; $name
+#&gt; [1] "Goldfeld-Quandt"
+#&gt; 
+#&gt; $score
+#&gt; [1] 0.3983684
+#&gt; 
+#&gt; $parameter
+#&gt; df1 df2 
+#&gt;  45  45 
+#&gt; 
+#&gt; $pValue
+#&gt; [1] 0.002540368
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "scoreAudit"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -138,7 +158,9 @@ when the test assumptions are satisfied. Otherwise test statistic may be conside
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -7,6 +7,17 @@
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' plotPrediction(lm_au)
+#'
+#' library(randomForest)
+#' rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+#' rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+#' plotPrediction(lm_au, rf_au)
+#'
 #' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @import ggplot2

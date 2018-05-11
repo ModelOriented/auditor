@@ -6,6 +6,13 @@
 #'
 #' @return an object of class scoreAudit
 #'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' scoreRROC(lm_au)
+#'
+#'
 #' @seealso \code{\link{plotRROC}}
 #'
 #' @references Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.

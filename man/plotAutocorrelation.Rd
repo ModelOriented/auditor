@@ -16,3 +16,10 @@ plotAutocorrelation(object, variable = NULL, score = TRUE)
 \description{
 Plot of i-th residual vs i+1-th residual.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+plotAutocorrelation(lm_au)
+
+}

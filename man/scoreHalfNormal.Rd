@@ -19,3 +19,11 @@ with the distinction that each element of sum is also scaled to take values from
 \eqn{res_i} is a residual for i-th observation, \eqn{simres_{i,j}} is the residual of j-th simulation for i-th observation, and \eqn{n} is the number of simulations for each observation.
 Scores are calculated on the basis of simulated data, so they may differ between function calls.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+plotHalfNormal(lm_au)
+
+
+}

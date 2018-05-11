@@ -3,16 +3,28 @@
 #' @description This function provides several diagnostic plots for regression and classification models.
 #'
 #' @param x object of class modelAudit
-#' @param ... other arguments dependent on the type of plot or additionam objects of class modelAudit
+#' @param ... other arguments dependent on the type of plot or additionl objects of class modelAudit
 #' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
-#' ModelPCA', 'ModelCorreltion', 'Prediction', 'REC', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
-#' ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in seealso section).
+#' ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
+#' ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #'
 #' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
-#' \link{plotHalfNormal}, \link{plotResidual}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelCorrelation},
+#' \link{plotHalfNormal}, \link{plotResidual}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
 #' \link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResidual}, \link{plotROC},
 #' \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
+#'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' plot(lm_au)
+#'
+#' library(randomForest)
+#' rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+#' rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+#' plot(lm_au, rf_au, type = "ModelRanking")
+#'
 #'
 #' @importFrom grDevices devAskNewPage
 #' @importFrom graphics plot
@@ -26,7 +38,7 @@ plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE){
   object <- x
 
   plotNames <- c('ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
-                 'ModelPCA', 'ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residuals', 'ROC', 'RROC',
+                 'ModelPCA', 'ModelRanking', 'ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residuals', 'ROC', 'RROC',
                  'ScaleLocation', 'TwoSidedECDF')
 
   if(!all(type %in% plotNames)){
@@ -61,6 +73,7 @@ plotTypePlot <- function(x, ..., type){
          HalfNormal = { return(plotHalfNormal(x, ...)) },
          LIFT = {return(plotLIFT(x, ...))},
          ModelPCA = {return(plotModelPCA(x, ...))},
+         ModelRanking = {return(plotModelRanking(x, ...))},
          ModelCorrelation = {return(plotModelCorrelation(x, ...))},
          Prediction = {return(plotPrediction(x, ...))},
          REC = { return(plotREC(x, ...)) },

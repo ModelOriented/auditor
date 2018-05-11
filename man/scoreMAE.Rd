@@ -15,6 +15,14 @@ an object of class scoreAudit
 \description{
 Mean Absolute Error.
 }
+\examples{
+library(car)
+lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+scoreMAE(lm_au)
+
+
+}
 \seealso{
 \code{\link{score}}
 }

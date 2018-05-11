@@ -15,6 +15,13 @@
 #' Models of classes other than lm and glm the distances are computed directly from the definition,
 #' so this may take a while.
 #'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' scoreCooksDistance(lm_au)
+#'
+#'
 #' @importFrom stats cooks.distance update
 #'
 #' @seealso \code{\link{score}}

@@ -16,6 +16,14 @@
 #'
 #' For model classes other than lm and glm the distances are computed directly from the definition.
 #'
+#'
+#'
+#' @examples
+#' library(car)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' plotCooksDistance(lm_au)
+#'
 #' @import ggplot2
 #'
 #' @export
