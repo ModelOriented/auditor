@@ -1,4 +1,5 @@
 library(auditor)
+library(DALEX)
 library(car)
 library(MASS)
 library(randomForest)
@@ -23,3 +24,5 @@ au.rf <- audit(model.rf, label="rf")
 au.class.glm <- audit(model.class.glm, label="class glm")
 au.class.rf <- audit(model.class.rf)
 
+explainer_lm <- explain(model.lm, data = Prestige, y = Prestige$prestige)
+au_expl_lm <- audit(explainer_lm)

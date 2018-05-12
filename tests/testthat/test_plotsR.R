@@ -19,6 +19,7 @@ test_that("plotCook", {
 
 test_that("plotResiduals", {
   expect_is(plotResidual(au.glm), "gg")
+  expect_is(plotResidual(au_expl_lm), "gg")
   expect_is(plotResidual(au.rf, "Prewt"), "gg")
 })
 

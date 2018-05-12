@@ -16,7 +16,7 @@ orderResidualsDF <- function(object, variable, is.df = FALSE){
 
   tmpDF$values <- values
   tmpDF <- tmpDF[order(values), ]
-  if(isFALSE(is.df)){
+  if(is.df==FALSE){
     return(tmpDF$residuals)
   } else {
     return(tmpDF)
