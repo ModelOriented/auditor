@@ -14,12 +14,10 @@
 ```
 devtools::install_github("mi2-warsaw/auditor")
 ```
-
 #### or from CRAN 
-Version on CRAN works for R >=3.5, while version on GitHibu works for R>=3.0. This will be changed in the next update.
 
 ```{r}
-install.packages("DALEX")
+install.packages("auditor")
 ```
 
 ### [Reference Manual](https://mi2-warsaw.github.io/auditor/)
