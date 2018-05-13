@@ -82,75 +82,36 @@
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
+<div id="from-github" class="section level4">
+<h4 class="hasAnchor">
+<a href="#from-github" class="anchor"></a>From GitHub</h4>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("mi2-warsaw/auditor")</a></code></pre>
+</div>
+<div id="or-from-cran" class="section level4">
+<h4 class="hasAnchor">
+<a href="#or-from-cran" class="anchor"></a>or from CRAN</h4>
+<p>Version on CRAN works for R &gt;=3.5, while version on GitHibu works for R&gt;=3.0. This will be changed in the next update.</p>
+<pre class="{r}"><code>install.packages("DALEX")</code></pre>
+</div>
 </div>
 <div id="reference-manual" class="section level3">
 <h3 class="hasAnchor">
 <a href="#reference-manual" class="anchor"></a><a href="https://mi2-warsaw.github.io/auditor/">Reference Manual</a>
 </h3>
 </div>
+<div id="vignettes-in-preparation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#vignettes-in-preparation" class="anchor"></a>Vignettes (in Preparation)</h3>
+<ul>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/Intorduction_into_model_audit.html">Introduction into model audit</a></p></li>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html">The half-normal plots</a></p></li>
+</ul>
+</div>
 <div id="news" class="section level3">
 <h3 class="hasAnchor">
 <a href="#news" class="anchor"></a><a href="NEWS.html">News</a>
 </h3>
 <p><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet.png"><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet_ROC.png"></p>
-</div>
-<div id="quick-preview-of-the-assumptions-and-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#quick-preview-of-the-assumptions-and-functions" class="anchor"></a>Quick preview of the assumptions and functions</h3>
-<table style="width:21%;" class="table">
-<colgroup>
-<col width="6%">
-<col width="6%">
-<col width="6%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Attribute</th>
-<th align="left">Verification</th>
-<th align="left">Plot</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">Residuals</td>
-<td align="left"></td>
-<td align="left">Residuals vs fitted values  <code>plotResiduals</code>
-</td>
-</tr>
-<tr class="even">
-<td align="left">Homoscedasticity of the errors</td>
-<td align="left">Goldfeld-Quandt score  <code>scoreGQ</code>
-</td>
-<td align="left">Variable vs square root of the absolute value of the residuals <code>plotScaleLocation</code>
-</td>
-</tr>
-<tr class="odd">
-<td align="left">Uncorrelated errors</td>
-<td align="left">Durbin-Watson score  <code>scoreDW</code>  Runs score  <code>scoreRuns</code>
-</td>
-<td align="left">i-th residual vs (i+1)-th residual <code>plotAutocorrelation</code>
-</td>
-</tr>
-<tr class="even">
-<td align="left">Uncorrelated errors</td>
-<td align="left"></td>
-<td align="left">AutoCorrelation Function <code>plotACF</code>
-</td>
-</tr>
-<tr class="odd">
-<td align="left">Influential observations</td>
-<td align="left">Cooks distance  <code>scoreCook</code>
-</td>
-<td align="left"><code>plotCook</code></td>
-</tr>
-<tr class="even">
-<td align="left">error distribution</td>
-<td align="left">Half-Normal score  <code>scoreHalfNormal</code>
-</td>
-<td align="left">Half-Normal plot  <code>plotHalfNormal</code>
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div id="acknowledgments" class="section level2">
