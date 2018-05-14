@@ -4,7 +4,7 @@
 \alias{plotPrediction}
 \title{Predicted response vs Observed or Variable Values}
 \usage{
-plotPrediction(object, ..., variable = "Observed response")
+plotPrediction(object, ..., variable = "Observed response", smooth = TRUE)
 }
 \arguments{
 \item{object}{An object of class modelAudit.}
@@ -12,6 +12,8 @@ plotPrediction(object, ..., variable = "Observed response")
 \item{...}{Other modelAudit objects to be plotted together.}
 
 \item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+
+\item{smooth}{Logical, indicates whenever smooth line should be added.}
 }
 \description{
 Plot of predicted response vs observed or variable Values.

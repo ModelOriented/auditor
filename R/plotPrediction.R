@@ -6,6 +6,7 @@
 #' @param object An object of class modelAudit.
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param smooth Logical, indicates whenever smooth line should be added.
 #'
 #' @examples
 #' library(car)
@@ -23,7 +24,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotPrediction <- function(object, ..., variable = "Observed response"){
+plotPrediction <- function(object, ..., variable = "Observed response", smooth = TRUE){
   values <- predicted <- label <- NULL
 
   df <- generatePredictionDF(object, variable)
@@ -45,6 +46,10 @@ plotPrediction <- function(object, ..., variable = "Observed response"){
           ylab("Predicted values") +
           ggtitle(paste("Predicted", maybeVS, variable)) +
           theme_light()
+
+  if(smooth == TRUE){
+    p <- p + geom_smooth(method = "loess", se = FALSE)
+  }
 
   if(!is.null(variable) && variable == "Observed response") p <- p + geom_abline(slope = 1, intercept = 0)
 
