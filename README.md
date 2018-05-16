@@ -1,5 +1,5 @@
 # auditor - regression model verification, validation, and error analysis 
-<img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor2.png" width="200"  align="right" />
+<img src="materials/auditor2.png" width="200" align="right" />
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
