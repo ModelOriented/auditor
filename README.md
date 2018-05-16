@@ -1,12 +1,13 @@
+# auditor - regression model verification, validation, and error analysis 
+<img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor2.png" width="200"  align="right" />
+
+
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/auditor)](http://cranlogs.r-pkg.org/badges/grand-total/auditor)
 [![Build Status](https://travis-ci.org/mi2-warsaw/auditor.svg?branch=master)](https://travis-ci.org/mi2-warsaw/auditor)
 
 
-
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="300" />
-
-# auditor - regression model verification, validation, and error analysis
 
 ## auditor's pipeline: **model %>% audit() %>% plot(type=...)**
 
