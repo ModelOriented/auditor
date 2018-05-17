@@ -11,32 +11,56 @@
 
 ## auditor's pipeline: **model %>% audit() %>% plot(type=...)**
 
-### Installation
+## Installation
 
-#### From GitHub
+### from GitHub
 
 ```
 devtools::install_github("mi2-warsaw/auditor")
 ```
-#### or from CRAN 
+### and from CRAN 
 
 ```{r}
 install.packages("auditor")
 ```
 
-### [Reference Manual](https://mi2-warsaw.github.io/auditor/)
+## [News](NEWS.md)
 
-### Vignettes (in Preparation)
+## [Reference Manual](https://mi2-warsaw.github.io/auditor/)
+
+## Vignettes (in Preparation)
 
 * [Introduction into model audit](https://mi2-warsaw.github.io/auditor/articles/Intorduction_into_model_audit.html)
 
-* [The half-normal plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html)
+* [The Half-normal Plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html)
 
-### [News](NEWS.md)
+## Cheatsheets
+
 
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet.png"/>
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet_ROC.png"/>
 
+## A Short Overview of Plots
+
+| Plot name                                             | Function                                                               | Regression | Classification | Examples                                                                               |
+|-------------------------------------------------------|------------------------------------------------------------------------|------------|----------------|----------------------------------------------------------------------------------------|
+| Autocorrelation Function                              | `plotACF()` </br> `plot(..., type = "ACF")`                            |            |                | soon                                                                                   |
+| Autocorrelation                                       | `plotAutocorrelation()` </br> `plot(..., type = "Autocorrelation")`    |            |                | soon                                                                                   |
+| Influence of observations                             | `plotCooksDistance()` </br> `plot(..., type = "CooksDistance")`        |            |                | soon                                                                                   |
+| Cumulative Gain Chart                                 | `plotCumulativeGain()` </br> `plot(..., type = "CumulativeGain")`      |            |                | soon                                                                                   |
+| Half-Normal                                           | `plotHalfNormal()` </br> `plot(..., type = "HalfNormal")`              |    yes     |     yes        | [The Half-normal Plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html) |
+| LIFT Chart                                            | `plotLIFT()` </br> `plot(..., type = "LIFT")`                          |            |                | soon                                                                                   |
+| Model Correlation                                     | `plotModelCorrelation()` </br> `plot(..., type = "ModelCorrelation")`  |            |                | soon                                                                                   |
+| Principal Component Analysis of models                | `plotModelPCA()` </br> `plot(..., type = "ModelPCA")`                  |            |                | soon                                                                                   |
+| Model Ranking Plot                                    | `plotModelRanking()` </br> `plot(..., type = "ModelRanking")`          |            |                | soon                                                                                   |
+| Predicted Response vs Observed or Variable Values     | `plotPrediction()` </br> `plot(..., type = "Prediction")`              |            |                | soon                                                                                   |
+| Regression Error Characteristic Curves (REC)          | `plotREC()` </br> `plot(..., type = "REC")`                            |            |                | soon                                                                                   |
+| Plot Residuals vs Observed, Fitted or Variable Values | `plotResidual()` </br> `plot(..., type = "Residual")`                  |            |                | soon                                                                                   |
+| Residual Density                                      | `plotResidualDensity()` </br> `plot(..., type = "ResidualDensity")`    |            |                | soon                                                                                   |
+| Receiver Operating Characteristic (ROC)               | `plotROC()` </br> `plot(..., type = "ROC")`                            |            |                | soon                                                                                   |
+| Regression Receiver Operating Characteristic (RROC)   | `plotRROC()` </br> `plot(..., type = "RROC")`                          |            |                | soon                                                                                   |
+| Scale-Location plot                                   | `plotScaleLocation()` </br> `plot(..., type = "ScaleLocation")`        |            |                | soon                                                                                   |
+| Two-sided Cumulative Distribution Function            |  `plotTwoSidedECDF()` </br> `plot(..., type = "TwoSidedECDF")`         |            |                | soon                                                                                   |
 
 ## Acknowledgments
 Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.
