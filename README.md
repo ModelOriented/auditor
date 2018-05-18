@@ -1,5 +1,5 @@
 # auditor - regression model verification, validation, and error analysis   
-<img src="materials/auditor2.png" width="15%" align="right" />
+<img src="materials/auditor2.png" width="20%" align="right" />
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
@@ -9,10 +9,11 @@
 
 
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="20%" /> 
-<img src="materials/demo.png" width="60%" align = "center"/>
-
 
 ## auditor's pipeline: **model %>% audit() %>% plot(type=...)**
+
+<img src="materials/demo.png" width="60%" align = "center"/>
+
 
 ## Installation
 
