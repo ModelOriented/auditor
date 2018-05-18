@@ -1,4 +1,4 @@
-# auditor - regression model verification, validation, and error analysis   
+# The auditor package - regression model verification, validation, and error analysis   
 <img src="materials/auditor2.png" width="20%" align="right" />
 
 
@@ -10,9 +10,9 @@
 
 <img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="20%" /> 
 
-## auditor's pipeline: **model %>% audit() %>% plot(type=...)**
+## auditor's pipeline: *model %>% audit() %>% plot(type=...)*
 
-<img src="materials/demo.png" width="60%" align = "center"/>
+<img src="materials/demo.png" width="800" align = "center" />
 
 
 ## Installation
