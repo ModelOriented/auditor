@@ -1,4 +1,4 @@
-# The auditor package - regression model verification, validation, and error analysis   
+# The auditor package - model verification, validation, and error analysis   
 <img src="materials/auditor2.png" width="20%" align="right" />
 
 
