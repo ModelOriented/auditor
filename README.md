@@ -59,7 +59,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 
 # plots above are availible also via plotResidual(), plotPrediction() and plotModelCorrelation() functions
 ```
-For more plot types and examples see *A Short Overview of Plots* below.
+For more plot types and examples see *A Short Overview of Plots* section below.
 
 
 ## Vignettes (in Preparation)
