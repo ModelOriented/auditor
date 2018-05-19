@@ -32,6 +32,36 @@ install.packages("auditor")
 
 ## [Reference Manual](https://mi2-warsaw.github.io/auditor/)
 
+## DEMO
+
+```
+library(auditor)
+library(randomForest)
+data(mtcars)
+
+# fitting models
+model_lm <- lm(mpg ~ ., data = mtcars)
+set.seed(123)
+model_rf <- randomForest(mpg ~ ., data = mtcars)
+
+# creating a modelAudit object which contains all necessary components required for further processing
+au_lm <- audit(model_lm)
+au_rf <- audit(model_rf, label = "rf")
+
+# generating plots
+plot(au_lm, type = "Residual")
+plot(au_lm, au_rf, type = "Residual")
+
+plot(au_lm, au_rf, variable = "wt", type = "Prediction")
+
+plot(au_lm, au_rf, type = "ModelCorrelation")
+plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
+
+# plots above are availible also via plotResidual(), plotPrediction() and plotModelCorrelation() functions
+```
+For more plot types and examples see *A Short Overview of Plots* below.
+
+
 ## Vignettes (in Preparation)
 
 * [Introduction into model audit](https://mi2-warsaw.github.io/auditor/articles/Intorduction_into_model_audit.html)
