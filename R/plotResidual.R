@@ -46,8 +46,8 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE){
 
 
   ggplot(df, aes(values, residuals, color = label)) +
-    geom_point(data = maybe_points) +
-    geom_smooth( method = "loess", se = FALSE) +
+    geom_point(data = maybe_points, alpha = 0.5, stroke=0) +
+    geom_smooth( method = "loess", se = FALSE, size = 2) +
     xlab(variable) +
     ylab("residuals") +
     ggtitle(title) +
