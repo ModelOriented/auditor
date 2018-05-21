@@ -5,6 +5,7 @@
 #' @param object An object of class modelAudit.
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param ... Other modelAudit objects to be plotted together.
+#' @param points Logical, indicates whenever observations should be added as points.
 #'
 #' @examples
 #' library(car)
@@ -22,7 +23,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotResidual <- function(object, ..., variable=NULL){
+plotResidual <- function(object, ..., variable=NULL, points = TRUE){
   residuals <- values <- label <- NULL
 
   df <- generateResidualsDF(object, variable)
@@ -36,7 +37,7 @@ plotResidual <- function(object, ..., variable=NULL){
     }
   }
 
-  maybe_points <- if (length(unique(df$label)) ==1) df else df[0, ]
+  maybe_points <- if (points == TRUE) df else df[0, ]
   if (is.null(variable)) {
     title <- "Residuals"
   } else {
@@ -44,9 +45,9 @@ plotResidual <- function(object, ..., variable=NULL){
   }
 
 
-  ggplot(df, aes(values, residuals)) +
+  ggplot(df, aes(values, residuals, color = label)) +
     geom_point(data = maybe_points) +
-    geom_smooth(aes(color = label), method = "loess", se = FALSE) +
+    geom_smooth( method = "loess", se = FALSE) +
     xlab(variable) +
     ylab("residuals") +
     ggtitle(title) +
