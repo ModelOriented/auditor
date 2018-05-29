@@ -6,6 +6,8 @@
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param points Logical, indicates whenever observations should be added as points.
+#' @param lines Logical, indicates whenever smoothed lines should be added.
+#' @param std.residuals Logical, indicates whenever standardized residuals should be used.
 #'
 #' @examples
 #' library(car)
@@ -23,21 +25,23 @@
 #' @import ggplot2
 #'
 #' @export
-plotResidual <- function(object, ..., variable=NULL, points = TRUE){
+plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE, std.residuals = FALSE){
   residuals <- values <- label <- NULL
+  ylabel <- ifelse(std.residuals == TRUE, "standardized residuals", "residuals")
 
-  df <- generateResidualsDF(object, variable)
+  df <- generateResidualsDF(object, variable, std.residuals)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if(class(resp)=="modelAudit"){
-        df <- rbind( df, generateResidualsDF(resp, variable) )
+        df <- rbind( df, generateResidualsDF(resp, variable, std.residuals) )
       }
     }
   }
 
   maybe_points <- if (points == TRUE) df else df[0, ]
+  maybe_lines <- if (lines == TRUE) df else df[0, ]
   if (is.null(variable)) {
     title <- "Residuals"
   } else {
@@ -46,17 +50,17 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE){
 
 
   ggplot(df, aes(values, residuals, color = label)) +
-    geom_point(data = maybe_points, alpha = 0.5, stroke=0) +
-    geom_smooth( method = "loess", se = FALSE, size = 2) +
+    geom_point(data = maybe_points, alpha = 0.3, stroke=0) +
+    geom_smooth(data = maybe_lines, method = "loess", se = FALSE, size = 2) +
     xlab(variable) +
-    ylab("residuals") +
+    ylab(ylabel) +
     ggtitle(title) +
     theme_light()
 }
 
 
-generateResidualsDF <- function(object, variable){
-  resultDF <- orderResidualsDF(object, variable, is.df = TRUE)
+generateResidualsDF <- function(object, variable, std.residuals){
+  resultDF <- orderResidualsDF(object, variable, is.df = TRUE, std.residuals)
   resultDF$label <- object$label
   resultDF <- resultDF[order(resultDF$values),]
   return(resultDF)

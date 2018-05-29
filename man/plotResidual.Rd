@@ -4,7 +4,8 @@
 \alias{plotResidual}
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
-plotResidual(object, ..., variable = NULL, points = TRUE)
+plotResidual(object, ..., variable = NULL, points = TRUE, lines = FALSE,
+  std.residuals = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit.}
@@ -14,6 +15,10 @@ plotResidual(object, ..., variable = NULL, points = TRUE)
 \item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 
 \item{points}{Logical, indicates whenever observations should be added as points.}
+
+\item{lines}{Logical, indicates whenever smoothed lines should be added.}
+
+\item{std.residuals}{Logical, indicates whenever standardized residuals should be used.}
 }
 \description{
 A plot of residuals against fitted values, observed values or any variable.
