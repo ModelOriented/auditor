@@ -44,6 +44,7 @@
 #' @export
 
 audit <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+  if(!is.null(data)) checkDataConsistency(data, y)
   UseMethod("audit")
 }
 
