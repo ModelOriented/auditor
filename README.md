@@ -5,7 +5,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/auditor)](http://cranlogs.r-pkg.org/badges/grand-total/auditor)
 [![Build Status](https://travis-ci.org/mi2-warsaw/auditor.svg?branch=master)](https://travis-ci.org/mi2-warsaw/auditor)
-[![Coverage Status](https://img.shields.io/codecov/c/github/mi2-warsaw/auditor/master.svg)](https://codecov.io/github/MI2DataLab/live?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/mi2-warsaw/auditor/master.svg)](https://codecov.io/github/mi2-warsaw/auditor?branch=master)
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mi2-warsaw/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2-warsaw/auditor%0A&hashtags=rstats,erroranalysis,machinelearning,audit)
 

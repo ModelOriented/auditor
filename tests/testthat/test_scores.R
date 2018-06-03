@@ -33,6 +33,8 @@ test_that("score", {
   expect_is(score(au.lm, "DW", variable="income"), "scoreAudit")
   expect_is(score(au.lm, "Runs", variable="income"), "scoreAudit")
   expect_is(score(au.lm, "HalfNormal"), "scoreAudit")
+  expect_is(score(au.lm, "RMSE"), "scoreAudit")
+  expect_is(score(au.class.glm, "ROC"), "scoreAudit")
   expect_is(score(au.lm, "CooksDistance"), "numeric")
   expect_error(score(model.lm))
   expect_error(score(au.lm,"wrongScore"))
