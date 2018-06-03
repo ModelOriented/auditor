@@ -4,3 +4,9 @@
 ^\.sass-cache$
 ^\docs$
 ^docs$
+.travis.yml
+_pkgdown.yaml
+runtime.txt
+install.R
+materias
+jupyter-notebooks
