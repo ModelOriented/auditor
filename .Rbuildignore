@@ -10,3 +10,4 @@ runtime.txt
 install.R
 materials
 jupyter-notebooks
+^codecov\.yml$

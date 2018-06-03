@@ -33,7 +33,8 @@ Suggests: aods3,
     mlbench,
     randomForest,
     rmarkdown,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: knitr
 URL: https://mi2-warsaw.github.io/auditor/
 BugReports: https://github.com/mi2-warsaw/auditor/issues
