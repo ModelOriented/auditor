@@ -11,3 +11,4 @@ install.R
 materials
 jupyter-notebooks
 ^codecov\.yml$
+binder
