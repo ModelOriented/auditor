@@ -1,9 +1,15 @@
-orderResidualsDF <- function(object, variable, is.df = FALSE, std.residuals = FALSE){
-  if (std.residuals == TRUE) {
-    tmpDF <- data.frame(residuals=object$std.residuals)
-  } else {
-    tmpDF <- data.frame(residuals=object$residuals)
-  }
+orderResidualsDF <- function(object, variable, is.df = FALSE, std.residuals = FALSE, type = "residuals"){
+  if (std.residuals == TRUE)  type = "std.residuals"
+
+
+  tmpDF <- data.frame(residuals = switch(type,
+                                         residuals = {object$residuals},
+                                         std.residuals = {object$std.residuals},
+                                         y = {object$y},
+                                         fitted.values = {object$fitted.values}
+                                        )
+                      )
+
   if(!is.null(variable)){
     if((variable == "Predicted response") || (variable == "Fitted values")) {
       values <- object$fitted.values
