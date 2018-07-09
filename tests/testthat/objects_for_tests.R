@@ -6,6 +6,7 @@ library(randomForest)
 library(mlbench)
 data("PimaIndiansDiabetes")
 set.seed(71)
+PimaIndiansDiabetes$diabetes <- ifelse(PimaIndiansDiabetes$diabetes == "pos", 1,0 )
 
 model.lm <- lm(prestige~education + women + income, data = Prestige)
 model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),

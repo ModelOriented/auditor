@@ -5,12 +5,12 @@
 #' @param x object of class modelAudit
 #' @param ... other arguments dependent on the type of plot or additionl objects of class modelAudit
 #' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
-#' ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
+#' ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
 #' ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #'
 #' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
-#' \link{plotHalfNormal}, \link{plotResidual}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
+#' \link{plotHalfNormal}, \link{plotResidual}, \link{plotResidualBoxplot}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
 #' \link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResidual}, \link{plotROC},
 #' \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
 #'
@@ -38,7 +38,7 @@ plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE){
   object <- x
 
   plotNames <- c('ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
-                 'ModelPCA', 'ModelRanking', 'ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residuals', 'ROC', 'RROC',
+                 'ModelPCA', 'ModelRanking', 'ModelCorrelation', 'Prediction', 'REC', 'ResidualBoxplot', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
                  'ScaleLocation', 'TwoSidedECDF')
 
   if(!all(type %in% plotNames)){
@@ -77,6 +77,7 @@ plotTypePlot <- function(x, ..., type){
          ModelCorrelation = {return(plotModelCorrelation(x, ...))},
          Prediction = {return(plotPrediction(x, ...))},
          REC = { return(plotREC(x, ...)) },
+         ResidualBoxplot = {return(plotResidualBoxplot(x, ...))},
          ResidualDensity = { return(plotResidualDensity(x, ...)) },
          Residual = { return(plotResidual(x, ...)) },
          ROC = { return(plotROC(x, ...)) },

@@ -17,10 +17,22 @@ test_that("plotCook", {
   expect_is(plotCooksDistance(au.rf), "gg")
 })
 
+test_that("plotCumulativeGain", {
+  expect_is(plotCumulativeGain(au.class.glm2), "gg")
+})
+
 test_that("plotResiduals", {
   expect_is(plotResidual(au.glm), "gg")
   expect_is(plotResidual(au_expl_lm), "gg")
   expect_is(plotResidual(au.rf, "Prewt"), "gg")
+})
+
+test_that("plotResidualBoxplot", {
+  expect_is(plotResidualBoxplot(au.glm), "gg")
+})
+
+test_that("plotResidualDeensity", {
+  expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
 })
 
 test_that("plotScaleLocation", {
@@ -32,6 +44,10 @@ test_that("plotHalfNormal", {
   expect_is(plotHalfNormal(au.glm, sim=10), "gg")
   expect_is(plotHalfNormal(au.lm, sim=10, quant.scale = TRUE), "gg")
   expect_is(plotHalfNormal(au.class.rf, sim=10), "gg")
+})
+
+test_that("plotLIFT", {
+  expect_is(plotLIFT(au.class.glm2), "gg")
 })
 
 test_that("plotROC", {

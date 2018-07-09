@@ -13,7 +13,6 @@ orderResidualsDF <- function(object, variable, is.df = FALSE, std.residuals = FA
   if(!is.null(variable)){
     if((variable == "Predicted response") || (variable == "Fitted values")) {
       values <- object$fitted.values
-
     } else if (variable == "Observed response") {
       values <- object$y
     } else {

@@ -26,43 +26,41 @@
 #'
 #' @export
 plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE, std.residuals = FALSE){
-  residuals <- values <- label <- NULL
-  ylabel <- ifelse(std.residuals == TRUE, "standardized residuals", "residuals")
+  if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
+  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, variable)
+  if("modelPerformance" %in% class(object)) variable <- object$variable[1]
 
-  df <- generateResidualsDF(object, variable, std.residuals)
+  residuals <- values <- label <- NULL
+
+  ylabel <- ifelse(std.residuals == TRUE, "standardized residuals", "residuals")
+  df <- object
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, generateResidualsDF(resp, variable, std.residuals) )
-      }
+      if("modelAudit" %in% class(resp)) df <- rbind( df, modelPerformance(resp, variable) )
+      if("modelPerformance" %in% class(resp)) df <- rbind(df, resp)
     }
   }
 
   maybe_points <- if (points == TRUE) df else df[0, ]
   maybe_lines <- if (lines == TRUE) df else df[0, ]
+
   if (is.null(variable)) {
     title <- "Residuals"
   } else {
     title <- paste0("Residuals vs ", variable)
   }
 
+  if(std.residuals == TRUE) {p <- ggplot(df, aes(val, std.res, color = label))}
+  else {p <- ggplot(df, aes(val, res, color = label))}
 
-  ggplot(df, aes(values, residuals, color = label)) +
-    geom_point(data = maybe_points, alpha = 0.3, stroke=0) +
-    geom_smooth(data = maybe_lines, method = "loess", se = FALSE, size = 2) +
-    xlab(variable) +
-    ylab(ylabel) +
-    ggtitle(title) +
-    theme_light()
+  p + geom_point(data = maybe_points, alpha = 0.3, stroke=0) +
+      geom_smooth(data = maybe_lines, method = "loess", se = FALSE, size = 2) +
+      xlab(variable) +
+      ylab(ylabel) +
+      ggtitle(title) +
+      theme_light()
 }
 
-
-generateResidualsDF <- function(object, variable, std.residuals){
-  resultDF <- orderResidualsDF(object, variable, is.df = TRUE, std.residuals)
-  resultDF$label <- object$label
-  resultDF <- resultDF[order(resultDF$values),]
-  return(resultDF)
-}
 
