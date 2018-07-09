@@ -27,10 +27,11 @@
 #' @export
 plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE, std.residuals = FALSE){
   if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
-  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, variable)
   if("modelPerformance" %in% class(object)) variable <- object$variable[1]
+  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, variable)
 
-  residuals <- values <- label <- NULL
+
+  res <- std.res <- val <- label <- NULL
 
   ylabel <- ifelse(std.residuals == TRUE, "standardized residuals", "residuals")
   df <- object
@@ -55,7 +56,7 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
   if(std.residuals == TRUE) {p <- ggplot(df, aes(val, std.res, color = label))}
   else {p <- ggplot(df, aes(val, res, color = label))}
 
-  p + geom_point(data = maybe_points, alpha = 0.3, stroke=0) +
+  p + geom_point(data = maybe_points, alpha = 1, stroke=0) +
       geom_smooth(data = maybe_lines, method = "loess", se = FALSE, size = 2) +
       xlab(variable) +
       ylab(ylabel) +

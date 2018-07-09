@@ -25,7 +25,7 @@ plotResidualBoxplot <- function(object, ...){
   if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
   if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object)
 
-  residuals <- RMSE <- label <- NULL
+  res <- label <- NULL
 
   df <- object
 
