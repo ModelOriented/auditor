@@ -37,7 +37,7 @@ plotResidualBoxplot <- function(object, ...){
 
 
   ggplot(df, aes(label, abs(residuals), fill = label)) +
-    geom_boxplot(outlier.shape = NA) +
+    geom_boxplot(coef = 1000) +
     stat_summary(fun.y=function(x){sqrt(mean(x^2))}, geom="point", shape=20, size=10, color="red", fill="red") +
     xlab("") +
     ylab("") +
