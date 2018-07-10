@@ -4,7 +4,8 @@
 #'
 #' @param object An object of class ModelAudit.
 #' @param ... Other modelAudit objects to be plotted together.
-#' @param variable A variable name. Residuals will be plotted separately for different values of variable. or continuous variables, they will be separated by a median.
+#' @param split.var Logical. Indicates whenever plot should be splitted by variable.
+#' @param variable variable name o split. Optional. Should be provided  only for modelAudit object.
 #'
 #' @return ggplot object
 #'
@@ -26,35 +27,36 @@
 #' @export
 
 
-plotResidualDensity <- function(object, ..., variable = NULL){
-  residuals <- label <- NULL
-  df <- getResidDensDF(object, variable)
+plotResidualDensity <- function(object, ..., split.var = TRUE, variable = NULL){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
+
+  res <- label <- div <- NULL
+
+  df <- getDivision(object)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getResidDensDF(resp, variable) )
-      }
+        if("modelAudit" %in% class(resp)) df <- rbind( df, getDivision(modelResiduals(resp, variable)) )
+        if("modelResiduals" %in% class(resp)) df <- rbind( df, getDivision(resp) )
     }
   }
 
-
-  if(!is.null(variable)) {
-    p <- ggplot(df, aes(x = residuals, fill = variable)) +
-      stat_density(alpha = 0.3, position="identity")+
-      geom_vline(xintercept = 0) +
-      geom_rug(aes(color = variable), alpha = 0.5) +
-      facet_grid(label~.) +
-      theme_light() +
-      xlab("residuals") +
-      ggtitle("Residual Density")
-
-  } else {
-    p <- ggplot(df, aes(x = residuals, fill = label)) +
+  if(split.var == FALSE) {
+    p <- ggplot(df, aes(x = res, fill = label)) +
       stat_density(alpha = 0.3, position="identity")+
       geom_vline(xintercept = 0) +
       geom_rug(aes(color = label), alpha = 0.5) +
+      theme_light() +
+      xlab("residuals") +
+      ggtitle("Residual Density")
+  } else {
+    p <- ggplot(df, aes(x = res, fill = div)) +
+      stat_density(alpha = 0.3, position="identity")+
+      geom_vline(xintercept = 0) +
+      geom_rug(aes(color = div), alpha = 0.5) +
+      facet_grid(label~.) +
       theme_light() +
       xlab("residuals") +
       ggtitle("Residual Density")
@@ -64,19 +66,15 @@ plotResidualDensity <- function(object, ..., variable = NULL){
 }
 
 
-getResidDensDF <- function(object, variable){
-
-  df <- data.frame(residuals = object$residuals, label = object$label)
-  if (!is.null(variable)) {
-    modelData <- object$data
-
-    if (class(modelData[, variable]) %in% c("numeric","integer")) {
-      varMedian <- median(modelData[,variable])
-      df$variable <- ifelse(modelData[,variable] > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
+getDivision <- function(modelData){
+    variable <- modelData$variable[1]
+    df <- modelData
+    if (class(modelData$val) %in% c("numeric","integer")) {
+      varMedian <- median(modelData$val)
+      df$div <- ifelse(modelData$val > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
     } else {
-      df$variable <-modelData[,variable]
+      df$div <- modelData$val
     }
-  }
 
   return(df)
 }

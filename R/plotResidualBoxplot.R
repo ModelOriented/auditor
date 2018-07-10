@@ -22,8 +22,8 @@
 #'
 #' @export
 plotResidualBoxplot <- function(object, ...){
-  if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
-  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object)
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
 
   res <- label <- NULL
 
@@ -32,8 +32,8 @@ plotResidualBoxplot <- function(object, ...){
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) df <- rbind( df, modelPerformance(resp) )
-      if("modelPerformance" %in% class(resp)) df <- rbind(df, resp)
+      if("modelAudit" %in% class(resp)) df <- rbind( df, modelResiduals(resp) )
+      if("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
     }
   }
 

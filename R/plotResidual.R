@@ -26,9 +26,9 @@
 #'
 #' @export
 plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE, std.residuals = FALSE){
-  if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
-  if("modelPerformance" %in% class(object)) variable <- object$variable[1]
-  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, variable)
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
 
 
   res <- std.res <- val <- label <- NULL
@@ -39,8 +39,8 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) df <- rbind( df, modelPerformance(resp, variable) )
-      if("modelPerformance" %in% class(resp)) df <- rbind(df, resp)
+      if("modelAudit" %in% class(resp)) df <- rbind( df, modelResiduals(resp, variable) )
+      if("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
     }
   }
 
