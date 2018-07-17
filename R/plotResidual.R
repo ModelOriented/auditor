@@ -47,6 +47,8 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
   maybe_points <- if (points == TRUE) df else df[0, ]
   maybe_lines <- if (lines == TRUE) df else df[0, ]
 
+  if(is.na(df$variable[1])) variable <- NULL
+
   if (is.null(variable)) {
     title <- "Residuals"
   } else {

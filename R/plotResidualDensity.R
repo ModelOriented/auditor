@@ -43,7 +43,9 @@ plotResidualDensity <- function(object, ..., split.var = TRUE, variable = NULL){
     }
   }
 
-  if(split.var == FALSE) {
+  variable <- df$variable[1]
+
+  if(split.var == FALSE || is.na(variable)) {
     p <- ggplot(df, aes(x = res, fill = label)) +
       stat_density(alpha = 0.3, position="identity")+
       geom_vline(xintercept = 0) +

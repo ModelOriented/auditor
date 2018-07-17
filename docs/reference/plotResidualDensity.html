@@ -72,7 +72,7 @@
       <a href="../articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="../articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
+      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
     </li>
   </ul>
 </li>
@@ -101,7 +101,7 @@
     <p>Density of model residuals.</p>
     
 
-    <pre class="usage"><span class='fu'>plotResidualDensity</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plotResidualDensity</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>split.var</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,8 +115,12 @@
       <td><p>Other modelAudit objects to be plotted together.</p></td>
     </tr>
     <tr>
+      <th>split.var</th>
+      <td><p>Logical. Indicates whenever plot should be splitted by variable.</p></td>
+    </tr>
+    <tr>
       <th>variable</th>
-      <td><p>A variable name. Residuals will be plotted separately for different values of variable. or continuous variables, they will be separated by a median.</p></td>
+      <td><p>variable name o split. Optional. Should be provided  only for modelAudit object.</p></td>
     </tr>
     </table>
     

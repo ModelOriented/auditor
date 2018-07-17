@@ -72,7 +72,7 @@
       <a href="../articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="../articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
+      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
     </li>
   </ul>
 </li>
@@ -101,7 +101,8 @@
     <p>A plot of residuals against fitted values, observed values or any variable.</p>
     
 
-    <pre class="usage"><span class='fu'>plotResidual</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plotResidual</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>std.residuals</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -117,6 +118,18 @@
     <tr>
       <th>variable</th>
       <td><p>Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
+    </tr>
+    <tr>
+      <th>points</th>
+      <td><p>Logical, indicates whenever observations should be added as points.</p></td>
+    </tr>
+    <tr>
+      <th>lines</th>
+      <td><p>Logical, indicates whenever smoothed lines should be added.</p></td>
+    </tr>
+    <tr>
+      <th>std.residuals</th>
+      <td><p>Logical, indicates whenever standardized residuals should be used.</p></td>
     </tr>
     </table>
     

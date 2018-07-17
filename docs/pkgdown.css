@@ -56,6 +56,9 @@ a.anchor {
 .hasAnchor:hover a.anchor {
   visibility: visible;
 }
+.hasAnchor {
+  margin-left: -30px;
+}
 
 @media (max-width: 767px) {
   .hasAnchor:hover a.anchor {
@@ -90,6 +93,7 @@ a.anchor {
 #sidebar h2 {
   font-size: 1.5em;
   margin-top: 1em;
+  margin-bottom: 0.25em;
 }
 
 #sidebar h2:first-child {
@@ -206,4 +210,9 @@ table {
 	margin-left:auto;
 	margin-right:auto;
 	text-align: justify;
+}
+
+
+.nav-stacked>li+li {
+  margin-left: 5px;
 }

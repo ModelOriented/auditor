@@ -1,5 +1,5 @@
 $(function() {
-  $("#sidebar").stick_in_parent({offset_top: 40});
+  $("#sidebar").stick_in_parent({offset_top: 1});
   $('body').scrollspy({
     target: '#sidebar',
     offset: 60

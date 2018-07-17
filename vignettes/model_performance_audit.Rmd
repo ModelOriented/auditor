@@ -1,0 +1,254 @@
+---
+title: "Model Performance Audit"
+author: "Alicja Gosiewska"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    number_sections: true
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Model Performance Audit}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+This vignette demonstrates how to use the *auditor* package for auditing model residuals. 
+auditor provides methods for model verification and validation by error analysis. 
+
+Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. 
+
+Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors. 
+
+Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.
+
+
+
+# Regression use case - apartments data
+
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset apartments available in the [*DALEX*](https://pbiecek.github.io/DALEX/) package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.
+
+```{r}
+library(DALEX)
+data("apartments")
+head(apartments)
+```
+
+# Models
+
+
+## Linear model
+```{r}
+lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + district, data = apartments)
+```
+
+
+
+## Random forest
+```{r}
+library("randomForest")
+set.seed(59)
+rf_model <- randomForest(m2.price ~ construction.year + surface + floor +  no.rooms + district, data = apartments)
+```
+
+
+# Preparation for error analysis
+The beginning of each analysis is creation of a `modelAudit` object. It’s an object that can be used to audit a model.
+
+```{r}
+library("auditor")
+
+lm_audit <- audit(lm_model, label = "lm", data = apartmentsTest, y = apartmentsTest$m2.price)
+rf_audit <- audit(rf_model, label = "rf", data = apartmentsTest, y = apartmentsTest$m2.price)
+```
+
+
+# Audit of residuals
+
+In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.
+
+* Does the model fit data? Is it not missing the information?
+
+* Which model has better performance?
+
+* How similar models are?
+
+In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.
+
+
+## Audit pipelines
+
+The auditor provides 2 pipelines of model audit.
+
+1. **model %>% audit() %>% modelResiduals() %>% plot(type=...)** 
+This pipeline is recommended. Function `modelResiduals()` creates a `modelResiduals` object. Such object may be passed to a `plot()` function with defined type of plot. This approach requires one additional function within the pipeline. However once created `modelResiduals` contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.  
+Alternative: **model %>% audit() %>% modelResiduals() %>% plotType()**
+
+2. **model %>% audit() %>% plot(type=...)**
+This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.  
+Alternative **model %>% audit() %>% plotType()**
+
+
+Help of functions `plot[Type]()` contains additional information about plots.
+
+
+
+## modelResiduals()
+
+In this vignette we will use first pipeline. However alternative evaluations will be showed as comments.
+First, we need to create a `modelResiduals` objects.
+
+```{r}
+lm_mr <- modelResiduals(lm_audit)
+rf_mr <- modelResiduals(rf_audit)
+
+head(lm_mr)
+```
+Some plots may require specified variable or fitted values for `modelResidual` object. 
+
+```{r}
+lm_mr_district <- modelResiduals(lm_audit, variable = "district")
+rf_mr_district <- modelResiduals(rf_audit, variable = "district")
+
+lm_mr_fitted <- modelResiduals(lm_audit, variable = "Fitted values")
+rf_mr_fitted <- modelResiduals(rf_audit, variable = "Fitted values")
+
+head(lm_mr_district)
+```
+
+## Plots
+
+### plotACF() - Autocorrelation Function of Residuals
+
+Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
+
+
+### plotAutocorrelation() - Autocorrelation of Residuals
+
+On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.
+
+Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model.
+DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in `scoreDW()` and `scoreRuns()` functions.
+
+Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions and the `score()` function with argument `score` equals to "DW" or "Runs".
+
+
+### plotModelCorrelation - Correlation of Models
+
+Principal Component Analysis of models residuals.
+PCA can be used to assess the similarity of the models.
+
+### plotModelPCA() - Model PCA
+
+### plotPredition() - Observed vs Predicted
+
+### plotREC() - Regression Error Characteristic (REC) Curve
+
+Error Characteristic curves are a generalization of ROC curves. On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
+REC curve estimates the Cumulative Distribution Function (CDF) of the error.
+Area Over the REC Curve (REC) is a biased estimate of the expected error.
+
+### plotResidual() - Plot Residuals vs Observed, Fitted or Variable Values
+
+Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.
+
+Without specified variable observations are in the order fro the data set. 
+
+```{r}
+plot(rf_mr, type = "Residual")
+
+# alternative:
+# plotResidual(rf_audit)
+```
+
+Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.
+
+```{r}
+plot(rf_mr_fitted, lm_mr_fitted, type = "Residual")
+
+# alternative:
+# plotResidual(rf_audit, lm_audit, variable = "Fitted values")
+```
+
+### plotResidualBoxplot() - Boxplot of residuals
+
+Comparison of the absolute valued of residuals. The red dot stands for the root mean square.
+
+```{r}
+plot(lm_mr, rf_mr, type = "ResidualBoxplot")
+
+# alternative
+# plotResidualBoxplot(lm_audit, rf_audit)
+```
+
+### plotResidualDensity() - Density of Residuals
+
+Density of residuals may be plotted in different ways. Residuals of models may be simply compared.
+
+```{r}
+plot(rf_mr, lm_mr, type = "ResidualDensity")
+
+# alternative
+# plotResidualDensity(rf_audit, lm_audit)
+```
+
+Resuduals may be also divided by median of the numeric variable and splitted by a factor variable
+
+```{r}
+lm_mr_m2 <- modelResiduals(lm_audit, variable = "m2.price")
+rf_mr_m2 <- modelResiduals(rf_audit, variable = "m2.price")
+
+plotResidualDensity(lm_mr_m2, rf_mr_m2)
+
+# alternative
+# plotResidualDensity(rf_audit, lm_audit, variable = "m2.price")
+```
+
+```{r}
+plotResidualDensity(lm_mr_district, rf_mr_district)
+
+# alternative
+# plotResidualDensity(rf_audit, lm_audit, variable = "district")
+```
+
+### plotRROC() -  Regression Receiver Operating Characteristic (RROC)
+
+The basic idea of the ROC curves for regression is to show model asymmetry. The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total under-estimation.
+
+For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
+For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift.
+Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
+
+Over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)}.
+Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
+The shift equals 0 is represented by a dot.
+
+The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
+
+
+### plotScaleLocation() - Scale Location Plot
+
+This plot shows if residuals are spread equally along the ranges of predictors. 
+
+
+For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
+This score is computed and described in `scoreGQ()` function.
+And may be computed also in `score()` function with argument `score` equals "GQ".
+
+
+
+
+
+### plotTwoSidedECDF() - Two-sided  Empirical Cumulative Distribution Function (ECDF)
+
+Cumulative Distribution Function for positive and negative residuals.
+
+
+
+## Other methods
+
+Other methods and plots are described in other vignettes. See: [The half-normal plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html)

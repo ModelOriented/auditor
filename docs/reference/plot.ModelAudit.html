@@ -72,7 +72,7 @@
       <a href="../articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="../articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
+      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
     </li>
   </ul>
 </li>
@@ -118,7 +118,7 @@
     <tr>
       <th>type</th>
       <td><p>the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
-ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
+ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
 ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).</p></td>
     </tr>
     <tr>
@@ -130,19 +130,19 @@ ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see al
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plotACF.html'>plotACF</a>, <a href='plotAutocorrelation.html'>plotAutocorrelation</a>, <a href='plotCumulativeGain.html'>plotCumulativeGain</a>, <a href='plotCooksDistance.html'>plotCooksDistance</a>,
-<a href='plotHalfNormal.html'>plotHalfNormal</a>, <a href='plotResidual.html'>plotResidual</a>, <a href='plotLIFT.html'>plotLIFT</a>, <a href='plotModelPCA.html'>plotModelPCA</a>, <a href='plotModelRanking.html'>plotModelRanking</a>, <a href='plotModelCorrelation.html'>plotModelCorrelation</a>,
+<a href='plotHalfNormal.html'>plotHalfNormal</a>, <a href='plotResidual.html'>plotResidual</a>, <a href='plotResidualBoxplot.html'>plotResidualBoxplot</a>, <a href='plotLIFT.html'>plotLIFT</a>, <a href='plotModelPCA.html'>plotModelPCA</a>, <a href='plotModelRanking.html'>plotModelRanking</a>, <a href='plotModelCorrelation.html'>plotModelCorrelation</a>,
 <a href='plotPrediction.html'>plotPrediction</a>, <a href='plotREC.html'>plotREC</a>, <a href='plotResidualDensity.html'>plotResidualDensity</a>, <a href='plotResidual.html'>plotResidual</a>, <a href='plotROC.html'>plotROC</a>,
 <a href='plotRROC.html'>plotRROC</a>, <a href='plotScaleLocation.html'>plotScaleLocation</a>, <a href='plotTwoSidedECDF.html'>plotTwoSidedECDF</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: carData</span></div><div class='input'><span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)</div><div class='output co'>#&gt; <span class='message'>Ładowanie wymaganego pakietu: carData</span></div><div class='input'><span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
 <span class='fu'>plot</span>(<span class='no'>lm_au</span>)</div><div class='img'><img src='plot.modelAudit-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>library</span>(<span class='no'>randomForest</span>)
 <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plot</span>(<span class='no'>lm_au</span>, <span class='no'>rf_au</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ModelRanking"</span>)</div><div class='img'><img src='plot.modelAudit-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>lm_au</span>, <span class='no'>rf_au</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ModelRanking"</span>)</div><div class='output co'>#&gt; <span class='message'>Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></div><div class='img'><img src='plot.modelAudit-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>

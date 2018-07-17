@@ -1,7 +1,7 @@
 pandoc: 1.19.2.1
-pkgdown: 1.0.0
+pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   HalfNormal: HalfNormal.html
-  Intorduction_into_model_audit: Intorduction_into_model_audit.html
+  model_performance_audit: model_performance_audit.html
 

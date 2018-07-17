@@ -72,7 +72,7 @@
       <a href="../articles/HalfNormal.html">The half-normal plots</a>
     </li>
     <li>
-      <a href="../articles/Intorduction_into_model_audit.html">Introduction into model audit</a>
+      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
     </li>
   </ul>
 </li>
@@ -101,7 +101,7 @@
     <p>Plot of predicted response vs observed or variable Values.</p>
     
 
-    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"Observed response"</span>)</pre>
+    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"Observed response"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -117,6 +117,10 @@
     <tr>
       <th>variable</th>
       <td><p>Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
+    </tr>
+    <tr>
+      <th>smooth</th>
+      <td><p>Logical, indicates whenever smooth line should be added.</p></td>
     </tr>
     </table>
     
