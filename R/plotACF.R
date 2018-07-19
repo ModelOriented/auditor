@@ -3,9 +3,9 @@
 #' @description Plot Autocorrelation Function of models residuals.
 #'
 #'
-#' @param object An object of class ModelAudit.
-#' @param ... Other modelAudit objects to be plotted together.
-#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param object An object of class modelAudit or modelResiduals.
+#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param variable Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param alpha Confidence level of the interval.
 #'
 #'
@@ -26,22 +26,33 @@
 #'
 #' @export
 plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
+
   lag <- acf <- ymin <- NULL
 
-  df <- getOrderedResiduals(object, variable)
+
+  df <- object
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getOrderedResiduals(resp, variable) )
-      }
+      if("modelAudit" %in% class(resp)) df <- rbind( df, modelResiduals(resp, variable) )
+      if("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
     }
   }
 
-  conf_lims <- c(-1,1)*qnorm((1 + alpha)/2)/sqrt(nrow(object$data))
+  resultDF <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
+  for(label in unique(df$label)){
+    orderedResiduals <- df[which(df$label == label), "res"]
+    acf <- acf(orderedResiduals, plot = FALSE)
+    resultDF <- rbind(resultDF, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
+  }
 
-  ggplot(df, aes(x = lag)) +
+  conf_lims <- c(-1,1)*qnorm((1 + alpha)/2)/sqrt(nrow(object))
+
+  ggplot(resultDF, aes(x = lag)) +
     geom_segment(aes(x=lag, xend=lag, y=ymin, yend=acf)) +
     geom_hline(yintercept=conf_lims[1], color='blue', linetype = "dashed") +
     geom_hline(yintercept=conf_lims[2], color='blue', linetype = "dashed") +
@@ -50,15 +61,4 @@ plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
     ggtitle("ACF plot") +
     ylab("")
 
-}
-
-getOrderedResiduals <- function(object, variable){
-
-  orderedResiduals <- orderResidualsDF(object, variable)
-
-  acf <- acf(orderedResiduals, plot = FALSE)
-
-  resultDF <- data.frame(acf = acf$acf[-1], label = object$label, lag = acf$lag[-1], ymin = 0)
-
-  return(resultDF)
 }

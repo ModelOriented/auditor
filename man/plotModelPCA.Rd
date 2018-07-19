@@ -7,9 +7,9 @@
 plotModelPCA(object, ..., scale = TRUE, invisible = "none")
 }
 \arguments{
-\item{object}{An object of class ModelAudit,}
+\item{object}{An object of class modelAudit or modelResiduals,}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
 \item{scale}{A logical value indicating whether the models residuals should be scaled before the analysis.}
 

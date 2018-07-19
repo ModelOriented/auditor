@@ -22,7 +22,8 @@
 
 
 scoreREC <- function(object){
-
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
   RECDF <- getRECDF(object)
   x <- RECDF$RECX
   y <- RECDF$RECY

@@ -3,8 +3,8 @@
 #' @description Principal Component Analysis of models residuals.
 #' PCA can be used to assess the similarity of the models.
 #'
-#' @param object An object of class ModelAudit,
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class modelAudit or modelResiduals,
+#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param scale A logical value indicating whether the models residuals should be scaled before the analysis.
 #' @param invisible A text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".
 #'
@@ -29,15 +29,22 @@
 
 
 plotModelPCA <- function(object, ..., scale = TRUE, invisible = "none"){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
   residuals <- label <- NULL
-  df <- getModelPCADF(object)
+
+    df <- data.frame(y = object$res)
+    colnames(df)[1] <- as.character(object$label[1])
+
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- cbind( df, getModelPCADF(resp) )
-      }
+      if("modelAudit" %in% class(resp)) resp <-  modelResiduals(resp)
+      df_tmp <- data.frame(resp$res)
+      colnames(df_tmp)[1] <- as.character(resp$label[1])
+      df <- cbind(df, df_tmp)
     }
   }
 
@@ -55,15 +62,3 @@ plotModelPCA <- function(object, ..., scale = TRUE, invisible = "none"){
                   title = "Model PCA") +
     theme_light()
 }
-
-
-getModelPCADF <- function(object){
-
-  df <- data.frame(residuals = object$residuals)
-  colnames(df)[1] <- object$label
-
-  return(df)
-}
-
-
-

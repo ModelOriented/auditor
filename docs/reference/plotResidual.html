@@ -109,7 +109,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class modelAudit.</p></td>
+      <td><p>An object of class modelAudit or modelResiduals.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -117,7 +117,7 @@
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
+      <td><p>Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
     </tr>
     <tr>
       <th>points</th>

@@ -7,9 +7,9 @@
 plotModelCorrelation(object, ..., values = "Fitted values")
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class modelAudit or modelResiduals.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
 \item{values}{"Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.}
 }

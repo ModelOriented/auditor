@@ -2,8 +2,8 @@
 #'
 #' @description Matrix of plots
 #'
-#' @param object An object of class ModelAudit.
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class modelAudit or modelResiduals.
+#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param values "Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.
 #'
 #' @return ggplot object
@@ -26,21 +26,31 @@
 
 
 plotModelCorrelation <- function(object, ..., values = "Fitted values"){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
+  x <- y <- NULL
 
   if((values == "Fitted values") || (values == "Predicted response")) {
-    df <- cbind(data.frame(y = object$y), getPairsDF(object, values))
+    df <- data.frame(y = object$y, fit = object$fitted.values)
+    colnames(df)[2] <- as.character(object$label[1])
   } else {
-    df <- getPairsDF(object, values)
+    df <- data.frame(y = object$res)
+    colnames(df)[1] <- as.character(object$label[1])
   }
-
 
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- cbind( df, getPairsDF(resp, values) )
+      if("modelAudit" %in% class(resp)) resp <-  modelResiduals(resp)
+      if((values == "Fitted values") || (values == "Predicted response")) {
+        df_tmp <- data.frame(resp$fitted.values)
+      } else {
+        df_tmp <- data.frame(resp$res)
       }
+      colnames(df_tmp)[1] <- as.character(resp$label[1])
+      df <- cbind(df, df_tmp)
     }
   }
 
@@ -49,19 +59,3 @@ plotModelCorrelation <- function(object, ..., values = "Fitted values"){
     ggtitle("Model Correlation")
 
 }
-
-
-getPairsDF <- function(object, values){
-  if ((values == "Fitted values") || (values == "Predicted response")) {
-    df <- data.frame(values = object$fitted.values)
-  }
-  if (values == "Residuals") {
-    df <- data.frame(values = object$residuals)
-  }
-
-  colnames(df)[1] <- object$label
-  return(df)
-}
-
-
-

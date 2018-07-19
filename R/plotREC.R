@@ -3,8 +3,8 @@
 #' @description Error Characteristic curves are a generalization of ROC curves.
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
 #'
-#' @param object An object of class ModelAudit.
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class ModelAudit or modelResiduals.
+#' @param ... Other modelAudit or model Residuals objects to be plotted together.
 #'
 #' @return ggplot object
 #'
@@ -34,15 +34,17 @@
 
 
 plotREC <- function(object, ...){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
   RECX <- RECY <- RECX0 <- RECY0 <- label <- NULL
+
   df <- getRECDF(object)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getRECDF(resp) )
-      }
+      if("modelAudit" %in% class(resp)) df <- rbind( df, getRECDF(modelResiduals(resp)) )
+      if("modelResiduals" %in% class(resp)) df <- rbind(df, getRECDF(resp))
     }
   }
 
@@ -57,7 +59,7 @@ plotREC <- function(object, ...){
 }
 
 getRECDF <- function(object){
-  err <- sort(abs(object$fitted.values - object$y))
+  err <- sort(abs(object$res))
   err <- c(0, err)
   n <- length(err)
   RECX <- numeric(n)
@@ -72,6 +74,6 @@ getRECDF <- function(object){
     correct <- correct + 1
   }
 
-  df <- data.frame(RECX = RECX, RECY = RECY, label = object$label)
+  df <- data.frame(RECX = RECX, RECY = RECY, label = object$label[1])
   return(df)
 }

@@ -7,11 +7,11 @@
 plotACF(object, ..., variable = NULL, alpha = 0.95)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class modelAudit or modelResiduals.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{variable}{Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 
 \item{alpha}{Confidence level of the interval.}
 }

@@ -101,22 +101,22 @@
     <p>Plot of predicted response vs observed or variable Values.</p>
     
 
-    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"Observed response"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class modelAudit.</p></td>
+      <td><p>An object of class modelAudit or modelResiduals.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other modelAudit objects to be plotted together.</p></td>
+      <td><p>Other modelAudit or modelResiduals objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
+      <td><p>Only for modelAudit objects. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
     </tr>
     <tr>
       <th>smooth</th>

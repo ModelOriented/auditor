@@ -2,9 +2,9 @@
 #'
 #' @description A plot of residuals against fitted values, observed values or any variable.
 #'
-#' @param object An object of class modelAudit.
-#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit objects to be plotted together.
+#' @param variable Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param points Logical, indicates whenever observations should be added as points.
 #' @param lines Logical, indicates whenever smoothed lines should be added.
 #' @param std.residuals Logical, indicates whenever standardized residuals should be used.

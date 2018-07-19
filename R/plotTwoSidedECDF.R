@@ -32,18 +32,19 @@
 
 plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
                              residuals = TRUE, y.reversed = FALSE){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
+
   res <- ecd <- label <- big <- no.obs <- NULL
   df <- getTwoSidedECDF(object, error.scaled, outliers, y.reversed)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getTwoSidedECDF(resp, error.scaled, outliers, y.reversed ) )
-      }
+      if("modelAudit" %in% class(resp)) df <- rbind( df, getTwoSidedECDF(modelResiduals(resp), error.scaled, outliers, y.reversed) )
+      if("modelResiduals" %in% class(resp)) df <- rbind(df, getTwoSidedECDF(resp, error.scaled, outliers, y.reversed))
     }
   }
-
 
   p <- ggplot(df, aes(x = res, y = ecd, color = label)) +
     geom_step() +
@@ -66,7 +67,7 @@ plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
 
 
 getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed){
-  res <- object$residuals
+  res <- object$res
   resids <- data.frame(no.obs = 1:(length(res)), res=res, sign = ifelse(res>=0, "pos", "neg"))
   df <- resids
 

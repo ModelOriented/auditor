@@ -7,9 +7,9 @@
 plotRROC(object, ...)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class modelAudit or modelResiduals.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other modelAudit or model Residuals objects to be plotted together.}
 }
 \value{
 ggplot object
