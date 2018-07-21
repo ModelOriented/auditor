@@ -4,7 +4,7 @@
 \alias{audit}
 \title{Create modelAudit object}
 \usage{
-audit(object, data = NULL, y = NULL, predict.function = NULL,
+audit(object, data = NULL, y = NULL, predict.function = yhat,
   residual.function = NULL, label = NULL)
 }
 \arguments{

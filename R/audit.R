@@ -43,16 +43,15 @@
 #'
 #' @export
 
-audit <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+audit <- function(object, data=NULL, y = NULL, predict.function = yhat, residual.function = NULL, label=NULL){
   if(!is.null(data)) checkDataConsistency(data, y)
   UseMethod("audit")
 }
 
 #' @export
-audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+audit.default <- function(object, data=NULL, y = NULL, predict.function = yhat, residual.function = NULL, label=NULL){
   model <- object
   dataModel <- auditError(model, data, y)
-  predict.function <- getPredictFunction(model, predict.function)
   residual.function <- getResidualFunction(residual.function)
 
   residuals <- residual.function(model = model, data =  dataModel$data, y = dataModel$y, predict.function = predict.function)
@@ -74,7 +73,7 @@ audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, 
 }
 
 #' @export
-audit.explainer <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+audit.explainer <- function(object, data=NULL, y = NULL, predict.function = yhat, residual.function = NULL, label=NULL){
   explainer <- object
   if (is.null(data)) data <- explainer$data
   if (is.null(y)) y <- explainer$y
