@@ -30,7 +30,6 @@
 
 plotModelPCA <- function(object, ..., scale = TRUE, invisible = "none"){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
   residuals <- label <- NULL
 
@@ -42,9 +41,11 @@ plotModelPCA <- function(object, ..., scale = TRUE, invisible = "none"){
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if("modelAudit" %in% class(resp)) resp <-  modelResiduals(resp)
-      df_tmp <- data.frame(resp$res)
-      colnames(df_tmp)[1] <- as.character(resp$label[1])
-      df <- cbind(df, df_tmp)
+      if("modelResiduals" %in% class(resp)){
+        df_tmp <- data.frame(resp$res)
+        colnames(df_tmp)[1] <- as.character(resp$label[1])
+        df <- cbind(df, df_tmp)
+      }
     }
   }
 

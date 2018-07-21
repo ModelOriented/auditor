@@ -8,6 +8,7 @@
 #' ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
 #' ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
+#' @param grid logical; if TRUE plots will be plotted on the grid.
 #'
 #' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
 #' \link{plotHalfNormal}, \link{plotResidual}, \link{plotResidualBoxplot}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
@@ -28,12 +29,13 @@
 #'
 #' @importFrom grDevices devAskNewPage
 #' @importFrom graphics plot
+#' @importFrom gridExtra grid.arrange
 #'
 #' @method plot modelAudit
 #'
 #' @export
 
-plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE){
+plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE, grid = TRUE){
 
   object <- x
 
@@ -49,19 +51,27 @@ plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE){
     return(plotTypePlot(object, ..., type = type))
   }
 
-  if (ask & length(type)) {
+  if (ask & length(type) & (grid == FALSE)) {
     oask <- devAskNewPage(TRUE)
     on.exit(devAskNewPage(oask))
   }
 
   plotsList <- sapply(type, function(x) NULL)
 
-  for(name in type){
-    plotsList[[name]] <- plotTypePlot(object, ..., type = name)
-    plot(plotsList[[name]])
+  if(grid == TRUE) {
+    for(name in type){
+      plotsList[[name]] <- plotTypePlot(object, ..., type = name)
+    }
+    do.call(grid.arrange, args = plotsList)
+  } else {
+    for(name in type){
+      plotsList[[name]] <- plotTypePlot(object, ..., type = name)
+      plot(plotsList[[name]])
+    }
+    class(plotsList) <- c("auditorPlotList", "list")
+    return(plotsList)
   }
-  class(plotsList) <- c("auditorPlotList", "list")
-  return(plotsList)
+
 }
 
 plotTypePlot <- function(x, ..., type){

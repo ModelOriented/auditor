@@ -24,6 +24,7 @@
 #' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @import ggplot2
+#' @importFrom ggrepel geom_text_repel
 #'
 #' @export
 plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE,
@@ -63,7 +64,7 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
 
   p + geom_point(data = maybe_points, alpha = 1, stroke=0) +
       geom_smooth(data = maybe_lines, method = "loess", se = FALSE, size = 2) +
-      geom_text(data = maybe_labels, aes(label = as.character(index)),
+      geom_text_repel(data = maybe_labels, aes(label = as.character(index)),
                 hjust=-0.2,vjust=-0.2, show.legend = FALSE) +
       xlab(variable) +
       ylab(ylabel) +

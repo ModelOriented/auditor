@@ -4,7 +4,8 @@
 \alias{plot.modelAudit}
 \title{Model diagnostic plots}
 \usage{
-\method{plot}{modelAudit}(x, ..., type = "Residual", ask = TRUE)
+\method{plot}{modelAudit}(x, ..., type = "Residual", ask = TRUE,
+  grid = TRUE)
 }
 \arguments{
 \item{x}{object of class modelAudit}
@@ -16,6 +17,8 @@ ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'R
 ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).}
 
 \item{ask}{logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.}
+
+\item{grid}{logical; if TRUE plots will be plotted on the grid.}
 }
 \description{
 This function provides several diagnostic plots for regression and classification models.
