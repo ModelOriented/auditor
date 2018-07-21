@@ -24,6 +24,7 @@ orderResidualsDF <- function(object, variable, is.df = FALSE, std.residuals = FA
   }
 
   tmpDF$values <- values
+  tmpDF$index <- rownames(object$data)
   tmpDF <- tmpDF[order(values), ]
   if(is.df == FALSE){
     return(tmpDF$residuals)

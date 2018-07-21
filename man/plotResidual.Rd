@@ -5,7 +5,7 @@
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
 plotResidual(object, ..., variable = NULL, points = TRUE, lines = FALSE,
-  std.residuals = FALSE)
+  std.residuals = FALSE, nlabel = 0)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -19,6 +19,8 @@ plotResidual(object, ..., variable = NULL, points = TRUE, lines = FALSE,
 \item{lines}{Logical, indicates whenever smoothed lines should be added.}
 
 \item{std.residuals}{Logical, indicates whenever standardized residuals should be used.}
+
+\item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
 }
 \description{
 A plot of residuals against fitted values, observed values or any variable.

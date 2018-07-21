@@ -8,6 +8,7 @@
 #' @param points Logical, indicates whenever observations should be added as points.
 #' @param lines Logical, indicates whenever smoothed lines should be added.
 #' @param std.residuals Logical, indicates whenever standardized residuals should be used.
+#' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
 #'
 #' @examples
 #' library(car)
@@ -25,7 +26,8 @@
 #' @import ggplot2
 #'
 #' @export
-plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE, std.residuals = FALSE){
+plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALSE,
+                         std.residuals = FALSE, nlabel = 0){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
@@ -46,6 +48,7 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
 
   maybe_points <- if (points == TRUE) df else df[0, ]
   maybe_lines <- if (lines == TRUE) df else df[0, ]
+  maybe_labels <- df[order(abs(df$res), decreasing = TRUE),][0:nlabel, ]
 
   if(is.na(df$variable[1])) variable <- NULL
 
@@ -60,6 +63,8 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
 
   p + geom_point(data = maybe_points, alpha = 1, stroke=0) +
       geom_smooth(data = maybe_lines, method = "loess", se = FALSE, size = 2) +
+      geom_text(data = maybe_labels, aes(label = as.character(index)),
+                hjust=-0.2,vjust=-0.2, show.legend = FALSE) +
       xlab(variable) +
       ylab(ylabel) +
       ggtitle(title) +

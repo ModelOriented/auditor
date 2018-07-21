@@ -19,7 +19,8 @@ modelResiduals <- function(object, variable = NULL){
                        variable = variable,
                        y = y,
                        fitted.values = fitted.values,
-                       std.res = std.residuals
+                       std.res = std.residuals,
+                       index = residuals$index
                        )
   class(result) <- c("modelResiduals", "data.frame")
 
