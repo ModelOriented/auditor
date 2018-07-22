@@ -1,0 +1,31 @@
+---
+title: "Observation Influence Audit"
+author: "Alicja Gosiewska"
+date: "`r Sys.Date()`"
+output: html_document
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Observation Influence Audit}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
+
+# Other methods
+
+Other methods and plots are described in vignettes: 
+
+* [Model Residuals audit](https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html)
+
+* [Model Evaluation audit]()
+
+* [Model Fit audit](https://mi2-warsaw.github.io/auditor/articles/model_fit_audit.html)
+
+* [Model Performance audit]()
+

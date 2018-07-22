@@ -1,5 +1,5 @@
 ---
-title: "Model Performance Audit"
+title: "Model Residuals Audit"
 author: "Alicja Gosiewska"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +7,7 @@ output:
     number_sections: true
 vignette: >
   %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Model Performance Audit}
+  %\VignetteIndexEntry{Model Residuals Audit}
   %\usepackage[UTF-8]{inputenc}
 ---
 
@@ -126,25 +126,92 @@ head(lm_mr_district)
 
 Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
 
+Residuals may be ordered by values any model variable or by fitted values. If variable is not specified, order from the data set is taken.
+
+```{r}
+lm_mr_surface <- modelResiduals(lm_audit, variable = "surface")
+plot(lm_mr_surface, type = "ACF")
+
+# alternative:
+# plotACF(lm_audit, variable = "surface")
+```
+
+
 
 ### plotAutocorrelation() - Autocorrelation of Residuals
 
 On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.
 
-Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model.
+Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a better model.
+
+```{r}
+plot(rf_mr_fitted, type = "Autocorrelation")
+
+# alternative:
+# plotAutocorrelation(rf_audit, variable = "Fitted values")
+```
+
 DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in `scoreDW()` and `scoreRuns()` functions.
 
-Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions and the `score()` function with argument `score` equals to "DW" or "Runs".
+Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions or the `score()` function with argument `score` equals to "DW" or "Runs".
 
+```{r}
+rf_score_DW <- scoreDW(rf_audit, variable = "Fitted values")
+rf_score_Runs <- scoreRuns(rf_audit, variable = "Fitted values")
+
+rf_score_DW$score
+rf_score_Runs$score
+```
 
 ### plotModelCorrelation - Correlation of Models
+
+A grid of plots presents correlation of dependennt variable and fitted model values.
+
+```{r}
+plot(rf_mr, lm_mr, type = "ModelCorrelation")
+
+# alternative:
+# plotModelCorrelation(rf_audit, lm_audit)
+```
+
+
+### plotModelPCA() - Model PCA
 
 Principal Component Analysis of models residuals.
 PCA can be used to assess the similarity of the models.
 
-### plotModelPCA() - Model PCA
+```{r}
+plot(rf_mr, lm_mr, type = "ModelPCA")
+
+# alternative:
+# plotModelPCA(rf_audit, lm_audit)
+```
 
 ### plotPredition() - Observed vs Predicted
+
+Basic plot of residuals vs observed, fitted or variable values. Without specified variable observations are in the order from the data set. 
+
+Black line corresponds to the y=x function.
+
+```{r}
+lm_mr_m2 <- modelResiduals(lm_audit, variable = "m2.price")
+rf_mr_m2 <- modelResiduals(rf_audit, variable = "m2.price")
+
+plot(rf_mr_m2, lm_mr_m2, type = "Prediction")
+
+# alternative:
+# plotPrediction(rf_audit, lm_audit, variable = "m2.price")
+```
+
+Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.
+
+```{r}
+plot(rf_mr_fitted, lm_mr_fitted, type = "Residual")
+
+# alternative:
+# plotResidual(rf_audit, lm_audit, variable = "Fitted values")
+```
+
 
 ### plotREC() - Regression Error Characteristic (REC) Curve
 
@@ -152,11 +219,18 @@ Error Characteristic curves are a generalization of ROC curves. On the x axis of
 REC curve estimates the Cumulative Distribution Function (CDF) of the error.
 Area Over the REC Curve (REC) is a biased estimate of the expected error.
 
+```{r}
+plot(rf_mr, lm_mr, type = "REC")
+
+# alternative:
+# plotREC(rf_audit, lm_audit)
+```
+
 ### plotResidual() - Plot Residuals vs Observed, Fitted or Variable Values
 
 Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.
 
-Without specified variable observations are in the order fro the data set. 
+Without specified variable observations are in the order from the data set. 
 
 ```{r}
 plot(rf_mr, type = "Residual")
@@ -199,9 +273,6 @@ plot(rf_mr, lm_mr, type = "ResidualDensity")
 Resuduals may be also divided by median of the numeric variable and splitted by a factor variable
 
 ```{r}
-lm_mr_m2 <- modelResiduals(lm_audit, variable = "m2.price")
-rf_mr_m2 <- modelResiduals(rf_audit, variable = "m2.price")
-
 plotResidualDensity(lm_mr_m2, rf_mr_m2)
 
 # alternative
@@ -229,11 +300,23 @@ The shift equals 0 is represented by a dot.
 
 The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
 
+```{r}
+plot(rf_mr, lm_mr, type = "RROC")
+
+# alternative:
+# plotRROC(rf_audit, lm_audit)
+```
 
 ### plotScaleLocation() - Scale Location Plot
 
 This plot shows if residuals are spread equally along the ranges of predictors. 
 
+```{r}
+plot(rf_mr_fitted, lm_mr_fitted, type = "ScaleLocation")
+
+# alternative:
+# plotScaleLocation(rf_audit, lm_audit, variable = "Fitted values")
+```
 
 For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
 This score is computed and described in `scoreGQ()` function.
@@ -247,8 +330,21 @@ And may be computed also in `score()` function with argument `score` equals "GQ"
 
 Cumulative Distribution Function for positive and negative residuals.
 
+```{r}
+plot(rf_mr, lm_mr, type = "TwoSidedECDF")
 
+# alternative
+# TwoSidedECDF(rf_audit, lm_audit)
+```
 
 ## Other methods
 
-Other methods and plots are described in other vignettes. See: [The half-normal plots](https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html)
+Other methods and plots are described in vignettes: 
+
+* [Model Evaluation audit]()
+
+* [Model Fit audit](https://mi2-warsaw.github.io/auditor/articles/model_fit_audit.html)
+
+* [Model Performance audit]()
+
+* [Observation Influence audit](https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html)

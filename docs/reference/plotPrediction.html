@@ -69,10 +69,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/HalfNormal.html">The half-normal plots</a>
+      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+    </li>
+    <li>
+      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
     </li>
   </ul>
 </li>
@@ -101,7 +104,7 @@
     <p>Plot of predicted response vs observed or variable Values.</p>
     
 
-    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>abline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -121,6 +124,10 @@
     <tr>
       <th>smooth</th>
       <td><p>Logical, indicates whenever smooth line should be added.</p></td>
+    </tr>
+    <tr>
+      <th>abline</th>
+      <td><p>Logical, indicates whenever function y=x shoulbe added.</p></td>
     </tr>
     </table>
     

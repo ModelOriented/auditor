@@ -7,6 +7,7 @@
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param smooth Logical, indicates whenever smooth line should be added.
+#' @param abline Logical, indicates whenever function y=x shoulbe added.
 #'
 #' @examples
 #' library(car)
@@ -24,7 +25,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotPrediction <- function(object, ..., variable = NULL, smooth = TRUE){
+plotPrediction <- function(object, ..., variable = NULL, smooth = TRUE, abline = TRUE){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
@@ -43,9 +44,12 @@ plotPrediction <- function(object, ..., variable = NULL, smooth = TRUE){
   if(is.null(variable) || is.na(variable)) variable <- "Index"
 
   maybeVS <- ifelse(variable == "Index", "", paste("vs",variable))
+  maybeAbline <- NULL
+  if(abline == TRUE) maybeAbline <- geom_abline()
 
   p <- ggplot(df, aes(val, fitted.values, color = label)) +
           geom_point() +
+          maybeAbline +
           xlab(variable) +
           ylab("Predicted values") +
           ggtitle(paste("Predicted", maybeVS)) +

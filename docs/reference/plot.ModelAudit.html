@@ -69,10 +69,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/HalfNormal.html">The half-normal plots</a>
+      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+    </li>
+    <li>
+      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
     </li>
   </ul>
 </li>
@@ -102,7 +105,8 @@
     
 
     <pre class="usage"><span class='co'># S3 method for modelAudit</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"Residual"</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"Residual"</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -124,6 +128,10 @@ ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see al
     <tr>
       <th>ask</th>
       <td><p>logical; if TRUE, the user is asked before each plot, see <code><a href='http://www.rdocumentation.org/packages/graphics/topics/par'>par</a>(ask=)</code>.</p></td>
+    </tr>
+    <tr>
+      <th>grid</th>
+      <td><p>logical; if TRUE plots will be plotted on the grid.</p></td>
     </tr>
     </table>
     
