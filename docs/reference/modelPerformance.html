@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Observation Influence Explainer — observationInfluence • auditor</title>
+<title>Create Observation Influence Explainer — modelPerformance • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -110,7 +110,8 @@
     <p>Creates observationInfluence object to be plotted.</p>
     
 
-    <pre class="usage"><span class='fu'>observationInfluence</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>modelPerformance</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"MAE"</span>, <span class='st'>"MSE"</span>, <span class='st'>"REC"</span>, <span class='st'>"RROC"</span>),
+  <span class='kw'>new.score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -120,7 +121,7 @@
       <td><p>An object of class ModelAudit.</p></td>
     </tr>
     <tr>
-      <th>...</th>
+      <th>other</th>
       <td><p>other parameters.</p></td>
     </tr>
     </table>

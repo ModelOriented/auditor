@@ -1,0 +1,113 @@
+---
+title: "Model Performance Audit"
+author: "Alicja Gosiewska"
+date: "`r Sys.Date()`"
+output: html_document
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Model Performance Audit}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
+
+# Regression use case - apartments data
+
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset apartments available in the [*DALEX*](https://pbiecek.github.io/DALEX/) package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.
+
+```{r}
+library(DALEX)
+data("apartments")
+head(apartments)
+```
+
+# Models
+
+
+## Linear model
+```{r}
+lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + district, data = apartments)
+```
+
+
+
+## Random forest
+```{r}
+library("randomForest")
+set.seed(59)
+rf_model <- randomForest(m2.price ~ construction.year + surface + floor +  no.rooms + district, data = apartments)
+```
+
+
+# Preparation for error analysis
+The beginning of each analysis is creation of a `modelAudit` object. It’s an object that can be used to audit a model.
+
+```{r}
+library("auditor")
+
+lm_audit <- audit(lm_model, label = "lm", data = apartmentsTest, y = apartmentsTest$m2.price)
+rf_audit <- audit(rf_model, label = "rf", data = apartmentsTest, y = apartmentsTest$m2.price)
+```
+
+
+# Model Performance Audit
+
+## Model Ranking radar plot
+
+Model performance measures may be plotted together to easily compare model performances.
+
+Function `modelPerformance()` compute chosen model performance measures. A result further from the center means a better model performance.
+
+```{r}
+lm_mp <- modelPerformance(lm_audit, type = c("MAE", "MSE", "REC", "RROC"))
+rf_mp <- modelPerformance(rf_audit, type = c("MAE", "MSE", "REC", "RROC"))
+
+lm_mp
+```
+
+Results of `modelPerformance()` function for multiple models may be plotted together on one plot.
+Parameter `table` indicates whether the table with scores should be generated.
+
+On the plot scores are inversed and scaled to [0,1].
+
+```{r}
+plot(lm_mp, rf_mp, table = TRUE)
+```
+
+There is a possibiliy to define functions with custom model performance measure.
+
+```{r}
+new_score <- function(object) sum((object$residuals)^3)
+
+lm_mp <- modelPerformance(lm_audit,  
+                          type = c("MAE", "MSE", "REC", "RROC"), 
+                          new.score = new_score)
+
+rf_mp <- modelPerformance(rf_audit,  
+                          type = c("MAE", "MSE", "REC", "RROC"), 
+                          new.score = new_score)
+
+plotModelRanking(lm_mp, rf_mp, table = TRUE)
+```
+
+
+
+# Other methods
+
+Other methods and plots are described in vignettes: 
+
+* [Model Residuals audit](https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html)
+
+* [Model Evaluation audit](https://mi2-warsaw.github.io/auditor/articles/model_evaluation_audit.html)
+
+* [Model Fit audit](https://mi2-warsaw.github.io/auditor/articles/model_fit_audit.html)
+
+* [Observation Influence audit](https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html)
+
+

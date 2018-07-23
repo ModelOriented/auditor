@@ -69,7 +69,7 @@ test_that("plot", {
   expect_is(plot(au.lm, type="ACF"), "gg")
   expect_is(plot(au.lm, type="Autocorrelation"), "gg")
   expect_is(plot(au.lm, type="CooksDistance", print=FALSE), "gg")
-  expect_is(plot(au.lm, au.rf, type="ModelRanking"), "gg")
+  expect_is(plot(au.lm, au.rf, type="ModelRanking"), "gtable")
   expect_is(plot(au.lm, au.rf, type="TwoSidedECDF"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelPCA"), "gg")
   expect_is(plot(au.lm, type="ResidualDensity"), "gg")

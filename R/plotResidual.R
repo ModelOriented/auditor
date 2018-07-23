@@ -34,7 +34,7 @@ plotResidual <- function(object, ..., variable=NULL, points = TRUE, lines = FALS
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
 
 
-  res <- std.res <- val <- label <- NULL
+  res <- std.res <- val <- label <- index <- NULL
 
   ylabel <- ifelse(std.residuals == TRUE, "standardized residuals", "residuals")
   df <- object

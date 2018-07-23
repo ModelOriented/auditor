@@ -3,7 +3,7 @@
 #' @description  Creates observationInfluence object to be plotted.
 #'
 #' @param object An object of class ModelAudit.
-#' @param other other parameters.
+#' @param ... other parameters.
 #'
 #' @export
 observationInfluence <- function(object, ...){

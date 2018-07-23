@@ -47,10 +47,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/HalfNormal.html">The half-normal plots</a>
+      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+    </li>
+    <li>
+      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
     </li>
     <li>
       <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+    </li>
+    <li>
+      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+    </li>
+    <li>
+      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
     </li>
   </ul>
 </li>
@@ -73,7 +82,7 @@
       <h1>Model Performance Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-07-19</h4>
+            <h4 class="date">2018-07-23</h4>
       
       
       <div class="hidden name"><code>model_performance_audit.Rmd</code></div>
@@ -82,10 +91,6 @@
 
     
     
-<p>This vignette demonstrates how to use the <em>auditor</em> package for auditing model residuals. auditor provides methods for model verification and validation by error analysis.</p>
-<p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models.</p>
-<p>Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors.</p>
-<p>Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.</p>
 <div id="regression-use-case---apartments-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression-use-case---apartments-data" class="anchor"></a>Regression use case - apartments data</h1>
@@ -126,162 +131,52 @@ rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.p
 lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)
 rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)</code></pre></div>
 </div>
-<div id="audit-of-residuals" class="section level1">
+<div id="model-performance-audit" class="section level1">
 <h1 class="hasAnchor">
-<a href="#audit-of-residuals" class="anchor"></a>Audit of residuals</h1>
-<p>In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.</p>
-<ul>
-<li><p>Does the model fit data? Is it not missing the information?</p></li>
-<li><p>Which model has better performance?</p></li>
-<li><p>How similar models are?</p></li>
-</ul>
-<p>In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.</p>
-<div id="audit-pipelines" class="section level2">
+<a href="#model-performance-audit" class="anchor"></a>Model Performance Audit</h1>
+<div id="model-ranking-radar-plot" class="section level2">
 <h2 class="hasAnchor">
-<a href="#audit-pipelines" class="anchor"></a>Audit pipelines</h2>
-<p>The auditor provides 2 pipelines of model audit.</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/modelResiduals.html">modelResiduals()</a></code> creates a <code>modelResiduals</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However once created <code>modelResiduals</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.<br>
-Alternative: <strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plotType()</strong></p></li>
-<li><p><strong>model %&gt;% audit() %&gt;% plot(type=…)</strong> This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.<br>
-Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
-</ol>
-<p>Help of functions <code>plot[Type]()</code> contains additional information about plots.</p>
-</div>
-<div id="modelresiduals" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modelresiduals" class="anchor"></a>modelResiduals()</h2>
-<p>In this vignette we will use first pipeline. However alternative evaluations will be showed as comments. First, we need to create a <code>modelResiduals</code> objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit)
-rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit)
+<a href="#model-ranking-radar-plot" class="anchor"></a>Model Ranking radar plot</h2>
+<p>Model performance measures may be plotted together to easily compare model performances.</p>
+<p>Function <code><a href="../reference/modelPerformance.html">modelPerformance()</a></code> compute chosen model performance measures. A result further from the center means a better model performance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit, <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
+rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit, <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
 
-<span class="kw">head</span>(lm_mr)</code></pre></div>
-<pre><code>##   label       res val variable    y fitted.values    std.res
-## 1    lm -176.0094   1       NA 4644      4820.009 -0.6218021
-## 2    lm -210.6776   2       NA 3082      3292.678 -0.7442769
-## 3    lm -219.9097   3       NA 2498      2717.910 -0.7768920
-## 4    lm -187.7511   4       NA 2735      2922.751 -0.6632827
-## 5    lm -193.0858   5       NA 2781      2974.086 -0.6821291
-## 6    lm  408.9568   6       NA 2936      2527.043  1.4447532</code></pre>
-<p>Some plots may require specified variable or fitted values for <code>modelResidual</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_district &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)
-rf_mr_district &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)
+lm_mp</code></pre></div>
+<pre><code>##          score label name
+## 1 2.633246e+02    lm  MAE
+## 2 8.013798e+04    lm  MSE
+## 3 2.632619e+02    lm  REC
+## 4 3.244698e+12    lm RROC</code></pre>
+<p>Results of <code><a href="../reference/modelPerformance.html">modelPerformance()</a></code> function for multiple models may be plotted together on one plot. Parameter <code>table</code> indicates whether the table with scores should be generated.</p>
+<p>On the plot scores are inversed and scaled to [0,1].</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="model_performance_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>There is a possibiliy to define functions with custom model performance measure.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_score &lt;-<span class="st"> </span><span class="cf">function</span>(object) <span class="kw">sum</span>((object<span class="op">$</span>residuals)<span class="op">^</span><span class="dv">3</span>)
 
-lm_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
-rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
+lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit,  
+                          <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
+                          <span class="dt">new.score =</span> new_score)
 
-<span class="kw">head</span>(lm_mr_district)</code></pre></div>
-<pre><code>##   label       res    val variable    y fitted.values    std.res
-## 1    lm -193.0858 Bemowo district 2781      2974.086 -0.6821291
-## 2    lm  408.9568 Bemowo district 2936      2527.043  1.4447532
-## 3    lm -190.4866 Bemowo district 3010      3200.487 -0.6729468
-## 4    lm -187.2122 Bemowo district 2593      2780.212 -0.6613788
-## 5    lm -197.6170 Bemowo district 2792      2989.617 -0.6981369
-## 6    lm -205.4415 Bemowo district 2550      2755.441 -0.7257788</code></pre>
-</div>
-<div id="plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plots" class="anchor"></a>Plots</h2>
-<div id="plotacf---autocorrelation-function-of-residuals" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotacf---autocorrelation-function-of-residuals" class="anchor"></a>plotACF() - Autocorrelation Function of Residuals</h3>
-<p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
-</div>
-<div id="plotautocorrelation---autocorrelation-of-residuals" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotautocorrelation---autocorrelation-of-residuals" class="anchor"></a>plotAutocorrelation() - Autocorrelation of Residuals</h3>
-<p>On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.</p>
-<p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a betetr model. DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
-<p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions and the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
-</div>
-<div id="plotmodelcorrelation---correlation-of-models" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotmodelcorrelation---correlation-of-models" class="anchor"></a>plotModelCorrelation - Correlation of Models</h3>
-<p>Principal Component Analysis of models residuals. PCA can be used to assess the similarity of the models.</p>
-</div>
-<div id="plotmodelpca---model-pca" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotmodelpca---model-pca" class="anchor"></a>plotModelPCA() - Model PCA</h3>
-</div>
-<div id="plotpredition---observed-vs-predicted" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotpredition---observed-vs-predicted" class="anchor"></a>plotPredition() - Observed vs Predicted</h3>
-</div>
-<div id="plotrec---regression-error-characteristic-rec-curve" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotrec---regression-error-characteristic-rec-curve" class="anchor"></a>plotREC() - Regression Error Characteristic (REC) Curve</h3>
-<p>Error Characteristic curves are a generalization of ROC curves. On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance. REC curve estimates the Cumulative Distribution Function (CDF) of the error. Area Over the REC Curve (REC) is a biased estimate of the expected error.</p>
-</div>
-<div id="plotresidual---plot-residuals-vs-observed-fitted-or-variable-values" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values" class="anchor"></a>plotResidual() - Plot Residuals vs Observed, Fitted or Variable Values</h3>
-<p>Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.</p>
-<p>Without specified variable observations are in the order fro the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
+rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit,  
+                          <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
+                          <span class="dt">new.score =</span> new_score)
+
+<span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="model_performance_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotResidual(rf_audit)</span></code></pre></div>
-<p>Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
-<p><img src="model_performance_audit_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotResidual(rf_audit, lm_audit, variable = "Fitted values")</span></code></pre></div>
-</div>
-<div id="plotresidualboxplot---boxplot-of-residuals" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotresidualboxplot---boxplot-of-residuals" class="anchor"></a>plotResidualBoxplot() - Boxplot of residuals</h3>
-<p>Comparison of the absolute valued of residuals. The red dot stands for the root mean square.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"ResidualBoxplot"</span>)</code></pre></div>
-<p><img src="model_performance_audit_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualBoxplot(lm_audit, rf_audit)</span></code></pre></div>
-</div>
-<div id="plotresidualdensity---density-of-residuals" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotresidualdensity---density-of-residuals" class="anchor"></a>plotResidualDensity() - Density of Residuals</h3>
-<p>Density of residuals may be plotted in different ways. Residuals of models may be simply compared.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ResidualDensity"</span>)</code></pre></div>
-<p><img src="model_performance_audit_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit)</span></code></pre></div>
-<p>Resuduals may be also divided by median of the numeric variable and splitted by a factor variable</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)
-rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)
-
-<span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_m2, rf_mr_m2)</code></pre></div>
-<p><img src="model_performance_audit_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "m2.price")</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_district, rf_mr_district)</code></pre></div>
-<p><img src="model_performance_audit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "district")</span></code></pre></div>
-</div>
-<div id="plotrroc---regression-receiver-operating-characteristic-rroc" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotrroc---regression-receiver-operating-characteristic-rroc" class="anchor"></a>plotRROC() - Regression Receiver Operating Characteristic (RROC)</h3>
-<p>The basic idea of the ROC curves for regression is to show model asymmetry. The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total under-estimation.</p>
-<p>For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves. For each observation we calculate new prediction:  where s is the shift. Therefore, there are different error values for each shift: </p>
-<p>Over-estimation is caluclates as: . Under-estimation is calculated as: . The shift equals 0 is represented by a dot.</p>
-<p>The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by .</p>
-</div>
-<div id="plotscalelocation---scale-location-plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotscalelocation---scale-location-plot" class="anchor"></a>plotScaleLocation() - Scale Location Plot</h3>
-<p>This plot shows if residuals are spread equally along the ranges of predictors.</p>
-<p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. This score is computed and described in <code><a href="../reference/scoreGQ.html">scoreGQ()</a></code> function. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
-</div>
-<div id="plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf" class="anchor"></a>plotTwoSidedECDF() - Two-sided Empirical Cumulative Distribution Function (ECDF)</h3>
-<p>Cumulative Distribution Function for positive and negative residuals.</p>
 </div>
 </div>
-<div id="other-methods" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-methods" class="anchor"></a>Other methods</h2>
-<p>Other methods and plots are described in other vignettes. See: <a href="https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html">The half-normal plots</a></p>
-</div>
+<div id="other-methods" class="section level1">
+<h1 class="hasAnchor">
+<a href="#other-methods" class="anchor"></a>Other methods</h1>
+<p>Other methods and plots are described in vignettes:</p>
+<ul>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html">Model Residuals audit</a></p></li>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/model_evaluation_audit.html">Model Evaluation audit</a></p></li>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/model_fit_audit.html">Model Fit audit</a></p></li>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html">Observation Influence audit</a></p></li>
+</ul>
 </div>
   </div>
 
@@ -299,13 +194,11 @@ rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mo
 </li>
       <li><a href="#preparation-for-error-analysis">Preparation for error analysis</a></li>
       <li>
-<a href="#audit-of-residuals">Audit of residuals</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#audit-pipelines">Audit pipelines</a></li>
-      <li><a href="#modelresiduals">modelResiduals()</a></li>
-      <li><a href="#plots">Plots</a></li>
-      <li><a href="#other-methods">Other methods</a></li>
+<a href="#model-performance-audit">Model Performance Audit</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#model-ranking-radar-plot">Model Ranking radar plot</a></li>
       </ul>
 </li>
+      <li><a href="#other-methods">Other methods</a></li>
       </ul>
 </div>
       </div>

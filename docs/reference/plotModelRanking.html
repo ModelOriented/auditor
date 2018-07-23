@@ -69,7 +69,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+    </li>
+    <li>
       <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+    </li>
+    <li>
+      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
     </li>
     <li>
       <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
@@ -105,7 +111,7 @@
     
 
     <pre class="usage"><span class='fu'>plotModelRanking</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"MAE"</span>, <span class='st'>"MSE"</span>, <span class='st'>"REC"</span>, <span class='st'>"RROC"</span>),
-  <span class='kw'>new.score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>new.score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -125,6 +131,10 @@
     <tr>
       <th>new.score</th>
       <td><p>A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>Logical. Specifies if rable with score values should be plotted</p></td>
     </tr>
     </table>
     

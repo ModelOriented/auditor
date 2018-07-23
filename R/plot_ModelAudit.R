@@ -37,6 +37,7 @@
 
 plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE, grid = TRUE){
   if("observationInfluence" %in% class(x)) type <- "CooksDistance"
+  if("modelPerformance" %in% class(x)) type <- "ModelRanking"
   object <- x
 
   plotNames <- c('ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
