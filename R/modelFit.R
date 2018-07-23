@@ -16,7 +16,7 @@ modelFit <- function(object, quant.scale = FALSE, ...){
     data <- object$data
 
   if("randomForest" %in% class(model)) {
-    hnpObject <- hnpObject.randomForest(model, data)
+    hnpObject <- hnpObject.randomForest(object, data)
   } else {
     hnpObject <- hnp(model, plot.sim=FALSE, ...)
   }
@@ -29,7 +29,7 @@ modelFit <- function(object, quant.scale = FALSE, ...){
   return(result)
 }
 
-hnpObject.randomForest <- function(model, data){
+hnpObject.randomForest <- function(object, data){
   d.fun <- function(obj){
     1 - predict(obj, type = "prob")[cbind(1:length(obj$y),obj$y)]
   }
@@ -41,10 +41,10 @@ hnpObject.randomForest <- function(model, data){
   f.fun <- function(y.) {
     newdata <- data
     newdata[,as.character(object$terms[[2]])] <- as.factor(y.)
-    mod <- update(model, data = newdata)
+    mod <- update(object$model, data = newdata)
     return(mod)
   }
-  hnpObject <- hnp(model, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun)
+  hnpObject <- hnp(object$model, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun)
 
   return(hnpObject)
 }

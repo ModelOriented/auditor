@@ -159,13 +159,13 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <div id="a-short-overview-of-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-short-overview-of-plots" class="anchor"></a>A Short Overview of Plots</h2>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
+<col width="17%">
 <col width="22%">
-<col width="29%">
+<col width="4%">
 <col width="5%">
-<col width="6%">
-<col width="35%">
+<col width="50%">
 </colgroup>
 <thead><tr class="header">
 <th>Plot name</th>
@@ -180,35 +180,35 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <td>
 <code><a href="reference/plotACF.html">plotACF()</a></code>  <code>plot(..., type = "ACF")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotacf---autocorrelation-function-of-residuals">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Autocorrelation</td>
 <td>
 <code><a href="reference/plotAutocorrelation.html">plotAutocorrelation()</a></code>  <code>plot(..., type = "Autocorrelation")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotautocorrelation---autocorrelation-of-residuals">Examples</a></td>
 </tr>
 <tr class="odd">
 <td>Influence of observations</td>
 <td>
 <code><a href="reference/plotCooksDistance.html">plotCooksDistance()</a></code>  <code>plot(..., type = "CooksDistance")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html#which-observations-are-outlyers">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Cumulative Gain Chart</td>
 <td>
 <code><a href="reference/plotCumulativeGain.html">plotCumulativeGain()</a></code>  <code>plot(..., type = "CumulativeGain")</code>
 </td>
-<td></td>
-<td></td>
+<td>no</td>
+<td>yes</td>
 <td>soon</td>
 </tr>
 <tr class="odd">
@@ -218,15 +218,15 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html">Examples</a></td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_fit_audit.html">Examples</a></td>
 </tr>
 <tr class="even">
 <td>LIFT Chart</td>
 <td>
 <code><a href="reference/plotLIFT.html">plotLIFT()</a></code>  <code>plot(..., type = "LIFT")</code>
 </td>
-<td></td>
-<td></td>
+<td>no</td>
+<td>yes</td>
 <td>soon</td>
 </tr>
 <tr class="odd">
@@ -234,52 +234,52 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <td>
 <code><a href="reference/plotModelCorrelation.html">plotModelCorrelation()</a></code>  <code>plot(..., type = "ModelCorrelation")</code>
 </td>
-<td></td>
-<td></td>
-<td>soon</td>
+<td>yes</td>
+<td>yes</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotmodelcorrelation---correlation-of-models">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Principal Component Analysis of models</td>
 <td>
 <code><a href="reference/plotModelPCA.html">plotModelPCA()</a></code>  <code>plot(..., type = "ModelPCA")</code>
 </td>
-<td></td>
-<td></td>
-<td>soon</td>
+<td>yes</td>
+<td>yes</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotmodelpca---model-pca">Examples</a></td>
 </tr>
 <tr class="odd">
 <td>Model Ranking Plot</td>
 <td>
 <code><a href="reference/plotModelRanking.html">plotModelRanking()</a></code>  <code>plot(..., type = "ModelRanking")</code>
 </td>
-<td></td>
-<td></td>
-<td>soon</td>
+<td>yes</td>
+<td>yes</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Predicted Response vs Observed or Variable Values</td>
 <td>
 <code><a href="reference/plotPrediction.html">plotPrediction()</a></code>  <code>plot(..., type = "Prediction")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotpredition---observed-vs-predicted">Examples</a></td>
 </tr>
 <tr class="odd">
 <td>Regression Error Characteristic Curves (REC)</td>
 <td>
 <code><a href="reference/plotREC.html">plotREC()</a></code>  <code>plot(..., type = "REC")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotrec---regression-error-characteristic-rec-curve">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Plot Residuals vs Observed, Fitted or Variable Values</td>
 <td>
 <code><a href="reference/plotResidual.html">plotResidual()</a></code>  <code>plot(..., type = "Residual")</code>
 </td>
-<td></td>
+<td>yes</td>
 <td></td>
 <td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values">Examples</a></td>
 </tr>
@@ -288,8 +288,8 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <td>
 <code><a href="reference/plotResidualBoxplot.html">plotResidualBoxplot()</a></code>  <code>plot(..., type = "ResidualBoxplot")</code>
 </td>
-<td></td>
-<td></td>
+<td>yes</td>
+<td>yes</td>
 <td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html#plotresidualboxplot---boxplot-of-residuals">Examples</a></td>
 </tr>
 <tr class="even">
@@ -297,8 +297,8 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <td>
 <code><a href="reference/plotResidualDensity.html">plotResidualDensity()</a></code>  <code>plot(..., type = "ResidualDensity")</code>
 </td>
-<td></td>
-<td></td>
+<td>yes</td>
+<td>yes</td>
 <td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html#plotresidualdensity---density-of-residuals">Examples</a></td>
 </tr>
 <tr class="odd">
@@ -306,8 +306,8 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <td>
 <code><a href="reference/plotROC.html">plotROC()</a></code>  <code>plot(..., type = "ROC")</code>
 </td>
-<td></td>
-<td></td>
+<td>no</td>
+<td>yes</td>
 <td>soon</td>
 </tr>
 <tr class="even">
@@ -315,27 +315,27 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <td>
 <code><a href="reference/plotRROC.html">plotRROC()</a></code>  <code>plot(..., type = "RROC")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotrroc---regression-receiver-operating-characteristic-rroc">Examples</a></td>
 </tr>
 <tr class="odd">
 <td>Scale-Location plot</td>
 <td>
 <code><a href="reference/plotScaleLocation.html">plotScaleLocation()</a></code>  <code>plot(..., type = "ScaleLocation")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotscalelocation---scale-location-plot">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Two-sided Cumulative Distribution Function</td>
 <td>
 <code><a href="reference/plotTwoSidedECDF.html">plotTwoSidedECDF()</a></code>  <code>plot(..., type = "TwoSidedECDF")</code>
 </td>
+<td>yes</td>
 <td></td>
-<td></td>
-<td>soon</td>
+<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf">Exaples</a></td>
 </tr>
 </tbody>
 </table>

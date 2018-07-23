@@ -3,6 +3,7 @@
 S3method(audit,default)
 S3method(audit,explainer)
 S3method(plot,modelAudit)
+S3method(plot,modelFit)
 S3method(plot,modelPerformance)
 S3method(plot,modelResiduals)
 S3method(plot,observationInfluence)

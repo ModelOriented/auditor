@@ -78,7 +78,7 @@ It doesn't fit because of the overdispersion in data.
 
 An alternative way for generating plots is creating a modelFit object and then plotting it. This require additional line of code. However, once created `modelFit` contains all nessesary calculations that Half-Normal plot require. Among others simulated model residuals.
 
-```{r binomial2, results='hide', fig.keep='all'}
+```{r, results='hide', fig.keep='all'}
 model.bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
 bin_au <- audit(model.bin, data = corn, y = corn$y)
 
@@ -94,14 +94,16 @@ Next step is to try fitting overdispersion models: quasi-binomial, beta-binomial
 ### Quasi-binomial model
 ```{r quasibinomial2, results='hide', fig.keep='all'}
 fit2_b <- glm(cbind(y, m - y) ~ extract, family = quasibinomial, data = corn)
-plotHalfNormal(fit2_b, sim=500)
+fit2_b_au <- audit(fit2_b, data = corn, y = corn$y)
+plotHalfNormal(fit2_b_au, sim=500)
 ```
 
 ### Beta-binomial model
 ```{r beta-binomial2, results='hide', fig.keep='all'}
 library(aods3)
 fit3_b <- aodml(cbind(y, m - y) ~ extract, family = "bb", data = corn)
-plotHalfNormal(fit3_b, sim=500)
+fit3_b_au <- audit(fit3_b, data = corn, y = corn$y)
+plotHalfNormal(fit3_b_au, sim=500)
 ```
 
 
@@ -109,7 +111,8 @@ plotHalfNormal(fit3_b, sim=500)
 ```{r normal-logit-binomial, results='hide', fig.keep='all'}
 x <- factor(seq_len(nrow(corn)))
 fit4_b <- glmer(cbind(y, m - y) ~ extract + (1 | x), family = binomial, data = corn)
-plotHalfNormal(fit4_b, sim=500)
+fit4_b_au <- audit(fit4_b, data = corn, y = corn$y)
+plotHalfNormal(fit4_b_au, sim=500)
 ```
 
 The results of all models are quite similar.
@@ -129,7 +132,7 @@ Scores are calculated on the basis of simulated data, so they may differ between
 ## Quantile scale
 In function `plotHalfNormal` there is also a posibility to draw half-normal plot on a quantile scale.
 ```{r, results='hide', fig.keep='all'}
-plotHalfNormal(fit4_b, quant.scale = TRUE)
+plotHalfNormal(fit2_b_au, quant.scale = TRUE)
 ```
 
 # Classification
@@ -140,8 +143,9 @@ In this case we consider the differences between observed class and predicted pr
 
 ```{r}
 library(randomForest)
-iris.rf <- randomForest(Species ~ ., data=iris)
-plotHalfNormal(iris.rf)
+iris_rf <- randomForest(Species ~ ., data=iris)
+iris_rf_au <- audit(iris_rf, data = iris, y = iris$Species)
+plotHalfNormal(iris_rf_au)
 ```
 
 
@@ -151,9 +155,9 @@ Other methods and plots are described in vignettes:
 
 * [Model Residuals audit](https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html)
 
-* [Model Evaluation audit]()
+* [Model Evaluation audit](https://mi2-warsaw.github.io/auditor/articles/model_evaluation_audit.html)
 
-* [Model Performance audit]()
+* [Model Performance audit](https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html)
 
 * [Observation Influence audit](https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html)
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Observation Influence Explainer — modelPerformance • auditor</title>
+<title>Create Model Performance Explainer — modelPerformance • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Create Observation Influence Explainer</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Create Model Performance Explainer</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,7 +103,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Observation Influence Explainer</h1>
+    <h1>Create Model Performance Explainer</h1>
     </div>
 
     
@@ -121,7 +121,15 @@
       <td><p>An object of class ModelAudit.</p></td>
     </tr>
     <tr>
-      <th>other</th>
+      <th>type</th>
+      <td><p>Vector of score names to be plotted.</p></td>
+    </tr>
+    <tr>
+      <th>new.score</th>
+      <td><p>A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
       <td><p>other parameters.</p></td>
     </tr>
     </table>

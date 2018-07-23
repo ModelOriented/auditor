@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Half-Normal plot — plotHalfNormal • auditor</title>
+<title>Create Model Fit explainer — modelFit • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Half-Normal plot</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Create Model Fit explainer</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,60 +103,31 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Half-Normal plot</h1>
+    <h1>Create Model Fit explainer</h1>
     </div>
 
     
-    <p>The half-normal plot is one of the tools designed to evaluate the goodness of fit of a
-statistical models. It is a graphical method for comparing two probability distributions by plotting
-their quantiles against each other.
-Points on the plot correspond to ordered absolute values of model diagnostic
-(i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.</p>
+    <p>Creates modelFit object to be plotted.</p>
     
 
-    <pre class="usage"><span class='fu'>plotHalfNormal</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quant.scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"half-normal Quantiles"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"residuals"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>modelFit</span>(<span class='no'>object</span>, <span class='kw'>quant.scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>modelAudit object, modelFit object.</p></td>
-    </tr>
-    <tr>
-      <th>score</th>
-      <td><p>If TRUE score based on probability density function is displayed on the plot.</p></td>
+      <td><p>An object of class ModelAudit.</p></td>
     </tr>
     <tr>
       <th>quant.scale</th>
       <td><p>if TRUE values on axis are on quantile scale.</p></td>
     </tr>
     <tr>
-      <th>xlab</th>
-      <td><p>The text for the x axis.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>The text for the y axis.</p></td>
-    </tr>
-    <tr>
-      <th>main</th>
-      <td><p>Title of plot.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>extra arguments passed to <a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a>.</p></td>
+      <td><p>other parameters passed do <code><a href='http://www.rdocumentation.org/packages/hnp/topics/hnp'>hnp</a></code> function.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An object of class ggplot</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='scoreHalfNormal.html'>scoreHalfNormal</a></code></p></div>
     
 
   </div>
@@ -164,11 +135,7 @@ Points on the plot correspond to ordered absolute values of model diagnostic
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

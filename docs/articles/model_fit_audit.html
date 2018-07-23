@@ -91,12 +91,16 @@
 
     
     
-<div id="half-normal-plot" class="section level1">
+<div id="model-fit-audit" class="section level1">
 <h1 class="hasAnchor">
-<a href="#half-normal-plot" class="anchor"></a>Half-normal plot</h1>
+<a href="#model-fit-audit" class="anchor"></a>Model Fit audit</h1>
+<div id="half-normal-plot" class="section level2">
+<h2 class="hasAnchor">
+<a href="#half-normal-plot" class="anchor"></a>Half-normal plot</h2>
 <p>The half-normal plot presented in this chapter is one of the tools designed to evaluate the goodness of fit of a statistical model. It is a graphical method for comparing two probability distributions by plotting their quantiles against each other.</p>
 <p>Points on the plot correspond to ordered absolute values of model diagnostic (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.</p>
 <p>There are various implementations of half-normal plots in R. Functions for generating such plotes are available in packages <strong>auditor</strong>, <strong>faraway</strong>, <strong>hnp</strong>, but also in others. Some functions can only draw a simple half-normal plot, while some have additional functionalities like a simulated envelope and score of goodness-of-fit.</p>
+</div>
 <div id="auditorplothalfnormal" class="section level2">
 <h2 class="hasAnchor">
 <a href="#auditorplothalfnormal" class="anchor"></a>auditor::plotHalfNormal()</h2>
@@ -117,10 +121,23 @@
 <div id="binomial-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#binomial-model" class="anchor"></a>Binomial model</h2>
+<p>First step of auditing is fitting a model and creating a <code>modelAudit</code> object which wraps up a model with meta-data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.bin &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">cbind</span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)
-<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(model.bin, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
-<p><img src="model_fit_audit_files/figure-html/binomial2-1.png" width="700"></p>
+
+bin_au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model.bin, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)</code></pre></div>
+<p><code>modelAudit</code> object may be plotted.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(bin_au, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
+<pre><code>## Binomial model</code></pre>
+<p><img src="model_fit_audit_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>It doesn’t fit because of the overdispersion in data.</p>
+<p>An alternative way for generating plots is creating a modelFit object and then plotting it. This require additional line of code. However, once created <code>modelFit</code> contains all nessesary calculations that Half-Normal plot require. Among others simulated model residuals.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.bin &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">cbind</span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)
+bin_au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model.bin, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)
+
+bin_mf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelFit.html">modelFit</a></span>(bin_au)
+
+<span class="kw">plot</span>(bin_mf, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
+<p><img src="model_fit_audit_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 <div id="other-glm-models" class="section level2">
 <h2 class="hasAnchor">
@@ -130,7 +147,8 @@
 <h3 class="hasAnchor">
 <a href="#quasi-binomial-model" class="anchor"></a>Quasi-binomial model</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2_b &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">cbind</span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> quasibinomial, <span class="dt">data =</span> corn)
-<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit2_b, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
+fit2_b_au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(fit2_b, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)
+<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit2_b_au, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/quasibinomial2-1.png" width="700"></p>
 </div>
 <div id="beta-binomial-model" class="section level3">
@@ -138,7 +156,8 @@
 <a href="#beta-binomial-model" class="anchor"></a>Beta-binomial model</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(aods3)
 fit3_b &lt;-<span class="st"> </span><span class="kw">aodml</span>(<span class="kw">cbind</span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> <span class="st">"bb"</span>, <span class="dt">data =</span> corn)
-<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit3_b, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
+fit3_b_au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(fit3_b, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)
+<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit3_b_au, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/beta-binomial2-1.png" width="700"></p>
 </div>
 <div id="logistic-normal-model" class="section level3">
@@ -146,7 +165,8 @@ fit3_b &lt;-<span class="st"> </span><span class="kw">aodml</span>(<span class="
 <a href="#logistic-normal-model" class="anchor"></a>Logistic-normal model</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(corn)))
 fit4_b &lt;-<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">cbind</span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x), <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)
-<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit4_b, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
+fit4_b_au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(fit4_b, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)
+<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit4_b_au, <span class="dt">sim=</span><span class="dv">500</span>)</code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/normal-logit-binomial-1.png" width="700"></p>
 <p>The results of all models are quite similar.</p>
 <p>A useful tool to compare goodness-of-fit of two models is Score calculated by <code><a href="../reference/plotHalfNormal.html">plotHalfNormal()</a></code> function with parameter <code>score==TRUE</code>.</p>
@@ -160,8 +180,8 @@ fit4_b &lt;-<span class="st"> </span><span class="kw">glmer</span>(<span class="
 <h2 class="hasAnchor">
 <a href="#quantile-scale" class="anchor"></a>Quantile scale</h2>
 <p>In function <code>plotHalfNormal</code> there is also a posibility to draw half-normal plot on a quantile scale.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit4_b, <span class="dt">quant.scale =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="model_fit_audit_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(fit2_b_au, <span class="dt">quant.scale =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="model_fit_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 </div>
 <div id="classification" class="section level1">
@@ -170,9 +190,10 @@ fit4_b &lt;-<span class="st"> </span><span class="kw">glmer</span>(<span class="
 <p>HalfNormal plots works also for classification random Forest.</p>
 <p>In this case we consider the differences between observed class and predicted probabilities to be residuals.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
-iris.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>iris)
-<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(iris.rf)</code></pre></div>
-<p><img src="model_fit_audit_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="model_fit_audit_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
+iris_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>iris)
+iris_rf_au &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(iris_rf, <span class="dt">data =</span> iris, <span class="dt">y =</span> iris<span class="op">$</span>Species)
+<span class="kw"><a href="../reference/plotHalfNormal.html">plotHalfNormal</a></span>(iris_rf_au)</code></pre></div>
+<p><img src="model_fit_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"><img src="model_fit_audit_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
 </div>
 <div id="other-methods" class="section level1">
 <h1 class="hasAnchor">
@@ -180,8 +201,8 @@ iris.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Speci
 <p>Other methods and plots are described in vignettes:</p>
 <ul>
 <li><p><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html">Model Residuals audit</a></p></li>
-<li><p><a href="">Model Evaluation audit</a></p></li>
-<li><p><a href="">Model Performance audit</a></p></li>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/model_evaluation_audit.html">Model Evaluation audit</a></p></li>
+<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html">Model Performance audit</a></p></li>
 <li><p><a href="https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html">Observation Influence audit</a></p></li>
 </ul>
 </div>
@@ -198,8 +219,9 @@ iris.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Speci
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#half-normal-plot">Half-normal plot</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#auditorplothalfnormal">auditor::plotHalfNormal()</a></li>
+<a href="#model-fit-audit">Model Fit audit</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#half-normal-plot">Half-normal plot</a></li>
+      <li><a href="#auditorplothalfnormal">auditor::plotHalfNormal()</a></li>
       </ul>
 </li>
       <li>
