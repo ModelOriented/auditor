@@ -15,7 +15,9 @@ knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 ```
 
-# Half-normal plot
+#Model Fit audit
+
+## Half-normal plot
 
 
 The half-normal plot presented in this chapter is one of the tools designed to evaluate the goodness of fit of a statistical model. It is a graphical method for comparing two probability distributions by plotting their quantiles against each other.
@@ -58,12 +60,32 @@ For a well-fitted model, diagnostic values should lay within the envelope.
 
 ## Binomial model
 
+First step of auditing is fitting a model and creating a `modelAudit` object which wraps up a model with meta-data.
+
 ```{r binomial2, results='hide', fig.keep='all'}
 model.bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
-plotHalfNormal(model.bin, sim=500)
+
+bin_au <- audit(model.bin, data = corn, y = corn$y)
+```
+
+`modelAudit` object may be plotted.
+
+```{r}
+plotHalfNormal(bin_au, sim=500)
 ```
 
 It doesn't fit because of the overdispersion in data.
+
+An alternative way for generating plots is creating a modelFit object and then plotting it. This require additional line of code. However, once created `modelFit` contains all nessesary calculations that Half-Normal plot require. Among others simulated model residuals.
+
+```{r binomial2, results='hide', fig.keep='all'}
+model.bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
+bin_au <- audit(model.bin, data = corn, y = corn$y)
+
+bin_mf <- modelFit(bin_au)
+
+plot(bin_mf, sim=500)
+```
 
 ## Other glm models
 

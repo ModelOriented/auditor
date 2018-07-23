@@ -7,7 +7,7 @@
 #' \eqn{res_i} is a residual for i-th observation, \eqn{simres_{i,j}} is the residual of j-th simulation for i-th observation, and \eqn{n} is the number of simulations for each observation.
 #' Scores are calculated on the basis of simulated data, so they may differ between function calls.
 #'
-#' @param object ModelAudit object or fitted model.
+#' @param object modelAudit or modelFit object.
 #' @param ... Extra arguments passed to \link[hnp]{hnp}.
 #'
 #' @examples
@@ -22,12 +22,11 @@
 #' @export
 
 scoreHalfNormal <- function(object, ...){
-  if(class(object)=="modelAudit") object <- object$model
+  if("modelAudit" %in% class(object)) object <- modelFit(object)
 
-  hnpObject <- hnp(object,...)
   result <- list(
     name = "halfNormal",
-    score = calculateScorePDF(hnpObject)
+    score = calculateScorePDF(object)
   )
 
   class(result) <- "scoreAudit"

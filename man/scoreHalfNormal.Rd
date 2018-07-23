@@ -7,7 +7,7 @@
 scoreHalfNormal(object, ...)
 }
 \arguments{
-\item{object}{ModelAudit object or fitted model.}
+\item{object}{modelAudit or modelFit object.}
 
 \item{...}{Extra arguments passed to \link[hnp]{hnp}.}
 }

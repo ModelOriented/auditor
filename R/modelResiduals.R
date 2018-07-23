@@ -7,6 +7,7 @@
 #'
 #' @export
 modelResiduals <- function(object, variable = NULL){
+  if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
     residuals <- orderResidualsDF(object, variable, is.df = TRUE)
     std.residuals <- orderResidualsDF(object, variable, type = "std.residuals")
     y <- orderResidualsDF(object, variable, type = "y")
