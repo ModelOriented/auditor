@@ -76,7 +76,7 @@
       <h1>Observation Influence Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-07-22</h4>
+            <h4 class="date">2018-07-23</h4>
       
       
       <div class="hidden name"><code>observation_influence_audit.Rmd</code></div>
@@ -85,6 +85,98 @@
 
     
     
+<div id="which-observations-are-outlyers" class="section level1">
+<h1 class="hasAnchor">
+<a href="#which-observations-are-outlyers" class="anchor"></a>Which observations are outlyers?</h1>
+</div>
+<div id="regression-use-case---apartments-data" class="section level1">
+<h1 class="hasAnchor">
+<a href="#regression-use-case---apartments-data" class="anchor"></a>Regression use case - apartments data</h1>
+<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset apartments available in the <a href="https://pbiecek.github.io/DALEX/"><em>DALEX</em></a> package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX)
+<span class="kw">data</span>(<span class="st">"apartments"</span>)
+<span class="kw">head</span>(apartments)</code></pre></div>
+<pre><code>##   m2.price construction.year surface floor no.rooms    district
+## 1     5897              1953      25     3        1 Srodmiescie
+## 2     1818              1992     143     9        5     Bielany
+## 3     3643              1937      56     1        2       Praga
+## 4     3517              1995      93     7        3      Ochota
+## 5     3013              1992     144     6        5     Mokotow
+## 6     5795              1926      61     6        2 Srodmiescie</code></pre>
+</div>
+<div id="models" class="section level1">
+<h1 class="hasAnchor">
+<a href="#models" class="anchor"></a>Models</h1>
+<div id="linear-model" class="section level2">
+<h2 class="hasAnchor">
+<a href="#linear-model" class="anchor"></a>Linear model</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st"> </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+</div>
+<div id="random-forest" class="section level2">
+<h2 class="hasAnchor">
+<a href="#random-forest" class="anchor"></a>Random forest</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"randomForest"</span>)
+<span class="kw">set.seed</span>(<span class="dv">59</span>)
+rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st">  </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+</div>
+</div>
+<div id="preparation-for-error-analysis" class="section level1">
+<h1 class="hasAnchor">
+<a href="#preparation-for-error-analysis" class="anchor"></a>Preparation for error analysis</h1>
+<p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
+
+lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)
+rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)</code></pre></div>
+</div>
+<div id="audit-of-observations" class="section level1">
+<h1 class="hasAnchor">
+<a href="#audit-of-observations" class="anchor"></a>Audit of observations</h1>
+<p>In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.</p>
+<ul>
+<li><p>Does the model fit data? Is it not missing the information?</p></li>
+<li><p>Which model has better performance?</p></li>
+<li><p>How similar models are?</p></li>
+</ul>
+<p>In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.</p>
+<div id="audit-pipelines" class="section level2">
+<h2 class="hasAnchor">
+<a href="#audit-pipelines" class="anchor"></a>Audit pipelines</h2>
+<p>The auditor provides 2 pipelines of observation influence audit.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/observationInfluence.html">observationInfluence()</a></code> creates a <code>observationInfluence</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However once created <code>observationInfluence</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook’s distances for models gifferent than liner may take a lot of time. Alternative: <strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plotType()</strong></p></li>
+<li><p><strong>model %&gt;% audit() %&gt;% plot(type=…)</strong> This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.<br>
+Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
+</ol>
+<p>Help of functions <code>plot[Type]()</code> contains additional information about plots.</p>
+</div>
+<div id="observationinfluence" class="section level2">
+<h2 class="hasAnchor">
+<a href="#observationinfluence" class="anchor"></a>observationInfluence()</h2>
+<p>In this vignette we will use first pipeline. However alternative evaluations will be showed as comments. First, we need to create a <code>modelResiduals</code> objects.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_oi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/observationInfluence.html">observationInfluence</a></span>(lm_audit)
+
+<span class="kw">head</span>(lm_oi)</code></pre></div>
+<pre><code>##       cooks.dist label index
+## 320  0.003634294    lm  1320
+## 1320 0.003634294    lm  2320
+## 2320 0.003634294    lm  3320
+## 3320 0.003634294    lm  4320
+## 4320 0.003634294    lm  5320
+## 5320 0.003634294    lm  6320</code></pre>
+<p>Some plots may require specified variable or fitted values for <code>modelResidual</code> object.</p>
+<div id="cooks-distances" class="section level3">
+<h3 class="hasAnchor">
+<a href="#cooks-distances" class="anchor"></a>Cook’s distances</h3>
+<p>Cook’s distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model.</p>
+<p>Data points indicated by Cook’s distances are worth checking for validity. Cook’s distances may be also used for indicating regions of the design space where it would be good to obtain more observations.</p>
+<p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
+<p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_oi)</code></pre></div>
+<p><img src="observation_influence_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+</div>
+</div>
+</div>
 <div id="other-methods" class="section level1">
 <h1 class="hasAnchor">
 <a href="#other-methods" class="anchor"></a>Other methods</h1>
@@ -103,7 +195,22 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#other-methods">Other methods</a></li>
+<li><a href="#which-observations-are-outlyers">Which observations are outlyers?</a></li>
+      <li><a href="#regression-use-case---apartments-data">Regression use case - apartments data</a></li>
+      <li>
+<a href="#models">Models</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#linear-model">Linear model</a></li>
+      <li><a href="#random-forest">Random forest</a></li>
+      </ul>
+</li>
+      <li><a href="#preparation-for-error-analysis">Preparation for error analysis</a></li>
+      <li>
+<a href="#audit-of-observations">Audit of observations</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#audit-pipelines">Audit pipelines</a></li>
+      <li><a href="#observationinfluence">observationInfluence()</a></li>
+      </ul>
+</li>
+      <li><a href="#other-methods">Other methods</a></li>
       </ul>
 </div>
       </div>

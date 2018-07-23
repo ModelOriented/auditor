@@ -16,6 +16,106 @@ knitr::opts_chunk$set(message = FALSE)
 ```
 
 
+# Which observations are outlyers?
+
+# Regression use case - apartments data
+
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset apartments available in the [*DALEX*](https://pbiecek.github.io/DALEX/) package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.
+
+```{r}
+library(DALEX)
+data("apartments")
+head(apartments)
+```
+
+# Models
+
+
+## Linear model
+```{r}
+lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + district, data = apartments)
+```
+
+
+
+## Random forest
+```{r}
+library("randomForest")
+set.seed(59)
+rf_model <- randomForest(m2.price ~ construction.year + surface + floor +  no.rooms + district, data = apartments)
+```
+
+
+# Preparation for error analysis
+The beginning of each analysis is creation of a `modelAudit` object. It’s an object that can be used to audit a model.
+
+```{r}
+library("auditor")
+
+lm_audit <- audit(lm_model, label = "lm", data = apartmentsTest, y = apartmentsTest$m2.price)
+rf_audit <- audit(rf_model, label = "rf", data = apartmentsTest, y = apartmentsTest$m2.price)
+```
+
+# Audit of observations
+
+In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.
+
+* Does the model fit data? Is it not missing the information?
+
+* Which model has better performance?
+
+* How similar models are?
+
+In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.
+
+
+## Audit pipelines
+
+The auditor provides 2 pipelines of observation influence audit.
+
+1. **model %>% audit() %>% observationInfluence() %>% plot(type=...)** 
+This pipeline is recommended. Function `observationInfluence()` creates a `observationInfluence` object. Such object may be passed to a `plot()` function with defined type of plot. This approach requires one additional function within the pipeline. However once created `observationInfluence` contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook's distances for models gifferent than liner may take a lot of time.
+Alternative: **model %>% audit() %>% observationInfluence() %>% plotType()**
+
+2. **model %>% audit() %>% plot(type=...)**
+This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.  
+Alternative **model %>% audit() %>% plotType()**
+
+
+Help of functions `plot[Type]()` contains additional information about plots.
+
+
+
+## observationInfluence()
+
+In this vignette we will use first pipeline. However alternative evaluations will be showed as comments.
+First, we need to create a `modelResiduals` objects.
+
+```{r}
+lm_oi <- observationInfluence(lm_audit)
+
+head(lm_oi)
+```
+Some plots may require specified variable or fitted values for `modelResidual` object. 
+
+### Cook's distances
+
+Cook's distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model. 
+
+Data points indicated by Cook's distances are worth checking for validity. Cook's distances may be also used for indicating regions of the design space where it would be good to obtain more observations.
+
+Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed. 
+
+In the case of models of classes other than `lm` and `glm` the distances are computed directly from the definition, so this may take a while.
+In this example we will compute them for a linear model. 
+
+
+```{r}
+plot(lm_oi)
+```
+
+
+
 
 # Other methods
 

@@ -2,7 +2,7 @@
 #'
 #' @description This function provides several diagnostic plots for regression and classification models.
 #'
-#' @param x object of class modelAudit
+#' @param x object of class modelAudit, modelResiduals or observationInfluence.
 #' @param ... other arguments dependent on the type of plot or additionl objects of class modelAudit
 #' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
 #' ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
@@ -36,7 +36,7 @@
 #' @export
 
 plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE, grid = TRUE){
-
+  if("observationInfluence" %in% class(x)) type <- "CooksDistance"
   object <- x
 
   plotNames <- c('ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
@@ -96,3 +96,5 @@ plotTypePlot <- function(x, ..., type){
          TwoSidedECDF = { return(plotTwoSidedECDF(x, ...)) }
   )
 }
+
+

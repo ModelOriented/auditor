@@ -28,16 +28,28 @@
 #'
 #' @export
 plotCooksDistance <- function(object, nlabel = 3, ...){
+  if(!("observationInfluence" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or observationInfluence().")
+  if(!("observationInfluence" %in% class(object))) object <- observationInfluence(object)
   index <- cooks.dist <- big <- nameIndex <- NULL
 
-  plotData <- data.frame(cooks.dist = scoreCooksDistance(object, ...), index = 1:nrow(object$data),
-                         nameIndex = rownames(object$data))
-  plotData <- plotData[order(-plotData$cooks.dist),]
-  plotData$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(object$data)-nlabel))
+  df <- object
+  df$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(df)-nlabel))
 
-  ggplot(plotData, aes(index, cooks.dist)) +
+  dfl <- list(...)
+  if (length(dfl) > 0) {
+    for (resp in dfl) {
+      if("modelAudit" %in% class(resp)) resp <- observationInfluence(resp)
+      if("observationInfluence" %in% class(resp)) {
+        resp$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(resp)-nlabel))
+        df <- rbind(df, resp)
+      }
+    }
+  }
+
+  ggplot(df, aes(index, cooks.dist)) +
       geom_point() +
-      geom_text(data = subset(plotData, big==TRUE), aes(label=as.character(nameIndex)),hjust=-0.2,vjust=-0.2) +
+      geom_text(data = subset(df, big==TRUE), aes(label=as.character(index)),hjust=-0.2,vjust=-0.2) +
+      facet_grid(label ~ .) +
       xlab("observation index") +
       ylab("cook's distance") +
       ggtitle("Influence of observations") +
