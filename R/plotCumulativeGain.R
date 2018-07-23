@@ -2,7 +2,8 @@
 #'
 #' @description Cumulative Gain Chart is is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
-#' @param object An object of class ModelAudit.
+#'
+#' @param object An object of class modelAudit or modelEvaluation.
 #' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @return ggplot object
@@ -26,18 +27,24 @@
 
 
 plotCumulativeGain <- function(object, ...){
-  if(class(object)!="modelAudit") stop("plotCGains requires object class modelAudit.")
-  rpp <- tpr <- label <- NULL
-  df <- getCGainsDF(object)
+  if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
+  if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
+  y <- fitted.values <- label <- NULL
+
+  df <- object
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getCGainsDF(resp) )
-      }
+      if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
+      if("modelEvaluation" %in% class(resp))  df <- rbind( df, resp )
     }
   }
+
+  for(lab in unique(df$label)) df <- rbind(df, c(0, 0, 0, 0, Inf, lab))
+  df$tpr <- as.numeric(df$tpr)
+  df$rpp <- as.numeric(df$rpp)
+  df$alpha <- as.numeric(df$alpha)
 
   ggplot(df, aes(x = rpp, y = tpr, color = label)) +
     geom_line() +
@@ -47,17 +54,6 @@ plotCumulativeGain <- function(object, ...){
     theme_light()
 }
 
-getCGainsDF <- function(object){
 
-  predictions <- object$fitted.values
-  y <- as.numeric(as.character(object$y))
-
-  pred <- prediction(predictions, y)
-  gain <- performance(pred, "tpr", "rpp")
-
-  res <- data.frame(rpp = gain@x.values[[1]], tpr = gain@y.values[[1]], alpha = gain@alpha.values[[1]],
-                    label = object$label)
-  return(res)
-}
 
 

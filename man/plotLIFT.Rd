@@ -11,9 +11,9 @@ plotLIFT(object, ..., groups = 10, cumulative = TRUE)
 
 \item{...}{Other modelAudit objects to be plotted together.}
 
-\item{groups}{Number of groups.}
+\item{groups}{Only for modelAudit object. Number of groups.}
 
-\item{cumulative}{If TRUE cumulative lift curve will be plotted.}
+\item{cumulative}{Only for modelAudit object. If TRUE cumulative lift curve will be plotted.}
 }
 \value{
 ggplot object

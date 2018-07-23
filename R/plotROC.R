@@ -3,7 +3,7 @@
 #' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class ModelAudit or modelEvaluation.
 #' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @return ggplot object
@@ -26,19 +26,21 @@
 
 
 plotROC <- function(object, ...){
-  D <- m <- label <- NULL
-  df <- getROCDF(object)
+  if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
+  if(!("modelEvaluation" %in% class(object))) object <- modelEvaluation(object)
+  y <- fitted.values <- label <- NULL
+
+  df <- object
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getROCDF(resp) )
-      }
+      if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
+      if("modelEvaluation" %in% class(resp))  df <- rbind( df, resp )
     }
   }
 
-  ggplot(df, aes(d = D, m = m, color = label)) +
+  ggplot(df, aes(d = y, m = fitted.values, color = label)) +
     geom_roc() +
     xlab("false positive fraction") +
     ylab("true positive fraction") +
@@ -46,6 +48,3 @@ plotROC <- function(object, ...){
     theme_light()
 }
 
-getROCDF <- function(object){
- return(data.frame(D=object$y, m = object$fitted.values, label=object$label))
-}

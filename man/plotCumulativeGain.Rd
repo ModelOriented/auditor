@@ -7,7 +7,7 @@
 plotCumulativeGain(object, ...)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class modelAudit or modelEvaluation.}
 
 \item{...}{Other modelAudit objects to be plotted together.}
 }

@@ -3,8 +3,8 @@
 #' @description LIFT Chart shows the ratio of a model to a random guess.
 #'
 #' @param object An object of class ModelAudit.
-#' @param groups Number of groups.
-#' @param cumulative If TRUE cumulative lift curve will be plotted.
+#' @param groups Only for modelAudit object. Number of groups.
+#' @param cumulative Only for modelAudit object. If TRUE cumulative lift curve will be plotted.
 #' @param ... Other modelAudit objects to be plotted together.
 #'
 #' @details Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
@@ -29,7 +29,7 @@
 
 
 plotLIFT <- function(object, ..., groups = 10, cumulative = TRUE){
-  if (class(object)!="modelAudit") stop("plotCGains requires object class modelAudit.")
+  if (!(("modelAudit"%in%class(object)) || "modelEvaluation"%in%class(object))) stop("plotLIFT requires object class modelAudit or modelEvaluation.")
   if (!(unique(object$y) == c(0,1) || unique(object$y)==c(1,0))) stop("Response vector y should be an integer vector containing binary labels with values 0,1.")
 
   depth <- lift <- label <- NULL
@@ -69,7 +69,7 @@ getLIFTDF <- function(object, n.groups, cumulative = TRUE){
   colnames(df) <- c("depth", "lift")
   df$lift <- df$lift/mean(y)
   df$depth <- 100* df$depth / n.groups
-  df$label <- object$label
+  df$label <- object$label[1]
   return(df)
 }
 

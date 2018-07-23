@@ -16,6 +16,71 @@ knitr::opts_chunk$set(message = FALSE)
 ```
 
 
+# Model Evaluation Audit for Classification Problem
+
+In this vignette we present plots for classification models evaluation.
+
+```{r}
+library(auditor)
+library(mlbench)
+```
+
+### Dataset
+
+We work on PimaIndianDiabetes dataset.
+
+```{r}
+data(PimaIndiansDiabetes)
+head(PimaIndiansDiabetes)
+```
+
+We transform dependent variable into binary vector.
+
+```{r}
+pima <- PimaIndiansDiabetes
+pima$diabetes <- ifelse(pima$diabetes == "pos", 1, 0)
+```
+
+### Models
+
+We fit 2 models: glm and svm.
+
+```{r}
+model_glm <- glm(diabetes~., data = pima, family = binomial)
+
+library(e1071)
+model_svm <- svm(diabetes~., data = pima)
+```
+
+### Model Audit
+
+First step of auditiong is creation of a `modelAudit` object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
+
+```{r}
+au_glm <- audit(model_glm, data = pima, y = pima$diabetes)
+au_svm <- audit(model_svm, data = pima, y = pima$diabetes, label = "svm")
+```
+
+
+### Receiver Operating Characteristic (ROC)
+
+`modelAudit` object can be used for plotting charts.
+
+```{r}
+plotROC(au_glm, au_svm)
+```
+
+### LIFT Chart
+
+```{r}
+plotLIFT(au_glm, au_svm)
+```
+### Cumulative Gain Chart
+
+```{r}
+plotCumulativeGain(au_glm, au_svm)
+```
+
 
 
 # Other methods
