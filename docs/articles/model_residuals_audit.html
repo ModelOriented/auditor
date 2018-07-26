@@ -82,7 +82,7 @@
       <h1>Model Residuals Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-07-23</h4>
+            <h4 class="date">2018-07-26</h4>
       
       
       <div class="hidden name"><code>model_residuals_audit.Rmd</code></div>
@@ -91,10 +91,9 @@
 
     
     
-<p>This vignette demonstrates how to use the <em>auditor</em> package for auditing model residuals. auditor provides methods for model verification and validation by error analysis.</p>
-<p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models.</p>
-<p>Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors.</p>
-<p>Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.</p>
+<p>This vignette demonstrates how to use the <em>auditor</em> package for auditing residuals of models. The auditor provides methods for model verification and validation by error analysis.</p>
+<p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors.</p>
+<p>Some of the graphical error analysis methods also have corresponding scores, which allow comparison of two models.</p>
 <div id="regression-use-case---apartments-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression-use-case---apartments-data" class="anchor"></a>Regression use case - apartments data</h1>
@@ -150,7 +149,7 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#audit-pipelines" class="anchor"></a>Audit pipelines</h2>
 <p>The auditor provides 2 pipelines of model audit.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/modelResiduals.html">modelResiduals()</a></code> creates a <code>modelResiduals</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However once created <code>modelResiduals</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.<br>
+<li><p><strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/modelResiduals.html">modelResiduals()</a></code> creates a <code>modelResiduals</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However, once created <code>modelResiduals</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.<br>
 Alternative: <strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plotType()</strong></p></li>
 <li><p><strong>model %&gt;% audit() %&gt;% plot(type=…)</strong> This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.<br>
 Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
@@ -160,7 +159,7 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 <div id="modelresiduals" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modelresiduals" class="anchor"></a>modelResiduals()</h2>
-<p>In this vignette we will use first pipeline. However alternative evaluations will be showed as comments. First, we need to create a <code>modelResiduals</code> objects.</p>
+<p>In this vignette we use first pipeline. However, alternative evaluations are showed as comments. First, we need to create a <code>modelResiduals</code> objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit)
 rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit)
 
@@ -195,7 +194,7 @@ rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 <h3 class="hasAnchor">
 <a href="#plotacf---autocorrelation-function-of-residuals" class="anchor"></a>plotACF() - Autocorrelation Function of Residuals</h3>
 <p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
-<p>Residuals may be ordered by values any model variable or by fitted values. If variable is not specified, order from the data set is taken.</p>
+<p>Residuals may be ordered by values of any model variable or by fitted values. If variable is not specified, function takes order from the data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_surface &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"surface"</span>)
 <span class="kw">plot</span>(lm_mr_surface, <span class="dt">type =</span> <span class="st">"ACF"</span>)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
@@ -211,7 +210,7 @@ rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
 <span class="co"># plotAutocorrelation(rf_audit, variable = "Fitted values")</span></code></pre></div>
-<p>DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions.</p>
+<p>DW score and Runs score are based on Durbin-Watson and Runs test statistics.</p>
 <p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions or the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf_score_DW &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreDW.html">scoreDW</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
 rf_score_Runs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreRuns.html">scoreRuns</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
@@ -242,7 +241,7 @@ rf_score_DW<span class="op">$</span>score</code></pre></div>
 <div id="plotpredition---observed-vs-predicted" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotpredition---observed-vs-predicted" class="anchor"></a>plotPredition() - Observed vs Predicted</h3>
-<p>Basic plot of residuals vs observed, fitted or variable values. Without specified variable observations are in the order from the data set.</p>
+<p>Basic plot of residuals vs observed, fitted or variable values. If variable is not specified, function takes order from the data set.</p>
 <p>Black line corresponds to the y=x function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)
 rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)
@@ -270,12 +269,11 @@ rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mo
 <h3 class="hasAnchor">
 <a href="#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values" class="anchor"></a>plotResidual() - Plot Residuals vs Observed, Fitted or Variable Values</h3>
 <p>Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.</p>
-<p>Without specified variable observations are in the order from the data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
 <span class="co"># plotResidual(rf_audit)</span></code></pre></div>
-<p>Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.</p>
+<p>Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together. If variable is not specified, function takes order from the data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
@@ -328,7 +326,7 @@ rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mo
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
 <span class="co"># plotScaleLocation(rf_audit, lm_audit, variable = "Fitted values")</span></code></pre></div>
-<p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. This score is computed and described in <code><a href="../reference/scoreGQ.html">scoreGQ()</a></code> function. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
+<p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
 </div>
 <div id="plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf" class="section level3">
 <h3 class="hasAnchor">

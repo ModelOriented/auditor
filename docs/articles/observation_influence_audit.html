@@ -82,7 +82,7 @@
       <h1>Observation Influence Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-07-23</h4>
+            <h4 class="date">2018-07-26</h4>
       
       
       <div class="hidden name"><code>observation_influence_audit.Rmd</code></div>
@@ -144,13 +144,13 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <li><p>Which model has better performance?</p></li>
 <li><p>How similar models are?</p></li>
 </ul>
-<p>In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.</p>
+<p>In further sections, we overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.</p>
 <div id="audit-pipelines" class="section level2">
 <h2 class="hasAnchor">
 <a href="#audit-pipelines" class="anchor"></a>Audit pipelines</h2>
 <p>The auditor provides 2 pipelines of observation influence audit.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/observationInfluence.html">observationInfluence()</a></code> creates a <code>observationInfluence</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However once created <code>observationInfluence</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook’s distances for models gifferent than liner may take a lot of time. Alternative: <strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plotType()</strong></p></li>
+<li><p><strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/observationInfluence.html">observationInfluence()</a></code> creates a <code>observationInfluence</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However, once created <code>observationInfluence</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook’s distances for models gifferent than liner may take a lot of time. Alternative: <strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plotType()</strong></p></li>
 <li><p><strong>model %&gt;% audit() %&gt;% plot(type=…)</strong> This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.<br>
 Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 </ol>
@@ -159,7 +159,7 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 <div id="observationinfluence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#observationinfluence" class="anchor"></a>observationInfluence()</h2>
-<p>In this vignette we will use first pipeline. However alternative evaluations will be showed as comments. First, we need to create a <code>modelResiduals</code> objects.</p>
+<p>In this vignette we use first pipeline. First, we need to create a <code>modelResiduals</code> objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_oi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/observationInfluence.html">observationInfluence</a></span>(lm_audit)
 
 <span class="kw">head</span>(lm_oi)</code></pre></div>

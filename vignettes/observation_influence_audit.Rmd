@@ -66,7 +66,7 @@ In this section we give short overview of a visual validation of model errors an
 
 * How similar models are?
 
-In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.
+In further sections, we overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.
 
 
 ## Audit pipelines
@@ -74,7 +74,7 @@ In further sections we will overview auditor functions for analysis of model res
 The auditor provides 2 pipelines of observation influence audit.
 
 1. **model %>% audit() %>% observationInfluence() %>% plot(type=...)** 
-This pipeline is recommended. Function `observationInfluence()` creates a `observationInfluence` object. Such object may be passed to a `plot()` function with defined type of plot. This approach requires one additional function within the pipeline. However once created `observationInfluence` contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook's distances for models gifferent than liner may take a lot of time.
+This pipeline is recommended. Function `observationInfluence()` creates a `observationInfluence` object. Such object may be passed to a `plot()` function with defined type of plot. This approach requires one additional function within the pipeline. However, once created `observationInfluence` contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook's distances for models gifferent than liner may take a lot of time.
 Alternative: **model %>% audit() %>% observationInfluence() %>% plotType()**
 
 2. **model %>% audit() %>% plot(type=...)**
@@ -88,7 +88,7 @@ Help of functions `plot[Type]()` contains additional information about plots.
 
 ## observationInfluence()
 
-In this vignette we will use first pipeline. However alternative evaluations will be showed as comments.
+In this vignette we use first pipeline.
 First, we need to create a `modelResiduals` objects.
 
 ```{r}

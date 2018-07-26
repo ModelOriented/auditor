@@ -54,7 +54,7 @@ model_svm <- svm(diabetes~., data = pima)
 
 ### Model Audit
 
-First step of auditiong is creation of a `modelAudit` object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
+First step of auditing is creating `modelAudit` object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
 
 ```{r}
 au_glm <- audit(model_glm, data = pima, y = pima$diabetes)

@@ -82,7 +82,7 @@
       <h1>Model Evaluation Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-07-23</h4>
+            <h4 class="date">2018-07-26</h4>
       
       
       <div class="hidden name"><code>model_evaluation_audit.Rmd</code></div>
@@ -126,7 +126,7 @@ model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(diabetes<spa
 <div id="model-audit" class="section level3">
 <h3 class="hasAnchor">
 <a href="#model-audit" class="anchor"></a>Model Audit</h3>
-<p>First step of auditiong is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.</p>
+<p>First step of auditing is creating <code>modelAudit</code> object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">au_glm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model_glm, <span class="dt">data =</span> pima, <span class="dt">y =</span> pima<span class="op">$</span>diabetes)
 au_svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model_svm, <span class="dt">data =</span> pima, <span class="dt">y =</span> pima<span class="op">$</span>diabetes, <span class="dt">label =</span> <span class="st">"svm"</span>)</code></pre></div>
 </div>

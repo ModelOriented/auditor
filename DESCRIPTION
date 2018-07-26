@@ -27,6 +27,7 @@ RoxygenNote: 6.0.1
 Suggests: aods3,
     breakDown,
     DALEX,
+    e1071,
     gamlss,
     knitr,
     lme4,

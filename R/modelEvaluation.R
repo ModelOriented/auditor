@@ -14,13 +14,10 @@ modelEvaluation <- function(object, variable = NULL){
   result <- data.frame(
     y=object$y,
     fitted.values = object$fitted.values,
-    rpp = CGainsDF$rpp,
-    tpr = CGainsDF$tpr,
-    alpha = CGainsDF$alpha,
     label=object$label)
 
     class(result) <- c("modelEvaluation", "data.frame")
-
+    attr(result,'CGains') <- CGainsDF
   return(result)
 }
 
@@ -30,8 +27,8 @@ getCGainsDF <- function(object){
   predictions <- object$fitted.values
   y <- as.numeric(as.character(object$y))
 
-  pred <- prediction(predictions, y)
-  gain <- performance(pred, "tpr", "rpp")
+  pred <- ROCR::prediction(predictions, y)
+  gain <- ROCR::performance(pred, "tpr", "rpp")
 
   res <- data.frame(rpp = gain@x.values[[1]], tpr = gain@y.values[[1]], alpha = gain@alpha.values[[1]],
                     label = object$label)

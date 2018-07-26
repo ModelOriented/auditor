@@ -17,14 +17,13 @@ knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
 
-This vignette demonstrates how to use the *auditor* package for auditing model residuals. 
-auditor provides methods for model verification and validation by error analysis. 
+This vignette demonstrates how to use the *auditor* package for auditing residuals of models. 
+The auditor provides methods for model verification and validation by error analysis. 
 
 Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. 
-
 Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors. 
 
-Some of the graphical error analysis methods also have corresponding SCORES, which allow comparison of two models.
+Some of the graphical error analysis methods also have corresponding scores, which allow comparison of two models.
 
 
 
@@ -85,7 +84,7 @@ In further sections we will overview auditor functions for analysis of model res
 The auditor provides 2 pipelines of model audit.
 
 1. **model %>% audit() %>% modelResiduals() %>% plot(type=...)** 
-This pipeline is recommended. Function `modelResiduals()` creates a `modelResiduals` object. Such object may be passed to a `plot()` function with defined type of plot. This approach requires one additional function within the pipeline. However once created `modelResiduals` contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.  
+This pipeline is recommended. Function `modelResiduals()` creates a `modelResiduals` object. Such object may be passed to a `plot()` function with defined type of plot. This approach requires one additional function within the pipeline. However, once created `modelResiduals` contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.  
 Alternative: **model %>% audit() %>% modelResiduals() %>% plotType()**
 
 2. **model %>% audit() %>% plot(type=...)**
@@ -99,7 +98,7 @@ Help of functions `plot[Type]()` contains additional information about plots.
 
 ## modelResiduals()
 
-In this vignette we will use first pipeline. However alternative evaluations will be showed as comments.
+In this vignette we use first pipeline. However, alternative evaluations are showed as comments.
 First, we need to create a `modelResiduals` objects.
 
 ```{r}
@@ -126,7 +125,7 @@ head(lm_mr_district)
 
 Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
 
-Residuals may be ordered by values any model variable or by fitted values. If variable is not specified, order from the data set is taken.
+Residuals may be ordered by values of any model variable or by fitted values. If variable is not specified, function takes order from the data set.
 
 ```{r}
 lm_mr_surface <- modelResiduals(lm_audit, variable = "surface")
@@ -151,7 +150,7 @@ plot(rf_mr_fitted, type = "Autocorrelation")
 # plotAutocorrelation(rf_audit, variable = "Fitted values")
 ```
 
-DW score and Runs score are based on Durbin-Watson and Runs test statistics. Details and interpretation of scores are described in `scoreDW()` and `scoreRuns()` functions.
+DW score and Runs score are based on Durbin-Watson and Runs test statistics.
 
 Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions or the `score()` function with argument `score` equals to "DW" or "Runs".
 
@@ -189,7 +188,7 @@ plot(rf_mr, lm_mr, type = "ModelPCA")
 
 ### plotPredition() - Observed vs Predicted
 
-Basic plot of residuals vs observed, fitted or variable values. Without specified variable observations are in the order from the data set. 
+Basic plot of residuals vs observed, fitted or variable values. If variable is not specified, function takes order from the data set.
 
 Black line corresponds to the y=x function.
 
@@ -230,8 +229,6 @@ plot(rf_mr, lm_mr, type = "REC")
 
 Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.
 
-Without specified variable observations are in the order from the data set. 
-
 ```{r}
 plot(rf_mr, type = "Residual")
 
@@ -239,7 +236,7 @@ plot(rf_mr, type = "Residual")
 # plotResidual(rf_audit)
 ```
 
-Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.
+Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together. If variable is not specified, function takes order from the data set.
 
 ```{r}
 plot(rf_mr_fitted, lm_mr_fitted, type = "Residual")
@@ -319,12 +316,7 @@ plot(rf_mr_fitted, lm_mr_fitted, type = "ScaleLocation")
 ```
 
 For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
-This score is computed and described in `scoreGQ()` function.
 And may be computed also in `score()` function with argument `score` equals "GQ".
-
-
-
-
 
 ### plotTwoSidedECDF() - Two-sided  Empirical Cumulative Distribution Function (ECDF)
 

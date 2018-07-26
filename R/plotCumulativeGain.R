@@ -31,13 +31,13 @@ plotCumulativeGain <- function(object, ...){
   if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
   y <- fitted.values <- label <- NULL
 
-  df <- object
+  df <- attributes(object)$CGains
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
-      if("modelEvaluation" %in% class(resp))  df <- rbind( df, resp )
+      if("modelEvaluation" %in% class(resp))  df <- rbind( df, attributes(resp)$CGainsresp )
     }
   }
 
