@@ -43,7 +43,7 @@ plotAutocorrelation <- function(object, ..., variable=NULL, score=FALSE){
   maybe_facet <- NULL
   if(length(list(...)) > 0) maybe_facet <- facet_grid(label ~ ., switch = "y")
 
-  p <- ggplot(resultDF, aes(x, y)) +
+  p <- ggplot(resultDF, aes(x, y, color = label)) +
       geom_point() +
       geom_smooth(method = "loess", se = FALSE) +
       geom_hline(yintercept = 0) +

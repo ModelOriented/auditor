@@ -18,8 +18,11 @@
 #' @export
 
 scoreRuns <- function(object, variable = NULL){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
 
-  orderedResiduals <- orderResidualsDF(object, variable)
+
+  orderedResiduals <- object$res
 
   signumOfResiduals <- factor(sign(orderedResiduals))
   RunsTested <- runs.test(signumOfResiduals)

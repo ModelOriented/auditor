@@ -22,10 +22,6 @@
 
 score <- function(object, type = 'MSE', ...){
 
-  if(class(object)!="modelAudit") stop( paste0(deparse(substitute(object)), ' not of class modelAudit. Try to use audit(', deparse(substitute(object)), ') first.'))
-
-  scoreTypes <- c('CooksDistance', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs')
-
   switch(type,
          CooksDistance = { return(scoreCooksDistance(object, ...)) },
          DW = { return(scoreDW(object, ...)) },
