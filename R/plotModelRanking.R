@@ -23,6 +23,7 @@
 #'
 #' @import ggplot2
 #' @import gridExtra
+#' @importFrom grDevices blues9
 #'
 #' @export
 

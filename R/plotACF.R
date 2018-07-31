@@ -53,7 +53,7 @@ plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
   conf_lims <- c(-1,1)*qnorm((1 + alpha)/2)/sqrt(nrow(object))
 
   ggplot(resultDF, aes(x = lag)) +
-    geom_segment(aes(x=lag, xend=lag, y=ymin, yend=acf)) +
+    geom_segment(aes(x=lag, xend=lag, y=ymin, yend=acf, color = label)) +
     geom_hline(yintercept=conf_lims[1], color='blue', linetype = "dashed") +
     geom_hline(yintercept=conf_lims[2], color='blue', linetype = "dashed") +
     facet_grid(label ~ ., switch = "y") +

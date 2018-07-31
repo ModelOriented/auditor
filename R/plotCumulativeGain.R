@@ -29,7 +29,7 @@
 plotCumulativeGain <- function(object, ...){
   if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
   if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
-  y <- fitted.values <- label <- NULL
+  rpp <- tpr <- label <- NULL
 
   df <- attributes(object)$CGains
 

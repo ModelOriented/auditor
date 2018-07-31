@@ -41,8 +41,8 @@ plotScaleLocation <- function(object, ..., variable=NULL, score=FALSE){
 
   p <- ggplot(df, aes(x = values, y = sqrt.std.residuals)) +
     maybe_facet +
+    geom_point(aes(color = label)) +
     geom_vline(aes(xintercept = median(df$val))) +
-    geom_point() +
     geom_smooth(data=subset(df, group=="<med"),method = "loess", se = FALSE) +
     geom_smooth(data=subset(df, group==">med"),method = "loess", se = FALSE) +
     xlab(variable) +
