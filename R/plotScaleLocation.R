@@ -24,7 +24,7 @@ plotScaleLocation <- function(object, ..., variable=NULL, score=FALSE){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
-  values <- sqrt.std.residuals <- group <- NULL
+  values <- sqrt.std.residuals <- group <- label <- NULL
 
   df <- generateScaleLocationDF(object)
 
