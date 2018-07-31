@@ -31,6 +31,7 @@
 #' @export
 
 scoreGQ <- function(object, variable = NULL){
+  if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
   dataForModels <- getOrderedData(object, variable)
   originalModel <- object$model

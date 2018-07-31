@@ -4,7 +4,8 @@
 \alias{plotPrediction}
 \title{Predicted response vs Observed or Variable Values}
 \usage{
-plotPrediction(object, ..., variable = NULL, smooth = TRUE, abline = TRUE)
+plotPrediction(object, ..., variable = NULL, smooth = FALSE,
+  abline = TRUE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}

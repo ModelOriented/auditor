@@ -21,6 +21,8 @@
 
 
 scoreRROC <- function(object){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+
 
   RROCF <- getRROCDF(object)
   x <- RROCF$RROCX

@@ -22,6 +22,7 @@
 
 
 scoreROC <- function(object){
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
 
   predictionObj <- prediction(object$fitted.values, object$y)
   perf <- performance(predictionObj, measure = "auc")

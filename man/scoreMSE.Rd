@@ -7,7 +7,7 @@
 scoreMSE(object)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class modelAudit or modelResiduals.}
 }
 \value{
 an object of class scoreAudit

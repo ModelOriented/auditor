@@ -2,7 +2,7 @@
 #'
 #' @description Mean Absolute Error.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class ModelAudit or modelResiduals.
 #'
 #' @return an object of class scoreAudit
 #'
@@ -19,7 +19,7 @@
 
 
 scoreMAE <- function(object){
-
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
 
   MAEResults <- list(
     name = "MAE",

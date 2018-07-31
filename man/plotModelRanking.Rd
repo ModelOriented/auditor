@@ -5,7 +5,7 @@
 \title{Model Ranking Plot}
 \usage{
 plotModelRanking(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
-  new.score = NULL, table = TRUE, scale = FALSE)
+  new.score = NULL, table = TRUE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit.}
@@ -17,8 +17,6 @@ plotModelRanking(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
 \item{new.score}{A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
 
 \item{table}{Logical. Specifies if rable with score values should be plotted}
-
-\item{scale}{Logicall. Indicates whether measures of model performance should be standardised to first model.}
 }
 \value{
 ggplot object

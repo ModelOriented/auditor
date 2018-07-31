@@ -22,6 +22,7 @@
 #' @export
 
 scoreHalfNormal <- function(object, ...){
+  if(!("modelFit" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelFit().")
   if("modelAudit" %in% class(object)) object <- modelFit(object)
 
   result <- list(

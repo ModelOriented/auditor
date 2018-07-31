@@ -32,6 +32,9 @@
 #'
 
 scoreCooksDistance <- function(object, print=TRUE){
+  if(!("observationInfluence" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+  if(!("modelResiduals" %in% class(object))) return(object)
+
   if(object$model.class=="lm" || object$model.class == "glm"){
     return(  cooks.distance(object$model) )
   } else {

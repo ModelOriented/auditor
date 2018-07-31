@@ -7,7 +7,6 @@
 #' @param type Vector of score names to be plotted.
 #' @param new.score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param table Logical. Specifies if rable with score values should be plotted
-#' @param scale Logicall. Indicates whether measures of model performance should be standardised to first model.
 #'
 #' @return ggplot object
 #'
@@ -29,7 +28,7 @@
 
 
 plotModelRanking <- function(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
-                             new.score = NULL, table = TRUE, scale = FALSE){
+                             new.score = NULL, table = TRUE){
   if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
   if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, type, new.score)
   name <- score <- label <- NULL
@@ -62,18 +61,15 @@ plotModelRanking <- function(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
         ggtitle("Model Ranking Radar")
 
  if(table ==TRUE){
-   df <- df[,c(3,2,1)]
    df <- df[order(df$name, df$label), ]
-   if(scale == FALSE) {
-     df$score <- format(df$score, scientific = TRUE, digits = 3)
-   } else {
+
      scr <- by(df$score, df$name, function(x){x / x[1]})
      scr <- unlist(scr)
-     df$score <- scr
-     df$score <- format(df$score, scientific = FALSE, digits = 3)
-     colnames(df)[3] <- "scaled_score"
+     df$scaled <- scr
+     df$scaled <- format(as.numeric(df$scaled), scientific = FALSE, digits = 3)
+     df$score <- format(df$score, scientific = TRUE, digits = 3)
+     df <- df[ ,c(3,2,4,1)]
 
-   }
 
     table_score <- tableGrob(df,
                                 theme=ttheme_minimal(
