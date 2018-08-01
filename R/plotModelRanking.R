@@ -4,7 +4,7 @@
 #'
 #' @param object An object of class ModelAudit.
 #' @param ... Other modelAudit objects to be plotted together.
-#' @param type Vector of score names to be plotted.
+#' @param scores Vector of score names to be plotted.
 #' @param new.score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param table Logical. Specifies if rable with score values should be plotted
 #'
@@ -28,10 +28,10 @@
 #' @export
 
 
-plotModelRanking <- function(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
+plotModelRanking <- function(object, ..., scores = c("MAE", "MSE", "REC", "RROC"),
                              new.score = NULL, table = TRUE){
   if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
-  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, type, new.score)
+  if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, scores, new.score)
   name <- score <- label <- NULL
 
   df <- object
@@ -40,7 +40,7 @@ plotModelRanking <- function(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <- modelPerformance(resp, type, new.score)
+      if("modelAudit" %in% class(resp)) resp <- modelPerformance(resp, scores, new.score)
       if( "modelPerformance" %in% class(resp)) {
         df <- rbind(df, resp)
       }
@@ -89,16 +89,16 @@ plotModelRanking <- function(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
 
 scaleModelRankingDF <- function(df){
   newDF <- data.frame()
-  type <- unique(df$name)
-  for(i in type){
-    typeDF <- df[which(df$name == i),]
+  scores <- unique(df$name)
+  for(i in scores){
+    scoresDF <- df[which(df$name == i),]
     if (!(i %in% c("ROC"))) {
-      typeDF$name <- paste("inv", typeDF$name)
-      typeDF$score <- 1 / typeDF$score
-      maxScore <- max(typeDF$score)
-      typeDF$score <- typeDF$score / maxScore
+      scoresDF$name <- paste("inv", scoresDF$name)
+      minScore <- min(scoresDF$score)
+      scoresDF$score <- 1 / scoresDF$score
+      scoresDF$score <- scoresDF$score * minScore
     }
-    newDF <- rbind(newDF, typeDF)
+    newDF <- rbind(newDF, scoresDF)
   }
   newDF
 }

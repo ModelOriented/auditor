@@ -4,13 +4,13 @@
 \alias{modelPerformance}
 \title{Create Model Performance Explainer}
 \usage{
-modelPerformance(object, type = c("MAE", "MSE", "REC", "RROC"),
+modelPerformance(object, scores = c("MAE", "MSE", "REC", "RROC"),
   new.score = NULL)
 }
 \arguments{
 \item{object}{An object of class ModelAudit.}
 
-\item{type}{Vector of score names to be plotted.}
+\item{scores}{Vector of score names to be plotted.}
 
 \item{new.score}{A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
 
