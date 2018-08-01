@@ -64,7 +64,7 @@ plotModelRanking <- function(object, ..., type = c("MAE", "MSE", "REC", "RROC"),
  if(table ==TRUE){
    df <- df[order(df$name, df$label), ]
 
-     scr <- by(df$score, df$name, function(x){x / x[1]})
+     scr <- by(df$score, df$name, function(x){x[1] / x})
      scr <- unlist(scr)
      df$scaled <- scr
      df$scaled <- format(as.numeric(df$scaled), scientific = FALSE, digits = 3)
