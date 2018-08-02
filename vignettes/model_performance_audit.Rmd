@@ -65,8 +65,8 @@ Model performance measures may be plotted together to easily compare model perfo
 Function `modelPerformance()` compute chosen model performance measures. A result further from the center means a better model performance.
 
 ```{r}
-lm_mp <- modelPerformance(lm_audit, type = c("MAE", "MSE", "REC", "RROC"))
-rf_mp <- modelPerformance(rf_audit, type = c("MAE", "MSE", "REC", "RROC"))
+lm_mp <- modelPerformance(lm_audit, scores = c("MAE", "MSE", "REC", "RROC"))
+rf_mp <- modelPerformance(rf_audit, scores = c("MAE", "MSE", "REC", "RROC"))
 
 lm_mp
 ```
@@ -86,11 +86,11 @@ There is a possibiliy to define functions with custom model performance measure.
 new_score <- function(object) sum((object$residuals)^3)
 
 lm_mp <- modelPerformance(lm_audit,  
-                          type = c("MAE", "MSE", "REC", "RROC"), 
+                          scores = c("MAE", "MSE", "REC", "RROC"), 
                           new.score = new_score)
 
 rf_mp <- modelPerformance(rf_audit,  
-                          type = c("MAE", "MSE", "REC", "RROC"), 
+                          scores = c("MAE", "MSE", "REC", "RROC"), 
                           new.score = new_score)
 
 plotModelRanking(lm_mp, rf_mp, table = TRUE)

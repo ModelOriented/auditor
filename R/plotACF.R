@@ -56,7 +56,7 @@ plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
     geom_segment(aes(x=lag, xend=lag, y=ymin, yend=acf, color = label)) +
     geom_hline(yintercept=conf_lims[1], color='blue', linetype = "dashed") +
     geom_hline(yintercept=conf_lims[2], color='blue', linetype = "dashed") +
-    facet_grid(label ~ ., switch = "y") +
+    facet_grid(label ~ ., switch = "y", scales="free_y") +
     theme_light() +
     ggtitle("ACF plot") +
     ylab("")

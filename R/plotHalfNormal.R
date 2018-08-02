@@ -63,7 +63,7 @@ plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
 # Calculating Likelihood for each residual
 calculateKDE <- function(res, simres){
   simres <- as.numeric(simres)
-  (length(simres)/2 - abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
+  (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
 }
 
 
