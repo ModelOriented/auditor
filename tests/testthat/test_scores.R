@@ -2,9 +2,9 @@ context("Scores")
 
 source("objects_for_tests.R")
 
-test_that("scoreGQ", {
-  expect_is(scoreGQ(au.lm, "income"), "scoreAudit")
-  expect_is(scoreGQ(au.rf), "scoreAudit")
+test_that("scorePeak", {
+  expect_is(scorePeak(au.lm, "income"), "scoreAudit")
+  expect_is(scorePeak(au.rf), "scoreAudit")
 })
 
 test_that("scoreDW", {
@@ -29,7 +29,7 @@ test_that("scoreHalfNormal", {
 })
 
 test_that("score", {
-  expect_is(score(au.lm, "GQ", variable="income"), "scoreAudit")
+  expect_is(score(au.lm, "Peak", variable="income"), "scoreAudit")
   expect_is(score(au.lm, "DW", variable="income"), "scoreAudit")
   expect_is(score(au.lm, "Runs", variable="income"), "scoreAudit")
   expect_is(score(au.lm, "HalfNormal"), "scoreAudit")

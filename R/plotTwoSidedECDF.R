@@ -57,7 +57,7 @@ plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
 
   if (residuals == TRUE) {
     p <- p +
-      geom_point( aes(x = res, y = ecd, color = label), size = 2) +
+      geom_point( aes(x = res, y = ecd, color = label)) +
       geom_text_repel(data = subset(df, big==TRUE), aes(label=as.character(no.obs)),
                       show.legend = FALSE, direction = "y", color="black")
   }

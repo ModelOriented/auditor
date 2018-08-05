@@ -4,11 +4,11 @@
 #' Scores can be also used to compare models.
 #'
 #' @param object Object An object of class modelAudit.
-#' @param type The type of score to  be calculated. Possible values: 'Cook', 'DW', 'GQ', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
+#' @param type The type of score to  be calculated. Possible values: 'Cook', 'DW', 'Peak', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
 #' (for detailed description see functions in see also section).
 #' @param ... Other arguments dependent on the type of score.
 #'
-#' @seealso \code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scoreGQ}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
+#' @seealso \code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scorePeak}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
 #'
 #' @return an object of class scoreAudit, except Cooks distance, where numeric vector is returned
 #'
@@ -25,7 +25,7 @@ score <- function(object, type = 'MSE', ...){
   switch(type,
          CooksDistance = { return(scoreCooksDistance(object, ...)) },
          DW = { return(scoreDW(object, ...)) },
-         GQ = { return(scoreGQ(object, ...)) },
+         Peak = { return(scorePeak(object, ...)) },
          HalfNormal = { return(scoreHalfNormal(object, ...)) },
          MSE = { return(scoreMSE(object, ...)) },
          MAE = { return(scoreMAE(object, ...)) },
@@ -35,5 +35,5 @@ score <- function(object, type = 'MSE', ...){
          RROC = { return(scoreRROC(object, ...)) },
          Runs = { return(scoreRuns(object, ...)) }
   )
-  stop( "Wrong type of score. Possible values: 'CooksDistance', 'DW', 'GQ', 'HalfNormal', 'RMSE', 'MAE', 'MSE', 'REC', 'ROC', 'RROC', 'Runs'." )
+  stop( "Wrong type of score. Possible values: 'CooksDistance', 'DW', 'Peak', 'HalfNormal', 'RMSE', 'MAE', 'MSE', 'REC', 'ROC', 'RROC', 'Runs'." )
 }
