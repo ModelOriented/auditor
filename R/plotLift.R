@@ -50,7 +50,7 @@ plotLIFT <- function(object, ...){
     geom_line() +
     xlab("rate of positive prediction") +
     ylab("true positive") +
-    ggtitle("Cumulative Gain") +
+    ggtitle("LIFT Chart") +
     theme_light()
 }
 
