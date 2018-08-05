@@ -111,7 +111,8 @@
 A vertical line corresponds to median.</p>
     
 
-    <pre class="usage"><span class='fu'>plotScaleLocation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotScaleLocation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -130,7 +131,11 @@ A vertical line corresponds to median.</p>
     </tr>
     <tr>
       <th>score</th>
-      <td><p>A logical value. If TRUE value of <a href='scoreGQ.html'>scoreGQ</a> will be added.</p></td>
+      <td><p>A logical value. If TRUE value of <a href='scorePeak.html'>scorePeak</a> will be added.</p></td>
+    </tr>
+    <tr>
+      <th>peaks</th>
+      <td><p>A logical value. If TRUE peaks are marked on plot by black dots.</p></td>
     </tr>
     </table>
     

@@ -2,27 +2,21 @@
 % Please edit documentation in R/plotLIFT.R
 \name{plotLIFT}
 \alias{plotLIFT}
-\title{LIFT Chart}
+\title{LIFT}
 \usage{
-plotLIFT(object, ..., groups = 10, cumulative = TRUE)
+plotLIFT(object, ...)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class modelAudit or modelEvaluation.}
 
 \item{...}{Other modelAudit objects to be plotted together.}
-
-\item{groups}{Only for modelAudit object. Number of groups.}
-
-\item{cumulative}{Only for modelAudit object. If TRUE cumulative lift curve will be plotted.}
 }
 \value{
 ggplot object
 }
 \description{
-LIFT Chart shows the ratio of a model to a random guess.
-}
-\details{
-Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
+LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
+It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
 library(mlbench)

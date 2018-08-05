@@ -4,13 +4,13 @@
 #'
 #' @param x object of class modelAudit, modelResiduals or observationInfluence.
 #' @param ... other arguments dependent on the type of plot or additionl objects of class modelAudit
-#' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
+#' @param type the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
 #' ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
 #' ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #' @param grid logical; if TRUE plots will be plotted on the grid.
 #'
-#' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
+#' @seealso \code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCooksDistance},
 #' \link{plotHalfNormal}, \link{plotResidual}, \link{plotResidualBoxplot}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
 #' \link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResidual}, \link{plotROC},
 #' \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
@@ -41,7 +41,7 @@ plot.modelAudit <- function(x, ..., type="Residual", ask = TRUE, grid = TRUE){
   if("modelFit" %in% class(x)) type <- "HalfNormal"
   object <- x
 
-  plotNames <- c('ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
+  plotNames <- c('ACF', 'Autocorrelation', 'CooksDistance', 'HalfNormal', 'Residual', 'LIFT',
                  'ModelPCA', 'ModelRanking', 'ModelCorrelation', 'Prediction', 'REC', 'ResidualBoxplot', 'ResidualDensity', 'Residual', 'ROC', 'RROC',
                  'ScaleLocation', 'TwoSidedECDF')
 
@@ -80,7 +80,6 @@ plotTypePlot <- function(x, ..., type){
   switch(type,
          ACF = { return(plotACF(x, ...)) },
          Autocorrelation = { return(plotAutocorrelation(x, ...)) },
-         CumulativeGain = {return(plotCumulativeGain(x, ...))},
          CooksDistance = { return(plotCooksDistance(x, ...)) },
          HalfNormal = { return(plotHalfNormal(x, ...)) },
          LIFT = {return(plotLIFT(x, ...))},

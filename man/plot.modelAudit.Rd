@@ -30,7 +30,7 @@
 
 \item{...}{other arguments dependent on the type of plot or additionl objects of class modelAudit}
 
-\item{type}{the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CumulativeGain', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
+\item{type}{the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
 ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
 ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).}
 
@@ -55,7 +55,7 @@ plot(lm_au, rf_au, type = "ModelRanking")
 
 }
 \seealso{
-\code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCumulativeGain}, \link{plotCooksDistance},
+\code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCooksDistance},
 \link{plotHalfNormal}, \link{plotResidual}, \link{plotResidualBoxplot}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
 \link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResidual}, \link{plotROC},
 \link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}

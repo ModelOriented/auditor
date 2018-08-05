@@ -75,11 +75,6 @@ plotROC(au_glm, au_svm)
 ```{r}
 plotLIFT(au_glm, au_svm)
 ```
-### Cumulative Gain Chart
-
-```{r}
-plotCumulativeGain(au_glm, au_svm)
-```
 
 
 

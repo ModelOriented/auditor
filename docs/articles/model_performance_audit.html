@@ -82,7 +82,7 @@
       <h1>Model Performance Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-07-30</h4>
+            <h4 class="date">2018-08-05</h4>
       
       
       <div class="hidden name"><code>model_performance_audit.Rmd</code></div>
@@ -139,8 +139,8 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#model-ranking-radar-plot" class="anchor"></a>Model Ranking radar plot</h2>
 <p>Model performance measures may be plotted together to easily compare model performances.</p>
 <p>Function <code><a href="../reference/modelPerformance.html">modelPerformance()</a></code> compute chosen model performance measures. A result further from the center means a better model performance.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit, <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
-rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit, <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit, <span class="dt">scores =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
+rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit, <span class="dt">scores =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
 
 lm_mp</code></pre></div>
 <pre><code>##          score label name
@@ -156,11 +156,11 @@ lm_mp</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_score &lt;-<span class="st"> </span><span class="cf">function</span>(object) <span class="kw">sum</span>((object<span class="op">$</span>residuals)<span class="op">^</span><span class="dv">3</span>)
 
 lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit,  
-                          <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
+                          <span class="dt">scores =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
                           <span class="dt">new.score =</span> new_score)
 
 rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit,  
-                          <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
+                          <span class="dt">scores =</span> <span class="kw">c</span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
                           <span class="dt">new.score =</span> new_score)
 
 <span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</code></pre></div>

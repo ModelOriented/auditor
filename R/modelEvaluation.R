@@ -30,7 +30,7 @@ getCGainsDF <- function(object){
   pred <- ROCR::prediction(predictions, y)
   gain <- ROCR::performance(pred, "tpr", "rpp")
 
-  res <- data.frame(rpp = gain@x.values[[1]], tpr = gain@y.values[[1]], alpha = gain@alpha.values[[1]],
+  res <- data.frame(rpp = gain@x.values[[1]], tp = pred@tp[[1]], alpha = gain@alpha.values[[1]],
                     label = object$label)
   return(res)
 }

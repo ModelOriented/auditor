@@ -110,7 +110,7 @@
     <p>Radar plot with model scores. Scores are scaled to [0,1], each score is inversed and divided by maximum score value.</p>
     
 
-    <pre class="usage"><span class='fu'>plotModelRanking</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"MAE"</span>, <span class='st'>"MSE"</span>, <span class='st'>"REC"</span>, <span class='st'>"RROC"</span>),
+    <pre class="usage"><span class='fu'>plotModelRanking</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scores</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"MAE"</span>, <span class='st'>"MSE"</span>, <span class='st'>"REC"</span>, <span class='st'>"RROC"</span>),
   <span class='kw'>new.score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -125,7 +125,7 @@
       <td><p>Other modelAudit objects to be plotted together.</p></td>
     </tr>
     <tr>
-      <th>type</th>
+      <th>scores</th>
       <td><p>Vector of score names to be plotted.</p></td>
     </tr>
     <tr>

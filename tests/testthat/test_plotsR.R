@@ -9,16 +9,12 @@ test_that("plotACF", {
 
 test_that("plotAutocorrelation", {
   expect_is(plotAutocorrelation(au.lm, "income"), "gg")
-  expect_is(plotAutocorrelation(au.rf), "gg")
+  expect_is(plotAutocorrelation(au.rf, au.lm), "gg")
 })
 
 test_that("plotCook", {
   expect_is(plotCooksDistance(au.lm), "gg")
   expect_is(plotCooksDistance(au.rf), "gg")
-})
-
-test_that("plotCumulativeGain", {
-  expect_is(plotCumulativeGain(au.class.glm2), "gg")
 })
 
 test_that("plotResiduals", {
@@ -28,7 +24,7 @@ test_that("plotResiduals", {
 })
 
 test_that("plotResidualBoxplot", {
-  expect_is(plotResidualBoxplot(au.glm), "gg")
+  expect_is(plotResidualBoxplot(au.rf, au.lm), "gg")
 })
 
 test_that("plotResidualDeensity", {

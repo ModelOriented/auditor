@@ -1,15 +1,14 @@
-#' @title LIFT Chart
+#' @title LIFT
 #'
-#' @description LIFT Chart shows the ratio of a model to a random guess.
+#' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
+#' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class ModelAudit.
-#' @param groups Only for modelAudit object. Number of groups.
-#' @param cumulative Only for modelAudit object. If TRUE cumulative lift curve will be plotted.
+#' @param object An object of class modelAudit or modelEvaluation.
 #' @param ... Other modelAudit objects to be plotted together.
 #'
-#' @details Response vector provided by y argument in audit function should be an integer vector containing binary labels with values 0,1.
-#'
 #' @return ggplot object
+#'
+#' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @examples
 #' library(mlbench)
@@ -20,56 +19,41 @@
 #' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
 #' plotLIFT(glm_au)
 #'
-#' @seealso \code{\link{plot.modelAudit}}
-#'
 #' @import ggplot2
-#' @importFrom stats aggregate
+#' @importFrom ROCR performance prediction
+#'
 #'
 #' @export
 
 
-plotLIFT <- function(object, ..., groups = 10, cumulative = TRUE){
-  if (!(("modelAudit"%in%class(object)) || "modelEvaluation"%in%class(object))) stop("plotLIFT requires object class modelAudit or modelEvaluation.")
-  if (!(unique(object$y) == c(0,1) || unique(object$y)==c(1,0))) stop("Response vector y should be an integer vector containing binary labels with values 0,1.")
+plotLIFT <- function(object, ...){
+  if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
+  if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
+  rpp <- tp <- label <- NULL
 
-  depth <- lift <- label <- NULL
-  df <- getLIFTDF(object, groups, cumulative)
+  df <- attributes(object)$CGains
 
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit"){
-        df <- rbind( df, getLIFTDF(resp, groups, cumulative) )
-      }
+      if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
+      if("modelEvaluation" %in% class(resp))  df <- rbind( df, attributes(resp)$CGains )
     }
   }
 
-  ggplot(df, aes(x = depth, y = lift, color = label)) +
+  for(lab in unique(df$label)) df <- rbind(df, c("0", "0", "0", lab))
+  df$tp <- as.numeric(df$tp)
+  df$rpp <- as.numeric(df$rpp)
+  df$alpha <- as.numeric(df$alpha)
+
+  ggplot(df, aes(x = rpp, y = tp, color = label)) +
     geom_line() +
-    xlab("percentage of observations") +
-    ylab("LIFT") +
-    ggtitle("LIFT Chart") +
+    xlab("rate of positive prediction") +
+    ylab("true positive") +
+    ggtitle("Cumulative Gain") +
     theme_light()
 }
 
-getLIFTDF <- function(object, n.groups, cumulative = TRUE){
-  pred <- NULL
-  y = as.numeric(as.character(object$y))
-  df <- data.frame(pred=object$fitted.values, y=y)
-  df <- df[order(-df$pred),]
 
-  group <- ceiling(seq_along(df[,2])/floor(nrow(df)/n.groups))
 
-  cap <- floor(nrow(df)/n.groups) * n.groups
-  df <-  aggregate(df[1:cap,2], by=list(group[1:cap]), mean)
-
-  if (cumulative==TRUE) {
-    df[,2] <- cumsum(df[,2])/seq_along(df[,2])
-  }
-  colnames(df) <- c("depth", "lift")
-  df$lift <- df$lift/mean(y)
-  df$depth <- 100* df$depth / n.groups
-  df$label <- object$label[1]
-  return(df)
-}
 
