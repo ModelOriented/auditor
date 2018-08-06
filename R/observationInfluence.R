@@ -11,7 +11,7 @@ observationInfluence <- function(object, ...){
 
   cooksDistances <- scoreCooksDistance(object, ...)
 
-  result <- data.frame(cooks.dist = cooksDistances, label = object$label, index = rownames(object$data))
+  result <- data.frame(cooks.dist = cooksDistances, label = object$label, index = 1:length(object$y))
   result <- result[order(-result$cooks.dist),]
 
   class(result) <- c("observationInfluence", "data.frame")

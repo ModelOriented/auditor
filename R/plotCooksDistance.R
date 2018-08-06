@@ -48,7 +48,7 @@ plotCooksDistance <- function(object, nlabel = 3, ...){
 
   ggplot(df, aes(index, cooks.dist)) +
       geom_point() +
-      geom_text(data = subset(df, big==TRUE), aes(label=as.character(index)),hjust=-0.2,vjust=-0.2) +
+      geom_text(data = subset(df, big==TRUE), aes(label=as.character(index)), color = "grey") +
       facet_grid(label ~ .) +
       xlab("observation index") +
       ylab("cook's distance") +
