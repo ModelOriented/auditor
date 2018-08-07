@@ -8,6 +8,7 @@
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param smooth Logical, indicates whenever smooth line should be added.
 #' @param abline Logical, indicates whenever function y=x shoulbe added.
+#' @param split Character. If "model" plot will be splitted by model.
 #'
 #' @examples
 #' library(car)
@@ -25,7 +26,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = TRUE){
+plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = TRUE, split = "none"){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
@@ -46,14 +47,22 @@ plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline 
   maybeVS <- ifelse(variable == "Index", "", paste("vs",variable))
   maybeAbline <- NULL
   if(abline == TRUE) maybeAbline <- geom_abline()
+  maybeSplit <- NULL
+  maybeLegendBottom <- NULL
+  if(split == "model") {
+    maybeSplit <- facet_wrap(label~.)
+    maybeLegendBottom <- theme(legend.position = "bottom")
+  }
 
   p <- ggplot(df, aes(val, fitted.values, color = label)) +
           geom_point() +
           maybeAbline +
+          maybeSplit +
           xlab(variable) +
           ylab("Predicted values") +
           ggtitle(paste("Predicted", maybeVS)) +
-          theme_light()
+          theme_light() +
+          maybeLegendBottom
 
   if(smooth == TRUE){
     p <- p + geom_smooth(method = "loess", se = FALSE)

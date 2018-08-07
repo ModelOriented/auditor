@@ -5,7 +5,7 @@
 \title{Predicted response vs Observed or Variable Values}
 \usage{
 plotPrediction(object, ..., variable = NULL, smooth = FALSE,
-  abline = TRUE)
+  abline = TRUE, split = "none")
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -17,6 +17,8 @@ plotPrediction(object, ..., variable = NULL, smooth = FALSE,
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
 \item{abline}{Logical, indicates whenever function y=x shoulbe added.}
+
+\item{split}{Character. If "model" plot will be splitted by model.}
 }
 \description{
 Plot of predicted response vs observed or variable Values.
