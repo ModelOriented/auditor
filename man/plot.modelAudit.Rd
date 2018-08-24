@@ -22,8 +22,8 @@
 \method{plot}{modelResiduals}(x, ..., type = "Residual", ask = TRUE,
   grid = TRUE)
 
-\method{plot}{observationInfluence}(x, ..., type = "Residual", ask = TRUE,
-  grid = TRUE)
+\method{plot}{observationInfluence}(x, ..., type = "Residual",
+  ask = TRUE, grid = TRUE)
 }
 \arguments{
 \item{x}{object of class modelAudit, modelResiduals or observationInfluence.}

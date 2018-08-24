@@ -10,6 +10,7 @@ modelEvaluation <- function(object, variable = NULL){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
   CGainsDF <- getCGainsDF(object)[-1,]
+  idealCGainsDF <- getidealCGainsDF(object)[-1,]
 
   result <- data.frame(
     y=object$y,
@@ -18,6 +19,7 @@ modelEvaluation <- function(object, variable = NULL){
 
     class(result) <- c("modelEvaluation", "data.frame")
     attr(result,'CGains') <- CGainsDF
+    attr(result,'idealCGains') <- idealCGainsDF
   return(result)
 }
 
@@ -35,3 +37,15 @@ getCGainsDF <- function(object){
   return(res)
 }
 
+getidealCGainsDF <- function(object){
+
+  predictions <- object$y
+  y <- as.numeric(as.character(object$y))
+
+  pred <- ROCR::prediction(predictions, y)
+  gain <- ROCR::performance(pred, "tpr", "rpp")
+
+  res <- data.frame(rpp = gain@x.values[[1]], tp = pred@tp[[1]], alpha = gain@alpha.values[[1]],
+                    label = "ideal")
+  return(res)
+}

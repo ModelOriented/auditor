@@ -4,8 +4,8 @@
 \alias{plotResidual}
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
-plotResidual(object, ..., variable = NULL, points = TRUE, lines = FALSE,
-  std.residuals = FALSE, nlabel = 0)
+plotResidual(object, ..., variable = NULL, points = TRUE,
+  lines = FALSE, std.residuals = FALSE, nlabel = 0)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}

@@ -32,6 +32,14 @@ plotLIFT <- function(object, ...){
   rpp <- tp <- label <- NULL
 
   df <- attributes(object)$CGains
+  idealdf <- attributes(object)$idealCGains
+  idealdf <- rbind(idealdf, c(0, 0, 0, "ideal"))
+  idealdf$tp <- as.numeric(idealdf$tp)
+  idealdf$rpp <- as.numeric(idealdf$rpp)
+  idealdf$alpha <- as.numeric(idealdf$alpha)
+
+  randomdf <- data.frame(rpp = c(0, 1), tp = c(0, max(idealdf$tp)), alpha = c(0, 1),
+                                               label =c("random", "random"))
 
   dfl <- list(...)
   if (length(dfl) > 0) {
@@ -48,6 +56,8 @@ plotLIFT <- function(object, ...){
 
   ggplot(df, aes(x = rpp, y = tp, color = label)) +
     geom_line() +
+    geom_line(data = idealdf, aes(x = rpp, y = tp), color = "orange") +
+    geom_line(data = randomdf, aes(x = rpp, y = tp), color = "black") +
     xlab("rate of positive prediction") +
     ylab("true positive") +
     ggtitle("LIFT Chart") +

@@ -54,6 +54,7 @@ plotREC <- function(object, ...){
                        labels = paste(seq(0, 100, 10),"%")) +
     theme_light() +
     xlab("error tolerance") +
+    ylab("") +
     ggtitle("REC Curve")
 
 }
