@@ -12,3 +12,4 @@ materials
 jupyter-notebooks
 ^codecov\.yml$
 binder
+^_pkgdown\.yml$

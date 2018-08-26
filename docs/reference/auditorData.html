@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Observation Influence Explainer — observationInfluence • auditor</title>
+<title>auditorData — auditorData • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Create Observation Influence Explainer</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">auditorData</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,40 +103,30 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Observation Influence Explainer</h1>
+    <h1>auditorData</h1>
     </div>
 
     
-    <p>Creates observationInfluence object to be plotted.</p>
+    <p>The auditor Data is an artificial data set.
+It consists of 2000 observations.
+First four of simulated variables are treated as continuous while the fifth one is categorical.</p>
     
 
-    <pre class="usage"><span class='fu'>observationInfluence</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>An object of class ModelAudit.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other parameters.</p></td>
-    </tr>
-    </table>
-    
+        
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>MASS</span>)
-<span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>Postwt</span> ~ <span class='no'>Prewt</span> + <span class='no'>Treat</span> + <span class='fu'>offset</span>(<span class='no'>Prewt</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>anorexia</span>)
-<span class='no'>audit.glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model.glm</span>)
-
-<span class='no'>oi.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>observationInfluence</span>(<span class='no'>audit.glm</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='st'>"auditorData"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"auditor"</span>)
+<span class='fu'>head</span>(<span class='no'>auditorData</span>)</div><div class='output co'>#&gt;            y         X1          X2         X3 X4
+#&gt; 1 25.0841629 0.09899234 0.106628623 0.45221073  0
+#&gt; 2 11.4334917 0.78286052 0.382205803 0.52142085  0
+#&gt; 3 31.3586532 0.61363712 0.334163089 0.77644539  4
+#&gt; 4  0.8444416 0.95719587 0.007994749 0.09291044  0
+#&gt; 5 22.2293310 0.95546931 0.319085460 0.83615018  1
+#&gt; 6 29.3450873 0.21832212 0.164479838 0.82602861  0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
             
       <li><a href="#examples">Examples</a></li>
     </ul>

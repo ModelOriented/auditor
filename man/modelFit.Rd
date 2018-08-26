@@ -16,3 +16,11 @@ modelFit(object, quant.scale = FALSE, ...)
 \description{
 Creates modelFit object to be plotted.
 }
+\examples{
+library(MASS)
+model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+audit.glm <- audit(model.glm)
+
+mf.glm <- modelFit(audit.glm)
+
+}

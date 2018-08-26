@@ -14,3 +14,11 @@ observationInfluence(object, ...)
 \description{
 Creates observationInfluence object to be plotted.
 }
+\examples{
+library(MASS)
+model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+audit.glm <- audit(model.glm)
+
+oi.glm <- observationInfluence(audit.glm)
+
+}

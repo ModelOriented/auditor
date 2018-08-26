@@ -1,5 +1,5 @@
 # auditor 0.3.0
-* Five new vignettes with examples.
+* New five vignettes with examples.
 * Second pipeline with new computational functions: `modelResiduals()`, `modelEvaluation()`, `modelFit()`, `modelPerformance()`, `observationInfluence()`.
 * New plot: `plotResidualBoxplot()`
 

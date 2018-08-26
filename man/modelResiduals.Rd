@@ -14,3 +14,11 @@ modelResiduals(object, variable = NULL)
 \description{
 Creates modelResiduals object to be plotted.
 }
+\examples{
+library(MASS)
+model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+audit.glm <- audit(model.glm)
+
+mr.glm <- modelResiduals(audit.glm)
+
+}

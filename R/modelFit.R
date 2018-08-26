@@ -6,6 +6,13 @@
 #' @param quant.scale if TRUE values on axis are on quantile scale.
 #' @param ... other parameters passed do \code{\link[hnp]{hnp}} function.
 #'
+#' @examples
+#' library(MASS)
+#' model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+#' audit.glm <- audit(model.glm)
+#'
+#' mf.glm <- modelFit(audit.glm)
+#'
 #' @export
 modelFit <- function(object, quant.scale = FALSE, ...){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")

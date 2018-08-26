@@ -5,6 +5,13 @@
 #' @param object An object of class ModelAudit.
 #' @param ... other parameters.
 #'
+#' @examples
+#' library(MASS)
+#' model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+#' audit.glm <- audit(model.glm)
+#'
+#' oi.glm <- observationInfluence(audit.glm)
+#'
 #' @export
 observationInfluence <- function(object, ...){
 

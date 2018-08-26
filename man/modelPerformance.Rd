@@ -19,3 +19,12 @@ modelPerformance(object, scores = c("MAE", "MSE", "REC", "RROC"),
 \description{
 Creates observationInfluence object to be plotted.
 }
+\examples{
+library(MASS)
+model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+audit.glm <- audit(model.glm)
+
+mp.glm <- modelPerformance(audit.glm)
+
+
+}

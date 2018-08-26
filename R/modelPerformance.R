@@ -7,6 +7,15 @@
 #' @param new.score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param ... other parameters.
 #'
+#'
+#' @examples
+#' library(MASS)
+#' model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+#' audit.glm <- audit(model.glm)
+#'
+#' mp.glm <- modelPerformance(audit.glm)
+#'
+#'
 #' @export
 modelPerformance <- function(object, scores = c("MAE", "MSE", "REC", "RROC"), new.score = NULL){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
