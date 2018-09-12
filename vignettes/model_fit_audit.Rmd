@@ -153,13 +153,13 @@ plotHalfNormal(iris_rf_au)
 
 Other methods and plots are described in vignettes: 
 
-* [Model Residuals audit](https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html)
+* [Model Residuals audit](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html)
 
-* [Model Evaluation audit](https://mi2-warsaw.github.io/auditor/articles/model_evaluation_audit.html)
+* [Model Evaluation audit](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html)
 
-* [Model Performance audit](https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html)
+* [Model Performance audit](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html)
 
-* [Observation Influence audit](https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html)
+* [Observation Influence audit](https://mi2datalab.github.io/auditor/articles/observation_influence_audit.html)
 
 # References
 

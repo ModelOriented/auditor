@@ -1,6 +1,6 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre")),
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"))
@@ -38,5 +38,5 @@ Suggests: aods3,
     testthat,
     covr
 VignetteBuilder: knitr
-URL: https://mi2-warsaw.github.io/auditor/
-BugReports: https://github.com/mi2-warsaw/auditor/issues
+URL: https://mi2datalab.github.io/auditor/
+BugReports: https://github.com/MI2DataLab/auditor/issues

@@ -82,8 +82,8 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#the-auditor-package---model-verification-validation-and-error-analysis" class="anchor"></a>The auditor package - model verification, validation, and error analysis</h1></div>
 <p><img src="materials/auditor2.png" width="20%" align="right"></p>
-<p><a href="https://cran.r-project.org/package=auditor"><img src="http://www.r-pkg.org/badges/version/auditor" alt="CRAN_Status_Badge"></a> <a href="http://cranlogs.r-pkg.org/badges/grand-total/auditor"><img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" alt="Total Downloads"></a> <a href="https://travis-ci.org/mi2-warsaw/auditor"><img src="https://travis-ci.org/mi2-warsaw/auditor.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/mi2-warsaw/auditor?branch=master"><img src="https://img.shields.io/codecov/c/github/mi2-warsaw/auditor/master.svg" alt="Coverage Status"></a> <a href="https://mybinder.org/v2/gh/mi2-warsaw/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a> <a href="https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2-warsaw/auditor%0A&amp;hashtags=rstats,erroranalysis,machinelearning,audit"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></p>
-<p><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditorLogo.png" width="20%"></p>
+<p><a href="https://cran.r-project.org/package=auditor"><img src="http://www.r-pkg.org/badges/version/auditor" alt="CRAN_Status_Badge"></a> <a href="http://cranlogs.r-pkg.org/badges/grand-total/auditor"><img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" alt="Total Downloads"></a> <a href="https://travis-ci.org/mi2datalab/auditor"><img src="https://travis-ci.org/mi2datalab/auditor.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/mi2datalab/auditor?branch=master"><img src="https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg" alt="Coverage Status"></a> <a href="https://mybinder.org/v2/gh/mi2datalab/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a> <a href="https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2datalab/auditor%0A&amp;hashtags=rstats,erroranalysis,machinelearning,audit"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></p>
+<p><img src="materials/auditorLogo.png" width="20%"></p>
 <div id="auditors-pipeline-model-audit-plottype" class="section level2">
 <h2 class="hasAnchor">
 <a href="#auditors-pipeline-model-audit-plottype" class="anchor"></a>auditor’s pipeline: <em>model %&gt;% audit() %&gt;% plot(type=…)</em>
@@ -96,7 +96,7 @@
 <div id="from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-github" class="anchor"></a>from GitHub</h3>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("mi2-warsaw/auditor")</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("mi2datalab/auditor")</a></code></pre>
 </div>
 <div id="and-from-cran" class="section level3">
 <h3 class="hasAnchor">
@@ -111,13 +111,13 @@
 </div>
 <div id="reference-manual" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reference-manual" class="anchor"></a><a href="https://mi2-warsaw.github.io/auditor/">Reference Manual</a>
+<a href="#reference-manual" class="anchor"></a><a href="https://mi2datalab.github.io/auditor/">Reference Manual</a>
 </h2>
 </div>
 <div id="demo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#demo" class="anchor"></a>DEMO</h2>
-<p>Run the code below or try the auditor by the online jupyter-notebook: <a href="https://mybinder.org/v2/gh/mi2-warsaw/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a></p>
+<p>Run the code below or try the auditor by the online jupyter-notebook: <a href="https://mybinder.org/v2/gh/mi2datalab/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a></p>
 <pre><code>library(auditor)
 library(randomForest)
 data(mtcars)
@@ -147,14 +147,14 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <h2 class="hasAnchor">
 <a href="#vignettes-in-preparation" class="anchor"></a>Vignettes (in Preparation)</h2>
 <ul>
-<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/Intorduction_into_model_audit.html">Introduction into model audit</a></p></li>
-<li><p><a href="https://mi2-warsaw.github.io/auditor/articles/HalfNormal.html">The Half-normal Plots</a></p></li>
+<li><p><a href="https://mi2datalab.github.io/auditor/articles/Intorduction_into_model_audit.html">Introduction into model audit</a></p></li>
+<li><p><a href="https://mi2datalab.github.io/auditor/articles/HalfNormal.html">The Half-normal Plots</a></p></li>
 </ul>
 </div>
 <div id="cheatsheets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cheatsheets" class="anchor"></a>Cheatsheets</h2>
-<p><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet.png"><img src="https://raw.githubusercontent.com/mi2-warsaw/auditor/master/materials/auditor_cheatsheet_ROC.png"></p>
+<p><img src="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png"><img src="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png"></p>
 </div>
 <div id="a-short-overview-of-plots" class="section level2">
 <h2 class="hasAnchor">
@@ -181,8 +181,8 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <code><a href="reference/plotACF.html">plotACF()</a></code>  <code>plot(..., type = "ACF")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotacf---autocorrelation-function-of-residuals">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotacf---autocorrelation-function-of-residuals">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Autocorrelation</td>
@@ -190,8 +190,8 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <code><a href="reference/plotAutocorrelation.html">plotAutocorrelation()</a></code>  <code>plot(..., type = "Autocorrelation")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotautocorrelation---autocorrelation-of-residuals">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotautocorrelation---autocorrelation-of-residuals">Examples</a></td>
 </tr>
 <tr class="odd">
 <td>Influence of observations</td>
@@ -199,143 +199,134 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <code><a href="reference/plotCooksDistance.html">plotCooksDistance()</a></code>  <code>plot(..., type = "CooksDistance")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/observation_influence_audit.html#which-observations-are-outlyers">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/observation_influence_audit.html#which-observations-are-outlyers">Examples</a></td>
 </tr>
 <tr class="even">
-<td>Cumulative Gain Chart</td>
-<td>
-<code>plotCumulativeGain()</code>  <code>plot(..., type = "CumulativeGain")</code>
-</td>
-<td>no</td>
-<td>yes</td>
-<td>soon</td>
-</tr>
-<tr class="odd">
 <td>Half-Normal</td>
 <td>
 <code><a href="reference/plotHalfNormal.html">plotHalfNormal()</a></code>  <code>plot(..., type = "HalfNormal")</code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_fit_audit.html">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_fit_audit.html">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>LIFT Chart</td>
 <td>
 <code><a href="reference/plotLIFT.html">plotLIFT()</a></code>  <code>plot(..., type = "LIFT")</code>
 </td>
 <td>no</td>
 <td>yes</td>
-<td>soon</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html#lift-chart">Examples</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Model Correlation</td>
 <td>
 <code><a href="reference/plotModelCorrelation.html">plotModelCorrelation()</a></code>  <code>plot(..., type = "ModelCorrelation")</code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotmodelcorrelation---correlation-of-models">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotmodelcorrelation---correlation-of-models">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Principal Component Analysis of models</td>
 <td>
 <code><a href="reference/plotModelPCA.html">plotModelPCA()</a></code>  <code>plot(..., type = "ModelPCA")</code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotmodelpca---model-pca">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotmodelpca---model-pca">Examples</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Model Ranking Plot</td>
 <td>
 <code><a href="reference/plotModelRanking.html">plotModelRanking()</a></code>  <code>plot(..., type = "ModelRanking")</code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Predicted Response vs Observed or Variable Values</td>
 <td>
 <code><a href="reference/plotPrediction.html">plotPrediction()</a></code>  <code>plot(..., type = "Prediction")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotpredition---observed-vs-predicted">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotpredition---observed-vs-predicted">Examples</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Regression Error Characteristic Curves (REC)</td>
 <td>
 <code><a href="reference/plotREC.html">plotREC()</a></code>  <code>plot(..., type = "REC")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotrec---regression-error-characteristic-rec-curve">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrec---regression-error-characteristic-rec-curve">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Plot Residuals vs Observed, Fitted or Variable Values</td>
 <td>
 <code><a href="reference/plotResidual.html">plotResidual()</a></code>  <code>plot(..., type = "Residual")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values">Examples</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Residual Boxplot</td>
 <td>
 <code><a href="reference/plotResidualBoxplot.html">plotResidualBoxplot()</a></code>  <code>plot(..., type = "ResidualBoxplot")</code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html#plotresidualboxplot---boxplot-of-residuals">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidualboxplot---boxplot-of-residuals">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Residual Density</td>
 <td>
 <code><a href="reference/plotResidualDensity.html">plotResidualDensity()</a></code>  <code>plot(..., type = "ResidualDensity")</code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_performance_audit.html#plotresidualdensity---density-of-residuals">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidualdensity---density-of-residuals">Examples</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Receiver Operating Characteristic (ROC)</td>
 <td>
 <code><a href="reference/plotROC.html">plotROC()</a></code>  <code>plot(..., type = "ROC")</code>
 </td>
 <td>no</td>
 <td>yes</td>
-<td>soon</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html#receiver-operating-characteristic-roc">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Regression Receiver Operating Characteristic (RROC)</td>
 <td>
 <code><a href="reference/plotRROC.html">plotRROC()</a></code>  <code>plot(..., type = "RROC")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotrroc---regression-receiver-operating-characteristic-rroc">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrroc---regression-receiver-operating-characteristic-rroc">Examples</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Scale-Location plot</td>
 <td>
 <code><a href="reference/plotScaleLocation.html">plotScaleLocation()</a></code>  <code>plot(..., type = "ScaleLocation")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plotscalelocation---scale-location-plot">Examples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotscalelocation---scale-location-plot">Examples</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Two-sided Cumulative Distribution Function</td>
 <td>
 <code><a href="reference/plotTwoSidedECDF.html">plotTwoSidedECDF()</a></code>  <code>plot(..., type = "TwoSidedECDF")</code>
 </td>
 <td>yes</td>
-<td></td>
-<td><a href="https://mi2-warsaw.github.io/auditor/articles/model_residuals_audit.html#plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf">Exaples</a></td>
+<td>yes</td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf">Examples</a></td>
 </tr>
 </tbody>
 </table>
@@ -359,7 +350,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=auditor">https://​cloud.r-project.org/​package=auditor</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/mi2-warsaw/auditor/issues">https://​github.com/​mi2-warsaw/​auditor/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/MI2DataLab/auditor/issues">https://​github.com/​MI2DataLab/​auditor/​issues</a>
 </li>
 <li>Source code at <br><a href="https://github.com/mi2-warsaw/auditor">https://​github.com/​mi2-warsaw/​auditor</a>
 </li>
