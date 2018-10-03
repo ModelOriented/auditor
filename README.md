@@ -16,6 +16,9 @@
 
 <img src="materials/demo.png" width="800" align = "center" />
 
+# Preprint
+
+A [preprint of the article about auditor](https://arxiv.org/abs/1809.07763) is availible on arxiv.
 
 ## Installation
 
