@@ -1,11 +1,18 @@
 #' @title dragons_test
-#' @description dragons_test is an artificial data set.
-#' It consists of 1000 observations.
+#' Datasets \code{dragons} and \code{dragons_test} are artificial,
+#' generated form the same model.
 #'
-#' @name dragons_test
+#' \itemize{
+#' \item life.len - dragon's life length
+#' \item teeth.len - dragon's teeth length 
+#' \item colour - coulour of the dragon
+#' \item height - dragon's height
+#' \item herd.size - the size of the dragon herd
+#' }
+#'
 #' @docType data
-#'
-#' @examples
-#' data("dragons_test", package = "auditor")
-#' head(dragons_test)
+#' @keywords dragons_test
+#' @name dragons_test
+#' @usage data(dragons_test)
+#' @format a data frame with 1000 rows and 5 columns
 NULL
