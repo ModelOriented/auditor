@@ -6,7 +6,7 @@
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/auditor)](http://cranlogs.r-pkg.org/badges/grand-total/auditor)
 [![Build Status](https://travis-ci.org/MI2DataLab/auditor.svg?branch=master)](https://travis-ci.org/MI2DataLab/auditor)
 [![Coverage Status](https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg)](https://codecov.io/github/mi2datalab/auditor?branch=master)
-[![Binder](https://hub.mybinder.org/user/mi2datalab-auditor-58hsalkq/notebooks/jupyter-notebooks/auditor_dragons_demo.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://hub.mybinder.org/user/mi2datalab-auditor-58hsalkq/notebooks/jupyter-notebooks/auditor_dragons_demo.ipynb)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2datalab/auditor%0A&hashtags=rstats,erroranalysis,machinelearning,audit)
 
 
