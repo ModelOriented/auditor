@@ -9,6 +9,7 @@
 #' @param smooth Logical, indicates whenever smooth line should be added.
 #' @param abline Logical, indicates whenever function y=x shoulbe added.
 #' @param split Character. If "model" plot will be splitted by model.
+#' @param alpha Numeric. Opacity of points.
 #'
 #' @examples
 #' library(car)
@@ -26,8 +27,9 @@
 #' @import ggplot2
 #'
 #' @export
-plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = TRUE, split = "none"){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = TRUE, split = "none", alpha = 0.2) {
+  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object)))
+    stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
   val <- fitted.values <- label <- NULL
@@ -55,7 +57,7 @@ plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline 
   }
 
   p <- ggplot(df, aes(val, fitted.values, color = label)) +
-          geom_point() +
+          geom_point(alpha = alpha) +
           maybeAbline +
           maybeSplit +
           xlab(variable) +
@@ -70,7 +72,7 @@ plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline 
 
   if(variable == "Observed response") p <- p + geom_abline(slope = 1, intercept = 0)
 
-  return(p)
+  p
 }
 
 
