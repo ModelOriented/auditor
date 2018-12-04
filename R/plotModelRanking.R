@@ -24,6 +24,8 @@
 #' @import ggplot2
 #' @import gridExtra
 #' @importFrom grDevices blues9
+#' @importFrom grid grobTree
+#' @import scales
 #'
 #' @export
 
@@ -32,7 +34,7 @@ plotModelRanking <- function(object, ..., scores = c("MAE", "MSE", "REC", "RROC"
                              new.score = NULL, table = TRUE){
   if(!("modelPerformance" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelPerformance().")
   if(!("modelPerformance" %in% class(object))) object <- modelPerformance(object, scores, new.score)
-  name <- score <- label <- NULL
+  name <- score <- label <- x2 <- y2 <- label2 <- NULL
 
   df <- object
 
@@ -47,19 +49,29 @@ plotModelRanking <- function(object, ..., scores = c("MAE", "MSE", "REC", "RROC"
     }
   }
 
+
+
   df_scaled <- scaleModelRankingDF(df)
   df_scaled  <- df_scaled [order(df_scaled $name),]
+  df_labels <- data.frame(x2 = as.factor(rep(df_scaled$name[1], 5)),
+                          y2 = c(0.01, 0.25, 0.50, 0.75, 1),
+                          label2 = as.factor(c(0, 0.25, 0.50, 0.75, 1)))
 
- p <- ggplot(df_scaled , aes(x = name, y = score, group = label, color = label)) +
-        geom_polygon(fill = NA) +
-        ylim(0,1) +
-        geom_line() +
-        coord_polar() +
-        coord_radar() +
+ p <- ggplot(df_scaled , aes(x = name, y = score)) +
+        geom_polygon(aes(group = label, color = label), fill = NA) +
+        geom_line(aes(group = label, color = label)) +
+        geom_text(data = df_labels, aes(x = x2, y = y2, label = label2)) +
+   coord_polar() +
+      coord_radar(nNames = length(unique(df_scaled$name))) +
+   scale_y_continuous(expand = c(0,0), limits = c(0.01,1)) +
         theme_light() +
         xlab("") +
         ylab("") +
-        ggtitle("Model Ranking Radar")
+        ggtitle("Model Ranking Radar") +
+   theme(panel.border = element_blank(),
+         axis.text.y = element_blank(),
+         axis.ticks = element_blank())
+
 
  if(table ==TRUE){
    df <- df[order(df$name, df$label), ]
@@ -104,9 +116,75 @@ scaleModelRankingDF <- function(df){
 }
 
 
-coord_radar <- function(){
-  ggproto(NULL, CoordPolar,
-    theta='x', r='y',
-    start=0, direction=1,
-    is_linear=function() TRUE)
+# Modified solution from https://stackoverflow.com/questions/36579767/add-unit-labels-to-radar-plot-and-remove-outer-ring-ggplot2-spider-web-plot-co/37277609
+
+coord_radar <- function(nNames){
+  theta <- "x"
+  r <- "y"
+  start <- - pi / nNames
+  direction <- 1
+
+
+  #dirty
+  rename_data <- function(coord, data) {
+    names(data)[which(colnames(data) == "y")] <- "r"
+    names(data)[which(colnames(data) == "x")] <- "theta"
+    data
+  }
+  theta_rescale <- function(coord, x, scale_details) {
+    rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
+    rotate(scales::rescale(x, c(0, 2 * pi), scale_details$theta.range))
+  }
+
+  r_rescale <- function(coord, x, scale_details) {
+    scales::rescale(x, c(0, 0.4), scale_details$r.range)
+  }
+
+  ggproto("CordRadar", CoordPolar, theta = theta, r = r, start = start,
+          direction = sign(direction),
+          is_linear = function() TRUE,
+          render_bg = function(self, scale_details, theme) {
+            scale_details <- rename_data(self, scale_details)
+
+            theta <- if (length(scale_details$theta.major) > 0)
+              theta_rescale(self, scale_details$theta.major, scale_details)
+            thetamin <- if (length(scale_details$theta.minor) > 0)
+              theta_rescale(self, scale_details$theta.minor, scale_details)
+            thetafine <- seq(0, 2 * pi, length.out = 100)
+
+            rfine <- c(r_rescale(self, scale_details$r.major, scale_details))
+
+            # This gets the proper theme element for theta and r grid lines:
+            #   panel.grid.major.x or .y
+            majortheta <- paste("panel.grid.major.", self$theta, sep = "")
+            minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
+            majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+
+            ggplot2:::ggname("grill", grid::grobTree(
+              ggplot2:::element_render(theme, "panel.background"),
+              if (length(theta) > 0) ggplot2:::element_render(
+                theme, majortheta, name = "angle",
+                x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
+                y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
+                id.lengths = rep(2, length(theta)),
+                default.units = "native"
+              ),
+              if (length(thetamin) > 0) ggplot2:::element_render(
+                theme, minortheta, name = "angle",
+                x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
+                y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
+                id.lengths = rep(2, length(thetamin)),
+                default.units = "native"
+              ),
+
+              ggplot2:::element_render(
+                theme, majorr, name = "radius",
+                x = rep(rfine, each = length(thetafine)) * sin(thetafine) + 0.5,
+                y = rep(rfine, each = length(thetafine)) * cos(thetafine) + 0.5,
+                id.lengths = rep(length(thetafine), length(rfine)),
+                default.units = "native"
+              )
+            ))
+          }
+)
 }
