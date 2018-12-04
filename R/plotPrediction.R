@@ -9,6 +9,7 @@
 #' @param smooth Logical, indicates whenever smooth line should be added.
 #' @param abline Logical, indicates whenever function y=x shoulbe added.
 #' @param split Character. If "model" plot will be splitted by model.
+#' @param alpha Numeric. Opacity of points.
 #'
 #' @examples
 #' library(car)
@@ -55,7 +56,7 @@ plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline 
   }
 
   p <- ggplot(df, aes(val, fitted.values, color = label)) +
-          geom_point() +
+          geom_point(alpha = alpha) +
           maybeAbline +
           maybeSplit +
           xlab(variable) +
