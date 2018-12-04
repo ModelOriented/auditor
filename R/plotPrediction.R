@@ -27,7 +27,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = TRUE, split = "none"){
+plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = TRUE, split = "none", alpha = 0.2){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
