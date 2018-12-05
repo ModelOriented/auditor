@@ -43,9 +43,7 @@ plotModelRanking <- function(object, ..., scores = c("MAE", "MSE", "REC", "RROC"
   if (length(dfl) > 0) {
     for (resp in dfl) {
       if("modelAudit" %in% class(resp)) resp <- modelPerformance(resp, scores, new.score)
-      if( "modelPerformance" %in% class(resp)) {
-        df <- rbind(df, resp)
-      }
+      if( "modelPerformance" %in% class(resp)) df <- rbind(df, resp)
     }
   }
 
