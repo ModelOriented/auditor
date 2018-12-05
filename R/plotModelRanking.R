@@ -57,9 +57,9 @@ plotModelRanking <- function(object, ..., scores = c("MAE", "MSE", "REC", "RROC"
     label2 = as.factor(c(0, 0.25, 0.50, 0.75, 1)))
 
  p <- ggplot(df_scaled , aes(x = name, y = score)) +
-        geom_polygon(aes(group = label, color = label), fill = NA) +
-        geom_line(aes(group = label, color = label)) +
-        geom_text(data = df_labels, aes(x = x2, y = y2, label = label2)) +
+      geom_polygon(aes(group = label, color = label), fill = NA) +
+      geom_line(aes(group = label, color = label)) +
+      geom_text(data = df_labels, aes(x = x2, y = y2, label = label2)) +
       coord_polar() +
       coord_radar(nNames = length(unique(df_scaled$name))) +
       scale_y_continuous(expand = c(0,0), limits = c(0.01,1)) +
@@ -118,8 +118,6 @@ scaleModelRankingDF <- function(df){
 # Modified solution from https://stackoverflow.com/questions/36579767/add-unit-labels-to-radar-plot-and-remove-outer-ring-ggplot2-spider-web-plot-co/37277609
 
 coord_radar <- function(nNames){
-  start <- - pi / nNames
-  direction <- 1
 
   rename_data <- function(coord, data) {
     names(data)[which(colnames(data) == "y")] <- "r"
@@ -177,8 +175,8 @@ coord_radar <- function(nNames){
     ))
   }
 
-  ggproto("CordRadar", CoordPolar, theta = "x", r = "y", start = start,
-          direction = sign(direction),
+  ggproto("CordRadar", CoordPolar, theta = "x", r = "y", start = - pi / nNames,
+          direction = 1,
           is_linear = function() TRUE,
           render_bg = render_bg_function)
 }
