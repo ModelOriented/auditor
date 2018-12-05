@@ -82,6 +82,7 @@ plotModelRanking <- function(object, ..., scores = c("MAE", "MSE", "REC", "RROC"
      df$scaled <- format(as.numeric(df$scaled), scientific = FALSE, digits = 3)
      df$score <- format(df$score, scientific = TRUE, digits = 3)
      df <- df[ ,c(3,2,1,4)]
+     colnames(df)[which(colnames(df) == "score")] <- "values"
 
 
     table_score <- tableGrob(df,
