@@ -4,7 +4,8 @@
 \alias{plotAutocorrelation}
 \title{Autocorrelation Plot}
 \usage{
-plotAutocorrelation(object, ..., variable = NULL, score = FALSE)
+plotAutocorrelation(object, ..., variable = NULL, score = FALSE,
+  line = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -14,6 +15,8 @@ plotAutocorrelation(object, ..., variable = NULL, score = FALSE)
 \item{variable}{Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 
 \item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.}
+
+\item{line}{Logical, if TRUE smooth line will be added.}
 }
 \description{
 Plot of i-th residual vs i+1-th residual.
