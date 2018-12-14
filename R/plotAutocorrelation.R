@@ -49,7 +49,7 @@ plotAutocorrelation <- function(object, ..., variable=NULL, score=FALSE, line = 
 
   p <- ggplot(resultDF, aes(x, y, color = label)) +
       geom_point() +
-      maybe_smooth() +
+      maybe_smooth +
       geom_hline(yintercept = 0) +
       maybe_facet +
       xlab("residual i") +
