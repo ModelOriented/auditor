@@ -41,11 +41,9 @@ plotAutocorrelation <- function(object, ..., variable=NULL, score=FALSE, line = 
     resultDF <- rbind(resultDF, data.frame(x = orderedResiduals[-n], y = orderedResiduals[-1], label = label))
   }
 
-  maybe_facet <- NULL
-  if(length(list(...)) > 0) maybe_facet <- facet_grid(label ~ ., switch = "y")
+  maybe_facet <- if(length(list(...)) > 0) facet_grid(label ~ ., switch = "y") else NULL
 
-  maybe_smooth <- NULL
-  if(line == TRUE) maybe_smooth <- geom_smooth(method = "loess", se = FALSE) +
+  maybe_smooth <- if(line == TRUE) geom_smooth(method = "loess", se = FALSE) else NULL
 
   p <- ggplot(resultDF, aes(x, y, color = label)) +
       geom_point() +
