@@ -69,14 +69,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 For more plot types and examples see *A Short Overview of Plots* section below.
 
 
-## Vignettes (in Preparation)
-
-* [Introduction into model audit](https://mi2datalab.github.io/auditor/articles/Intorduction_into_model_audit.html)
-
-* [The Half-normal Plots](https://mi2datalab.github.io/auditor/articles/HalfNormal.html)
-
 ## Cheatsheets
-
 
 <img src="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png"/>
 <img src="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png"/>
@@ -105,3 +98,7 @@ For more plot types and examples see *A Short Overview of Plots* section below.
 
 ## Acknowledgments
 Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.
+
+## More
+
+[Presentation during Knowledge Network Tech Meetup](https://slides.com/jusira/deck/fullscreen)
