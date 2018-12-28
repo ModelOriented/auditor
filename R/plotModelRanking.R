@@ -146,16 +146,19 @@ coord_radar <- function(nNames){
     minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
     majorr     <- paste("panel.grid.major.", self$r,     sep = "")
 
-    ggplot2:::ggname("grill", grid::grobTree(
-      ggplot2:::element_render(theme, "panel.background"),
-      if (length(theta) > 0) ggplot2:::element_render(
+    ggname <- get("ggname", envir = asNamespace("ggplot2"), inherits = FALSE)
+    element_render <- get("element_render", envir = asNamespace("ggplot2"), inherits = FALSE)
+
+    ggname("grill", grid::grobTree(
+      element_render(theme, "panel.background"),
+      if (length(theta) > 0) element_render(
         theme, majortheta, name = "angle",
         x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
         y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
         id.lengths = rep(2, length(theta)),
         default.units = "native"
       ),
-      if (length(thetamin) > 0) ggplot2:::element_render(
+      if (length(thetamin) > 0) element_render(
         theme, minortheta, name = "angle",
         x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
         y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
@@ -163,7 +166,7 @@ coord_radar <- function(nNames){
         default.units = "native"
       ),
 
-      ggplot2:::element_render(
+      element_render(
         theme, majorr, name = "radius",
         x = rep(rfine, each = length(thetafine)) * sin(thetafine) + 0.5,
         y = rep(rfine, each = length(thetafine)) * cos(thetafine) + 0.5,
