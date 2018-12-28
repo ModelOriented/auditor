@@ -27,14 +27,14 @@ Some of the graphical error analysis methods also have corresponding scores, whi
 
 
 
-# Regression use case - apartments data
+# Regression use case - dragons data
 
-To illustrate applications of *auditor* to regression problems we will use an artificial dataset apartments available in the [*DALEX*](https://pbiecek.github.io/DALEX/) package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX2*](https://github.com/ModelOriented/DALEX2) package. Our goal is to predict the length of life of dragons.
 
 ```{r}
-library(DALEX)
-data("apartments")
-head(apartments)
+library(DALEX2)
+data("dragons")
+head(dragons)
 ```
 
 # Models
@@ -42,7 +42,7 @@ head(apartments)
 
 ## Linear model
 ```{r}
-lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + district, data = apartments)
+lm_model <- lm(life_length ~ ., data = dragons)
 ```
 
 
@@ -51,7 +51,7 @@ lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + distr
 ```{r}
 library("randomForest")
 set.seed(59)
-rf_model <- randomForest(m2.price ~ construction.year + surface + floor +  no.rooms + district, data = apartments)
+rf_model <- randomForest(life_length ~ ., data = dragons)
 ```
 
 
@@ -61,8 +61,8 @@ The beginning of each analysis is creation of a `modelAudit` object. It’s an o
 ```{r}
 library("auditor")
 
-lm_audit <- audit(lm_model, label = "lm", data = apartmentsTest, y = apartmentsTest$m2.price)
-rf_audit <- audit(rf_model, label = "rf", data = apartmentsTest, y = apartmentsTest$m2.price)
+lm_audit <- audit(lm_model, label = "lm", data = dragons, y = dragons$life_length)
+rf_audit <- audit(rf_model, label = "rf", data = dragons, y = dragons$life_length)
 ```
 
 
@@ -110,13 +110,13 @@ head(lm_mr)
 Some plots may require specified variable or fitted values for `modelResidual` object. 
 
 ```{r}
-lm_mr_district <- modelResiduals(lm_audit, variable = "district")
-rf_mr_district <- modelResiduals(rf_audit, variable = "district")
+lm_mr_year <- modelResiduals(lm_audit, variable = "year_of_discovery")
+rf_mr_year <- modelResiduals(rf_audit, variable = "year_of_discovery")
 
 lm_mr_fitted <- modelResiduals(lm_audit, variable = "Fitted values")
 rf_mr_fitted <- modelResiduals(rf_audit, variable = "Fitted values")
 
-head(lm_mr_district)
+head(lm_mr_year)
 ```
 
 ## Plots
@@ -128,11 +128,11 @@ Autocorrelation Function plot can be used to check randomness of errors. If rand
 Residuals may be ordered by values of any model variable or by fitted values. If variable is not specified, function takes order from the data set.
 
 ```{r}
-lm_mr_surface <- modelResiduals(lm_audit, variable = "surface")
+lm_mr_surface <- modelResiduals(lm_audit, variable = "year_of_discovery")
 plot(lm_mr_surface, type = "ACF")
 
 # alternative:
-# plotACF(lm_audit, variable = "surface")
+# plotACF(lm_audit, variable = "year_of_discovery")
 ```
 
 
@@ -193,13 +193,13 @@ Basic plot of residuals vs observed, fitted or variable values. If variable is n
 Black line corresponds to the y=x function.
 
 ```{r}
-lm_mr_m2 <- modelResiduals(lm_audit, variable = "m2.price")
-rf_mr_m2 <- modelResiduals(rf_audit, variable = "m2.price")
+lm_mr_m2 <- modelResiduals(lm_audit, variable = "life_length")
+rf_mr_m2 <- modelResiduals(rf_audit, variable = "life_length")
 
 plot(rf_mr_m2, lm_mr_m2, type = "Prediction")
 
 # alternative:
-# plotPrediction(rf_audit, lm_audit, variable = "m2.price")
+# plotPrediction(rf_audit, lm_audit, variable = "life_length")
 ```
 
 Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.
@@ -273,14 +273,14 @@ Resuduals may be also divided by median of the numeric variable and splitted by 
 plotResidualDensity(lm_mr_m2, rf_mr_m2)
 
 # alternative
-# plotResidualDensity(rf_audit, lm_audit, variable = "m2.price")
+# plotResidualDensity(rf_audit, lm_audit, variable = "life_length")
 ```
 
 ```{r}
-plotResidualDensity(lm_mr_district, rf_mr_district)
+plotResidualDensity(lm_mr_year, rf_mr_year)
 
 # alternative
-# plotResidualDensity(rf_audit, lm_audit, variable = "district")
+# plotResidualDensity(rf_audit, lm_audit, variable = "year_of_discovery")
 ```
 
 ### plotRROC() -  Regression Receiver Operating Characteristic (RROC)

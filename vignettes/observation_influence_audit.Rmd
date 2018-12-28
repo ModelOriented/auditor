@@ -18,14 +18,14 @@ knitr::opts_chunk$set(message = FALSE)
 
 # Which observations are outlyers?
 
-# Regression use case - apartments data
+# Regression use case - dragons data
 
-To illustrate applications of *auditor* to regression problems we will use an artificial dataset apartments available in the [*DALEX*](https://pbiecek.github.io/DALEX/) package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX2*](https://github.com/ModelOriented/DALEX2) package. Our goal is to predict the length of life of dragons.
 
 ```{r}
-library(DALEX)
-data("apartments")
-head(apartments)
+library(DALEX2)
+data("dragons")
+head(dragons)
 ```
 
 # Models
@@ -33,7 +33,7 @@ head(apartments)
 
 ## Linear model
 ```{r}
-lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + district, data = apartments)
+lm_model <- lm(life_length ~ ., data = dragons)
 ```
 
 
@@ -42,18 +42,20 @@ lm_model <- lm(m2.price ~ construction.year + surface + floor + no.rooms + distr
 ```{r}
 library("randomForest")
 set.seed(59)
-rf_model <- randomForest(m2.price ~ construction.year + surface + floor +  no.rooms + district, data = apartments)
+rf_model <- randomForest(life_length ~ ., data = dragons)
 ```
+
 
 
 # Preparation for error analysis
 The beginning of each analysis is creation of a `modelAudit` object. It’s an object that can be used to audit a model.
 
+
 ```{r}
 library("auditor")
 
-lm_audit <- audit(lm_model, label = "lm", data = apartmentsTest, y = apartmentsTest$m2.price)
-rf_audit <- audit(rf_model, label = "rf", data = apartmentsTest, y = apartmentsTest$m2.price)
+lm_audit <- audit(lm_model, label = "lm", data = dragons, y = dragons$life_length)
+rf_audit <- audit(rf_model, label = "rf", data = dragons, y = dragons$life_length)
 ```
 
 # Audit of observations

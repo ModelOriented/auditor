@@ -82,7 +82,7 @@
       <h1>Observation Influence Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-09-12</h4>
+            <h4 class="date">2018-12-28</h4>
       
       
       <div class="hidden name"><code>observation_influence_audit.Rmd</code></div>
@@ -95,20 +95,27 @@
 <h1 class="hasAnchor">
 <a href="#which-observations-are-outlyers" class="anchor"></a>Which observations are outlyers?</h1>
 </div>
-<div id="regression-use-case---apartments-data" class="section level1">
+<div id="regression-use-case---dragons-data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#regression-use-case---apartments-data" class="anchor"></a>Regression use case - apartments data</h1>
-<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset apartments available in the <a href="https://pbiecek.github.io/DALEX/"><em>DALEX</em></a> package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX)
-<span class="kw">data</span>(<span class="st">"apartments"</span>)
-<span class="kw">head</span>(apartments)</code></pre></div>
-<pre><code>##   m2.price construction.year surface floor no.rooms    district
-## 1     5897              1953      25     3        1 Srodmiescie
-## 2     1818              1992     143     9        5     Bielany
-## 3     3643              1937      56     1        2       Praga
-## 4     3517              1995      93     7        3      Ochota
-## 5     3013              1992     144     6        5     Mokotow
-## 6     5795              1926      61     6        2 Srodmiescie</code></pre>
+<a href="#regression-use-case---dragons-data" class="anchor"></a>Regression use case - dragons data</h1>
+<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset dragons available in the <a href="https://github.com/ModelOriented/DALEX2"><em>DALEX2</em></a> package. Our goal is to predict the length of life of dragons.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX2)
+<span class="kw">data</span>(<span class="st">"dragons"</span>)
+<span class="kw">head</span>(dragons)</code></pre></div>
+<pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
+## 1         -1291 59.40365 15.32391     7    red              1700
+## 2          1589 46.21374 11.80819     5    red              1700
+## 3          1528 49.17233 13.34482     6    red              1700
+## 4          1645 48.29177 13.27427     5  green              1700
+## 5            -8 49.99679 13.08757     1    red              1700
+## 6           915 45.40876 11.48717     2    red              1700
+##   number_of_lost_teeth life_length
+## 1                   25   1368.4331
+## 2                   28   1377.0474
+## 3                   38   1603.9632
+## 4                   33   1434.4222
+## 5                   18    985.4905
+## 6                   20    969.5682</code></pre>
 </div>
 <div id="models" class="section level1">
 <h1 class="hasAnchor">
@@ -116,14 +123,14 @@
 <div id="linear-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-model" class="anchor"></a>Linear model</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st"> </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
 </div>
 <div id="random-forest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#random-forest" class="anchor"></a>Random forest</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"randomForest"</span>)
 <span class="kw">set.seed</span>(<span class="dv">59</span>)
-rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st">  </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
 </div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
@@ -132,8 +139,8 @@ rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.p
 <p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
 
-lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)
-rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)</code></pre></div>
+lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)
+rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</code></pre></div>
 </div>
 <div id="audit-of-observations" class="section level1">
 <h1 class="hasAnchor">
@@ -164,12 +171,12 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 
 <span class="kw">head</span>(lm_oi)</code></pre></div>
 <pre><code>##       cooks.dist label index
-## 320  0.003634294    lm   320
-## 1320 0.003634294    lm  1320
-## 2320 0.003634294    lm  2320
-## 3320 0.003634294    lm  3320
-## 4320 0.003634294    lm  4320
-## 5320 0.003634294    lm  5320</code></pre>
+## 1744 0.016856928    lm  1744
+## 1100 0.010160460    lm  1100
+## 29   0.009422205    lm    29
+## 1908 0.008938871    lm  1908
+## 7    0.006788849    lm     7
+## 826  0.006061949    lm   826</code></pre>
 <p>Some plots may require specified variable or fitted values for <code>modelResidual</code> object.</p>
 <div id="cooks-distances" class="section level3">
 <h3 class="hasAnchor">
@@ -202,7 +209,7 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#which-observations-are-outlyers">Which observations are outlyers?</a></li>
-      <li><a href="#regression-use-case---apartments-data">Regression use case - apartments data</a></li>
+      <li><a href="#regression-use-case---dragons-data">Regression use case - dragons data</a></li>
       <li>
 <a href="#models">Models</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#linear-model">Linear model</a></li>

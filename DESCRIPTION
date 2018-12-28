@@ -28,7 +28,7 @@ Imports: car,
 RoxygenNote: 6.1.1
 Suggests: aods3,
     breakDown,
-    DALEX,
+    DALEX2,
     e1071,
     gamlss,
     knitr,

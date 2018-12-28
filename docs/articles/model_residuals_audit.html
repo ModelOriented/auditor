@@ -82,7 +82,7 @@
       <h1>Model Residuals Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-09-12</h4>
+            <h4 class="date">2018-12-28</h4>
       
       
       <div class="hidden name"><code>model_residuals_audit.Rmd</code></div>
@@ -94,20 +94,27 @@
 <p>This vignette demonstrates how to use the <em>auditor</em> package for auditing residuals of models. The auditor provides methods for model verification and validation by error analysis.</p>
 <p>Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors.</p>
 <p>Some of the graphical error analysis methods also have corresponding scores, which allow comparison of two models.</p>
-<div id="regression-use-case---apartments-data" class="section level1">
+<div id="regression-use-case---dragons-data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#regression-use-case---apartments-data" class="anchor"></a>Regression use case - apartments data</h1>
-<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset apartments available in the <a href="https://pbiecek.github.io/DALEX/"><em>DALEX</em></a> package. Our goal is to predict the price per square meter of an apartment based on selected features such as construction year, surface, floor, number of rooms, district. It should be noted that four of these variables are continuous while the fifth one is a categorical one. Prices are given in Euro.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX)
-<span class="kw">data</span>(<span class="st">"apartments"</span>)
-<span class="kw">head</span>(apartments)</code></pre></div>
-<pre><code>##   m2.price construction.year surface floor no.rooms    district
-## 1     5897              1953      25     3        1 Srodmiescie
-## 2     1818              1992     143     9        5     Bielany
-## 3     3643              1937      56     1        2       Praga
-## 4     3517              1995      93     7        3      Ochota
-## 5     3013              1992     144     6        5     Mokotow
-## 6     5795              1926      61     6        2 Srodmiescie</code></pre>
+<a href="#regression-use-case---dragons-data" class="anchor"></a>Regression use case - dragons data</h1>
+<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset dragons available in the <a href="https://github.com/ModelOriented/DALEX2"><em>DALEX2</em></a> package. Our goal is to predict the length of life of dragons.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX2)
+<span class="kw">data</span>(<span class="st">"dragons"</span>)
+<span class="kw">head</span>(dragons)</code></pre></div>
+<pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
+## 1         -1291 59.40365 15.32391     7    red              1700
+## 2          1589 46.21374 11.80819     5    red              1700
+## 3          1528 49.17233 13.34482     6    red              1700
+## 4          1645 48.29177 13.27427     5  green              1700
+## 5            -8 49.99679 13.08757     1    red              1700
+## 6           915 45.40876 11.48717     2    red              1700
+##   number_of_lost_teeth life_length
+## 1                   25   1368.4331
+## 2                   28   1377.0474
+## 3                   38   1603.9632
+## 4                   33   1434.4222
+## 5                   18    985.4905
+## 6                   20    969.5682</code></pre>
 </div>
 <div id="models" class="section level1">
 <h1 class="hasAnchor">
@@ -115,14 +122,14 @@
 <div id="linear-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-model" class="anchor"></a>Linear model</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st"> </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
 </div>
 <div id="random-forest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#random-forest" class="anchor"></a>Random forest</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"randomForest"</span>)
 <span class="kw">set.seed</span>(<span class="dv">59</span>)
-rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.price <span class="op">~</span><span class="st"> </span>construction.year <span class="op">+</span><span class="st"> </span>surface <span class="op">+</span><span class="st"> </span>floor <span class="op">+</span><span class="st">  </span>no.rooms <span class="op">+</span><span class="st"> </span>district, <span class="dt">data =</span> apartments)</code></pre></div>
+rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
 </div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
@@ -131,8 +138,8 @@ rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(m2.p
 <p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
 
-lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)
-rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> apartmentsTest, <span class="dt">y =</span> apartmentsTest<span class="op">$</span>m2.price)</code></pre></div>
+lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)
+rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</code></pre></div>
 </div>
 <div id="audit-of-residuals" class="section level1">
 <h1 class="hasAnchor">
@@ -164,28 +171,35 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit)
 
 <span class="kw">head</span>(lm_mr)</code></pre></div>
-<pre><code>##   label       res val variable    y fitted.values    std.res index
-## 1    lm -176.0094   1       NA 4644      4820.009 -0.6218021  1001
-## 2    lm -210.6776   2       NA 3082      3292.678 -0.7442769  1002
-## 3    lm -219.9097   3       NA 2498      2717.910 -0.7768920  1003
-## 4    lm -187.7511   4       NA 2735      2922.751 -0.6632827  1004
-## 5    lm -193.0858   5       NA 2781      2974.086 -0.6821291  1005
-## 6    lm  408.9568   6       NA 2936      2527.043  1.4447532  1006</code></pre>
+<pre><code>##   label       res val variable         y fitted.values    std.res index
+## 1    lm -14.72707   1       NA 1368.4331     1383.1602 -0.3617580     1
+## 2    lm  80.72393   2       NA 1377.0474     1296.3235  1.9829147     2
+## 3    lm  64.16099   3       NA 1603.9632     1539.8022  1.5760602     3
+## 4    lm  35.38060   4       NA 1434.4222     1399.0416  0.8690943     4
+## 5    lm  12.70785   5       NA  985.4905      972.7826  0.3121576     5
+## 6    lm -61.54707   6       NA  969.5682     1031.1152 -1.5118515     6</code></pre>
 <p>Some plots may require specified variable or fitted values for <code>modelResidual</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_district &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)
-rf_mr_district &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"district"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_year &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)
+rf_mr_year &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)
 
 lm_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
 rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
 
-<span class="kw">head</span>(lm_mr_district)</code></pre></div>
-<pre><code>##   label       res    val variable    y fitted.values    std.res index
-## 1    lm -193.0858 Bemowo district 2781      2974.086 -0.6821291  1005
-## 2    lm  408.9568 Bemowo district 2936      2527.043  1.4447532  1006
-## 3    lm -190.4866 Bemowo district 3010      3200.487 -0.6729468  1007
-## 4    lm -187.2122 Bemowo district 2593      2780.212 -0.6613788  1009
-## 5    lm -197.6170 Bemowo district 2792      2989.617 -0.6981369  1016
-## 6    lm -205.4415 Bemowo district 2550      2755.441 -0.7257788  1024</code></pre>
+<span class="kw">head</span>(lm_mr_year)</code></pre></div>
+<pre><code>##   label       res  val          variable         y fitted.values
+## 1    lm -14.72707 1700 year_of_discovery 1368.4331     1383.1602
+## 2    lm  80.72393 1700 year_of_discovery 1377.0474     1296.3235
+## 3    lm  64.16099 1700 year_of_discovery 1603.9632     1539.8022
+## 4    lm  35.38060 1700 year_of_discovery 1434.4222     1399.0416
+## 5    lm  12.70785 1700 year_of_discovery  985.4905      972.7826
+## 6    lm -61.54707 1700 year_of_discovery  969.5682     1031.1152
+##      std.res index
+## 1 -0.3617580     1
+## 2  1.9829147     2
+## 3  1.5760602     3
+## 4  0.8690943     4
+## 5  0.3121576     5
+## 6 -1.5118515     6</code></pre>
 </div>
 <div id="plots" class="section level2">
 <h2 class="hasAnchor">
@@ -195,11 +209,11 @@ rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 <a href="#plotacf---autocorrelation-function-of-residuals" class="anchor"></a>plotACF() - Autocorrelation Function of Residuals</h3>
 <p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
 <p>Residuals may be ordered by values of any model variable or by fitted values. If variable is not specified, function takes order from the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_surface &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"surface"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_surface &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)
 <span class="kw">plot</span>(lm_mr_surface, <span class="dt">type =</span> <span class="st">"ACF"</span>)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotACF(lm_audit, variable = "surface")</span></code></pre></div>
+<span class="co"># plotACF(lm_audit, variable = "year_of_discovery")</span></code></pre></div>
 </div>
 <div id="plotautocorrelation---autocorrelation-of-residuals" class="section level3">
 <h3 class="hasAnchor">
@@ -216,9 +230,9 @@ rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 rf_score_Runs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreRuns.html">scoreRuns</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
 
 rf_score_DW<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] 0.7958427</code></pre>
+<pre><code>## [1] 0.651724</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf_score_Runs<span class="op">$</span>score</code></pre></div>
-<pre><code>## [1] -40.71628</code></pre>
+<pre><code>## [1] -11.21878</code></pre>
 </div>
 <div id="plotmodelcorrelation---correlation-of-models" class="section level3">
 <h3 class="hasAnchor">
@@ -243,13 +257,13 @@ rf_score_DW<span class="op">$</span>score</code></pre></div>
 <a href="#plotpredition---observed-vs-predicted" class="anchor"></a>plotPredition() - Observed vs Predicted</h3>
 <p>Basic plot of residuals vs observed, fitted or variable values. If variable is not specified, function takes order from the data set.</p>
 <p>Black line corresponds to the y=x function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)
-rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"m2.price"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"life_length"</span>)
+rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"life_length"</span>)
 
 <span class="kw">plot</span>(rf_mr_m2, lm_mr_m2, <span class="dt">type =</span> <span class="st">"Prediction"</span>)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotPrediction(rf_audit, lm_audit, variable = "m2.price")</span></code></pre></div>
+<span class="co"># plotPrediction(rf_audit, lm_audit, variable = "life_length")</span></code></pre></div>
 <p>Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
@@ -300,11 +314,11 @@ rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mo
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_m2, rf_mr_m2)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "m2.price")</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_district, rf_mr_district)</code></pre></div>
+<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "life_length")</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_year, rf_mr_year)</code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "district")</span></code></pre></div>
+<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "year_of_discovery")</span></code></pre></div>
 </div>
 <div id="plotrroc---regression-receiver-operating-characteristic-rroc" class="section level3">
 <h3 class="hasAnchor">
@@ -357,7 +371,7 @@ rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mo
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#regression-use-case---apartments-data">Regression use case - apartments data</a></li>
+<li><a href="#regression-use-case---dragons-data">Regression use case - dragons data</a></li>
       <li>
 <a href="#models">Models</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#linear-model">Linear model</a></li>

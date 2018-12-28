@@ -1,5 +1,4 @@
 library(auditor)
-library(DALEX)
 library(car)
 library(MASS)
 library(randomForest)
