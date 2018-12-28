@@ -1,6 +1,6 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre")),
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"))
@@ -31,7 +31,6 @@ Suggests: aods3,
     DALEX,
     e1071,
     gamlss,
-    ggplot2,
     knitr,
     lme4,
     MASS,
