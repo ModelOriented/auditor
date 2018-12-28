@@ -1,6 +1,7 @@
 library(auditor)
 library(car)
 library(MASS)
+library(DALEX2)
 library(randomForest)
 library(mlbench)
 data("PimaIndiansDiabetes")
