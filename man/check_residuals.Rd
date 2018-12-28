@@ -27,10 +27,12 @@ lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
 check_residuals(lm_au)
  \dontrun{
  library("DALEX2")
+ dragons <- DALEX2::dragons
  library("ranger")
+ rf_model <- ranger(life_length ~ ., data = dragons)
  predict_function <- function(m,x,...) predict(m, x, ...)$predictions
- model_old <- ranger(m2.price ~ ., data = apartments)
- rf_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+ rf_au <- audit(rf_model, data = dragons, y = dragons$life_length,
+           predict.function = predict_function)
  check_residuals(rf_au)
 }
 }

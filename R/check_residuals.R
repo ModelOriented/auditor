@@ -20,10 +20,12 @@
 #' check_residuals(lm_au)
 #'  \dontrun{
 #'  library("DALEX2")
+#'  dragons <- DALEX2::dragons
 #'  library("ranger")
+#'  rf_model <- ranger(life_length ~ ., data = dragons)
 #'  predict_function <- function(m,x,...) predict(m, x, ...)$predictions
-#'  model_old <- ranger(m2.price ~ ., data = apartments)
-#'  rf_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#'  rf_au <- audit(rf_model, data = dragons, y = dragons$life_length,
+#'            predict.function = predict_function)
 #'  check_residuals(rf_au)
 #' }
 check_residuals <- function(model, ...) {
@@ -149,7 +151,7 @@ check_residuals_trend <- function(model, B = 20) {
   cat("   Checks for trend in residuals\n")
   cat("  -----------------------------------------------\n")
   cat("    Model name: ", model_name, "\n")
-  cat("    Standardised loess fit: ", sprintf("%+2.2f", coef0), "   ", stars(coef0, c(3,5,10,20)),"\n")
+  cat("    Standardised loess fit: ", sprintf("%+2.2f", coef0), "   ", stars(coef0, c(5,10,20,30)),"\n")
   invisible(list(loess_standardised_fit = coef0,
                  loess_sd_fit = score0))
 }
