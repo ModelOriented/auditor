@@ -78,11 +78,12 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    <div id="the-auditor-package---model-verification-validation-and-error-analysis" class="section level1">
+    
+<div id="the-auditor-package---model-verification-validation-and-error-analysis" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#the-auditor-package---model-verification-validation-and-error-analysis" class="anchor"></a>The auditor package - model verification, validation, and error analysis</h1></div>
 <p><img src="materials/auditor2.png" width="20%" align="right"></p>
-<p><a href="https://cran.r-project.org/package=auditor"><img src="http://www.r-pkg.org/badges/version/auditor" alt="CRAN_Status_Badge"></a> <a href="http://cranlogs.r-pkg.org/badges/grand-total/auditor"><img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" alt="Total Downloads"></a> <a href="https://travis-ci.org/MI2DataLab/auditor"><img src="https://travis-ci.org/MI2DataLab/auditor.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/mi2datalab/auditor?branch=master"><img src="https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg" alt="Coverage Status"></a> <a href="https://mybinder.org/v2/gh/mi2datalab/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a> <a href="https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2datalab/auditor%0A&amp;hashtags=rstats,erroranalysis,machinelearning,audit"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></p>
+<p><a href="https://cran.r-project.org/package=auditor"><img src="http://www.r-pkg.org/badges/version/auditor" alt="CRAN_Status_Badge"></a> <a href="http://cranlogs.r-pkg.org/badges/grand-total/auditor"><img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" alt="Total Downloads"></a> <a href="https://travis-ci.org/MI2DataLab/auditor"><img src="https://travis-ci.org/MI2DataLab/auditor.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/mi2datalab/auditor?branch=master"><img src="https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg" alt="Coverage Status"></a> <a href="https://hub.mybinder.org/user/mi2datalab-auditor-qzj1zvt8/notebooks/jupyter-notebooks/auditor_dragons_demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a> <a href="https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2datalab/auditor%0A&amp;hashtags=rstats,erroranalysis,machinelearning,audit"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></p>
 <p><img src="materials/auditorLogo.png" width="20%"></p>
 <div id="auditors-pipeline-model-audit-plottype" class="section level2">
 <h2 class="hasAnchor">
@@ -90,13 +91,18 @@
 </h2>
 <p><img src="materials/demo.png" width="800" align="center"></p>
 </div>
+</div>
+<div id="preprint" class="section level1">
+<h1 class="hasAnchor">
+<a href="#preprint" class="anchor"></a>Preprint</h1>
+<p>A <a href="https://arxiv.org/abs/1809.07763">preprint of the article about auditor</a> is available on arxiv.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div id="from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-github" class="anchor"></a>from GitHub</h3>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("mi2datalab/auditor")</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("mi2datalab/auditor")</a></code></pre>
 </div>
 <div id="and-from-cran" class="section level3">
 <h3 class="hasAnchor">
@@ -143,14 +149,6 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 # plots above are availible also via plotResidual(), plotPrediction() and plotModelCorrelation() functions</code></pre>
 <p>For more plot types and examples see <em>A Short Overview of Plots</em> section below.</p>
 </div>
-<div id="vignettes-in-preparation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#vignettes-in-preparation" class="anchor"></a>Vignettes (in Preparation)</h2>
-<ul>
-<li><p><a href="https://mi2datalab.github.io/auditor/articles/Intorduction_into_model_audit.html">Introduction into model audit</a></p></li>
-<li><p><a href="https://mi2datalab.github.io/auditor/articles/HalfNormal.html">The Half-normal Plots</a></p></li>
-</ul>
-</div>
 <div id="cheatsheets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cheatsheets" class="anchor"></a>Cheatsheets</h2>
@@ -159,13 +157,13 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <div id="a-short-overview-of-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-short-overview-of-plots" class="anchor"></a>A Short Overview of Plots</h2>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="17%">
 <col width="22%">
-<col width="4%">
+<col width="3%">
 <col width="5%">
-<col width="50%">
+<col width="51%">
 </colgroup>
 <thead><tr class="header">
 <th>Plot name</th>
@@ -336,7 +334,13 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
 <p>Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.</p>
 </div>
+<div id="more" class="section level2">
+<h2 class="hasAnchor">
+<a href="#more" class="anchor"></a>More</h2>
+<p><a href="https://slides.com/jusira/deck/fullscreen">Presentation during Knowledge Network Tech Meetup</a></p>
 </div>
+</div>
+
   </div>
 
   <div class="col-md-3" id="sidebar">
@@ -360,6 +364,12 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <h2>License</h2>
 <ul class="list-unstyled">
 <li>GPL</li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing auditor</a></li>
 </ul>
 </div>
 <div class="developers">

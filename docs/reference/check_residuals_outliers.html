@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Autocorrelation Plot — plotAutocorrelation • auditor</title>
+<title>Checks for outliers — check_residuals_outliers • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Autocorrelation Plot</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Checks for outliers</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,54 +103,55 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Autocorrelation Plot</h1>
+    <h1>Checks for outliers</h1>
     </div>
 
     
-    <p>Plot of i-th residual vs i+1-th residual.</p>
+    <p>Checks for outliers</p>
     
 
-    <pre class="usage"><span class='fu'>plotAutocorrelation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>check_residuals_outliers</span>(<span class='no'>model</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>An object of class modelAudit or modelResiduals.</p></td>
+      <th>model</th>
+      <td><p>an object of the class `modelAudit`</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other modelAudit or modelResiduals objects to be plotted together.</p></td>
-    </tr>
-    <tr>
-      <th>variable</th>
-      <td><p>Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
-    </tr>
-    <tr>
-      <th>score</th>
-      <td><p>Logical, if TRUE values of <a href='scoreDW.html'>scoreDW</a> and <a href='scoreRuns.html'>scoreRuns</a> will be added to plot.</p></td>
-    </tr>
-    <tr>
-      <th>line</th>
-      <td><p>Logical, if TRUE smooth line will be added.</p></td>
+      <th>n</th>
+      <td><p>number of lowest and highest standardized  residuals to be presented</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>indexes of lowest and highest standardized  residuals</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plotAutocorrelation</span>(<span class='no'>lm_au</span>)</div><div class='img'><img src='plotAutocorrelation-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>check_residuals_outliers</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
+#&gt;    Checks for outliers
+#&gt;   -----------------------------------------------
+#&gt;     Model name:  lm 
+#&gt;     Shift &gt; 1:  0 ( 0 %) 
+#&gt;     Shift &gt; 2:  0 ( 0 %) 
+#&gt;     Top lowest standardised residuals: 
+#&gt;      -2.5649 (53), -2.1354 (46), -1.8837 (54), -1.8557 (41), -1.7617 (61) 
+#&gt;     Top highest standardised residuals: 
+#&gt;      2.2648 (67), 2.1225 (82), 2.0597 (29), 1.8916 (31), 1.8274 (27) </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predicted response vs Observed or Variable Values — plotPrediction • auditor</title>
+<title>Automated tests for model residuals — check_residuals • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
         <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Predicted response vs Observed or Variable Values</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Automated tests for model residuals</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,71 +103,95 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predicted response vs Observed or Variable Values</h1>
+    <h1>Automated tests for model residuals</h1>
     </div>
 
     
-    <p>Plot of predicted response vs observed or variable Values.</p>
+    <p>Currently three tests are performed
+ - for outliers in residuals
+ - for autocorrelation in target variable or in residuals
+ - for trend in residuals as a function of target variable (detection of bias)</p>
     
 
-    <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>abline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>check_residuals</span>(<span class='no'>model</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>An object of class modelAudit or modelResiduals.</p></td>
+      <th>model</th>
+      <td><p>An object of class `modelAudit`</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other modelAudit or modelResiduals objects to be plotted together.</p></td>
-    </tr>
-    <tr>
-      <th>variable</th>
-      <td><p>Only for modelAudit objects. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
-    </tr>
-    <tr>
-      <th>smooth</th>
-      <td><p>Logical, indicates whenever smooth line should be added.</p></td>
-    </tr>
-    <tr>
-      <th>abline</th>
-      <td><p>Logical, indicates whenever function y=x shoulbe added.</p></td>
-    </tr>
-    <tr>
-      <th>split</th>
-      <td><p>Character. If "model" plot will be splitted by model.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Numeric. Opacity of points.</p></td>
+      <td><p>other parameters that will be passed to further functions</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p><code><a href='plot.modelAudit.html'>plot.modelAudit</a></code></p></div>
+    <p>list with statistics for particualr checks</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plotPrediction</span>(<span class='no'>lm_au</span>)</div><div class='img'><img src='plotPrediction-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>library</span>(<span class='no'>randomForest</span>)
-<span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plotPrediction</span>(<span class='no'>lm_au</span>, <span class='no'>rf_au</span>)</div><div class='img'><img src='plotPrediction-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>check_residuals</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;   ----------------------------------------------
+#&gt;   Checks for autocorelation
+#&gt;   ----------------------------------------------
+#&gt;     Model name:  lm 
+#&gt;     Autocorrelation in residuals:  +0.15     . 
+#&gt;     Autocorrelation in target:     +0.69     *** 
+#&gt;   -----------------------------------------------
+#&gt;    Checks for outliers
+#&gt;   -----------------------------------------------
+#&gt;     Model name:  lm 
+#&gt;     Shift &gt; 1:  0 ( 0 %) 
+#&gt;     Shift &gt; 2:  0 ( 0 %) 
+#&gt;     Top lowest standardised residuals: 
+#&gt;      -2.5649 (53), -2.1354 (46), -1.8837 (54), -1.8557 (41), -1.7617 (61) 
+#&gt;     Top highest standardised residuals: 
+#&gt;      2.2648 (67), 2.1225 (82), 2.0597 (29), 1.8916 (31), 1.8274 (27) 
+#&gt;   -----------------------------------------------
+#&gt;    Checks for trend in residuals
+#&gt;   -----------------------------------------------
+#&gt;     Model name:  rf 
+#&gt;     Standardised loess fit:  +7.32     * </div><div class='input'> </div><div class='input'> <span class='fu'>library</span>(<span class='st'>"DALEX2"</span>)
+ <span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX2</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/DALEX2/topics/dragons'>dragons</a></span>
+ <span class='fu'>library</span>(<span class='st'>"ranger"</span>)
+ <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ranger/topics/ranger'>ranger</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+ <span class='no'>predict_function</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>m</span>,<span class='no'>x</span>,<span class='no'>...</span>) <span class='fu'>predict</span>(<span class='no'>m</span>, <span class='no'>x</span>, <span class='no'>...</span>)$<span class='no'>predictions</span>
+ <span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>,
+           <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='no'>predict_function</span>)
+ <span class='fu'>check_residuals</span>(<span class='no'>rf_au</span>)</div><div class='output co'>#&gt;   ----------------------------------------------
+#&gt;   Checks for autocorelation
+#&gt;   ----------------------------------------------
+#&gt;     Model name:  ranger 
+#&gt;     Autocorrelation in residuals:  +0.01      
+#&gt;     Autocorrelation in target:     +0.01      
+#&gt;   -----------------------------------------------
+#&gt;    Checks for outliers
+#&gt;   -----------------------------------------------
+#&gt;     Model name:  ranger 
+#&gt;     Shift &gt; 1:  21 ( 1.1 %) 
+#&gt;     Shift &gt; 2:  14 ( 0.7 %) 
+#&gt;     Top lowest standardised residuals: 
+#&gt;      -2.7587 (1829), -2.5954 (920), -2.4492 (1180), -2.3263 (267), -2.3183 (395) 
+#&gt;     Top highest standardised residuals: 
+#&gt;      14.926 (1914), 10.764 (1745), 9.6519 (1111), 9.1779 (1532), 8.2339 (1737) 
+#&gt;   -----------------------------------------------
+#&gt;    Checks for trend in residuals
+#&gt;   -----------------------------------------------
+#&gt;     Model name:  rf 
+#&gt;     Standardised loess fit:  +59.31     *** </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
