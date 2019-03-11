@@ -62,7 +62,7 @@ plot(au_lm, au_rf, type = "Residual")
 plot(au_lm, au_rf, variable = "wt", type = "Prediction")
 
 plot(au_lm, au_rf, type = "ModelCorrelation")
-plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
+plot(au_lm, au_rf, values = "wt", type = "ModelCorrelation")
 
 # plots above are availible also via plotResidual(), plotPrediction() and plotModelCorrelation() functions
 ```
