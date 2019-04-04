@@ -38,8 +38,7 @@ plotResidual <- function(object, ..., variable = NULL, points = TRUE, lines = FA
 
   df <- object
   dfl <- list(...)
-  length_dfl <- length(dfl)
-  if (length_dfl > 0) {
+  if (length(dfl) > 0) {
     for (resp in dfl) {
       if ("modelAudit" %in% class(resp)) df <- rbind(df, modelResiduals(resp, variable))
       if ("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
@@ -58,35 +57,10 @@ plotResidual <- function(object, ..., variable = NULL, points = TRUE, lines = FA
   maybe_labels <- df[order(abs(df$res), decreasing = TRUE),][0:nlabel, ] # ?????
 
   # depending of how many models are presented (1 or more) - colors and other values are changing
-  if (length_dfl == 0) {
-    point_breaks <- 1
-    point_labels <- maybe_points$label[1]
-    lines_colour <- c("#371ea3")
+  colours <- theme_drwhy_colors(length(unique(df$label)))
 
-    # lets add some dummy factor level in other to make points more vivid
-    maybe_points$label <- as.character(maybe_points$label)
-    maybe_points <- rbind(maybe_points, tail(maybe_points, 1))
-    maybe_points$label[length(maybe_points$label)] <- "xyz"
-    maybe_points$label <- as.factor(maybe_points$label)
-
-  } else {
-    point_breaks <- 1:2
-    point_labels <- unique(maybe_points$label)
-    lines_colour <- c("#ceced9", "#371ea3")
-  }
-
-  # variable needed for alpha scale
-  maybe_points$label_number <- as.integer(maybe_points$label)
-
-  p <- ggplot(df, aes(val, res)) +
-    geom_point(data = maybe_points,
-               aes(alpha = label_number),
-               stroke = 0,
-               colour = ifelse(lines == FALSE, "#371ea3", "#46bac2")) +
-    scale_alpha(range = c(1, 0.3),
-                breaks = point_breaks,
-                labels = point_labels,
-                guide = ifelse(lines == FALSE, "legend", "none")) +
+  p <- ggplot() +
+    geom_point(data = df, aes(val, res, color = label), alpha = ifelse(lines == TRUE, 0.65, 1), stroke = 0) +
     geom_line(data = maybe_lines,
               aes(val, res, colour = factor(label, levels = rev(levels(maybe_lines$label)))),
               stat = "smooth",
@@ -94,22 +68,24 @@ plotResidual <- function(object, ..., variable = NULL, points = TRUE, lines = FA
               se = FALSE,
               size = 1,
               show.legend = TRUE) +
-    scale_colour_manual(breaks =  levels(maybe_lines$label),
-                        values = lines_colour,
-                        guide = "legend") +
+    scale_color_manual(values = colours) +
+    xlab("residual i") +
+    ylab("residual i+1") +
+    ggtitle("Autocorrelation plot") +
     theme_drwhy() +
-    theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm"),
-          axis.line.x = element_line(color = "#371ea3")) +
+    theme(axis.line.x = element_line(color = "#371ea3"))+
     geom_text_repel(data = maybe_labels,
                     aes(val, res, label = as.character(index)),
                     hjust = -0.2,
                     vjust = -0.2,
+                    color = theme_drwhy_colors(1),
+                    size = 3.3,
                     show.legend = FALSE)
 
   chart_title <- "Residuals"
 
   if (is.na(df$variable[1])) {
-    variable <- "Wiersze / przypadki jak to nazwać? Bez wartości"
+    variable <- "observations"
     p <- p + scale_x_continuous(breaks = 5, labels = "")
   } else {
     chart_title <- paste0("Residuals vs ", variable)
