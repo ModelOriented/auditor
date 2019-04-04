@@ -5,7 +5,7 @@
 \title{Autocorrelation Plot}
 \usage{
 plotAutocorrelation(object, ..., variable = NULL, score = FALSE,
-  line = FALSE)
+  lines = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -16,7 +16,7 @@ plotAutocorrelation(object, ..., variable = NULL, score = FALSE,
 
 \item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.}
 
-\item{line}{Logical, if TRUE smooth line will be added.}
+\item{lines}{Logical, if TRUE smooth line will be added.}
 }
 \description{
 Plot of i-th residual vs i+1-th residual.
