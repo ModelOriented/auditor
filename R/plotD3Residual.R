@@ -29,7 +29,7 @@
 #' rf_au <- audit(rf_model, label = "rf")
 #' rf_mr <- modelResiduals(rf_au, "income")
 #' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE)
-#' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE, single_plot = F)
+#' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE, single_plot = FALSE)
 #'
 #' @seealso \code{\link{plotResidual}}
 #'
