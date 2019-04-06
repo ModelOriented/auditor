@@ -38,7 +38,9 @@ Suggests: aods3,
     randomForest,
     rmarkdown,
     testthat,
-    covr
+    covr,
+    jsonlite,
+    r2d3
 VignetteBuilder: knitr
 URL: https://mi2datalab.github.io/auditor/
 BugReports: https://github.com/MI2DataLab/auditor/issues
