@@ -191,7 +191,7 @@ function singlePlot(modelName, pData, sData, i) {
                 });
 
         // make nice legend text and boxes
-        var maxLength = 2*d3.max(textWidth)+10;
+        var maxLength = d3.max(textWidth)+30;
         legend.attr("transform", function(d, i) {
             return "translate(" + (margin.left+plotWidth - maxLength*(n-i)) +
             "," + (margin.top - 20) + ")";

@@ -18,17 +18,18 @@
 #'
 #' @examples
 #' library(auditor)
-#' library(DALEX)
+#' library(car)
 #'
-#' lm_model <- lm(m2.price ~ ., data = apartments_test)
-#' lm_au <- audit(lm_model, label ="lm")
-#' plotD3Residual(lm_au, variable = "construction.year", smooth = TRUE)
+#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_au <- audit(lm_model, label = "lm")
+#' plotD3Residual(lm_au, variable = "income")
 #'
 #' library(randomForest)
-#' rf_model <- randomForest(m2.price ~ ., data = apartments_test)
+#' rf_model <- randomForest(prestige~education + women + income, data = Prestige)
 #' rf_au <- audit(rf_model, label = "rf")
-#' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' rf_mr <- modelResiduals(rf_au, "income")
+#' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE)
+#' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE, single_plot = F)
 #'
 #' @seealso \code{\link{plotResidual}}
 #'
