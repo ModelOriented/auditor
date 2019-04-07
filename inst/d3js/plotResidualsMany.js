@@ -2,7 +2,7 @@ var points = options.points, smooth = options.smooth;
 var minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax;
 var variableName = options.variable, n = options.n;
-var yTitle = options.ytitle, chartTitle = options.chartTitle;
+var yTitle = options.yTitle, chartTitle = options.chartTitle;
 var background = options.background;
 
 var plotHeight, plotWidth;
