@@ -14,7 +14,8 @@ var labelsMargin = margin.left - 6;
 var plotTop = margin.top, plotLeft = margin.left;
 
 if (options.scalePlot === true) {
-  var m = Math.ceil((n+1)/2);
+  var m = Math.ceil((n/2);
+  if (n == 2) { m = 2; }
   plotHeight = (h-(m-1)*margin.inner)/m;
   plotWidth = 3*plotHeight/2;
 } else {
