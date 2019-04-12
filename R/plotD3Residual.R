@@ -3,6 +3,8 @@
 #' Function \code{plotD3Residual} plots resudial values vs observed, fitted or variable values in the model.
 #' It uses output from \code{modelAudit} or \code{modelResiduals} function.
 #'
+#' If the picture is not displayed in the viewer, please update your RStudio.
+#'
 #' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
