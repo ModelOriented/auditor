@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,600');
+
+text {
+    fill: #371ea3;
+}
+
+.bigTitle {
+    font-weight: 600;
+    font-size: 18px;
+    text-align: left;
+}
+
+.smallTitle{
+    font-weight: 600;
+    font-size: 13px;
+    text-align: left;
+}
+
+.axisTitle{
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+}
+
+.axisLabel{
+    font-weight:400;
+    font-size: 11px;
+}
+
+.axisLabel .domain{
+    stroke: #371ea3;
+}
+
+.legendTitle{
+    font-weight: 400;
+    font-size: 13px;
+    text-align: left;
+}
+
+.legendLabel{
+    font-weight: 400;
+    font-size: 11px;
+    text-align: left;
+}
+
+.legendBox{
+    fill: #ceced9;
+    opacity: 0.5;
+}
+
+.interceptLine{
+    stroke: #371ea3;
+	stroke-width: 0.5px;
+}
+
+.grid .tick line{
+    stroke: #f0f0f4;
+    stroke-width: 1px;
+}
