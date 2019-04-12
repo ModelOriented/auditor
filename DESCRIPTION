@@ -3,7 +3,9 @@ Title: Model Audit - Verification, Validation, and Error Analysis
 Version: 0.3.2
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre")),
-    person("Przemyslaw", "Biecek", role =  c("aut", "ths"))
+    person("Przemyslaw", "Biecek", role =  c("aut", "ths")),
+    person("Hubert", "Baniecki", role =  c("ctb")),
+    person("Tomasz", "Mikołajczyk", role =  c("ctb"))
   )
 Description: Provides an easy to use unified interface for creating validation plots for any model. 
   The 'auditor' helps to avoid repetitive work consisting of writing code needed to create residual plots. 
