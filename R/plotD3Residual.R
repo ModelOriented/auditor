@@ -50,11 +50,11 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   # chose y
   if (std_residuals == TRUE) {
     y <- "std.res"
-    yTitle <- "standardized residuals"
+    yTitle <- "Standardized residuals"
     chartTitle <- "Standardized residuals vs"
   } else {
     y <- "res"
-    yTitle <- "residuals"
+    yTitle <- "Residuals"
     chartTitle <- "Residuals vs"
   }
 

@@ -7,10 +7,9 @@ var background = options.background;
 
 var plotHeight, plotWidth;
 var margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70};
-var labelsMargin = 94;
 var w = width - margin.left - margin.right;
 var h = height - margin.top - margin.bottom;
-var labelsMargin = margin.left - 6;
+var labelsMargin = margin.left - 8;
 var plotTop = margin.top, plotLeft = margin.left;
 
 if (options.scalePlot === true) {
@@ -69,14 +68,6 @@ function singlePlot(modelName, pointData, smoothData, i) {
           .attr("x", plotLeft)
           .attr("y", plotTop - 60)
           .text(chartTitle);
-
-      svg.append("text")
-          .attr("class", "axisTitle")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 15)
-          .attr("x", -(margin.top + 2*plotHeight + margin.inner + margin.bottom)/2)
-          .attr("text-anchor", "middle")
-          .text(yTitle);
     }
 
     svg.append("text")
@@ -235,6 +226,16 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .style("stroke", smoothColor)
         .style("stroke-width", 2);
     }
+
+    if (i==n){
+    	svg.append("text")
+          .attr("class", "axisTitle")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 15)
+          .attr("x", -(margin.top + plotTop + plotHeight)/2)
+          .attr("text-anchor", "middle")
+          .text(yTitle);
+ 	}
 
     if (i%2 === 1){
       plotLeft += (25 + plotWidth);

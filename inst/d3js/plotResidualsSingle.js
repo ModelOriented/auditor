@@ -6,7 +6,6 @@ var yTitle = options.yTitle, chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth;
 var margin = {top: 98, right: 30, bottom: 71, left: 120, inner: 42};
-var labelsMargin = 94;
 var w = width - margin.left - margin.right;
 var h = height - margin.top - margin.bottom;
 var labelsMargin = margin.left - 8;
