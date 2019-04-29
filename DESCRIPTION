@@ -45,7 +45,8 @@ Suggests: aods3,
     covr,
     jsonlite,
     r2d3,
-    mgcv
+    mgcv,
+    DALEX
 VignetteBuilder: knitr
 URL: https://mi2datalab.github.io/auditor/
 BugReports: https://github.com/MI2DataLab/auditor/issues
