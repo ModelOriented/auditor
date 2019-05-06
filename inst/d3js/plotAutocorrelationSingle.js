@@ -49,7 +49,7 @@ function autocorrelation(data){
 }
 
 function singlePlot(modelName, pData, sData, scoreText, i) {
-
+  
     var x = d3.scaleLinear()
           .range([margin.left + 10, margin.left + plotWidth - 10])
           .domain([xmin, xmax]);
@@ -86,6 +86,20 @@ function singlePlot(modelName, pData, sData, scoreText, i) {
                 "translate(" + (margin.left + plotWidth/2) + " ," + (margin.top + plotHeight + 50) + ")")
           .attr("text-anchor", "middle")
           .text(xTitle);
+      
+      if (score === true) {
+        svg.append("text")
+          .attr("class", "scoreText1")
+          .attr("x", margin.left + 30)
+          .attr("y", margin.top + 17)
+          .style("font-size", "12px");
+          
+         svg.append("text")
+          .attr("class", "scoreText2")
+          .attr("x", margin.left + 30)
+          .attr("y", margin.top + 33)
+          .style("font-size", "12px"); 
+      }
 
       // find 5 nice ticks with max and min - do better than d3
       var domain = x.domain();
@@ -150,7 +164,7 @@ function singlePlot(modelName, pData, sData, scoreText, i) {
                       .tickSize(-plotHeight)
                       .tickFormat("")
               ).call(g => g.select(".domain").remove());
-
+              
       var xAxis = d3.axisBottom(x)
                 .tickValues(tickValues)
                 .tickSizeInner(0)
@@ -251,14 +265,14 @@ function singlePlot(modelName, pData, sData, scoreText, i) {
                             .style("opacity", 0.5);
 
                       activeLink = this.id;
-
-                      if (score === true) {
+                      
+                      if (score === true) { 
                         svg.select(".scoreText1")
                           .text("Durbin-Watson Score: " + data[2][activeLink][0]);
                         svg.select(".scoreText2")
-                          .text("Runs Score: " + data[2][activeLink][1]);
+                          .text("Runs Score: " + data[2][activeLink][1]); 
                       }
-
+                          
                       d3.select(this)
                           .style("fill", pointColor)
                           .style("opacity", 1);
@@ -319,19 +333,5 @@ function singlePlot(modelName, pData, sData, scoreText, i) {
         .style("stroke", dSmoothColor)
         .style("opacity", dOpacity)
         .style("stroke-width", 2);
-    }
-
-    if (score === true && i==1) {
-        svg.append("text")
-          .attr("class", "scoreText1")
-          .attr("x", margin.left + 30)
-          .attr("y", margin.top + 17)
-          .style("font-size", "12px");
-
-         svg.append("text")
-          .attr("class", "scoreText2")
-          .attr("x", margin.left + 30)
-          .attr("y", margin.top + 33)
-          .style("font-size", "12px");
     }
 }
