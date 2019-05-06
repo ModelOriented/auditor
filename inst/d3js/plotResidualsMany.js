@@ -1,16 +1,16 @@
-var points = options.points, smooth = options.smooth,
-    minVariable = options.xmin, maxVariable = options.xmax,
-    minResidual = options.ymin, maxResidual = options.ymax,
-    variableName = options.variable, n = options.n,
-    yTitle = options.yTitle, chartTitle = options.chartTitle,
-    background = options.background;
+var points = options.points, smooth = options.smooth;
+var minVariable = options.xmin, maxVariable = options.xmax,
+    minResidual = options.ymin, maxResidual = options.ymax;
+var variableName = options.variable, n = options.n;
+var yTitle = options.yTitle, chartTitle = options.chartTitle;
+var background = options.background;
 
-var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70},
-    w = width - margin.left - margin.right,
-    h = height - margin.top - margin.bottom,
-    labelsMargin = margin.left - 8,
-    plotTop = margin.top, plotLeft = margin.left;
+var plotHeight, plotWidth;
+var margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70};
+var w = width - margin.left - margin.right;
+var h = height - margin.top - margin.bottom;
+var labelsMargin = margin.left - 8;
+var plotTop = margin.top, plotLeft = margin.left;
 
 if (options.scalePlot === true) {
   var m = Math.ceil(n/2);
@@ -26,10 +26,10 @@ var k;
 if (smooth === true) { k = 1; } else { k = 0; }
 var modelNames = Object.keys(data[k]);
 
-var colors = getColors(3, "point"),
-    pointColor = colors[k],
-    smoothColor = colors[0],
-    greyColor = colors[2];
+var colors = getColors(3, "point");
+var pointColor = colors[k];
+var smoothColor = colors[0];
+var greyColor = colors[2];
 
 residual(data);
 
