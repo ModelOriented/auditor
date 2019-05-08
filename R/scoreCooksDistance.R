@@ -34,7 +34,7 @@
 scoreCooksDistance <- function(object, print=TRUE){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
-  if(any(object$model.class=="lm" || object$model.class == "glm")){
+  if(any(object$model.class=="lm") || any(object$model.class == "glm")) {
     return(  cooks.distance(object$model) )
   } else {
     return( computeScoreCook(object$model, object$data, print))
