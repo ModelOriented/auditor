@@ -6,7 +6,7 @@
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param variable Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param points Logical, indicates whenever observations should be added as points.
-#' @param lines Logical, indicates whenever smoothed lines should be added.
+#' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std.residuals Logical, indicates whenever standardized residuals should be used.
 #' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
 #'
@@ -27,7 +27,7 @@
 #' @importFrom ggrepel geom_text_repel
 #'
 #' @export
-plotResidual <- function(object, ..., variable = NULL, points = TRUE, lines = FALSE,
+plotResidual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                          std.residuals = FALSE, nlabel = 0) {
 
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
@@ -53,27 +53,28 @@ plotResidual <- function(object, ..., variable = NULL, points = TRUE, lines = FA
 
   # data frames for each geom
   maybe_points <- if (points == TRUE) df else df[0, ]
-  maybe_lines  <- if (lines  == TRUE) df else df[0, ]
+  maybe_smooth  <- if (smooth  == TRUE) df else df[0, ]
   maybe_labels <- df[order(abs(df$res), decreasing = TRUE),][0:nlabel, ] # ?????
 
   # depending of how many models are presented (1 or more) - colors and other values are changing
   colours <- theme_drwhy_colors(length(unique(df$label)))
 
   p <- ggplot() +
-    geom_point(data = df, aes(val, res, color = label), alpha = ifelse(lines == TRUE, 0.65, 1), stroke = 0) +
-    geom_line(data = maybe_lines,
-              aes(val, res, colour = factor(label, levels = rev(levels(maybe_lines$label)))),
-              stat = "smooth",
-              method = "loess",
-              se = FALSE,
-              size = 1,
-              show.legend = TRUE) +
+    geom_point(data = df,
+               aes(val, res, color = label),
+               alpha = ifelse(smooth == TRUE, 0.65, 1),
+               stroke = 0) +
+    geom_smooth(data = maybe_smooth,
+                aes(val, res, colour = factor(label, levels = rev(levels(maybe_smooth$label)))),
+                stat = "smooth",
+                method = "gam",
+                formula = y ~ s(x, bs = "cs"),
+                se = FALSE,
+                size = 1,
+                show.legend = TRUE) +
     scale_color_manual(values = colours) +
-    xlab("residual i") +
-    ylab("residual i+1") +
-    ggtitle("Autocorrelation plot") +
     theme_drwhy() +
-    theme(axis.line.x = element_line(color = "#371ea3"))+
+    theme(axis.line.x = element_line(color = "#371ea3")) +
     geom_text_repel(data = maybe_labels,
                     aes(val, res, label = as.character(index)),
                     hjust = -0.2,
@@ -85,7 +86,7 @@ plotResidual <- function(object, ..., variable = NULL, points = TRUE, lines = FA
   chart_title <- "Residuals"
 
   if (is.na(df$variable[1])) {
-    variable <- "observations"
+    variable <- "Observations"
     p <- p + scale_x_continuous(breaks = 5, labels = "")
   } else {
     chart_title <- paste0("Residuals vs ", variable)

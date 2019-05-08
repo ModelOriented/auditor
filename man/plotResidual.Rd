@@ -5,7 +5,7 @@
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
 plotResidual(object, ..., variable = NULL, points = TRUE,
-  lines = FALSE, std.residuals = FALSE, nlabel = 0)
+  smooth = FALSE, std.residuals = FALSE, nlabel = 0)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -16,7 +16,7 @@ plotResidual(object, ..., variable = NULL, points = TRUE,
 
 \item{points}{Logical, indicates whenever observations should be added as points.}
 
-\item{lines}{Logical, indicates whenever smoothed lines should be added.}
+\item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
 \item{std.residuals}{Logical, indicates whenever standardized residuals should be used.}
 
