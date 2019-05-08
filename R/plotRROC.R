@@ -58,7 +58,7 @@ plotRROC <- function(object, ...){
   dfl <- list(...)
   if (length(dfl) > 0) {
     for (resp in dfl) {
-      if(class(resp)=="modelAudit" || class(resp)=="modelResiduals"){
+      if(any(class(resp)=="modelAudit") || any(class(resp)=="modelResiduals")){
         if("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
         df <- rbind( df, getRROCDF(resp) )
         err <- sort(resp$fitted.values - resp$y)
