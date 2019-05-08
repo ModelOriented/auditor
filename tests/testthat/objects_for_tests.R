@@ -1,10 +1,12 @@
 library(auditor)
 library(car)
+library(carData)
 library(MASS)
 library(DALEX2)
 library(randomForest)
 library(mlbench)
 data("PimaIndiansDiabetes")
+data("Prestige")
 set.seed(71)
 PimaIndiansDiabetes$diabetes <- ifelse(PimaIndiansDiabetes$diabetes == "pos", 1,0 )
 
