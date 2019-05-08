@@ -18,10 +18,10 @@ test_that("scoreRuns", {
   expect_is(scoreRuns(au.glm, "Prewt"), "scoreAudit")
 })
 
-test_that("scoreCook", {
-  expect_is(scoreCooksDistance(au.lm), "numeric")
-  expect_is(scoreCooksDistance(au.rf), "numeric")
-})
+# test_that("scoreCook", {
+#   expect_is(scoreCooksDistance(au.lm), "numeric")
+#   expect_is(scoreCooksDistance(au.rf), "numeric")
+# })
 
 
 test_that("scoreHalfNormal", {
@@ -35,7 +35,7 @@ test_that("score", {
   expect_is(score(au.lm, "HalfNormal"), "scoreAudit")
   expect_is(score(au.lm, "RMSE"), "scoreAudit")
   expect_is(score(au.class.glm, "ROC"), "scoreAudit")
-  expect_is(score(au.lm, "CooksDistance"), "numeric")
+  # expect_is(score(au.lm, "CooksDistance"), "numeric")
   expect_error(score(model.lm, type = "Runs"))
   expect_error(score(au.lm,"wrongScore"))
 })
