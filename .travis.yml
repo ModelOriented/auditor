@@ -11,7 +11,7 @@ notifications:
 r_packages:
   - covr
 
-script:
+before_install:
   - Rscript misc/fixing_travis.R
 
 after_success:
