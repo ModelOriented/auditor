@@ -5,7 +5,7 @@
 \title{Scale location plot}
 \usage{
 plotScaleLocation(object, ..., variable = NULL, score = FALSE,
-  peaks = TRUE)
+  peaks = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
