@@ -7,7 +7,7 @@ env:
 
 notifications:
   email: false
-  
+
 r_packages:
   - covr
 
