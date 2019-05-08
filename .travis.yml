@@ -7,9 +7,12 @@ env:
 
 notifications:
   email: false
-  
+
 r_packages:
   - covr
+
+script:
+  - Rscript misc/fixing_travis.R
 
 after_success:
 - Rscript -e 'library(covr); codecov()'
