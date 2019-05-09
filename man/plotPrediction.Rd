@@ -5,22 +5,20 @@
 \title{Predicted response vs Observed or Variable Values}
 \usage{
 plotPrediction(object, ..., variable = NULL, smooth = FALSE,
-  abline = TRUE, split = "none", alpha = 0.2)
+  abline = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Only for modelAudit objects. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL data order is taken. If value is "Observed response" the data is ordered
+by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
-\item{abline}{Logical, indicates whenever function y=x shoulbe added.}
-
-\item{split}{Character. If "model" plot will be splitted by model.}
-
-\item{alpha}{Numeric. Opacity of points.}
+\item{abline}{Logical, indicates whenever function y=x shoul be added.}
 }
 \description{
 Plot of predicted response vs observed or variable Values.
@@ -29,12 +27,12 @@ Plot of predicted response vs observed or variable Values.
 library(car)
 lm_model <- lm(prestige~education + women + income, data = Prestige)
 lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
-plotPrediction(lm_au)
+plotPrediction(lm_au, variable = "prestige", abline = TRUE)
 
 library(randomForest)
 rf_model <- randomForest(prestige~education + women + income, data = Prestige)
 rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
-plotPrediction(lm_au, rf_au)
+plotPrediction(lm_au, rf_au, variable = "prestige", smooth = TRUE)
 
 }
 \seealso{
