@@ -8,6 +8,7 @@
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param variable Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param score A logical value. If TRUE value of \link{scorePeak} will be added.
+#' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param peaks A logical value. If TRUE peaks are marked on plot by black dots.
 #'
 #' @examples
@@ -21,10 +22,13 @@
 #' @importFrom stats median
 #'
 #' @export
-plotScaleLocation <- function(object, ..., variable = NULL, score = FALSE, peaks = FALSE) {
+plotScaleLocation <- function(object, ..., variable = NULL, score = FALSE, smooth = FALSE,
+                              peaks = FALSE) {
+
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelResiduals" %in% class(object)) variable <- object$variable[1]
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
+
   values <- sqrt.std.residuals <- peak <- label <- NULL
 
   df <- generateScaleLocationDF(object)
@@ -37,35 +41,51 @@ plotScaleLocation <- function(object, ..., variable = NULL, score = FALSE, peaks
     }
   }
 
-  maybe_peaks <- NULL
-  if (peaks == TRUE) maybe_peaks <- geom_point(data = subset(df, peak == TRUE), color = "#f05a71", shape = 4, size = 2, alpha = 1)
+  # data frames for each geom
+  maybe_peaks  <- maybe_smooth <- NULL
+  maybe_peaks  <- if (peaks == TRUE) subset(df, peak == TRUE) else df[0, ]
+  maybe_smooth <- if (smooth == TRUE) df else df[0, ]
+
+  # depending of how many models are presented (1 or more) - colors and other values are changing
+  colours <- theme_drwhy_colors(length(unique(df$label)))
 
   p <- ggplot(df, aes(x = values, y = sqrt.std.residuals)) +
-    geom_point(aes(colour = label), alpha = 0.65, stroke = 0) +
-    geom_line(aes(colour = factor(label, levels = rev(levels(df$label)))),
-              stat = "smooth",
-              method = "loess",
-              se = FALSE,
-              size = 1,
-              show.legend = TRUE) +
-    maybe_peaks +
-    scale_color_manual(values = theme_drwhy_colors(length(unique(df$label)))) +
+    geom_point(data = df,
+               aes(colour = label),
+               alpha = ifelse(smooth == TRUE, 0.65, 1),
+               stroke = 0) +
+    geom_smooth(data = maybe_smooth,
+                aes(values, sqrt.std.residuals, colour = factor(label, levels = rev(levels(maybe_smooth$label)))),
+                stat = "smooth",
+                method = "gam",
+                formula = y ~ s(x, bs = "cs"),
+                se = FALSE,
+                size = 1,
+                show.legend = TRUE) +
+    geom_point(data = maybe_peaks,
+               color = "#f05a71",
+               shape = 4,
+               size = 2,
+               alpha = 1) +
+    scale_color_manual(values = colours) +
     xlab(variable) +
     ylab("\u221A|Standarized residuals|") +
     ggtitle("Scale Location") +
-    theme_drwhy()
+    theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3"))
+
 
   if (score == TRUE) {
     score <- scorePeak(object, variable)
     caption <- paste("Score Peak:", round(score$score, 2))
-    p <- p + ggplot2::annotate("text",
-                               x = min(df$values),
-                               y = min(df$sqrt.std.residuals),
-                               label = caption,
-                               hjust = 0,
-                               vjust = 0,
-                               size = 3.5,
-                               colour = "#ae2c87")
+    p <- p + annotate("text",
+                      x = min(df$values),
+                      y = min(df$sqrt.std.residuals),
+                      label = caption,
+                      hjust = 0,
+                      vjust = 0,
+                      size = 3.5,
+                      colour = "#ae2c87")
   }
 
   return(p)
