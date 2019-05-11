@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top navbar-mi2" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -77,93 +77,73 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
+    
+
+    
     
 <div id="the-auditor-package---model-verification-validation-and-error-analysis" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#the-auditor-package---model-verification-validation-and-error-analysis" class="anchor"></a>The auditor package - model verification, validation, and error analysis</h1></div>
 <p><img src="materials/auditor2.png" width="20%" align="right"></p>
-<p><a href="https://cran.r-project.org/package=auditor"><img src="http://www.r-pkg.org/badges/version/auditor" alt="CRAN_Status_Badge"></a> <a href="http://cranlogs.r-pkg.org/badges/grand-total/auditor"><img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" alt="Total Downloads"></a> <a href="https://travis-ci.org/MI2DataLab/auditor"><img src="https://travis-ci.org/MI2DataLab/auditor.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/mi2datalab/auditor?branch=master"><img src="https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg" alt="Coverage Status"></a> <a href="https://hub.mybinder.org/user/mi2datalab-auditor-qzj1zvt8/notebooks/jupyter-notebooks/auditor_dragons_demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a> <a href="https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2datalab/auditor%0A&amp;hashtags=rstats,erroranalysis,machinelearning,audit"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></p>
-<p><img src="materials/auditorLogo.png" width="20%"></p>
-<div id="auditors-pipeline-model-audit-plottype" class="section level2">
-<h2 class="hasAnchor">
-<a href="#auditors-pipeline-model-audit-plottype" class="anchor"></a>auditor’s pipeline: <em>model %&gt;% audit() %&gt;% plot(type=…)</em>
-</h2>
-<p><img src="materials/demo.png" width="800" align="center"></p>
-</div>
-</div>
-<div id="preprint" class="section level1">
-<h1 class="hasAnchor">
-<a href="#preprint" class="anchor"></a>Preprint</h1>
-<p>A <a href="https://arxiv.org/abs/1809.07763">preprint of the article about auditor</a> is available on arxiv.</p>
+<p><a href="https://cran.r-project.org/package=auditor"><img src="http://www.r-pkg.org/badges/version/auditor" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor"><a href="https://travis-ci.org/MI2DataLab/auditor"><img src="https://travis-ci.org/MI2DataLab/auditor.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/mi2datalab/auditor?branch=master"><img src="https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg" alt="Coverage Status"></a></p>
+<p>Package <code>auditor</code> is a tool for model-agnostic validation. Implemented techniques facilitate assessing and comparing the goodness of fit and performance of models. In addition, they may be used for the analysis of the similarity of residuals and for the identification of outliers and influential observations. The examination is carried out by diagnostic scores and visual verification. Due to the flexible and consistent grammar, it is simple to validate models of any classes.</p>
+<p>auditor’s pipeline: <em>model %&gt;% audit() %&gt;% plot(type=…)</em></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div id="from-github" class="section level3">
-<h3 class="hasAnchor">
-<a href="#from-github" class="anchor"></a>from GitHub</h3>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("mi2datalab/auditor")</a></code></pre>
-</div>
-<div id="and-from-cran" class="section level3">
-<h3 class="hasAnchor">
-<a href="#and-from-cran" class="anchor"></a>and from CRAN</h3>
-<pre class="{r}"><code>install.packages("auditor")</code></pre>
-</div>
-</div>
-<div id="news" class="section level2">
-<h2 class="hasAnchor">
-<a href="#news" class="anchor"></a><a href="NEWS.html">News</a>
-</h2>
-</div>
-<div id="reference-manual" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reference-manual" class="anchor"></a><a href="https://mi2datalab.github.io/auditor/">Reference Manual</a>
-</h2>
+<p>Stable version from CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"auditor"</span>)</a></code></pre></div>
+<p>Developer version from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/agosiewska/auditor"</span>)</a></code></pre></div>
 </div>
 <div id="demo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#demo" class="anchor"></a>DEMO</h2>
-<p>Run the code below or try the auditor by the online jupyter-notebook: <a href="https://mybinder.org/v2/gh/mi2datalab/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb"><img src="https://mybinder.org/badge.svg" alt="Binder"></a></p>
-<pre><code>library(auditor)
-library(randomForest)
-data(mtcars)
-
-# fitting models
-model_lm &lt;- lm(mpg ~ ., data = mtcars)
-set.seed(123)
-model_rf &lt;- randomForest(mpg ~ ., data = mtcars)
-
-# creating a modelAudit object which contains all necessary components required for further processing
-au_lm &lt;- audit(model_lm)
-au_rf &lt;- audit(model_rf, label = "rf")
-
-# generating plots
-plot(au_lm, type = "Residual")
-plot(au_lm, au_rf, type = "Residual")
-
-plot(au_lm, au_rf, variable = "wt", type = "Prediction")
-
-plot(au_lm, au_rf, type = "ModelCorrelation")
-plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
-
-# plots above are availible also via plotResidual(), plotPrediction() and plotModelCorrelation() functions</code></pre>
-<p>For more plot types and examples see <em>A Short Overview of Plots</em> section below.</p>
+<p>Run the code below or try the auditor.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(randomForest)</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(mtcars)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co"># fitting models</span></a>
+<a class="sourceLine" id="cb3-6" title="6">model_lm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co"># creating a modelAudit object which contains all necessary components required for further processing</span></a>
+<a class="sourceLine" id="cb3-11" title="11">au_lm &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_lm)</a>
+<a class="sourceLine" id="cb3-12" title="12">au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_rf, <span class="dt">label =</span> <span class="st">"rf"</span>)</a>
+<a class="sourceLine" id="cb3-13" title="13"></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co"># generating plots</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="kw"><a href="reference/plotResidual.html">plotResidual</a></span>(au_lm, au_rf, <span class="dt">variable =</span> <span class="st">"wt"</span>, <span class="dt">lines =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
-<div id="cheatsheets" class="section level2">
+<div id="more" class="section level2">
 <h2 class="hasAnchor">
-<a href="#cheatsheets" class="anchor"></a>Cheatsheets</h2>
-<p><img src="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png"><img src="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png"></p>
-</div>
-<div id="a-short-overview-of-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-short-overview-of-plots" class="anchor"></a>A Short Overview of Plots</h2>
-<table style="width:100%;" class="table">
+<a href="#more" class="anchor"></a>More</h2>
+<ul>
+<li><p><a href="NEWS.html">News</a></p></li>
+<li><p><a href="https://mi2datalab.github.io/auditor/">Reference Manual</a></p></li>
+<li>
+<p>Cheatsheets</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png">Error analysis with auditor</a></li>
+<li><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png">ROC plots with auditor</a></li>
+</ul>
+</li>
+<li><p>A <a href="https://arxiv.org/abs/1809.07763">preprint of the article about auditor</a> is available on arxiv.</p></li>
+<li><p>Acknowledgments: Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.</p></li>
+</ul>
+<div id="a-short-overview-of-plots" class="section level3">
+<h3 class="hasAnchor">
+<a href="#a-short-overview-of-plots" class="anchor"></a>A Short Overview of Plots</h3>
+<table class="table table">
 <colgroup>
 <col width="17%">
 <col width="22%">
-<col width="4%">
+<col width="3%">
 <col width="5%">
-<col width="50%">
+<col width="51%">
 </colgroup>
 <thead><tr class="header">
 <th>Plot name</th>
@@ -176,7 +156,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Autocorrelation Function</td>
 <td>
-<code><a href="reference/plotACF.html">plotACF()</a></code>  <code>plot(..., type = "ACF")</code>
+<code><a href="reference/plotACF.html">plotACF()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ACF")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -185,7 +165,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="even">
 <td>Autocorrelation</td>
 <td>
-<code><a href="reference/plotAutocorrelation.html">plotAutocorrelation()</a></code>  <code>plot(..., type = "Autocorrelation")</code>
+<code><a href="reference/plotAutocorrelation.html">plotAutocorrelation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Autocorrelation")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -194,7 +174,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Influence of observations</td>
 <td>
-<code><a href="reference/plotCooksDistance.html">plotCooksDistance()</a></code>  <code>plot(..., type = "CooksDistance")</code>
+<code><a href="reference/plotCooksDistance.html">plotCooksDistance()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "CooksDistance")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -203,7 +183,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="even">
 <td>Half-Normal</td>
 <td>
-<code><a href="reference/plotHalfNormal.html">plotHalfNormal()</a></code>  <code>plot(..., type = "HalfNormal")</code>
+<code><a href="reference/plotHalfNormal.html">plotHalfNormal()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "HalfNormal")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -212,7 +192,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>LIFT Chart</td>
 <td>
-<code><a href="reference/plotLIFT.html">plotLIFT()</a></code>  <code>plot(..., type = "LIFT")</code>
+<code><a href="reference/plotLIFT.html">plotLIFT()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "LIFT")</a></code>
 </td>
 <td>no</td>
 <td>yes</td>
@@ -221,7 +201,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="even">
 <td>Model Correlation</td>
 <td>
-<code><a href="reference/plotModelCorrelation.html">plotModelCorrelation()</a></code>  <code>plot(..., type = "ModelCorrelation")</code>
+<code><a href="reference/plotModelCorrelation.html">plotModelCorrelation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelCorrelation")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -230,7 +210,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Principal Component Analysis of models</td>
 <td>
-<code><a href="reference/plotModelPCA.html">plotModelPCA()</a></code>  <code>plot(..., type = "ModelPCA")</code>
+<code><a href="reference/plotModelPCA.html">plotModelPCA()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelPCA")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -239,7 +219,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="even">
 <td>Model Ranking Plot</td>
 <td>
-<code><a href="reference/plotModelRanking.html">plotModelRanking()</a></code>  <code>plot(..., type = "ModelRanking")</code>
+<code><a href="reference/plotModelRanking.html">plotModelRanking()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelRanking")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -248,7 +228,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Predicted Response vs Observed or Variable Values</td>
 <td>
-<code><a href="reference/plotPrediction.html">plotPrediction()</a></code>  <code>plot(..., type = "Prediction")</code>
+<code><a href="reference/plotPrediction.html">plotPrediction()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Prediction")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -257,7 +237,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="even">
 <td>Regression Error Characteristic Curves (REC)</td>
 <td>
-<code><a href="reference/plotREC.html">plotREC()</a></code>  <code>plot(..., type = "REC")</code>
+<code><a href="reference/plotREC.html">plotREC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "REC")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -266,34 +246,34 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Plot Residuals vs Observed, Fitted or Variable Values</td>
 <td>
-<code><a href="reference/plotResidual.html">plotResidual()</a></code>  <code>plot(..., type = "Residual")</code>
+<code><a href="reference/plotResidual.html">plotResidual()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Residual")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Residual Boxplot</td>
 <td>
-<code><a href="reference/plotResidualBoxplot.html">plotResidualBoxplot()</a></code>  <code>plot(..., type = "ResidualBoxplot")</code>
+<code><a href="reference/plotResidualBoxplot.html">plotResidualBoxplot()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ResidualBoxplot")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidualboxplot---boxplot-of-residuals">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualboxplot---boxplot-of-residuals">Examples</a></td>
 </tr>
 <tr class="odd">
 <td>Residual Density</td>
 <td>
-<code><a href="reference/plotResidualDensity.html">plotResidualDensity()</a></code>  <code>plot(..., type = "ResidualDensity")</code>
+<code><a href="reference/plotResidualDensity.html">plotResidualDensity()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ResidualDensity")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
-<td><a href="https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidualdensity---density-of-residuals">Examples</a></td>
+<td><a href="https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualdensity---density-of-residuals">Examples</a></td>
 </tr>
 <tr class="even">
 <td>Receiver Operating Characteristic (ROC)</td>
 <td>
-<code><a href="reference/plotROC.html">plotROC()</a></code>  <code>plot(..., type = "ROC")</code>
+<code><a href="reference/plotROC.html">plotROC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ROC")</a></code>
 </td>
 <td>no</td>
 <td>yes</td>
@@ -302,7 +282,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Regression Receiver Operating Characteristic (RROC)</td>
 <td>
-<code><a href="reference/plotRROC.html">plotRROC()</a></code>  <code>plot(..., type = "RROC")</code>
+<code><a href="reference/plotRROC.html">plotRROC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "RROC")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -311,7 +291,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="even">
 <td>Scale-Location plot</td>
 <td>
-<code><a href="reference/plotScaleLocation.html">plotScaleLocation()</a></code>  <code>plot(..., type = "ScaleLocation")</code>
+<code><a href="reference/plotScaleLocation.html">plotScaleLocation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ScaleLocation")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -320,7 +300,7 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <tr class="odd">
 <td>Two-sided Cumulative Distribution Function</td>
 <td>
-<code><a href="reference/plotTwoSidedECDF.html">plotTwoSidedECDF()</a></code>  <code>plot(..., type = "TwoSidedECDF")</code>
+<code><a href="reference/plotTwoSidedECDF.html">plotTwoSidedECDF()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "TwoSidedECDF")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -329,26 +309,11 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 </tbody>
 </table>
 </div>
-<div id="acknowledgments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
-<p>Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.</p>
-</div>
-<div id="more" class="section level2">
-<h2 class="hasAnchor">
-<a href="#more" class="anchor"></a>More</h2>
-<p><a href="https://slides.com/jusira/deck/fullscreen">Presentation during Knowledge Network Tech Meetup</a></p>
 </div>
 </div>
-
   </div>
 
-  <div class="col-md-3" id="sidebar">
-  	<div class="sidebar-logo">
-	 <p>
-		This package is developed by the <a href="http://mi2.mini.pw.edu.pl">MI^2 group</a>. MI^2 (pronounce: Am I square?) is a group of mathematicians and computer scientists that love to play with data. We create tools, do consulting and share our positive attitude. 
-	 </p>
-	</div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -375,12 +340,14 @@ plot(au_lm, au_rf, variable = "wt", type = "ModelCorrelation")
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Alicja Gosiewska <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Przemyslaw Biecek <br><small class="roles"> Author, thesis advisor </small>  </li>
+<li>Alicja Gosiewska <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6563-5742" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Przemyslaw Biecek <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0001-8423-1823" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
-  </div>
+      </div>
+
 </div>
 
 

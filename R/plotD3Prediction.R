@@ -1,5 +1,6 @@
 #' @title Plot TODO
 #'
+#' @description
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
 #' @param object An object of class modelAudit or modelResiduals.

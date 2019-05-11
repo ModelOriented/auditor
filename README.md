@@ -4,7 +4,7 @@
 <img src="materials/auditor2.png" width="20%" align="right" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
-<http://cranlogs.r-pkg.org/badges/grand-total/auditor> 
+<img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" />
 [![Build
 Status](https://travis-ci.org/MI2DataLab/auditor.svg?branch=master)](https://travis-ci.org/MI2DataLab/auditor)
 [![Coverage
@@ -34,7 +34,7 @@ Developer version from GitHub:
 source("https://install-github.me/agosiewska/auditor")
 ```
 
-## DEMO
+## Demo
 
 Run the code below or try the auditor.
 
@@ -53,7 +53,7 @@ au_lm <- audit(model_lm)
 au_rf <- audit(model_rf, label = "rf")
 
 # generating plots
-plotResidual(au_lm, au_rf, lines = TRUE)
+plotResidual(au_lm, au_rf, variable = "wt", lines = TRUE)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
@@ -78,7 +78,7 @@ plotResidual(au_lm, au_rf, lines = TRUE)
     the ‘NCN Opus grant
 2016/21/B/ST6/02176’.
 
-### A Short Overview of Plots
+### A short overview of the plots
 
 | Plot name                                             | Function                                                              | Regression | Classification | Examples                                                                                                                                                          |
 | ----------------------------------------------------- | --------------------------------------------------------------------- | ---------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -92,7 +92,7 @@ plotResidual(au_lm, au_rf, lines = TRUE)
 | Model Ranking Plot                                    | `plotModelRanking()` </br> `plot(..., type = "ModelRanking")`         | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html)                                                                            |
 | Predicted Response vs Observed or Variable Values     | `plotPrediction()` </br> `plot(..., type = "Prediction")`             | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotpredition---observed-vs-predicted)                                        |
 | Regression Error Characteristic Curves (REC)          | `plotREC()` </br> `plot(..., type = "REC")`                           | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrec---regression-error-characteristic-rec-curve)                          |
-| Plot Residuals vs Observed, Fitted or Variable Values | `plotResidual()` </br> `plot(..., type = "Residual")`                 | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values)        |
+| Plot Residuals vs Observed, Fitted or Variable Values | `plotResidual()` </br> `plot(..., type = "Residual")`                 | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values)          |
 | Residual Boxplot                                      | `plotResidualBoxplot()` </br> `plot(..., type = "ResidualBoxplot")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualboxplot---boxplot-of-residuals)                                   |
 | Residual Density                                      | `plotResidualDensity()` </br> `plot(..., type = "ResidualDensity")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualdensity---density-of-residuals)                                   |
 | Receiver Operating Characteristic (ROC)               | `plotROC()` </br> `plot(..., type = "ROC")`                           | no         | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html#receiver-operating-characteristic-roc)                                       |

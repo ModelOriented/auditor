@@ -2,9 +2,7 @@
 % Please edit documentation in R/plotD3Prediction.R
 \name{plotD3Prediction}
 \alias{plotD3Prediction}
-\title{Plot TODO
-
-If the picture is not displayed in the viewer, please update your RStudio.}
+\title{Plot TODO}
 \usage{
 plotD3Prediction(object, ..., variable = NULL, points = TRUE,
   smooth = FALSE, point_count = NULL, single_plot = TRUE,
@@ -33,8 +31,6 @@ plotD3Prediction(object, ..., variable = NULL, points = TRUE,
 an `r2d3` object.
 }
 \description{
-Plot TODO
-
 If the picture is not displayed in the viewer, please update your RStudio.
 }
 \examples{
