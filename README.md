@@ -20,6 +20,7 @@ grammar, it is simple to validate models of any classes.
 
 auditor’s pipeline: *model %\>% audit() %\>% plot(type=…)*
 
+
 ## Installation
 
 Stable version from CRAN:
