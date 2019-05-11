@@ -1,17 +1,16 @@
-var points = options.points, smooth = options.smooth;
-var minVariable = options.xmin, maxVariable = options.xmax,
-    minResidual = options.ymin, maxResidual = options.ymax;
-var variableName = options.variable, n = options.n;
-var yTitle = options.yTitle, chartTitle = options.chartTitle;
-var background = options.background;
+var points = options.points, smooth = options.smooth,
+    minVariable = options.xmin, maxVariable = options.xmax,
+    minResidual = options.ymin, maxResidual = options.ymax,
+    variableName = options.variable, n = options.n,
+    yTitle = options.yTitle, chartTitle = options.chartTitle,
+    background = options.background;
 
-var plotHeight, plotWidth;
-var margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70};
-var labelsMargin = 94;
-var w = width - margin.left - margin.right;
-var h = height - margin.top - margin.bottom;
-var labelsMargin = margin.left - 6;
-var plotTop = margin.top, plotLeft = margin.left;
+var plotHeight, plotWidth,
+    margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70},
+    w = width - margin.left - margin.right,
+    h = height - margin.top - margin.bottom,
+    labelsMargin = margin.left - 8,
+    plotTop = margin.top, plotLeft = margin.left;
 
 if (options.scalePlot === true) {
   var m = Math.ceil(n/2);
@@ -27,10 +26,10 @@ var k;
 if (smooth === true) { k = 1; } else { k = 0; }
 var modelNames = Object.keys(data[k]);
 
-var colors = getColors(3, "point");
-var pointColor = colors[k];
-var smoothColor = colors[0];
-var greyColor = colors[2];
+var colors = getColors(3, "point"),
+    pointColor = colors[k],
+    smoothColor = colors[0],
+    greyColor = colors[2];
 
 residual(data);
 
@@ -58,7 +57,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
     // function to draw smooth lines
     var line = d3.line()
-          .x(function(d) { return x(d.val); })
+          .x(function(d) { return x(d.x); })
           .y(function(d) { return y(d.smooth); })
           .curve(d3.curveMonotoneX);
 
@@ -69,14 +68,6 @@ function singlePlot(modelName, pointData, smoothData, i) {
           .attr("x", plotLeft)
           .attr("y", plotTop - 60)
           .text(chartTitle);
-
-      svg.append("text")
-          .attr("class", "axisTitle")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 15)
-          .attr("x", -(margin.top + 2*plotHeight + margin.inner + margin.bottom)/2)
-          .attr("text-anchor", "middle")
-          .text(yTitle);
     }
 
     svg.append("text")
@@ -186,8 +177,8 @@ function singlePlot(modelName, pointData, smoothData, i) {
             scatter.append("circle")
                 .attr("class", "dot " + tempName)
                 .attr("id", tempName)
-                .attr("cx", d => x(d.val))
-                .attr("cy", d => y(d.res))
+                .attr("cx", d => x(d.x))
+                .attr("cy", d => y(d.y))
                 .attr("r", 1)
                 .style("fill", greyColor)
                 .style("opacity", 0.5);
@@ -218,8 +209,8 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .append("circle")
         .attr("class", "dot " + modelName)
         .attr("id", modelName)
-        .attr("cx", d => x(d.val))
-        .attr("cy", d => y(d.res))
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
         .attr("r", 1)
         .style("fill", pointColor);
     }
@@ -235,6 +226,16 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .style("stroke", smoothColor)
         .style("stroke-width", 2);
     }
+
+    if (i==n){
+    	svg.append("text")
+          .attr("class", "axisTitle")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 15)
+          .attr("x", -(margin.top + plotTop + plotHeight)/2)
+          .attr("text-anchor", "middle")
+          .text(yTitle);
+ 	}
 
     if (i%2 === 1){
       plotLeft += (25 + plotWidth);
