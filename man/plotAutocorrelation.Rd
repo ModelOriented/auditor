@@ -5,7 +5,7 @@
 \title{Autocorrelation Plot}
 \usage{
 plotAutocorrelation(object, ..., variable = NULL, score = FALSE,
-  lines = FALSE)
+  smooth = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -16,7 +16,7 @@ plotAutocorrelation(object, ..., variable = NULL, score = FALSE,
 
 \item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.}
 
-\item{lines}{Logical, if TRUE smooth line will be added.}
+\item{smooth}{Logical, if TRUE smooth line will be added.}
 }
 \description{
 Plot of i-th residual vs i+1-th residual.
@@ -26,5 +26,6 @@ library(car)
 lm_model <- lm(prestige~education + women + income, data = Prestige)
 lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
 plotAutocorrelation(lm_au)
+plotAutocorrelation(lm_au, variable = "income", score = TRUE, smooth = TRUE)
 
 }

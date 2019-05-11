@@ -1,13 +1,15 @@
 language: R
 sudo: false
 cache: packages
-env:
-  global:
-    - R_CHECK_ARGS="--no-build-vignettes --no-manual --timings"
+
+r:
+  - oldrel
+  - release
+  - devel
 
 notifications:
   email: false
-  
+
 r_packages:
   - covr
 

@@ -5,7 +5,7 @@
 \title{Scale location plot}
 \usage{
 plotScaleLocation(object, ..., variable = NULL, score = FALSE,
-  peaks = TRUE)
+  smooth = FALSE, peaks = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -15,6 +15,8 @@ plotScaleLocation(object, ..., variable = NULL, score = FALSE,
 \item{variable}{Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 
 \item{score}{A logical value. If TRUE value of \link{scorePeak} will be added.}
+
+\item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
 \item{peaks}{A logical value. If TRUE peaks are marked on plot by black dots.}
 }
