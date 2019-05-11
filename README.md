@@ -4,7 +4,8 @@
 <img src="materials/auditor2.png" width="20%" align="right" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
-<http://cranlogs.r-pkg.org/badges/grand-total/auditor> [![Build
+<http://cranlogs.r-pkg.org/badges/grand-total/auditor> 
+[![Build
 Status](https://travis-ci.org/MI2DataLab/auditor.svg?branch=master)](https://travis-ci.org/MI2DataLab/auditor)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg)](https://codecov.io/github/mi2datalab/auditor?branch=master)
