@@ -9,7 +9,14 @@ Status](https://travis-ci.org/MI2DataLab/auditor.svg?branch=master)](https://tra
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg)](https://codecov.io/github/mi2datalab/auditor?branch=master)
 [![Binder](https://mybinder.org/badge.svg)](https://hub.mybinder.org/user/mi2datalab-auditor-qzj1zvt8/notebooks/jupyter-notebooks/auditor_dragons_demo.ipynb)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=The%20auditor%20package%20is%20an%20easy%20to%20use%20unified%20interface%20for%20model-agnostic%20verification,%20validation,%20and%20error%20analysis.%0Ahttps://github.com/mi2datalab/auditor%0A&hashtags=rstats,erroranalysis,machinelearning,audit)
+
+Package `auditor` is a tool for model-agnostic validation. Implemented
+techniques facilitate assessing and comparing the goodness of fit and
+performance of models. In addition, they may be used for the analysis of
+the similarity of residuals and for the identification of outliers and
+influential observations. The examination is carried out by diagnostic
+scores and visual verification. Due to the flexible and consistent
+grammar, it is simple to validate models of any classes.
 
 ## auditor’s pipeline: *model %\>% audit() %\>% plot(type=…)*
 
@@ -87,8 +94,8 @@ plotResidual(au_lm, au_rf, lines = TRUE)
 | Predicted Response vs Observed or Variable Values     | `plotPrediction()` </br> `plot(..., type = "Prediction")`             | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotpredition---observed-vs-predicted)                                        |
 | Regression Error Characteristic Curves (REC)          | `plotREC()` </br> `plot(..., type = "REC")`                           | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrec---regression-error-characteristic-rec-curve)                          |
 | Plot Residuals vs Observed, Fitted or Variable Values | `plotResidual()` </br> `plot(..., type = "Residual")`                 | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values)        |
-| Residual Boxplot                                      | `plotResidualBoxplot()` </br> `plot(..., type = "ResidualBoxplot")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidualboxplot---boxplot-of-residuals)                                 |
-| Residual Density                                      | `plotResidualDensity()` </br> `plot(..., type = "ResidualDensity")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html#plotresidualdensity---density-of-residuals)                                 |
+| Residual Boxplot                                      | `plotResidualBoxplot()` </br> `plot(..., type = "ResidualBoxplot")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualboxplot---boxplot-of-residuals)                                   |
+| Residual Density                                      | `plotResidualDensity()` </br> `plot(..., type = "ResidualDensity")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualdensity---density-of-residuals)                                   |
 | Receiver Operating Characteristic (ROC)               | `plotROC()` </br> `plot(..., type = "ROC")`                           | no         | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html#receiver-operating-characteristic-roc)                                       |
 | Regression Receiver Operating Characteristic (RROC)   | `plotRROC()` </br> `plot(..., type = "RROC")`                         | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrroc---regression-receiver-operating-characteristic-rroc)                 |
 | Scale-Location plot                                   | `plotScaleLocation()` </br> `plot(..., type = "ScaleLocation")`       | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotscalelocation---scale-location-plot)                                      |
