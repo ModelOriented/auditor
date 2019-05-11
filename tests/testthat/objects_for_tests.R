@@ -29,3 +29,7 @@ au.class.rf <- audit(model.class.rf)
 
 explainer_lm <- explain(model.lm, data = Prestige, y = Prestige$prestige)
 au_expl_lm <- audit(explainer_lm)
+
+cd.lm <- observationInfluence(au.lm)
+mp.lm <- modelPerformance(au.lm)
+mf.lm <- modelFit(au.lm)
