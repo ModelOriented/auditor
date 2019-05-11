@@ -57,7 +57,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
     // function to draw smooth lines
     var line = d3.line()
-          .x(function(d) { return x(d.val); })
+          .x(function(d) { return x(d.x); })
           .y(function(d) { return y(d.smooth); })
           .curve(d3.curveMonotoneX);
 
@@ -177,8 +177,8 @@ function singlePlot(modelName, pointData, smoothData, i) {
             scatter.append("circle")
                 .attr("class", "dot " + tempName)
                 .attr("id", tempName)
-                .attr("cx", d => x(d.val))
-                .attr("cy", d => y(d.res))
+                .attr("cx", d => x(d.x))
+                .attr("cy", d => y(d.y))
                 .attr("r", 1)
                 .style("fill", greyColor)
                 .style("opacity", 0.5);
@@ -209,8 +209,8 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .append("circle")
         .attr("class", "dot " + modelName)
         .attr("id", modelName)
-        .attr("cx", d => x(d.val))
-        .attr("cy", d => y(d.res))
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
         .attr("r", 1)
         .style("fill", pointColor);
     }

@@ -1,7 +1,4 @@
-#' @title Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 Package.
-#'
-#' Function \code{plotD3Residual} plots resudial values vs observed, fitted or variable values in the model.
-#' It uses output from \code{modelAudit} or \code{modelResiduals} function.
+#' @title Plot TODO
 #'
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
@@ -10,7 +7,6 @@
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
-#' @param std_residuals Logical, indicates whenever standardized residuals should be used. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
@@ -24,22 +20,22 @@
 #'
 #' lm_model <- lm(m2.price ~., data = apartments)
 #' lm_au <- audit(lm_model, label = "lm")
-#' plotD3Residual(lm_au, variable = "construction.year")
+#' plotD3Prediction(lm_au, variable = "construction.year")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(m2.price ~., data = apartments)
 #' rf_au <- audit(rf_model, label = "rf")
 #' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
+#' plotD3Prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' plotD3Prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 #'
-#' @seealso \code{\link{plotResidual}}
+#' @seealso \code{\link{plotPrediction}}
 #'
 #' @export
-#' @rdname plotD3Residual
+#' @rdname plotD3Prediction
 
-plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE, std_residuals = FALSE,
-                            point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
+plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+                             point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
 
@@ -47,16 +43,8 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
 
   aul <- list(object, ...)
 
-  # chose y
-  if (std_residuals == TRUE) {
-    y <- "std.res"
-    yTitle <- "Standardized residuals"
-    chartTitle <- "Standardized residuals"
-  } else {
-    y <- "res"
-    yTitle <- "Residuals"
-    chartTitle <- "Residuals"
-  }
+  yTitle <- "Predicted values"
+  chartTitle <- "Predicted"
 
   # make every input modelResiduals, check `variable`
   mrl <- list()
@@ -74,7 +62,7 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
 
     varl <- c(varl, as.character(mr$variable[1]))
 
-    df <- mr[, c(y, "val", "label")]
+    df <- mr[, c("fitted.values", "val", "label")]
     class(df) <- "data.frame"
     colnames(df) <- c("y", "x", "label")
     mrl[[i]] <- df
@@ -150,19 +138,19 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   if (single_plot == TRUE) {
 
     r2d3::r2d3(data = temp, script = system.file("d3js/plotResidualPredictionSingle.js", package = "auditor"),
-           dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
-           css = system.file("d3js/themeDrWhy.css", package = "auditor"),
-           d3_version = 4,
-           options = options)
+               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               css = system.file("d3js/themeDrWhy.css", package = "auditor"),
+               d3_version = 4,
+               options = options)
 
   } else {
     if (n==1) stop("Use single_plot instead.")
     options['background'] <- background
 
     r2d3::r2d3(data = temp, system.file("d3js/plotResidualPredictionMany.js", package = "auditor"),
-           dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
-           css = system.file("d3js/themeDrWhy.css", package = "auditor"),
-           d3_version = 4,
-           options = options)
+               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               css = system.file("d3js/themeDrWhy.css", package = "auditor"),
+               d3_version = 4,
+               options = options)
   }
 }

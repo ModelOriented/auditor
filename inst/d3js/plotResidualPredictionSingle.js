@@ -27,7 +27,7 @@ var colors = getColors(3, "point"),
     smoothColor = colors[0], dSmoothColor = colors[0],
     greyColor = colors[2], dOpacity = 1;
 
-residual(data);
+plot(data);
 
 if (n!=1) {
     svg.select("g.legend").select("circle.legendDot").dispatch("click");
@@ -37,7 +37,7 @@ svg.selectAll("text")
   .style('font-family', 'Fira Sans, sans-serif');
 
 // plot function
-function residual(data){
+function plot(data){
   var pointData = data[0], smoothData = data[1];
   for (var i=0; i<n; i++){
     var modelName = modelNames[i];
@@ -57,7 +57,7 @@ function singlePlot(modelName, pData, sData, i) {
 
     // function to draw smooth lines
     var line = d3.line()
-          .x(function(d) { return x(d.val); })
+          .x(function(d) { return x(d.x); })
           .y(function(d) { return y(d.smooth); })
           .curve(d3.curveMonotoneX);
 
@@ -282,8 +282,8 @@ function singlePlot(modelName, pData, sData, i) {
         .append("circle")
         .attr("class", "point" + tModelName)
         .attr("id", tModelName)
-        .attr("cx", d => x(d.val))
-        .attr("cy", d => y(d.res))
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
         .attr("r", 1)
         .style("fill", dPointColor)
         .style("opacity", dOpacity);

@@ -16,9 +16,8 @@
 #' @return an `r2d3` object.
 #'
 #' @examples
-#' set.seed(123)
+#' library(auditor)
 #' library(DALEX)
-#' library("auditor")
 #'
 #' lm_model <- lm(m2.price ~ ., data = apartments)
 #'
@@ -35,7 +34,7 @@
 #'
 #' head(lm_mr_year)
 #'
-#' plotD3Autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 300)
+#' plotD3Autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
 #'
 #' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, score = TRUE)
 #' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, score = TRUE, single_plot = FALSE)

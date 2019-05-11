@@ -46,19 +46,19 @@ It uses output from \code{modelAudit} or \code{modelResiduals} function.
 If the picture is not displayed in the viewer, please update your RStudio.
 }
 \examples{
-library(auditor)
-library(car)
+library("auditor")
+library("DALEX")
 
-lm_model <- lm(prestige~education + women + income, data = Prestige)
+lm_model <- lm(m2.price ~., data = apartments)
 lm_au <- audit(lm_model, label = "lm")
-plotD3Residual(lm_au, variable = "income")
+plotD3Residual(lm_au, variable = "construction.year")
 
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+rf_model <- randomForest(m2.price ~., data = apartments)
 rf_au <- audit(rf_model, label = "rf")
-rf_mr <- modelResiduals(rf_au, "income")
-plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE)
-plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE, single_plot = FALSE)
+rf_mr <- modelResiduals(rf_au, "construction.year")
+plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 
 }
 \seealso{
