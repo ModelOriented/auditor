@@ -21,8 +21,8 @@ model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
 model.class.glm2 <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
 au.class.glm2 <- audit(model.class.glm2)
 
-au.lm <- audit(model.lm)
-au.glm <- audit(model.glm)
+au.lm <- audit(model.lm, label = "lm")
+au.glm <- audit(model.glm, label = "glm")
 au.rf <- audit(model.rf, label="rf")
 au.class.glm <- audit(model.class.glm, label="class glm")
 au.class.rf <- audit(model.class.rf)
