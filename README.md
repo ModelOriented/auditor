@@ -34,7 +34,7 @@ Developer version from GitHub:
 source("https://install-github.me/agosiewska/auditor")
 ```
 
-## DEMO
+## Demo
 
 Run the code below or try the auditor.
 
@@ -78,7 +78,7 @@ plotResidual(au_lm, au_rf, variable = "wt", lines = TRUE)
     the ‘NCN Opus grant
 2016/21/B/ST6/02176’.
 
-### A Short Overview of Plots
+### A short overview of the plots
 
 | Plot name                                             | Function                                                              | Regression | Classification | Examples                                                                                                                                                          |
 | ----------------------------------------------------- | --------------------------------------------------------------------- | ---------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
