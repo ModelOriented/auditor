@@ -8,7 +8,6 @@
 Status](https://travis-ci.org/MI2DataLab/auditor.svg?branch=master)](https://travis-ci.org/MI2DataLab/auditor)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg)](https://codecov.io/github/mi2datalab/auditor?branch=master)
-[![Binder](https://mybinder.org/badge.svg)](https://hub.mybinder.org/user/mi2datalab-auditor-qzj1zvt8/notebooks/jupyter-notebooks/auditor_dragons_demo.ipynb)
 
 Package `auditor` is a tool for model-agnostic validation. Implemented
 techniques facilitate assessing and comparing the goodness of fit and
@@ -18,7 +17,7 @@ influential observations. The examination is carried out by diagnostic
 scores and visual verification. Due to the flexible and consistent
 grammar, it is simple to validate models of any classes.
 
-## auditor’s pipeline: *model %\>% audit() %\>% plot(type=…)*
+auditor’s pipeline: *model %\>% audit() %\>% plot(type=…)*
 
 ## Installation
 
@@ -36,8 +35,7 @@ source("https://install-github.me/agosiewska/auditor")
 
 ## DEMO
 
-Run the code below or try the auditor by the online jupyter-notebook:
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mi2datalab/auditor/master?filepath=jupyter-notebooks%2Fauditor-demo.ipynb)
+Run the code below or try the auditor.
 
 ``` r
 library(auditor)
