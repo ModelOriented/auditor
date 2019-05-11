@@ -112,7 +112,7 @@ A vertical line corresponds to median.</p>
     
 
     <pre class="usage"><span class='fu'>plotScaleLocation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -134,6 +134,10 @@ A vertical line corresponds to median.</p>
       <td><p>A logical value. If TRUE value of <a href='scorePeak.html'>scorePeak</a> will be added.</p></td>
     </tr>
     <tr>
+      <th>smooth</th>
+      <td><p>Logical, indicates whenever smoothed lines should be added. By default it's FALSE.</p></td>
+    </tr>
+    <tr>
       <th>peaks</th>
       <td><p>A logical value. If TRUE peaks are marked on plot by black dots.</p></td>
     </tr>
@@ -141,8 +145,8 @@ A vertical line corresponds to median.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
 <span class='fu'>plotScaleLocation</span>(<span class='no'>lm_au</span>)</div><div class='img'><img src='plotScaleLocation-1.png' alt='' width='700' height='433' /></div><div class='input'>
 

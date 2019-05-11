@@ -120,7 +120,7 @@ which can be further processed by various error analysis functions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object containing a model or object of class explainer (see <code><a href='http://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></code>).</p></td>
+      <td><p>An object containing a model or object of class explainer (see <code><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></code>).</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -163,18 +163,15 @@ which can be further processed by various error analysis functions.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>MASS</span>)
-<span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>glm</span>(<span class='no'>Postwt</span> ~ <span class='no'>Prewt</span> + <span class='no'>Treat</span> + <span class='fu'>offset</span>(<span class='no'>Prewt</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>anorexia</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>MASS</span>)
+<span class='no'>model.glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></span>(<span class='no'>Postwt</span> ~ <span class='no'>Prewt</span> + <span class='no'>Treat</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/offset'>offset</a></span>(<span class='no'>Prewt</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>anorexia</span>)
 <span class='no'>audit.glm</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.glm</span>)
 
-<span class='no'>p.fun</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>model</span>, <span class='no'>data</span>){<span class='fu'>predict</span>(<span class='no'>model</span>, <span class='no'>data</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='st'>"link"</span>)}
+<span class='no'>p.fun</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>model</span>, <span class='no'>data</span>){<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>model</span>, <span class='no'>data</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='st'>"link"</span>)}
 <span class='no'>audit.glm.newpred</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.glm</span>, <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='no'>p.fun</span>)
 
 
-<span class='fu'>library</span>(<span class='no'>randomForest</span>)</div><div class='output co'>#&gt; <span class='message'>randomForest 4.6-14</span></div><div class='output co'>#&gt; <span class='message'>Type rfNews() to see new features/changes/bug fixes.</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Dołączanie pakietu: 'randomForest'</span></div><div class='output co'>#&gt; <span class='message'>Następujące obiekty zostały zakryte z 'package:auditor':</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    combine, margin</span></div><div class='input'><span class='no'>model.rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>randomForest</span>)</div><div class='output co'>#&gt; <span class='message'>randomForest 4.6-14</span></div><div class='output co'>#&gt; <span class='message'>Type rfNews() to see new features/changes/bug fixes.</span></div><div class='input'><span class='no'>model.rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)
 <span class='no'>audit.rf</span> <span class='kw'>&lt;-</span> <span class='fu'>audit</span>(<span class='no'>model.rf</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

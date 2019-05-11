@@ -1,5 +1,6 @@
 #' @title Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 Package.
 #'
+#' @description
 #' Function \code{plotD3Residual} plots resudial values vs observed, fitted or variable values in the model.
 #' It uses output from \code{modelAudit} or \code{modelResiduals} function.
 #'

@@ -52,7 +52,7 @@ au_lm <- audit(model_lm)
 au_rf <- audit(model_rf, label = "rf")
 
 # generating plots
-plotResidual(au_lm, au_rf, variable = "wt", lines = TRUE)
+plotResidual(au_lm, au_rf, variable = "wt", smooth = TRUE)
 ```
 
 ## More
