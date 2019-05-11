@@ -13,3 +13,4 @@ jupyter-notebooks
 ^codecov\.yml$
 binder
 ^_pkgdown\.yml$
+README.Rmd
