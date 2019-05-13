@@ -1,4 +1,5 @@
 var points = options.points, smooth = options.smooth,
+    peaks = options.peaks,
     minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax,
     variableName = options.variable, n = options.n,
@@ -202,17 +203,23 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
     // scatter
     if (points === true) {
-      svg
-        .selectAll()
-        .data(pointData[modelName])
-        .enter()
-        .append("circle")
-        .attr("class", "dot " + modelName)
-        .attr("id", modelName)
-        .attr("cx", d => x(d.x))
-        .attr("cy", d => y(d.y))
-        .attr("r", 1)
-        .style("fill", pointColor);
+
+      var p = svg.selectAll()
+                  .data(pointData[modelName])
+                  .enter()
+                  .append("circle")
+                  .attr("class", "dot " + modelName)
+                  .attr("id", modelName)
+                  .attr("cx", d => x(d.x))
+                  .attr("cy", d => y(d.y))
+                  .attr("r", 1)
+                  .style("fill", pointColor);
+
+      if (peaks === true) {
+        p.style("stroke-width", 1.5)
+         .style("stroke", d => d.peak === true ? "red" : "transparent")
+         .style("stroke-opacity", 1);
+      }
     }
 
     // smooth line

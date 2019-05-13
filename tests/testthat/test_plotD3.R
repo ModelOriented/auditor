@@ -28,3 +28,12 @@ test_that("plotD3Prediction", {
   expect_error(plotD3Prediction(au.lm, points = FALSE, smooth = FALSE))
   expect_error(plotD3Prediction(glm_mr, rf_mr))
 })
+
+test_that("plotD3ScaleLocation", {
+  expect_is(plotD3ScaleLocation(au.glm, smooth = TRUE, point_count = 5), "r2d3")
+  expect_is(plotD3ScaleLocation(au_expl_lm, peaks = TRUE), "r2d3")
+  expect_is(plotD3ScaleLocation(au.rf, variable = "Prewt"), "r2d3")
+  expect_is(plotD3ScaleLocation(au.rf, au.lm, single_plot = FALSE, scale_plot = TRUE), "r2d3")
+  expect_error(plotD3ScaleLocation(au.lm, points = FALSE, smooth = FALSE))
+  expect_error(plotD3ScaleLocation(glm_mr, rf_mr))
+})

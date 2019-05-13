@@ -1,4 +1,5 @@
 var points = options.points, smooth = options.smooth,
+    peaks = options.peaks,
     minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax,
     variableName = options.variable, n = options.n,
@@ -196,7 +197,7 @@ function singlePlot(modelName, pData, sData, i) {
             "," + (margin.top - 20) + ")";
         });
 
-        var activeLink = modelName.replace(/\s/g, '');
+        var activeLink = modelNames[1].replace(/\s/g, '');
 
         legend.append("rect")
                 .attr("width", 8)
@@ -233,7 +234,9 @@ function singlePlot(modelName, pData, sData, i) {
 
                       svg.selectAll(".point" + activeLink)
                             .style("fill", greyColor)
-                            .style("opacity", 0.5);
+                            .style("opacity", 0.5)
+                            .style("stroke-opacity", 0);
+
                       svg.selectAll(".smooth" + activeLink)
                             .style("stroke", greyColor)
                             .style("opacity", 0.5);
@@ -246,15 +249,15 @@ function singlePlot(modelName, pData, sData, i) {
 
                       svg.selectAll(".point" + activeLink)
                             .style("fill", pointColor)
-                            .style("opacity", 1);
+                            .style("opacity", 1)
+                            .style("stroke-opacity", 1);
+
                       svg.selectAll(".smooth" + activeLink)
                             .style("stroke", smoothColor)
                             .style("opacity", 1);
 
                       // effort to bring plot to the top
-                      svg.selectAll("#" + activeLink).each(function() {
-                           this.parentNode.appendChild(this);
-                      });
+                      svg.selectAll("#" + activeLink).raise();
                   });
 
           dPointColor = greyColor;
@@ -276,17 +279,23 @@ function singlePlot(modelName, pData, sData, i) {
     // scatter
     if (points === true) {
 
-      svg.selectAll()
-        .data(pData)
-        .enter()
-        .append("circle")
-        .attr("class", "point" + tModelName)
-        .attr("id", tModelName)
-        .attr("cx", d => x(d.x))
-        .attr("cy", d => y(d.y))
-        .attr("r", 1)
-        .style("fill", dPointColor)
-        .style("opacity", dOpacity);
+      var p = svg.selectAll()
+                  .data(pData)
+                  .enter()
+                  .append("circle")
+                  .attr("class", "point" + tModelName)
+                  .attr("id", tModelName)
+                  .attr("cx", d => x(d.x))
+                  .attr("cy", d => y(d.y))
+                  .attr("r", 1)
+                  .style("fill", dPointColor)
+                  .style("opacity", dOpacity);
+
+      if (peaks === true) {
+        p.style("stroke-width", 1.5)
+         .style("stroke", d => d.peak === true ? "red" : "transparent")
+         .style("stroke-opacity", function() { return i==1 ? 1 : 0 });
+      }
     }
 
     // smooth line
