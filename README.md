@@ -31,7 +31,7 @@ install.packages("auditor")
 Developer version from GitHub:
 
 ``` r
-source("https://install-github.me/MI2DataLab/auditor")
+source("https://install-github.me/agosiewska/auditor")
 ```
 
 ## Demo
@@ -53,7 +53,7 @@ au_lm <- audit(model_lm)
 au_rf <- audit(model_rf, label = "rf")
 
 # generating plots
-plotResidual(au_lm, au_rf, variable = "wt", lines = TRUE)
+plotResidual(au_lm, au_rf, variable = "wt", smooth = TRUE)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
@@ -78,7 +78,7 @@ plotResidual(au_lm, au_rf, variable = "wt", lines = TRUE)
     the ‘NCN Opus grant
 2016/21/B/ST6/02176’.
 
-### A short overview of the plots
+### A short overview of plots
 
 | Plot name                                             | Function                                                              | Regression | Classification | Examples                                                                                                                                                          |
 | ----------------------------------------------------- | --------------------------------------------------------------------- | ---------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
