@@ -7,7 +7,6 @@
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
-#' @param score Logical, indicates whenever values of \link{scoreDW} and \link{scoreRuns} will be added to plot. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
@@ -27,21 +26,17 @@
 #' lm_audit <- audit(lm_model, label = "lm", data = apartments, y = apartments$m2.price)
 #' rf_audit <- audit(rf_model, label = "rf", data = apartments, y = apartments$m2.price)
 #'
-#' head(lm_audit)
-#'
 #' lm_mr_year <- modelResiduals(lm_audit, variable = "construction.year")
 #' rf_mr_year <- modelResiduals(rf_audit, variable = "construction.year")
 #'
-#' head(lm_mr_year)
-#'
 #' plotD3Autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
 #'
-#' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, score = TRUE)
-#' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, score = TRUE, single_plot = FALSE)
+#' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE)
+#' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, single_plot = FALSE)
 #'
 #' @export
 #' @rdname plotD3Autocorrelation
-plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE, score = FALSE,
+plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                                   point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE) {
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
@@ -87,7 +82,7 @@ plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, s
 
   modelNames <- unlist(lapply(mrl, function(x) unique(x$label)))
   xMin <- xMax <- yMin <- yMax <- NULL
-  pointData <- smoothData <- scoreData <- NA
+  pointData <- smoothData <- NA
 
   # prepare points data
   if (points == TRUE) {
@@ -126,23 +121,12 @@ plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, s
   ymax <- ifelse(all(is.na(smoothData)), xmax, max(sapply(smoothData, function(x) max(x$smooth)), xmax))
   ymin <- ifelse(all(is.na(smoothData)), xmin, min(sapply(smoothData, function(x) min(x$smooth)), xmin))
 
-  # prepare score data
-  if (score == TRUE) {
-    scoreData <- lapply(aul, function(mr) {
-      score1 <- scoreDW(mr, variable)
-      score2 <- scoreRuns(mr, variable)
-      list(round(score1$score, 2), round(score2$score, 2))
-    })
-
-    names(scoreData) <- modelNames
-  }
-
-  temp <- jsonlite::toJSON(list(pointData, smoothData, scoreData))
+  temp <- jsonlite::toJSON(list(pointData, smoothData))
 
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax, ymin = ymin,
                   variable = variable, n = n,
-                  points = points, smooth = smooth, score = score,
+                  points = points, smooth = smooth,
                   scalePlot = scale_plot, yTitle = yTitle, xTitle = xTitle,
                   chartTitle = chartTitle)
 

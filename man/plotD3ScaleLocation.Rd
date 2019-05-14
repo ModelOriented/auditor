@@ -46,7 +46,8 @@ rf_model <- randomForest(m2.price ~., data = apartments)
 rf_au <- audit(rf_model, label = "rf")
 rf_mr <- modelResiduals(rf_au, "construction.year")
 plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
+plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year",
+                                  smooth = TRUE, single_plot = FALSE)
 
 }
 \seealso{

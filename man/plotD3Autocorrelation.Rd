@@ -5,8 +5,8 @@
 \title{Autocorrelation Plot in D3 with r2d3 Package.}
 \usage{
 plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
-  smooth = FALSE, score = FALSE, point_count = NULL,
-  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
+  smooth = FALSE, point_count = NULL, single_plot = TRUE,
+  scale_plot = FALSE, background = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
@@ -18,8 +18,6 @@ plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
 \item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
-
-\item{score}{Logical, indicates whenever values of \link{scoreDW} and \link{scoreRuns} will be added to plot. By default it's FALSE.}
 
 \item{point_count}{Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.}
 
@@ -47,16 +45,12 @@ rf_model <- randomForest(m2.price ~ ., data = apartments)
 lm_audit <- audit(lm_model, label = "lm", data = apartments, y = apartments$m2.price)
 rf_audit <- audit(rf_model, label = "rf", data = apartments, y = apartments$m2.price)
 
-head(lm_audit)
-
 lm_mr_year <- modelResiduals(lm_audit, variable = "construction.year")
 rf_mr_year <- modelResiduals(rf_audit, variable = "construction.year")
 
-head(lm_mr_year)
-
 plotD3Autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
 
-plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, score = TRUE)
-plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, score = TRUE, single_plot = FALSE)
+plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE)
+plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, single_plot = FALSE)
 
 }
