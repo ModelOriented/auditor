@@ -1,4 +1,4 @@
-#' @title Plot TODO
+#' @title Plot2 TODO
 #'
 #' @description
 #' If the picture is not displayed in the viewer, please update your RStudio.
@@ -6,8 +6,8 @@
 #' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
-#' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
+#' @param peaks Logical, indicates whenever peak observations should be highlighted. By defaul it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
@@ -21,31 +21,30 @@
 #'
 #' lm_model <- lm(m2.price ~., data = apartments)
 #' lm_au <- audit(lm_model, label = "lm")
-#' plotD3Prediction(lm_au, variable = "construction.year")
+#' plotD3ScaleLocation(lm_au, peaks = TRUE, variable = "construction.year")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(m2.price ~., data = apartments)
 #' rf_au <- audit(rf_model, label = "rf")
 #' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3Prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-#' plotD3Prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
+#' plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year",
+#'                                   smooth = TRUE, single_plot = FALSE)
 #'
-#' @seealso \code{\link{plotPrediction}}
+#' @seealso \code{\link{plotScaleLocation}}
 #'
 #' @export
-#' @rdname plotD3Prediction
+#' @rdname plotD3ScaleLocation
 
-plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
-                             point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
-
-  if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
+plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE,
+                                point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
 
   n <- length(list(...)) + 1
 
   aul <- list(object, ...)
 
-  yTitle <- "Predicted values"
-  chartTitle <- "Predicted"
+  yTitle <- "\u221A|Standarized residuals|"
+  chartTitle <- "Scale Location"
 
   # make every input modelResiduals, check `variable`
   mrl <- list()
@@ -63,9 +62,9 @@ plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth
 
     varl <- c(varl, as.character(mr$variable[1]))
 
-    df <- mr[, c("fitted.values", "val", "label")]
-    class(df) <- "data.frame"
-    colnames(df) <- c("y", "x", "label")
+    df <- generateScaleLocationDF(mr)[, c("sqrt.std.residuals", "values", "label", "peak")]
+
+    colnames(df) <- c("y", "x", "label", "peak")
     mrl[[i]] <- df
   }
 
@@ -85,23 +84,21 @@ plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth
   pointData <- smoothData <- NA
 
   # prepare points data
-  if (points == TRUE) {
 
-    # find instance count and adjust point_count
-    m <- dim(mrl[[1]])[1]
-    if (is.null(point_count) || point_count > m) {
-      pointData <- mrl
-    } else {
-      pointData <- lapply(mrl, function(mr) {
-        mr <- mr[sample(m,point_count),]
-        mr
-      })
-    }
-
-    names(pointData) <- modelNames
-    pointMax <- max(sapply(mrl, function(x) max(x$y)))
-    pointMin <- min(sapply(mrl, function(x) min(x$y)))
+  # find instance count and adjust point_count
+  m <- dim(mrl[[1]])[1]
+  if (is.null(point_count) || point_count > m) {
+    pointData <- mrl
+  } else {
+    pointData <- lapply(mrl, function(mr) {
+      mr <- mr[sample(m,point_count),]
+      mr
+    })
   }
+
+  names(pointData) <- modelNames
+  pointMax <- max(sapply(mrl, function(x) max(x$y)))
+  pointMin <- min(sapply(mrl, function(x) min(x$y)))
 
   # prepare smooth data
   if (smooth == TRUE) {
@@ -133,7 +130,7 @@ plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax + ticksMargin, ymin = ymin - ticksMargin,
                   variable = variable, n = n,
-                  points = points, smooth = smooth, peaks = FALSE,
+                  points = TRUE, smooth = smooth, peaks = peaks,
                   scalePlot = scale_plot, yTitle = yTitle, chartTitle = chartTitle)
 
   if (single_plot == TRUE) {
@@ -154,4 +151,5 @@ plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth
                d3_version = 4,
                options = options)
   }
+
 }

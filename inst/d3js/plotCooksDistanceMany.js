@@ -1,20 +1,20 @@
-var points = options.points, smooth = options.smooth,
-    minVariable = options.xmin, maxVariable = options.xmax,
+var minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax,
-    variableName = options.variable, n = options.n,
+    xTitle = options.xTitle, n = options.n,
     yTitle = options.yTitle, chartTitle = options.chartTitle,
     background = options.background;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70},
+    margin = {top: 98, right: 30, bottom: 60, left: 60, inner: 70},
     w = width - margin.left - margin.right,
     h = height - margin.top - margin.bottom,
     labelsMargin = margin.left - 8,
     plotTop = margin.top, plotLeft = margin.left;
 
+var m = Math.ceil(n/2);
+if (n == 2) { m = 2; }
+
 if (options.scalePlot === true) {
-  var m = Math.ceil(n/2);
-  if (n == 2) { m = 2; }
   plotHeight = (h-(m-1)*margin.inner)/m;
   plotWidth = 3*plotHeight/2;
 } else {
@@ -22,13 +22,10 @@ if (options.scalePlot === true) {
   plotWidth = 420;
 }
 
-var k;
-if (smooth === true) { k = 1; } else { k = 0; }
-var modelNames = Object.keys(data[k]);
+var modelNames = Object.keys(data[0]);
 
 var colors = getColors(3, "point"),
-    pointColor = colors[k],
-    smoothColor = colors[0],
+    pointColor = colors[0],
     greyColor = colors[2];
 
 residual(data);
@@ -38,14 +35,14 @@ svg.selectAll("text")
 
 // plot function
 function residual(data){
-  var pointData = data[0], smoothData = data[1];
+  var pointData = data[0];
   for (var i=0; i<n; i++){
     var modelName = modelNames[i];
-    singlePlot(modelName, pointData, smoothData, i+1);
+    singlePlot(modelName, pointData, i+1);
   }
 }
 
-function singlePlot(modelName, pointData, smoothData, i) {
+function singlePlot(modelName, pointData, i) {
 
     var x = d3.scaleLinear()
           .range([plotLeft + 10, plotLeft + plotWidth - 10])
@@ -54,12 +51,6 @@ function singlePlot(modelName, pointData, smoothData, i) {
     var y = d3.scaleLinear()
           .range([plotTop + plotHeight, plotTop])
           .domain([minResidual, maxResidual]);
-
-    // function to draw smooth lines
-    var line = d3.line()
-          .x(function(d) { return x(d.x); })
-          .y(function(d) { return y(d.smooth); })
-          .curve(d3.curveMonotoneX);
 
     // add plot things only once
     if (i==1) {
@@ -78,7 +69,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
     // find 5 nice ticks with max and min - do better than d3
     var domain = x.domain();
-    var tickValues = d3.ticks(domain[0], domain[1],5);
+    var tickValues = d3.ticks(domain[0], domain[1], 5);
 
     switch (tickValues.length){
       case 3:
@@ -163,18 +154,15 @@ function singlePlot(modelName, pointData, smoothData, i) {
     }
 
     if (background === true){
-      // draw grey scatter and smooth
+      // draw grey scatter
       for (var j=0; j<n; j++){
         if (modelNames[j] !== modelName){
           let tempName = modelNames[j];
 
-          if (points === true) {
-
-            let scatter = svg.selectAll()
+          svg.selectAll()
                 .data(pointData[tempName])
-                .enter();
-
-            scatter.append("circle")
+                .enter()
+                .append("circle")
                 .attr("class", "dot " + tempName)
                 .attr("id", tempName)
                 .attr("cx", d => x(d.x))
@@ -182,28 +170,12 @@ function singlePlot(modelName, pointData, smoothData, i) {
                 .attr("r", 1)
                 .style("fill", greyColor)
                 .style("opacity", 0.5);
-          }
-
-          if (smooth === true) {
-
-            svg.append("path")
-                .data([smoothData[tempName]])
-                .attr("class", "smooth " + tempName)
-                .attr("id", tempName)
-                .attr("d", line)
-                .style("fill", "none")
-                .style("stroke", greyColor)
-                .style("stroke-width", 2)
-                .style("opacity", 0.5);
-          }
         }
       }
     }
 
     // scatter
-    if (points === true) {
-      svg
-        .selectAll()
+    svg.selectAll()
         .data(pointData[modelName])
         .enter()
         .append("circle")
@@ -213,19 +185,16 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .attr("cy", d => y(d.y))
         .attr("r", 1)
         .style("fill", pointColor);
-    }
 
-    // smooth line
-    if (smooth === true) {
-      svg.append("path")
-        .data([smoothData[modelName]])
-        .attr("class", "smooth " + modelName)
-        .attr("id", modelName)
-        .attr("d", line)
-        .style("fill", "none")
-        .style("stroke", smoothColor)
-        .style("stroke-width", 2);
-    }
+    svg.selectAll()
+        .data(pointData[modelName].filter(function(d){return d.big === true;}))
+        .enter()
+        .append("text")
+        .attr("class", "legendLabel")
+        .text(function(d){ return d.x;})
+        .attr("x", d => x(d.x))
+        .attr("y", d => y(d.y)-2)
+        .attr("text-anchor", "middle")
 
     if (i==n){
     	svg.append("text")
@@ -235,7 +204,14 @@ function singlePlot(modelName, pointData, smoothData, i) {
           .attr("x", -(margin.top + plotTop + plotHeight)/2)
           .attr("text-anchor", "middle")
           .text(yTitle);
- 	}
+
+      svg.append("text")
+          .attr("class", "axisTitle")
+          .attr("y", (plotTop + plotHeight + margin.bottom - 15))
+          .attr("x", (margin.left + m*plotWidth + (m-1)*25 + margin.right)/2)
+          .attr("text-anchor", "middle")
+          .text(xTitle);
+ 	  }
 
     if (i%2 === 1){
       plotLeft += (25 + plotWidth);

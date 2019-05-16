@@ -145,12 +145,12 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax + ticksMargin, ymin = ymin - ticksMargin,
                   variable = variable, n = n,
-                  points = points, smooth = smooth,
+                  points = points, smooth = smooth, peaks = FALSE,
                   scalePlot = scale_plot, yTitle = yTitle, chartTitle = chartTitle)
 
   if (single_plot == TRUE) {
 
-    r2d3::r2d3(data = temp, script = system.file("d3js/plotResidualPredictionSingle.js", package = "auditor"),
+    r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterSingle.js", package = "auditor"),
            dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
            css = system.file("d3js/themeDrWhy.css", package = "auditor"),
            d3_version = 4,
@@ -160,7 +160,7 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
     if (n==1) stop("Use single_plot instead.")
     options['background'] <- background
 
-    r2d3::r2d3(data = temp, system.file("d3js/plotResidualPredictionMany.js", package = "auditor"),
+    r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterMany.js", package = "auditor"),
            dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
            css = system.file("d3js/themeDrWhy.css", package = "auditor"),
            d3_version = 4,
