@@ -13,12 +13,14 @@ plotPrediction(object, ..., variable = NULL, smooth = FALSE,
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
 \item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL data order is taken. If value is "Observed response" the data is ordered
-by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
-\item{abline}{Logical, indicates whenever function y=x shoul be added.}
+\item{abline}{Logical, indicates whenever function y = x shoul be added. Works only
+with \code{variable = NULL} which is a default option.}
 }
 \description{
 Plot of predicted response vs observed or variable Values.
