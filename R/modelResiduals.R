@@ -15,11 +15,21 @@
 #' @export
 modelResiduals <- function(object, variable = NULL){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
-    residuals <- orderResidualsDF(object, variable, is.df = TRUE)
-    std.residuals <- orderResidualsDF(object, variable, type = "std.residuals")
-    y <- orderResidualsDF(object, variable, type = "y")
-    fitted.values <- orderResidualsDF(object, variable, type = "fitted.values")
-    if(is.null(variable)) variable <- NA
+  if (!is.null(variable)) {
+    if (variable != "" & !variable %in% colnames(object$data)) {
+      stop("The function requires `variable = NULL`, `variable = ''` or the name of variable from model data frame.")
+    }
+  }
+
+  residuals <- orderResidualsDF(object, variable, is.df = TRUE)
+  std.residuals <- orderResidualsDF(object, variable, type = "std.residuals")
+  y <- orderResidualsDF(object, variable, type = "y")
+  fitted.values <- orderResidualsDF(object, variable, type = "fitted.values")
+  if (is.null(variable)) {
+    variable <- "Target variable"
+  } else if (variable == "") {
+    variable <- "Observations"
+  }
 
   result <- data.frame(label = object$label,
                        res = residuals$residuals,
@@ -29,7 +39,7 @@ modelResiduals <- function(object, variable = NULL){
                        fitted.values = fitted.values,
                        std.res = std.residuals,
                        index = residuals$index
-                       )
+  )
   class(result) <- c("modelResiduals", "data.frame")
 
   return(result)
