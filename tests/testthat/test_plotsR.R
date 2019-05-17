@@ -18,6 +18,8 @@ test_that("plotCook", {
 })
 
 test_that("plotPrediction", {
+  expect_is(plotPrediction(au.rf), "gg")
+  expect_is(plotPrediction(au.rf, variab), "gg")
   expect_is(plotPrediction(au.rf, smooth = TRUE), "gg")
 })
 
@@ -32,7 +34,9 @@ test_that("plotResidualBoxplot", {
 })
 
 test_that("plotResidualDeensity", {
+  expect_is(plotResidualDensity(au.lm), "gg")
   expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
+  expect_is(plotResidualDensity(au.lm, variable = ""), "gg")
 })
 
 test_that("plotScaleLocation", {

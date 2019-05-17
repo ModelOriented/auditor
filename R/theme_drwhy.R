@@ -1,6 +1,4 @@
-#' DrWhy Theme for ggplot objects
-#'
-#' @param n number of colors for color palette
+#' @title  DrWhy Theme for ggplot objects
 #'
 #' @return theme for ggplot2 objects
 #' @export
@@ -46,36 +44,34 @@ theme_drwhy <- function() {
 
 }
 
-#' @export
-#' @rdname theme_drwhy
-theme_drwhy_vertical <- function() {
-  theme_drwhy() %+replace%
-    theme(
-      axis.line.x = element_blank(),
-      axis.ticks.x = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.x = element_line(color = "grey90", size = 0.5, linetype = 1),
-      panel.grid.minor.x = element_line(color = "grey90", size = 0.5, linetype = 1)
-    )
+# #' @rdname theme_drwhy
+# theme_drwhy_vertical <- function() {
+#   theme_drwhy() %+replace%
+#     theme(
+#       axis.line.x = element_blank(),
+#       axis.ticks.x = element_blank(),
+#       panel.grid.major.y = element_blank(),
+#       panel.grid.minor.y = element_blank(),
+#       panel.grid.major.x = element_line(color = "grey90", size = 0.5, linetype = 1),
+#       panel.grid.minor.x = element_line(color = "grey90", size = 0.5, linetype = 1)
+#     )
+#
+# }
+#
+#
+# theme_drwhy_blank <- function() {
+#   theme_drwhy() %+replace%
+#     theme(
+#       axis.line.x = element_blank(),
+#       axis.ticks.x = element_blank(),
+#       panel.grid.major.x = element_blank(),
+#       panel.grid.minor.x = element_blank(),
+#       panel.grid.major.y = element_blank(),
+#       panel.grid.minor.y = element_blank()
+#     )
+# }
 
-}
 
-
-theme_drwhy_blank <- function() {
-  theme_drwhy() %+replace%
-    theme(
-      axis.line.x = element_blank(),
-      axis.ticks.x = element_blank(),
-      panel.grid.major.x = element_blank(),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank()
-    )
-}
-
-
-#' @export
 #' @rdname theme_drwhy
 theme_drwhy_colors <- function(n = 2) {
   if (n == 1) return(c("#371ea3"))
