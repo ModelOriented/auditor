@@ -2,18 +2,15 @@
 % Please edit documentation in R/theme_drwhy.R
 \name{theme_drwhy}
 \alias{theme_drwhy}
-\alias{theme_drwhy_vertical}
 \alias{theme_drwhy_colors}
 \title{DrWhy Theme for ggplot objects}
 \usage{
 theme_drwhy()
 
-theme_drwhy_vertical()
-
 theme_drwhy_colors(n = 2)
 }
 \arguments{
-\item{n}{number of colors for color palette}
+\item{n}{number of colors to get}
 }
 \value{
 theme for ggplot2 objects

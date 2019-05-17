@@ -72,6 +72,8 @@ theme_drwhy <- function() {
 # }
 
 
+#' @param n number of colors to get
+#'
 #' @rdname theme_drwhy
 theme_drwhy_colors <- function(n = 2) {
   if (n == 1) return(c("#371ea3"))
