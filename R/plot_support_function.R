@@ -39,7 +39,7 @@ make_dataframe <- function(object, ..., variable, type = "res") {
         if ("modelResiduals" %in% class(resp)) object <- rbind(object, resp)
       }
       if (type == "eva") {
-        if ("modelAudit" %in% class(temp)) resp <- modelEvaluation(resp)
+        if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
         if ("modelEvaluation" %in% class(resp)) object <- rbind(object, attributes(resp)$CGains)
       }
     }
@@ -61,7 +61,7 @@ drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
   df <- df[order(-as.numeric(factor(df$label))), ]
 
   geom_point(data = df,
-             aes(colour = label),
+             aes_string(colour = "label"),
              alpha = ifelse(smooth == TRUE, alpha_val, 1),
              stroke = 0)
 }
@@ -75,7 +75,7 @@ drwhy_geom_smooth <- function(df) {
   df$ord <- paste(rev(as.numeric(df$label)), df$label)
 
   geom_smooth(data = df,
-              aes(group = ord, colour = label),
+              aes_string(group = "ord", colour = "label"),
               stat = "smooth",
               method = "gam",
               formula = y ~ s(x, bs = "cs"),
