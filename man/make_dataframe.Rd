@@ -7,7 +7,14 @@
 make_dataframe(object, ..., variable, type = "res")
 }
 \arguments{
-\item{object}{Objecta passed to the function}
+\item{object}{Object passed to the function}
+
+\item{...}{Other modelAudit objects to be plotted together}
+
+\item{variable}{Variable}
+
+\item{type}{Type of check; default is \code{res} which stands for "model residuals".
+Other possible values: \code{eva} - model evaluation}
 }
 \description{
 Makes data frame(s) from passed models

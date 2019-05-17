@@ -9,7 +9,10 @@ drwhy_geom_point(df, smooth = FALSE, alpha_val)
 \arguments{
 \item{df}{Data frame prepared by (\code{make_dataframe}) function}
 
-\item{smooth}{Logical}
+\item{smooth}{Logical, if set to \code{TRUE} point are drawn with alpha (set in \code{alpha_val}
+argument).  Default is \code{FALSE}}
+
+\item{alpha_val}{Numeric, level of alpha of points when smooth is drawn}
 }
 \description{
 Function which draws point layers in desired order

@@ -8,6 +8,9 @@ check_object(object, type = "res")
 }
 \arguments{
 \item{object}{Object passed to the function}
+
+\item{type}{Type of check; default is \code{res} which stands for "model residuals".
+Other possible values: \code{eva} - model evaluation}
 }
 \description{
 Checks if the object is of desired class

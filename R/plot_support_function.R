@@ -4,8 +4,9 @@
 #' @description Checks if the object is of desired class
 #'
 #' @param object Object passed to the function
+#' @param type Type of check; default is \code{res} which stands for "model residuals".
+#' Other possible values: \code{eva} - model evaluation
 check_object <- function(object, type = "res") {
-
   model_type <- switch(type,
                        "res" = "modelResiduals",
                        "eva" = "modelEvaluation")
@@ -20,7 +21,11 @@ check_object <- function(object, type = "res") {
 #'
 #' @description Makes data frame(s) from passed models
 #'
-#' @param object Objecta passed to the function
+#' @param object Object passed to the function
+#' @param ... Other modelAudit objects to be plotted together
+#' @param variable Variable
+#' @param type Type of check; default is \code{res} which stands for "model residuals".
+#' Other possible values: \code{eva} - model evaluation
 make_dataframe <- function(object, ..., variable, type = "res") {
 
   if (type == "res" & !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
@@ -48,7 +53,9 @@ make_dataframe <- function(object, ..., variable, type = "res") {
 #' @description Function which draws point layers in desired order
 #'
 #' @param df Data frame prepared by (\code{make_dataframe}) function
-#' @param smooth Logical
+#' @param smooth Logical, if set to \code{TRUE} point are drawn with alpha (set in \code{alpha_val}
+#' argument).  Default is \code{FALSE}
+#' @param alpha_val Numeric, level of alpha of points when smooth is drawn
 drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
   # ordering data to get rigth order of points on the plot
   df <- df[order(-as.numeric(factor(df$label))), ]
