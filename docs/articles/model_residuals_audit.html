@@ -24,8 +24,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class="navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
-        <img src="https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
+	  <a class="navbar-mi2logo" href="http://DrWhy.AI/">
+        <img src="https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
       <a class="navbar-brand navbar-mi2" href="../index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -82,7 +82,7 @@
       <h1>Model Residuals Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-12-28</h4>
+            <h4 class="date">2019-05-13</h4>
       
       
       <div class="hidden name"><code>model_residuals_audit.Rmd</code></div>
@@ -98,9 +98,9 @@
 <h1 class="hasAnchor">
 <a href="#regression-use-case---dragons-data" class="anchor"></a>Regression use case - dragons data</h1>
 <p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset dragons available in the <a href="https://github.com/ModelOriented/DALEX2"><em>DALEX2</em></a> package. Our goal is to predict the length of life of dragons.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DALEX2)
-<span class="kw">data</span>(<span class="st">"dragons"</span>)
-<span class="kw">head</span>(dragons)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(DALEX2)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"dragons"</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(dragons)</a></code></pre></div>
 <pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
 ## 1         -1291 59.40365 15.32391     7    red              1700
 ## 2          1589 46.21374 11.80819     5    red              1700
@@ -122,24 +122,24 @@
 <div id="linear-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-model" class="anchor"></a>Linear model</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw">lm</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
 </div>
 <div id="random-forest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#random-forest" class="anchor"></a>Random forest</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"randomForest"</span>)
-<span class="kw">set.seed</span>(<span class="dv">59</span>)
-rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">59</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3">rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
 </div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preparation-for-error-analysis" class="anchor"></a>Preparation for error analysis</h1>
 <p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"auditor"</span>)
-
-lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)
-rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"auditor"</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a>
+<a class="sourceLine" id="cb5-4" title="4">rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
 </div>
 <div id="audit-of-residuals" class="section level1">
 <h1 class="hasAnchor">
@@ -156,7 +156,7 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <a href="#audit-pipelines" class="anchor"></a>Audit pipelines</h2>
 <p>The auditor provides 2 pipelines of model audit.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/modelResiduals.html">modelResiduals()</a></code> creates a <code>modelResiduals</code> object. Such object may be passed to a <code>plot()</code> function with defined type of plot. This approach requires one additional function within the pipeline. However, once created <code>modelResiduals</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.<br>
+<li><p><strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/modelResiduals.html">modelResiduals()</a></code> creates a <code>modelResiduals</code> object. Such object may be passed to a <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> function with defined type of plot. This approach requires one additional function within the pipeline. However, once created <code>modelResiduals</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast.<br>
 Alternative: <strong>model %&gt;% audit() %&gt;% modelResiduals() %&gt;% plotType()</strong></p></li>
 <li><p><strong>model %&gt;% audit() %&gt;% plot(type=…)</strong> This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.<br>
 Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
@@ -167,10 +167,10 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 <h2 class="hasAnchor">
 <a href="#modelresiduals" class="anchor"></a>modelResiduals()</h2>
 <p>In this vignette we use first pipeline. However, alternative evaluations are showed as comments. First, we need to create a <code>modelResiduals</code> objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit)
-rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit)
-
-<span class="kw">head</span>(lm_mr)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">lm_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit)</a>
+<a class="sourceLine" id="cb6-2" title="2">rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit)</a>
+<a class="sourceLine" id="cb6-3" title="3"></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(lm_mr)</a></code></pre></div>
 <pre><code>##   label       res val variable         y fitted.values    std.res index
 ## 1    lm -14.72707   1       NA 1368.4331     1383.1602 -0.3617580     1
 ## 2    lm  80.72393   2       NA 1377.0474     1296.3235  1.9829147     2
@@ -179,13 +179,13 @@ rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model
 ## 5    lm  12.70785   5       NA  985.4905      972.7826  0.3121576     5
 ## 6    lm -61.54707   6       NA  969.5682     1031.1152 -1.5118515     6</code></pre>
 <p>Some plots may require specified variable or fitted values for <code>modelResidual</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_year &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)
-rf_mr_year &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)
-
-lm_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
-rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
-
-<span class="kw">head</span>(lm_mr_year)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">lm_mr_year &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">rf_mr_year &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4">lm_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)</a>
+<a class="sourceLine" id="cb8-5" title="5">rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(lm_mr_year)</a></code></pre></div>
 <pre><code>##   label       res  val          variable         y fitted.values
 ## 1    lm -14.72707 1700 year_of_discovery 1368.4331     1383.1602
 ## 2    lm  80.72393 1700 year_of_discovery 1377.0474     1296.3235
@@ -209,116 +209,116 @@ rf_mr_fitted &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 <a href="#plotacf---autocorrelation-function-of-residuals" class="anchor"></a>plotACF() - Autocorrelation Function of Residuals</h3>
 <p>Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero.</p>
 <p>Residuals may be ordered by values of any model variable or by fitted values. If variable is not specified, function takes order from the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_surface &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)
-<span class="kw">plot</span>(lm_mr_surface, <span class="dt">type =</span> <span class="st">"ACF"</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">lm_mr_surface &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lm_mr_surface, <span class="dt">type =</span> <span class="st">"ACF"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotACF(lm_audit, variable = "year_of_discovery")</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="co"># plotACF(lm_audit, variable = "year_of_discovery")</span></a></code></pre></div>
 </div>
 <div id="plotautocorrelation---autocorrelation-of-residuals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotautocorrelation---autocorrelation-of-residuals" class="anchor"></a>plotAutocorrelation() - Autocorrelation of Residuals</h3>
 <p>On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.</p>
 <p>Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a better model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, <span class="dt">type =</span> <span class="st">"Autocorrelation"</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr_fitted, <span class="dt">type =</span> <span class="st">"Autocorrelation"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotAutocorrelation(rf_audit, variable = "Fitted values")</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co"># plotAutocorrelation(rf_audit, variable = "Fitted values")</span></a></code></pre></div>
 <p>DW score and Runs score are based on Durbin-Watson and Runs test statistics.</p>
 <p>Scores can be calculated with the <code><a href="../reference/scoreDW.html">scoreDW()</a></code> and <code><a href="../reference/scoreRuns.html">scoreRuns()</a></code> functions or the <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals to “DW” or “Runs”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf_score_DW &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreDW.html">scoreDW</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
-rf_score_Runs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreRuns.html">scoreRuns</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)
-
-rf_score_DW<span class="op">$</span>score</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">rf_score_DW &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreDW.html">scoreDW</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)</a>
+<a class="sourceLine" id="cb14-2" title="2">rf_score_Runs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/scoreRuns.html">scoreRuns</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"Fitted values"</span>)</a>
+<a class="sourceLine" id="cb14-3" title="3"></a>
+<a class="sourceLine" id="cb14-4" title="4">rf_score_DW<span class="op">$</span>score</a></code></pre></div>
 <pre><code>## [1] 0.651724</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf_score_Runs<span class="op">$</span>score</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">rf_score_Runs<span class="op">$</span>score</a></code></pre></div>
 <pre><code>## [1] -11.21878</code></pre>
 </div>
 <div id="plotmodelcorrelation---correlation-of-models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotmodelcorrelation---correlation-of-models" class="anchor"></a>plotModelCorrelation - Correlation of Models</h3>
 <p>A grid of plots presents correlation of dependennt variable and fitted model values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ModelCorrelation"</span>)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ModelCorrelation"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotModelCorrelation(rf_audit, lm_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="co"># plotModelCorrelation(rf_audit, lm_audit)</span></a></code></pre></div>
 </div>
 <div id="plotmodelpca---model-pca" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotmodelpca---model-pca" class="anchor"></a>plotModelPCA() - Model PCA</h3>
 <p>Principal Component Analysis of models residuals. PCA can be used to assess the similarity of the models.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ModelPCA"</span>)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ModelPCA"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotModelPCA(rf_audit, lm_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="co"># plotModelPCA(rf_audit, lm_audit)</span></a></code></pre></div>
 </div>
 <div id="plotpredition---observed-vs-predicted" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotpredition---observed-vs-predicted" class="anchor"></a>plotPredition() - Observed vs Predicted</h3>
 <p>Basic plot of residuals vs observed, fitted or variable values. If variable is not specified, function takes order from the data set.</p>
 <p>Black line corresponds to the y=x function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"life_length"</span>)
-rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"life_length"</span>)
-
-<span class="kw">plot</span>(rf_mr_m2, lm_mr_m2, <span class="dt">type =</span> <span class="st">"Prediction"</span>)</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">lm_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(lm_audit, <span class="dt">variable =</span> <span class="st">"life_length"</span>)</a>
+<a class="sourceLine" id="cb22-2" title="2">rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelResiduals.html">modelResiduals</a></span>(rf_audit, <span class="dt">variable =</span> <span class="st">"life_length"</span>)</a>
+<a class="sourceLine" id="cb22-3" title="3"></a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr_m2, lm_mr_m2, <span class="dt">type =</span> <span class="st">"Prediction"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotPrediction(rf_audit, lm_audit, variable = "life_length")</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="co"># plotPrediction(rf_audit, lm_audit, variable = "life_length")</span></a></code></pre></div>
 <p>Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotResidual(rf_audit, lm_audit, variable = "Fitted values")</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="co"># plotResidual(rf_audit, lm_audit, variable = "Fitted values")</span></a></code></pre></div>
 </div>
 <div id="plotrec---regression-error-characteristic-rec-curve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotrec---regression-error-characteristic-rec-curve" class="anchor"></a>plotREC() - Regression Error Characteristic (REC) Curve</h3>
 <p>Error Characteristic curves are a generalization of ROC curves. On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance. REC curve estimates the Cumulative Distribution Function (CDF) of the error. Area Over the REC Curve (REC) is a biased estimate of the expected error.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"REC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"REC"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotREC(rf_audit, lm_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="co"># plotREC(rf_audit, lm_audit)</span></a></code></pre></div>
 </div>
 <div id="plotresidual---plot-residuals-vs-observed-fitted-or-variable-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values" class="anchor"></a>plotResidual() - Plot Residuals vs Observed, Fitted or Variable Values</h3>
 <p>Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, <span class="dt">type =</span> <span class="st">"Residual"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotResidual(rf_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="co"># plotResidual(rf_audit)</span></a></code></pre></div>
 <p>Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together. If variable is not specified, function takes order from the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"Residual"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotResidual(rf_audit, lm_audit, variable = "Fitted values")</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="co"># plotResidual(rf_audit, lm_audit, variable = "Fitted values")</span></a></code></pre></div>
 </div>
 <div id="plotresidualboxplot---boxplot-of-residuals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotresidualboxplot---boxplot-of-residuals" class="anchor"></a>plotResidualBoxplot() - Boxplot of residuals</h3>
 <p>Comparison of the absolute valued of residuals. The red dot stands for the root mean square.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"ResidualBoxplot"</span>)</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"ResidualBoxplot"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualBoxplot(lm_audit, rf_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="co"># plotResidualBoxplot(lm_audit, rf_audit)</span></a></code></pre></div>
 </div>
 <div id="plotresidualdensity---density-of-residuals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotresidualdensity---density-of-residuals" class="anchor"></a>plotResidualDensity() - Density of Residuals</h3>
 <p>Density of residuals may be plotted in different ways. Residuals of models may be simply compared.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ResidualDensity"</span>)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"ResidualDensity"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="co"># plotResidualDensity(rf_audit, lm_audit)</span></a></code></pre></div>
 <p>Resuduals may be also divided by median of the numeric variable and splitted by a factor variable</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_m2, rf_mr_m2)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_m2, rf_mr_m2)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "life_length")</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_year, rf_mr_year)</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "life_length")</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw"><a href="../reference/plotResidualDensity.html">plotResidualDensity</a></span>(lm_mr_year, rf_mr_year)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "year_of_discovery")</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="co"># plotResidualDensity(rf_audit, lm_audit, variable = "year_of_discovery")</span></a></code></pre></div>
 </div>
 <div id="plotrroc---regression-receiver-operating-characteristic-rroc" class="section level3">
 <h3 class="hasAnchor">
@@ -327,29 +327,29 @@ rf_mr_m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mo
 <p>For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves. For each observation we calculate new prediction:  where s is the shift. Therefore, there are different error values for each shift: </p>
 <p>Over-estimation is caluclates as: . Under-estimation is calculated as: . The shift equals 0 is represented by a dot.</p>
 <p>The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by .</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"RROC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"RROC"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotRROC(rf_audit, lm_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="co"># plotRROC(rf_audit, lm_audit)</span></a></code></pre></div>
 </div>
 <div id="plotscalelocation---scale-location-plot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotscalelocation---scale-location-plot" class="anchor"></a>plotScaleLocation() - Scale Location Plot</h3>
 <p>This plot shows if residuals are spread equally along the ranges of predictors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"ScaleLocation"</span>)</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr_fitted, lm_mr_fitted, <span class="dt">type =</span> <span class="st">"ScaleLocation"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative:</span>
-<span class="co"># plotScaleLocation(rf_audit, lm_audit, variable = "Fitted values")</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="co"># plotScaleLocation(rf_audit, lm_audit, variable = "Fitted values")</span></a></code></pre></div>
 <p>For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic. And may be computed also in <code><a href="../reference/score.html">score()</a></code> function with argument <code>score</code> equals “GQ”.</p>
 </div>
 <div id="plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf" class="anchor"></a>plotTwoSidedECDF() - Two-sided Empirical Cumulative Distribution Function (ECDF)</h3>
 <p>Cumulative Distribution Function for positive and negative residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"TwoSidedECDF"</span>)</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"TwoSidedECDF"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># alternative</span>
-<span class="co"># TwoSidedECDF(rf_audit, lm_audit)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="co"># TwoSidedECDF(rf_audit, lm_audit)</span></a></code></pre></div>
 </div>
 </div>
 <div id="other-methods" class="section level2">

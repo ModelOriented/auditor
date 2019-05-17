@@ -1,15 +1,16 @@
-var points = options.points, smooth = options.smooth;
-var minVariable = options.xmin, maxVariable = options.xmax,
-    minResidual = options.ymin, maxResidual = options.ymax;
-var variableName = options.variable, n = options.n;
-var yTitle = options.yTitle, chartTitle = options.chartTitle;
+var points = options.points, smooth = options.smooth,
+    xmin = options.xmin, xmax = options.xmax,
+    ymin = options.ymin, ymax = options.ymax,
+    variableName = options.variable, n = options.n,
+    yTitle = options.yTitle,
+    xTitle = options.xTitle,
+    chartTitle = options.chartTitle;
 
-var plotHeight, plotWidth;
-var margin = {top: 98, right: 30, bottom: 71, left: 120, inner: 42};
-var labelsMargin = 94;
-var w = width - margin.left - margin.right;
-var h = height - margin.top - margin.bottom;
-var labelsMargin = margin.left - 8;
+var plotHeight, plotWidth,
+    margin = {top: 98, right: 30, bottom: 71, left: 120, inner: 42},
+    w = width - margin.left - margin.right,
+    h = height - margin.top - margin.bottom,
+    labelsMargin = margin.left - 8;
 
 if (options.scalePlot === true) {
   plotHeight = h;
@@ -23,12 +24,12 @@ var k;
 if (smooth === true) { k = 1; } else { k = 0; }
 var modelNames = Object.keys(data[k]);
 
-var colors = getColors(3, "point");
-var pointColor = colors[k], dPointColor = colors[k];
-var smoothColor = colors[0], dSmoothColor = colors[0];
-var greyColor = colors[2], dOpacity = 1;
+var colors = getColors(3, "point"),
+    pointColor = colors[k], dPointColor = colors[k],
+    smoothColor = colors[0], dSmoothColor = colors[0],
+    greyColor = colors[2], dOpacity = 1;
 
-residual(data);
+autocorrelation(data);
 
 if (n!=1) {
     svg.select("g.legend").select("circle.legendDot").dispatch("click");
@@ -38,7 +39,7 @@ svg.selectAll("text")
   .style('font-family', 'Fira Sans, sans-serif');
 
 // plot function
-function residual(data){
+function autocorrelation(data){
   var pointData = data[0], smoothData = data[1];
   for (var i=0; i<n; i++){
     var modelName = modelNames[i];
@@ -50,11 +51,11 @@ function singlePlot(modelName, pData, sData, i) {
 
     var x = d3.scaleLinear()
           .range([margin.left + 10, margin.left + plotWidth - 10])
-          .domain([minVariable, maxVariable]);
+          .domain([xmin, xmax]);
 
     var y = d3.scaleLinear()
-          .range([margin.top + plotHeight, margin.top])
-          .domain([minResidual, maxResidual]);
+          .range([margin.top + plotHeight - 10, margin.top + 10])
+          .domain([ymin, ymax]);
 
     // function to draw smooth lines
     var line = d3.line()
@@ -73,7 +74,7 @@ function singlePlot(modelName, pData, sData, i) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", margin.left - 50)
+          .attr("y", margin.left - 56)
           .attr("x", -(margin.top + plotHeight/2))
           .attr("text-anchor", "middle")
           .text(yTitle);
@@ -83,7 +84,7 @@ function singlePlot(modelName, pData, sData, i) {
           .attr("transform",
                 "translate(" + (margin.left + plotWidth/2) + " ," + (margin.top + plotHeight + 50) + ")")
           .attr("text-anchor", "middle")
-          .text(variableName);
+          .text(xTitle);
 
       // find 5 nice ticks with max and min - do better than d3
       var domain = x.domain();
@@ -140,6 +141,15 @@ function singlePlot(modelName, pData, sData, i) {
       }
 
       // axis and grid
+      var xGrid = svg.append("g")
+               .attr("class", "grid")
+               .attr("transform", "translate(0,"+ (margin.top + plotHeight - 6) + ")")
+               .call(d3.axisBottom(x)
+                      .ticks(8)
+                      .tickSize(-plotHeight)
+                      .tickFormat("")
+              ).call(g => g.select(".domain").remove());
+
       var xAxis = d3.axisBottom(x)
                 .tickValues(tickValues)
                 .tickSizeInner(0)
@@ -154,20 +164,20 @@ function singlePlot(modelName, pData, sData, i) {
                .attr("class", "grid")
                .attr("transform", "translate(" + margin.left + ",0)")
                .call(d3.axisLeft(y)
-                      .ticks(10)
+                      .ticks(8)
                       .tickSize(-plotWidth)
                       .tickFormat("")
               ).call(g => g.select(".domain").remove());
 
       var yAxis = d3.axisLeft(y)
-              .ticks(5)
-              .tickSize(0);
+                .tickValues(tickValues)
+                .tickSizeInner(0)
+                .tickPadding(15);
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
               .attr("transform","translate(" + labelsMargin + ",0)")
-              .call(yAxis)
-              .call(g => g.select(".domain").remove());
+              .call(yAxis);
 
       if (n!=1) {
 
@@ -283,8 +293,8 @@ function singlePlot(modelName, pData, sData, i) {
         .append("circle")
         .attr("class", "point" + tModelName)
         .attr("id", tModelName)
-        .attr("cx", d => x(d.val))
-        .attr("cy", d => y(d.res))
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
         .attr("r", 1)
         .style("fill", dPointColor)
         .style("opacity", dOpacity);

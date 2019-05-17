@@ -1,5 +1,6 @@
 #' @title Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 Package.
 #'
+#' @description
 #' Function \code{plotD3Residual} plots resudial values vs observed, fitted or variable values in the model.
 #' It uses output from \code{modelAudit} or \code{modelResiduals} function.
 #'
@@ -19,19 +20,19 @@
 #' @return an `r2d3` object.
 #'
 #' @examples
-#' library(auditor)
-#' library(car)
+#' library("auditor")
+#' library("DALEX")
 #'
-#' lm_model <- lm(prestige~education + women + income, data = Prestige)
+#' lm_model <- lm(m2.price ~., data = apartments)
 #' lm_au <- audit(lm_model, label = "lm")
-#' plotD3Residual(lm_au, variable = "income")
+#' plotD3Residual(lm_au, variable = "construction.year")
 #'
 #' library(randomForest)
-#' rf_model <- randomForest(prestige~education + women + income, data = Prestige)
+#' rf_model <- randomForest(m2.price ~., data = apartments)
 #' rf_au <- audit(rf_model, label = "rf")
-#' rf_mr <- modelResiduals(rf_au, "income")
-#' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE)
-#' plotD3Residual(lm_au, rf_mr, variable = "income", smooth = TRUE, single_plot = FALSE)
+#' rf_mr <- modelResiduals(rf_au, "construction.year")
+#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 #'
 #' @seealso \code{\link{plotResidual}}
 #'
@@ -50,12 +51,12 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   # chose y
   if (std_residuals == TRUE) {
     y <- "std.res"
-    yTitle <- "standardized residuals"
-    chartTitle <- "Standardized residuals vs"
+    yTitle <- "Standardized residuals"
+    chartTitle <- "Standardized residuals"
   } else {
     y <- "res"
-    yTitle <- "residuals"
-    chartTitle <- "Residuals vs"
+    yTitle <- "Residuals"
+    chartTitle <- "Residuals"
   }
 
   # make every input modelResiduals, check `variable`
@@ -76,7 +77,7 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
 
     df <- mr[, c(y, "val", "label")]
     class(df) <- "data.frame"
-    colnames(df) <- c("res", "val", "label")
+    colnames(df) <- c("y", "x", "label")
     mrl[[i]] <- df
   }
 
@@ -84,11 +85,10 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
     stop("Objects have more than one variable name.")
   } else {
     if (is.na(unique(varl))) {
-      chartTitle <- "Residuals"
-      variable <- "observations"
+      variable <- "Observations"
     } else {
       variable <- varl[1]
-      chartTitle <- paste(chartTitle, variable)
+      chartTitle <- paste0(chartTitle, " vs ", variable)
     }
   }
 
@@ -111,19 +111,19 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
     }
 
     names(pointData) <- modelNames
-    pointMax <- max(sapply(mrl, function(x) max(x$res)))
-    pointMin <- min(sapply(mrl, function(x) min(x$res)))
+    pointMax <- max(sapply(mrl, function(x) max(x$y)))
+    pointMin <- min(sapply(mrl, function(x) min(x$y)))
   }
 
   # prepare smooth data
   if (smooth == TRUE) {
 
     smoothData <- lapply(mrl, function(mr) {
-      model <- mgcv::gam(res ~ s(val, bs = "cs"), data = mr)
-      vec <- data.frame(val = seq(min(mr$val), max(mr$val), length.out = 100))
+      model <- mgcv::gam(y ~ s(x, bs = "cs"), data = mr)
+      vec <- data.frame(x = seq(min(mr$x), max(mr$x), length.out = 100))
       p <- predict(model, vec)
-      df <- data.frame(val = vec$val, smooth = as.numeric(p))
-      dim(df$val) <- NULL
+      df <- data.frame(x = vec$x, smooth = as.numeric(p))
+      dim(df$x) <- NULL
       df
     })
 
@@ -133,8 +133,8 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   }
 
   # find x and y scale
-  xmax <- max(mrl[[1]]$val)
-  xmin <- min(mrl[[1]]$val)
+  xmax <- max(mrl[[1]]$x)
+  xmin <- min(mrl[[1]]$x)
   ymax <- max(pointMax, smoothMax)
   ymin <- min(pointMin, smoothMin)
 
@@ -145,12 +145,12 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax + ticksMargin, ymin = ymin - ticksMargin,
                   variable = variable, n = n,
-                  points = points, smooth = smooth,
+                  points = points, smooth = smooth, peaks = FALSE,
                   scalePlot = scale_plot, yTitle = yTitle, chartTitle = chartTitle)
 
   if (single_plot == TRUE) {
 
-    r2d3::r2d3(data = temp, script = system.file("d3js/plotResidualsSingle.js", package = "auditor"),
+    r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterSingle.js", package = "auditor"),
            dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
            css = system.file("d3js/themeDrWhy.css", package = "auditor"),
            d3_version = 4,
@@ -160,7 +160,7 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
     if (n==1) stop("Use single_plot instead.")
     options['background'] <- background
 
-    r2d3::r2d3(data = temp, system.file("d3js/plotResidualsMany.js", package = "auditor"),
+    r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterMany.js", package = "auditor"),
            dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
            css = system.file("d3js/themeDrWhy.css", package = "auditor"),
            d3_version = 4,

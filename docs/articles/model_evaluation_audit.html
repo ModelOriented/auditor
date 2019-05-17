@@ -24,8 +24,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class="navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
-        <img src="https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
+	  <a class="navbar-mi2logo" href="http://DrWhy.AI/">
+        <img src="https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
       <a class="navbar-brand navbar-mi2" href="../index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -82,7 +82,7 @@
       <h1>Model Evaluation Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2018-12-28</h4>
+            <h4 class="date">2019-05-13</h4>
       
       
       <div class="hidden name"><code>model_evaluation_audit.Rmd</code></div>
@@ -95,14 +95,14 @@
 <h1 class="hasAnchor">
 <a href="#model-evaluation-audit-for-classification-problem" class="anchor"></a>Model Evaluation Audit for Classification Problem</h1>
 <p>In this vignette we present plots for classification models evaluation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(auditor)
-<span class="kw">library</span>(mlbench)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(mlbench)</a></code></pre></div>
 <div id="dataset" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dataset" class="anchor"></a>Dataset</h3>
 <p>We work on PimaIndianDiabetes dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(PimaIndiansDiabetes)
-<span class="kw">head</span>(PimaIndiansDiabetes)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(PimaIndiansDiabetes)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(PimaIndiansDiabetes)</a></code></pre></div>
 <pre><code>##   pregnant glucose pressure triceps insulin mass pedigree age diabetes
 ## 1        6     148       72      35       0 33.6    0.627  50      pos
 ## 2        1      85       66      29       0 26.6    0.351  31      neg
@@ -111,36 +111,36 @@
 ## 5        0     137       40      35     168 43.1    2.288  33      pos
 ## 6        5     116       74       0       0 25.6    0.201  30      neg</code></pre>
 <p>We transform dependent variable into binary vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pima &lt;-<span class="st"> </span>PimaIndiansDiabetes
-pima<span class="op">$</span>diabetes &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pima<span class="op">$</span>diabetes <span class="op">==</span><span class="st"> "pos"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">pima &lt;-<span class="st"> </span>PimaIndiansDiabetes</a>
+<a class="sourceLine" id="cb4-2" title="2">pima<span class="op">$</span>diabetes &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(pima<span class="op">$</span>diabetes <span class="op">==</span><span class="st"> "pos"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div>
 </div>
 <div id="models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#models" class="anchor"></a>Models</h3>
 <p>We fit 2 models: glm and svm.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_glm &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes<span class="op">~</span>., <span class="dt">data =</span> pima, <span class="dt">family =</span> binomial)
-
-<span class="kw">library</span>(e1071)
-model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(diabetes<span class="op">~</span>., <span class="dt">data =</span> pima)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">model_glm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/glm">glm</a></span>(diabetes<span class="op">~</span>., <span class="dt">data =</span> pima, <span class="dt">family =</span> binomial)</a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(e1071)</a>
+<a class="sourceLine" id="cb5-4" title="4">model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(diabetes<span class="op">~</span>., <span class="dt">data =</span> pima)</a></code></pre></div>
 </div>
 <div id="model-audit" class="section level3">
 <h3 class="hasAnchor">
 <a href="#model-audit" class="anchor"></a>Model Audit</h3>
 <p>First step of auditing is creating <code>modelAudit</code> object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">au_glm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model_glm, <span class="dt">data =</span> pima, <span class="dt">y =</span> pima<span class="op">$</span>diabetes)
-au_svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model_svm, <span class="dt">data =</span> pima, <span class="dt">y =</span> pima<span class="op">$</span>diabetes, <span class="dt">label =</span> <span class="st">"svm"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">au_glm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model_glm, <span class="dt">data =</span> pima, <span class="dt">y =</span> pima<span class="op">$</span>diabetes)</a>
+<a class="sourceLine" id="cb6-2" title="2">au_svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(model_svm, <span class="dt">data =</span> pima, <span class="dt">y =</span> pima<span class="op">$</span>diabetes, <span class="dt">label =</span> <span class="st">"svm"</span>)</a></code></pre></div>
 </div>
 <div id="receiver-operating-characteristic-roc" class="section level3">
 <h3 class="hasAnchor">
 <a href="#receiver-operating-characteristic-roc" class="anchor"></a>Receiver Operating Characteristic (ROC)</h3>
 <p><code>modelAudit</code> object can be used for plotting charts.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotROC.html">plotROC</a></span>(au_glm, au_svm)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../reference/plotROC.html">plotROC</a></span>(au_glm, au_svm)</a></code></pre></div>
 <p><img src="model_evaluation_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div id="lift-chart" class="section level3">
 <h3 class="hasAnchor">
 <a href="#lift-chart" class="anchor"></a>LIFT Chart</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotLIFT.html">plotLIFT</a></span>(au_glm, au_svm)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/plotLIFT.html">plotLIFT</a></span>(au_glm, au_svm)</a></code></pre></div>
 <p><img src="model_evaluation_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>
