@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3ScaleLocation.R
 \name{plotD3ScaleLocation}
 \alias{plotD3ScaleLocation}
-\title{Plot2 TODO}
+\title{Scale Location Plot in D3 with r2d3 Package.}
 \usage{
 plotD3ScaleLocation(object, ..., variable = NULL, smooth = FALSE,
   peaks = FALSE, point_count = NULL, single_plot = TRUE,
@@ -13,7 +13,10 @@ plotD3ScaleLocation(object, ..., variable = NULL, smooth = FALSE,
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
@@ -31,6 +34,11 @@ plotD3ScaleLocation(object, ..., variable = NULL, smooth = FALSE,
 an `r2d3` object.
 }
 \description{
+Function \code{plotD3ScaleLocation} plots square root of the absolute value of the residuals vs target,
+observed or variable values in the model.
+It uses output from \code{modelAudit} or \code{modelResiduals} function.
+
+
 If the picture is not displayed in the viewer, please update your RStudio.
 }
 \examples{
