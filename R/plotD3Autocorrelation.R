@@ -4,7 +4,10 @@
 #'
 #' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
+#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
@@ -23,11 +26,11 @@
 #' library("randomForest")
 #' rf_model <- randomForest(m2.price ~ ., data = apartments)
 #'
-#' lm_audit <- audit(lm_model, label = "lm", data = apartments, y = apartments$m2.price)
-#' rf_audit <- audit(rf_model, label = "rf", data = apartments, y = apartments$m2.price)
+#' lm_au <- audit(lm_model, label = "lm", data = apartments, y = apartments$m2.price)
+#' rf_au <- audit(rf_model, label = "rf", data = apartments, y = apartments$m2.price)
 #'
-#' lm_mr_year <- modelResiduals(lm_audit, variable = "construction.year")
-#' rf_mr_year <- modelResiduals(rf_audit, variable = "construction.year")
+#' lm_mr_year <- modelResiduals(lm_au, variable = "construction.year")
+#' rf_mr_year <- modelResiduals(rf_au, variable = "construction.year")
 #'
 #' plotD3Autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
 #'
@@ -69,12 +72,8 @@ plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, s
   if (length(unique(varl)) > 1) {
     stop("Objects have more than one variable name.")
   } else {
-    if (is.na(unique(varl))) {
-      chartTitle <- "Autocorrelation plot"
-    } else {
-      variable <- varl[1]
-      chartTitle <- paste("Autocorrelation plot by", variable)
-    }
+    variable <- varl[1]
+    chartTitle <- paste("Autocorrelation plot by", variable)
   }
 
   xTitle <- "residual i"

@@ -19,6 +19,9 @@ test_that("plotCook", {
 
 test_that("plotPrediction", {
   expect_is(plotPrediction(au.rf, smooth = TRUE), "gg")
+  expect_is(plotPrediction(au.rf, variable = "Prewt"), "gg")
+  expect_is(plotPrediction(au.rf, variable = ""), "gg")
+  expect_is(plotPrediction(au.rf, abline = TRUE), "gg")
 })
 
 test_that("plotResiduals", {
@@ -32,7 +35,11 @@ test_that("plotResidualBoxplot", {
 })
 
 test_that("plotResidualDeensity", {
+  expect_is(plotResidualDensity(au.lm), "gg")
   expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
+  expect_is(plotResidualDensity(au.lm, variable = ""), "gg")
+  expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
+  expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
 })
 
 test_that("plotScaleLocation", {
@@ -114,4 +121,10 @@ lm.mp2 <- modelPerformance(au.lm,
                           scores = c("MAE", "MSE", "REC", "RROC"),
                           new.score = new_score)
 expect_is(plot(lm.mp, lm.mp2, type="ModelRanking", table=FALSE), "gg")
+})
+
+
+test_that("theme drwhy colors generates rigth length vectors", {
+  z <- 1:9
+  all.equal(unlist(lapply(z, function(x) length(theme_drwhy_colors(x)))), z)
 })

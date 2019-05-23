@@ -102,8 +102,8 @@ In this vignette we use first pipeline. However, alternative evaluations are sho
 First, we need to create a `modelResiduals` objects.
 
 ```{r}
-lm_mr <- modelResiduals(lm_audit)
-rf_mr <- modelResiduals(rf_audit)
+lm_mr <- modelResiduals(lm_audit, variable = "")
+rf_mr <- modelResiduals(rf_audit, variable = "")
 
 head(lm_mr)
 ```
@@ -113,8 +113,8 @@ Some plots may require specified variable or fitted values for `modelResidual` o
 lm_mr_year <- modelResiduals(lm_audit, variable = "year_of_discovery")
 rf_mr_year <- modelResiduals(rf_audit, variable = "year_of_discovery")
 
-lm_mr_fitted <- modelResiduals(lm_audit, variable = "Fitted values")
-rf_mr_fitted <- modelResiduals(rf_audit, variable = "Fitted values")
+lm_mr_fitted <- modelResiduals(lm_audit)
+rf_mr_fitted <- modelResiduals(rf_audit)
 
 head(lm_mr_year)
 ```
@@ -147,7 +147,7 @@ Sometimes it is difficult to compare two models basing only on visualizations. T
 plot(rf_mr_fitted, type = "Autocorrelation")
 
 # alternative:
-# plotAutocorrelation(rf_audit, variable = "Fitted values")
+# plotAutocorrelation(rf_audit)
 ```
 
 DW score and Runs score are based on Durbin-Watson and Runs test statistics.
@@ -155,8 +155,8 @@ DW score and Runs score are based on Durbin-Watson and Runs test statistics.
 Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions or the `score()` function with argument `score` equals to "DW" or "Runs".
 
 ```{r}
-rf_score_DW <- scoreDW(rf_audit, variable = "Fitted values")
-rf_score_Runs <- scoreRuns(rf_audit, variable = "Fitted values")
+rf_score_DW <- scoreDW(rf_audit)
+rf_score_Runs <- scoreRuns(rf_audit)
 
 rf_score_DW$score
 rf_score_Runs$score
@@ -208,7 +208,7 @@ Residuals may be ordered by values any model variable or by fitted values. And b
 plot(rf_mr_fitted, lm_mr_fitted, type = "Residual")
 
 # alternative:
-# plotResidual(rf_audit, lm_audit, variable = "Fitted values")
+# plotResidual(rf_audit, lm_audit)
 ```
 
 
@@ -242,7 +242,7 @@ Residuals may be ordered by values any model variable or by fitted values. And b
 plot(rf_mr_fitted, lm_mr_fitted, type = "Residual")
 
 # alternative:
-# plotResidual(rf_audit, lm_audit, variable = "Fitted values")
+# plotResidual(rf_audit, lm_audit)
 ```
 
 ### plotResidualBoxplot() - Boxplot of residuals
@@ -312,7 +312,7 @@ This plot shows if residuals are spread equally along the ranges of predictors.
 plot(rf_mr_fitted, lm_mr_fitted, type = "ScaleLocation")
 
 # alternative:
-# plotScaleLocation(rf_audit, lm_audit, variable = "Fitted values")
+# plotScaleLocation(rf_audit, lm_audit)
 ```
 
 For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
