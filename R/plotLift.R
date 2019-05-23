@@ -15,7 +15,7 @@
 #' data("PimaIndiansDiabetes")
 #' Pima <- PimaIndiansDiabetes
 #' Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-#' glm_model <- glm(diabetes~., family=binomial,	data=Pima)
+#' glm_model <- glm(diabetes ~ ., family = binomial, data=Pima)
 #' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
 #' plotLIFT(glm_au)
 #'
@@ -24,46 +24,66 @@
 #'
 #'
 #' @export
-
-
-plotLIFT <- function(object, ...){
-  if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
-  if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
+plotLIFT <- function(object, ...) {
+  # some safeguard
   rpp <- tp <- label <- NULL
 
-  df <- attributes(object)$CGains
-  idealdf <- attributes(object)$idealCGains
-  idealdf <- rbind(idealdf, c(0, 0, 0, "ideal"))
-  idealdf$tp <- as.numeric(idealdf$tp)
-  idealdf$rpp <- as.numeric(idealdf$rpp)
-  idealdf$alpha <- as.numeric(idealdf$alpha)
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "eva")
 
-  randomdf <- data.frame(rpp = c(0, 1), tp = c(0, max(idealdf$tp)), alpha = c(0, 1),
-                                               label =c("random", "random"))
+  # prepare data frame for ideal model
+  ideal_df <- attributes(modelEvaluation(object))$idealCGains
+  ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
-      if("modelEvaluation" %in% class(resp))  df <- rbind( df, attributes(resp)$CGains )
-    }
-  }
+  cols <- c("rpp", "tp", "alpha")
+  ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
 
-  for(lab in unique(df$label)) df <- rbind(df, c("0", "0", "0", lab))
-  df$tp <- as.numeric(df$tp)
-  df$rpp <- as.numeric(df$rpp)
-  df$alpha <- as.numeric(df$alpha)
+  # prepare data frame for dummy model
+  random_df <- data.frame(rpp = c(0, 1),
+                          tp =  c(0, max(ideal_df$tp)),
+                          alpha = c(0, 1),
+                          label = c("random", "random"))
 
-  ggplot(df, aes(x = rpp, y = tp, color = label)) +
-    geom_line() +
-    geom_line(data = idealdf, aes(x = rpp, y = tp), color = "orange") +
-    geom_line(data = randomdf, aes(x = rpp, y = tp), color = "black") +
-    xlab("rate of positive prediction") +
-    ylab("true positive") +
-    ggtitle("LIFT Chart") +
-    theme_light()
+  # prepare data frame for ggplot object
+  df <- make_dataframe(object, ..., variable = variable, type = "eva")
+  for (lab in unique(df$label)) df <- rbind(df, c("0", "0", "0", lab))
+
+  df[,cols] = apply(df[,cols], 2, function(x) as.numeric(x))
+
+  # make new variable to keep order of lines correct
+  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+
+  # main plot
+  p <- ggplot(df, aes(x = rpp, y = tp)) +
+    geom_line(data = ideal_df,  aes(rpp, tp), color = "#4378bf", linetype = "dashed") +
+    geom_line(data = random_df, aes(rpp, tp), color = "#ae2c87", linetype = "dashed") +
+    geom_line(aes(group = ord, color = label)) +
+    xlab("Rate of positive prediction") +
+    ylab("True positive") +
+    ggtitle("LIFT Chart")
+
+  # theme and colours
+  p <- p + theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3")) +
+    scale_color_manual(values = rev(colours))
+
+  # X axis labels
+  p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+
+  # extra legend for ideal and dummy model
+  dashes  <- paste(rep("\U2212", 2), collapse = " ")
+  x_coord_u <- 0.70
+  x_coord_d <- 0.78
+  y_coord   <- max(df$tp)
+  y_coord_l <- y_coord * 0.10
+  y_coord_r <- y_coord * 0.05
+  p <- p + annotate("text", x = x_coord_u, y = y_coord_l, label = dashes, colour = "#4378bf", hjust = 0) +
+    annotate("text", x = x_coord_d, y = y_coord_l, label = "ideal model", colour = "#160e3b", hjust = 0) +
+    annotate("text", x = x_coord_u, y = y_coord_r, label = dashes, colour = "#ae2c87", hjust = 0) +
+    annotate("text", x = x_coord_d, y = y_coord_r, label = "dummy model", colour = "#160e3b", hjust = 0)
+
+  return(p)
 }
-
-
-
-
