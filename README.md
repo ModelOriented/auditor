@@ -31,7 +31,7 @@ install.packages("auditor")
 Developer version from GitHub:
 
 ``` r
-source("https://install-github.me/agosiewska/auditor")
+source("https://install-github.me/MI2DataLab/auditor")
 ```
 
 ## Demo
