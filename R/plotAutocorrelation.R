@@ -4,8 +4,10 @@
 #'
 #' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
-#' @param score Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.
+#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
+#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
 #' @param smooth Logical, if TRUE smooth line will be added.
 #'
 #' @examples
@@ -18,65 +20,63 @@
 #' @import ggplot2
 #'
 #' @export
-plotAutocorrelation <- function(object, ..., variable = NULL, score = FALSE, smooth = FALSE) {
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
+plotAutocorrelation <- function(object, ..., variable = NULL, smooth = FALSE) {
 
+  # some safeguard
   x <- y <- NULL
 
-  df <- object
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if ("modelAudit" %in% class(resp)) df <- rbind( df, modelResiduals(resp, variable) )
-      if ("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
-    }
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
+
+  # data frame for ggplot object
+  df_temp <- make_dataframe(object, ..., variable = variable, type = "res")
+
+  df <- data.frame(x_val = numeric(), y_val = numeric(), label = character())
+  for (label in levels(df_temp$label)) {
+    ord_res <- df_temp[which(df_temp$label == label), "res"]
+    df <- rbind(df, data.frame(x_val = ord_res[-length(ord_res)],
+                               y_val = ord_res[-1],
+                               label = label))
   }
 
-  resultDF <- data.frame(x = numeric(), y = numeric(), label = character())
-  for (label in unique(df$label)){
-    orderedResiduals <- df[which(df$label == label), "res"]
-    n <- length(orderedResiduals)
-    resultDF <- rbind(resultDF, data.frame(x = orderedResiduals[-n], y = orderedResiduals[-1], label = label))
-  }
+  # data frame for extra geoms
+  maybe_smooth <- if (smooth == TRUE) df else df[0, ]
 
-  maybe_smooth <- if (smooth == TRUE) resultDF else resultDF[0, ]
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
-  # depending of how many models are presented (1 or more) - colors and other values are changing
-  colours <- theme_drwhy_colors(length(unique(df$label)))
+  # main chart
+  p <- ggplot(df, aes(x_val, y_val))
 
-  p <- ggplot(resultDF, aes(x, y, color = label)) +
-    geom_point(data = resultDF, alpha = ifelse(smooth == TRUE, 0.65, 1), stroke = 0) +
-    geom_smooth(data = maybe_smooth,
-                aes(x, y, colour = factor(label, levels = rev(levels(maybe_smooth$label)))),
-                stat = "smooth",
-                method = "gam",
-                formula = y ~ s(x, bs = "cs"),
-                se = FALSE,
-                size = 1,
-                show.legend = TRUE) +
-    scale_color_manual(values = colours) +
-    xlab("Residual i") +
-    ylab("Residual i+1") +
-    ggtitle("Autocorrelation plot") +
-    theme_drwhy() +
-    theme(axis.line.x = element_line(color = "#371ea3"))
+  # scatter plot for the main model
+  p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)
 
+  # smoot curve for the main model
+  if (smooth == TRUE)
+    p <- p + drwhy_geom_smooth(maybe_smooth)
 
-  if (score == TRUE) {
-    score1 <- scoreDW(object, variable)
-    score2 <- scoreRuns(object, variable)
-    caption <- paste("Durbin-Watson Score:", round(score1$score, 2), "\nRuns Score:", round(score2$score, 2))
-    p <- p + annotate("text",
-                      x = min(resultDF$x),
-                      y = min(resultDF$y),
-                      label = caption,
-                      hjust = 0,
-                      vjust = 0,
-                      size = 3.5,
-                      colour = "#ae2c87")
-  }
+  # theme, colours, titles, axes, scales, etc.
+  p <- p + theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3"),
+          plot.subtitle = element_text(vjust = -1)) +
+    scale_color_manual(values = rev(colours),
+                       breaks = levels(df$label))
 
-  return(p)
+  chart_title <- "Autocorrelation "
+  x_lab <- as.character(df_temp$variable[1])
+
+  if (x_lab == "Target variable") {
+    p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+    chart_subtitle <- paste0("of residuals ordered by predicted values")
+  } else if (x_lab == "Observations") {
+    p <- p + scale_x_continuous(breaks = 5, labels = "")
+    chart_subtitle <- paste0("of unordered residuals")
+  } else {
+    p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+    chart_subtitle <- paste0("of residuals ordered by ", x_lab)
+}
+
+p <- p + xlab("Residual i") + ylab("Residual i+1") + ggtitle(chart_title, subtitle = chart_subtitle)
+
+return(p)
 }

@@ -8,7 +8,10 @@ test_that("plotACF", {
 })
 
 test_that("plotAutocorrelation", {
-  expect_is(plotAutocorrelation(au.lm, "income"), "gg")
+  expect_is(plotAutocorrelation(au.lm), "gg")
+  expect_is(plotAutocorrelation(au.lm, variable = ""), "gg")
+  expect_is(plotAutocorrelation(au.lm, variable = "income"), "gg")
+  expect_is(plotAutocorrelation(au.lm, smooth = TRUE), "gg")
   expect_is(plotAutocorrelation(au.rf, au.lm), "gg")
 })
 
@@ -26,8 +29,10 @@ test_that("plotPrediction", {
 
 test_that("plotResiduals", {
   expect_is(plotResidual(au.glm), "gg")
+  expect_is(plotResidual(au.glm, variable = ""), "gg")
+  expect_is(plotResidual(au.glm, variable = "Prewt"), "gg")
+  expect_is(plotResidual(au.glm, std.residuals = TRUE, smooth = TRUE, nlabel = 5), "gg")
   expect_is(plotResidual(au_expl_lm), "gg")
-  expect_is(plotResidual(au.rf, "Prewt"), "gg")
 })
 
 test_that("plotResidualBoxplot", {
@@ -44,7 +49,10 @@ test_that("plotResidualDeensity", {
 
 test_that("plotScaleLocation", {
   expect_is(plotScaleLocation(au.glm), "gg")
-  expect_is(plotScaleLocation(au.rf, "Prewt"), "gg")
+  expect_is(plotScaleLocation(au.glm, variable = ""), "gg")
+  expect_is(plotScaleLocation(au.glm, smooth = TRUE), "gg")
+  expect_is(plotScaleLocation(au.glm, peaks = TRUE), "gg")
+  expect_is(plotScaleLocation(au.rf, variable = "Prewt"), "gg")
 })
 
 test_that("plotHalfNormal", {
@@ -86,7 +94,7 @@ test_that("plot", {
   expect_is(plot(au.lm, au.rf, type="Prediction"), "gg")
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
-  expect_is(plot(au.lm, type="ScaleLocation", score = TRUE), "gg")
+  # expect_is(plot(au.lm, type="ScaleLocation", score = TRUE), "gg")
   expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
   expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="RROC"), "gg")
