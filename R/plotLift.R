@@ -31,59 +31,62 @@ plotLIFT <- function(object, ...) {
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")
 
-  # prepare data frame for ideal model
+  # prepare data frame for ideal and dummy model
   ideal_df <- attributes(modelEvaluation(object))$idealCGains
   ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
 
   cols <- c("rpp", "tp", "alpha")
   ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
 
-  # prepare data frame for dummy model
   random_df <- data.frame(rpp = c(0, 1),
                           tp =  c(0, max(ideal_df$tp)),
                           alpha = c(0, 1),
                           label = c("random", "random"))
 
-  # prepare data frame for ggplot object
-  df <- make_dataframe(object, ..., variable = variable, type = "eva")
-  for (lab in unique(df$label)) df <- rbind(df, c("0", "0", "0", lab))
+  df2 <- rbind(ideal_df, random_df)
 
-  df[,cols] = apply(df[,cols], 2, function(x) as.numeric(x))
+  # prepare data frame for the main ggplot object
+  df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
+  for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
+
+  df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
 
   # make new variable to keep order of lines correct
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  df1$ord <- paste(rev(as.numeric(df1$label)), df1$label)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df1$label))))
 
   # main plot
-  p <- ggplot(df, aes(x = rpp, y = tp)) +
-    geom_line(data = ideal_df,  aes(rpp, tp), color = "#4378bf", linetype = "dashed") +
-    geom_line(data = random_df, aes(rpp, tp), color = "#ae2c87", linetype = "dashed") +
+  p1 <- ggplot(df1, aes(x = rpp, y = tp)) +
     geom_line(aes(group = ord, color = label)) +
+    # geom_line(aes(color = label)) +
+    geom_line(data = df2, aes(colour = label), linetype = "dashed") +
     xlab("Rate of positive prediction") +
     ylab("True positive") +
     ggtitle("LIFT Chart")
 
   # theme and colours
-  p <- p + theme_drwhy() +
+  p1 <- p1 + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours))
+    scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"), breaks = levels(df1$label))
 
   # X axis labels
-  p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+  p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks())
 
-  # extra legend for ideal and dummy model
-  dashes  <- paste(rep("\U2212", 2), collapse = " ")
-  x_coord_u <- 0.70
-  x_coord_d <- 0.78
-  y_coord   <- max(df$tp)
-  y_coord_l <- y_coord * 0.10
-  y_coord_r <- y_coord * 0.05
-  p <- p + annotate("text", x = x_coord_u, y = y_coord_l, label = dashes, colour = "#4378bf", hjust = 0) +
-    annotate("text", x = x_coord_d, y = y_coord_l, label = "ideal model", colour = "#160e3b", hjust = 0) +
-    annotate("text", x = x_coord_u, y = y_coord_r, label = dashes, colour = "#ae2c87", hjust = 0) +
-    annotate("text", x = x_coord_d, y = y_coord_r, label = "dummy model", colour = "#160e3b", hjust = 0)
+  # plot of ideal and dummy models - just to get the legend
+  p2 <- ggplot(data = df2, aes(x = rpp, y = tp)) +
+    geom_line(aes(colour = label), linetype = "dashed") +
+    scale_color_manual(values = c("#4378bf", "#ae2c87")) +
+    theme_drwhy() +
+    theme(legend.position = c(0.9, 0.1)) +
+    guides(colour = guide_legend(nrow = 2, byrow = TRUE))
 
-  return(p)
+  p2_tab <- ggplot_gtable(ggplot_build(p2))
+  p2_ind <- which(sapply(p2_tab$grobs, function(x) x$name) == "guide-box")
+  p2_leg <- p2_tab$grobs[[p2_ind]]
+
+  return(grid.arrange(p1,
+                      arrangeGrob(p2_leg, nrow = 2, heights = c(unit(0.8, "npc"), unit(0.2, "npc")),
+                                  widths = unit(0.5, "npc")), ncol = 2, widths = c(8, 0)))
 }
