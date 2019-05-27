@@ -51,28 +51,30 @@ plotLIFT <- function(object, ...) {
 
   df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
 
-  # make new variable to keep order of lines correct
-  df1$ord <- paste(rev(as.numeric(df1$label)), df1$label)
+  # new variable to set different style of line for ideal and dummy models
+  df1$line <- "1"
+  df2$line <- "2"
+  df <- rbind(df1, df2)
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(length(levels(df1$label))))
 
   # main plot
-  p1 <- ggplot(df1, aes(x = rpp, y = tp)) +
-    geom_line(aes(group = ord, color = label)) +
-    # geom_line(aes(color = label)) +
-    geom_line(data = df2, aes(colour = label), linetype = "dashed") +
+  p1 <- ggplot(df, aes(x = rpp, y = tp)) +
+    geom_line(aes(color = label, linetype = line)) +
     xlab("Rate of positive prediction") +
     ylab("True positive") +
-    ggtitle("LIFT Chart")
+    ggtitle("LIFT Chart") +
+    scale_linetype_manual(values = c("solid", "dashed"), guide = FALSE)
+
+  # X axis labels
+  p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks(), expand = c(0, 0))
 
   # theme and colours
   p1 <- p1 + theme_drwhy() +
-    theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"), breaks = levels(df1$label))
-
-  # X axis labels
-  p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks())
+    scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"), breaks = levels(df1$label)) +
+    theme(plot.margin = unit(c(0, 0.5, 0, 0), "cm"),
+          axis.line.x = element_line(color = "#371ea3"))
 
   # plot of ideal and dummy models - just to get the legend
   p2 <- ggplot(data = df2, aes(x = rpp, y = tp)) +
