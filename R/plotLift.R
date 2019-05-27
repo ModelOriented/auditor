@@ -15,7 +15,7 @@
 #' data("PimaIndiansDiabetes")
 #' Pima <- PimaIndiansDiabetes
 #' Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-#' glm_model <- glm(diabetes~., family=binomial,	data=Pima)
+#' glm_model <- glm(diabetes ~ ., family = binomial, data=Pima)
 #' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
 #' plotLIFT(glm_au)
 #'
@@ -24,46 +24,71 @@
 #'
 #'
 #' @export
-
-
-plotLIFT <- function(object, ...){
-  if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
-  if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
+plotLIFT <- function(object, ...) {
+  # some safeguard
   rpp <- tp <- label <- NULL
 
-  df <- attributes(object)$CGains
-  idealdf <- attributes(object)$idealCGains
-  idealdf <- rbind(idealdf, c(0, 0, 0, "ideal"))
-  idealdf$tp <- as.numeric(idealdf$tp)
-  idealdf$rpp <- as.numeric(idealdf$rpp)
-  idealdf$alpha <- as.numeric(idealdf$alpha)
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "eva")
 
-  randomdf <- data.frame(rpp = c(0, 1), tp = c(0, max(idealdf$tp)), alpha = c(0, 1),
-                                               label =c("random", "random"))
+  # prepare data frame for ideal and dummy model
+  ideal_df <- attributes(modelEvaluation(object))$idealCGains
+  ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
-      if("modelEvaluation" %in% class(resp))  df <- rbind( df, attributes(resp)$CGains )
-    }
-  }
+  cols <- c("rpp", "tp", "alpha")
+  ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
 
-  for(lab in unique(df$label)) df <- rbind(df, c("0", "0", "0", lab))
-  df$tp <- as.numeric(df$tp)
-  df$rpp <- as.numeric(df$rpp)
-  df$alpha <- as.numeric(df$alpha)
+  random_df <- data.frame(rpp = c(0, 1),
+                          tp =  c(0, max(ideal_df$tp)),
+                          alpha = c(0, 1),
+                          label = c("random", "random"))
 
-  ggplot(df, aes(x = rpp, y = tp, color = label)) +
-    geom_line() +
-    geom_line(data = idealdf, aes(x = rpp, y = tp), color = "orange") +
-    geom_line(data = randomdf, aes(x = rpp, y = tp), color = "black") +
-    xlab("rate of positive prediction") +
-    ylab("true positive") +
+  df2 <- rbind(ideal_df, random_df)
+
+  # prepare data frame for the main ggplot object
+  df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
+  for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
+
+  df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
+
+  # new variable to set different style of line for ideal and dummy models
+  df1$line <- "1"
+  df2$line <- "2"
+  df <- rbind(df1, df2)
+
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df1$label))))
+
+  # main plot
+  p1 <- ggplot(df, aes(x = rpp, y = tp)) +
+    geom_line(aes(color = label, linetype = line)) +
+    xlab("Rate of positive prediction") +
+    ylab("True positive") +
     ggtitle("LIFT Chart") +
-    theme_light()
+    scale_linetype_manual(values = c("solid", "dashed"), guide = FALSE)
+
+  # X axis labels
+  p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks(), expand = c(0, 0))
+
+  # theme and colours
+  p1 <- p1 + theme_drwhy() +
+    scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"), breaks = levels(df1$label)) +
+    theme(plot.margin = unit(c(0, 0.5, 0, 0), "cm"),
+          axis.line.x = element_line(color = "#371ea3"))
+
+  # plot of ideal and dummy models - just to get the legend
+  p2 <- ggplot(data = df2, aes(x = rpp, y = tp)) +
+    geom_line(aes(colour = label), linetype = "dashed") +
+    scale_color_manual(values = c("#4378bf", "#ae2c87")) +
+    theme_drwhy() +
+    theme(legend.position = c(0.9, 0.1)) +
+    guides(colour = guide_legend(nrow = 2, byrow = TRUE))
+
+  p2_tab <- ggplot_gtable(ggplot_build(p2))
+  p2_ind <- which(sapply(p2_tab$grobs, function(x) x$name) == "guide-box")
+  p2_leg <- p2_tab$grobs[[p2_ind]]
+
+  return(grid.arrange(p1,
+                      arrangeGrob(p2_leg, nrow = 2, heights = c(unit(0.8, "npc"), unit(0.2, "npc")),
+                                  widths = unit(0.5, "npc")), ncol = 2, widths = c(8, 0)))
 }
-
-
-
-
