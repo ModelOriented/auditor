@@ -18,6 +18,8 @@ If value is NULL the data is ordered by a vector of actual response (\code{y} pa
 passed to the \code{\link{audit}} function). One can also pass any name of any other variable
 in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
+\item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
+
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
 \item{std_residuals}{Logical, indicates whenever standardized residuals should be used. By default it's FALSE.}

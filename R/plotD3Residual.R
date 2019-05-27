@@ -12,6 +12,7 @@
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
 #' in the data set. If \code{variable = ""} is set, unordered observations are presented.
+#' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std_residuals Logical, indicates whenever standardized residuals should be used. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
