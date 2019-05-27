@@ -70,7 +70,7 @@ plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, pe
 
     varl <- c(varl, as.character(mr$variable[1]))
 
-    df <- generateScaleLocationDF(mr)[, c("sqrt.std.residuals", "values", "label", "peak")]
+    df <- make_scale_loc_df(mr)[, c("sqrt.std.residuals", "values", "label", "peak")]
 
     colnames(df) <- c("y", "x", "label", "peak")
     mrl[[i]] <- df

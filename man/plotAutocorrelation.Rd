@@ -4,17 +4,17 @@
 \alias{plotAutocorrelation}
 \title{Autocorrelation Plot}
 \usage{
-plotAutocorrelation(object, ..., variable = NULL, score = FALSE,
-  smooth = FALSE)
+plotAutocorrelation(object, ..., variable = NULL, smooth = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
-
-\item{score}{Logical, if TRUE values of \link{scoreDW} and \link{scoreRuns} will be added to plot.}
+\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{smooth}{Logical, if TRUE smooth line will be added.}
 }

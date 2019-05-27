@@ -4,17 +4,18 @@
 \alias{plotScaleLocation}
 \title{Scale location plot}
 \usage{
-plotScaleLocation(object, ..., variable = NULL, score = FALSE,
-  smooth = FALSE, peaks = FALSE)
+plotScaleLocation(object, ..., variable = NULL, smooth = FALSE,
+  peaks = FALSE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
 
 \item{...}{Other modelAudit objects to be plotted together.}
 
-\item{variable}{Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
-
-\item{score}{A logical value. If TRUE value of \link{scorePeak} will be added.}
+\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
