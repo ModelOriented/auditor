@@ -8,7 +8,6 @@
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
 #' in the data set. If \code{variable = ""} is set, unordered observations are presented.
-#' @param points Logical, indicates whenever observations should be added as points.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std.residuals Logical, indicates whenever standardized residuals should be used.
 #' @param nlabel Number of observations with the biggest Cook's distances to be labeled.

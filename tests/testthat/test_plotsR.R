@@ -94,7 +94,7 @@ test_that("plot", {
   expect_is(plot(au.lm, au.rf, type="Prediction"), "gg")
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
-  # expect_is(plot(au.lm, type="ScaleLocation", score = TRUE), "gg")
+  expect_is(plot(au.lm, type="ScaleLocation"), "gg")
   expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
   expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="RROC"), "gg")

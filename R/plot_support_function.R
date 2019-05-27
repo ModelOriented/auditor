@@ -30,6 +30,7 @@ make_dataframe <- function(object, ..., variable, type = "res") {
 
   if (type == "res" &  !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
   if (type == "scal" & !"modelResiduals"  %in% class(object)) object <- make_scale_loc_df(modelResiduals(object, variable))
+  if (type == "scal" & "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
   if (type == "eva" &  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object))$CGains
 
   dfl <- list(...)
@@ -41,7 +42,7 @@ make_dataframe <- function(object, ..., variable, type = "res") {
       }
       if (type == "scal") {
         if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        object <- rbind(object, make_scale_loc_df(resp))
+        if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_scale_loc_df(resp))
       }
       if (type == "eva") {
         if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
@@ -58,7 +59,7 @@ make_dataframe <- function(object, ..., variable, type = "res") {
 #' @description Function to generate extra variables for scaleLocation plot
 #'
 #' @param object An audited model
-make_scale_loc_df <- function(object) {browser()
+make_scale_loc_df <- function(object) {
   resultDF <- data.frame(std.residuals = object$std.res, values = object$val)
   resultDF$sqrt.std.residuals <- sqrt(abs(resultDF$std.residuals))
   resultDF$label <- object$label[1]

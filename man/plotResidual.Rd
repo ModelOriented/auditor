@@ -22,8 +22,6 @@ in the data set. If \code{variable = ""} is set, unordered observations are pres
 \item{std.residuals}{Logical, indicates whenever standardized residuals should be used.}
 
 \item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
-
-\item{points}{Logical, indicates whenever observations should be added as points.}
 }
 \description{
 A plot of residuals against fitted values, observed values or any variable.

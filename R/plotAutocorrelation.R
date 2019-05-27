@@ -23,7 +23,7 @@
 plotAutocorrelation <- function(object, ..., variable = NULL, smooth = FALSE) {
 
   # some safeguard
-  x <- y <- NULL
+  x <- y <- x_val <- y_val <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")
