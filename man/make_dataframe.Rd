@@ -4,7 +4,7 @@
 \alias{make_dataframe}
 \title{Make data frame}
 \usage{
-make_dataframe(object, ..., variable, type = "res")
+make_dataframe(object, ..., variable = NULL, type = "res")
 }
 \arguments{
 \item{object}{Object passed to the function}

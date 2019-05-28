@@ -1,7 +1,8 @@
 #' @title Regression Error Characteristic Curves (REC)
 #'
 #' @description Error Characteristic curves are a generalization of ROC curves.
-#' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
+#' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage
+#' of observations predicted within the given tolerance.
 #'
 #' @param object An object of class ModelAudit or modelResiduals.
 #' @param ... Other modelAudit or model Residuals objects to be plotted together.
@@ -12,7 +13,8 @@
 #'
 #' Area Over the REC Curve (REC) is a biased estimate of the expected error
 #'
-#' @references Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth International Conference on Machine Learning (ICML-2003), Washington, DC.
+#' @references Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth
+#' International Conference on Machine Learning (ICML-2003), Washington, DC.
 #'
 #' @import ggplot2
 #'
@@ -31,50 +33,34 @@
 #'
 #'
 #' @export
+plotREC <- function(object, ...) {
 
+  # some safeguard
+  rec_x <- rec_y <- label <- NULL
 
-plotREC <- function(object, ...){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
-  RECX <- RECY <- RECX0 <- RECY0 <- label <- NULL
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
-  df <- getRECDF(object)
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., type = "rec")
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) df <- rbind( df, getRECDF(modelResiduals(resp)) )
-      if("modelResiduals" %in% class(resp)) df <- rbind(df, getRECDF(resp))
-    }
-  }
+  # new varibale to set an order o curves
+  df$ord <- paste(rev(as.numeric(df$label)), df$label)
 
-  ggplot(df, aes(x=RECX, y=RECY, color = label)) +
-    geom_line() +
-    scale_y_continuous(breaks = seq(0,1,0.1),
-                       labels = paste(seq(0, 100, 10),"%")) +
-    theme_light() +
-    xlab("error tolerance") +
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+
+  # main chart
+  p <- ggplot(data = df, aes(x = rec_x, y = rec_y)) +
+    geom_line(aes(colour = label, group = ord))
+
+  # theme, colours, titles, axes, scales, etc.
+  p + theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3")) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$label)) +
+    scale_y_continuous(labels = scales::percent) +
+    xlab("Error tolerance") +
     ylab("") +
     ggtitle("REC Curve")
 
-}
-
-getRECDF <- function(object){
-  err <- sort(abs(object$res))
-  err <- c(0, err)
-  n <- length(err)
-  RECX <- numeric(n)
-  RECY <- numeric(n)
-  RECX[1] <- RECY[1] <- correct <- absDev <- 0
-  for(i in 2:n){
-    if (err[i] > err[i-1]) {
-      absDev <- correct/n
-    }
-    RECX[i] <-  err[i]
-    RECY[i] <- absDev
-    correct <- correct + 1
-  }
-
-  df <- data.frame(RECX = RECX, RECY = RECY, label = object$label[1])
-  return(df)
 }

@@ -26,11 +26,21 @@ check_object <- function(object, type = "res") {
 #' @param variable Variable
 #' @param type Type of check; default is \code{res} which stands for "model residuals".
 #' Other possible values: \code{eva} - model evaluation
-make_dataframe <- function(object, ..., variable, type = "res") {
+make_dataframe <- function(object, ..., variable = NULL, type = "res") {
 
   if (type == "res" &  !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
+
+  if (type == "rec" &  !"modelResiduals"  %in% class(object)) object <- make_rec_df(modelResiduals(object))
+  if (type == "rec" &   "modelResiduals"  %in% class(object)) object <- make_rec_df(object)
+
+  if (type == "rroc") {
+    if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object)
+    object <- make_rroc_df(object)
+  }
+
   if (type == "scal" & !"modelResiduals"  %in% class(object)) object <- make_scale_loc_df(modelResiduals(object, variable))
-  if (type == "scal" & "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
+  if (type == "scal" &  "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
+
   if (type == "eva" &  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object))$CGains
 
   dfl <- list(...)
@@ -43,6 +53,14 @@ make_dataframe <- function(object, ..., variable, type = "res") {
       if (type == "scal") {
         if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
         if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_scale_loc_df(resp))
+      }
+      if (type == "rec") {
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_rec_df(resp))
+      }
+      if (type == "rroc") {
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        object <- rbind(object, make_rroc_df(resp))
       }
       if (type == "eva") {
         if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
@@ -68,6 +86,55 @@ make_scale_loc_df <- function(object) {
 }
 
 
+make_rec_df <- function(object) {
+  err <- sort(abs(object$res))
+  err <- c(0, err)
+  n <- length(err)
+  rec_x <- numeric(n)
+  rec_y <- numeric(n)
+  rec_x[1] <- rec_y[1] <- correct <- absDev <- 0
+  for(i in 2:n) {
+    if (err[i] > err[i-1]) absDev <- correct / n
+    rec_x[i] <- err[i]
+    rec_y[i] <- absDev
+    correct <- correct + 1
+  }
+
+  df <- data.frame(rec_x = rec_x, rec_y = rec_y, label = object$label[1])
+  return(df)
+}
+
+
+make_rroc_df <- function(object) {
+  err <- sort(object$fitted.values - object$y)
+  n <- length(err)
+  rroc_x <- numeric(n + 2)
+  rroc_y <- numeric(n + 2)
+  rroc_x[1] <- 0
+  rroc_y[1] <- -Inf
+
+  for (i in 1:n) {
+    s <- -err[i]
+    tErr <- err + s
+    rroc_x[i+1] <- sum(tErr[which(tErr > 0)], na.rm = TRUE )
+    rroc_y[i+1] <- sum(tErr[which(tErr < 0)], na.rm = TRUE )
+  }
+
+  rroc_x[n + 2] <- Inf
+  rroc_y[n + 2] <- 0
+
+  df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$label[1], subset = "curve")
+
+  # calculation of the shift equals 0 which is represented on the plot by a dot
+  err <- sort(object$fitted.values - object$y)
+  df <- rbind(df, data.frame(rroc_x = sum(err[which(err > 0)], na.rm = TRUE),
+                             rroc_y = sum(err[which(err < 0)], na.rm = TRUE),
+                             label = object$label[1],
+                             subset = "zero"))
+
+  return(df)
+}
+
 
 #' @title DrWhy's wrapper for geom_point function
 #'
@@ -86,6 +153,7 @@ drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
              alpha = ifelse(smooth == TRUE, alpha_val, 1),
              stroke = 0)
 }
+
 
 #' @title DrWhy's wrapper for geom_smooth function
 #'
