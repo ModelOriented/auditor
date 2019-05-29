@@ -1,6 +1,6 @@
-#' @title Plot 3 TODO
+#' @title Influence of observations Plot in D3 with r2d3 Package.
 #'
-#' @description
+#' @description Cook’s distances are used for estimate the influence of an single observation.
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
 #' @param object An object of class modelAudit or observationInfluence.

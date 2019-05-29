@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3CooksDistance.R
 \name{plotD3CooksDistance}
 \alias{plotD3CooksDistance}
-\title{Plot 3 TODO}
+\title{Influence of observations Plot in D3 with r2d3 Package.}
 \usage{
 plotD3CooksDistance(object, ..., nlabel = 3, single_plot = FALSE,
   scale_plot = FALSE, background = FALSE)
@@ -21,6 +21,7 @@ plotD3CooksDistance(object, ..., nlabel = 3, single_plot = FALSE,
 \item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
 }
 \description{
+Cook’s distances are used for estimate the influence of an single observation.
 If the picture is not displayed in the viewer, please update your RStudio.
 }
 \examples{

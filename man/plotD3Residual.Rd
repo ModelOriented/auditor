@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3Residual.R
 \name{plotD3Residual}
 \alias{plotD3Residual}
-\title{Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 Package.}
+\title{Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 Package.}
 \usage{
 plotD3Residual(object, ..., variable = NULL, points = TRUE,
   smooth = FALSE, std_residuals = FALSE, point_count = NULL,
@@ -13,7 +13,10 @@ plotD3Residual(object, ..., variable = NULL, points = TRUE,
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
 
@@ -33,7 +36,7 @@ plotD3Residual(object, ..., variable = NULL, points = TRUE,
 an `r2d3` object.
 }
 \description{
-Function \code{plotD3Residual} plots resudial values vs observed, fitted or variable values in the model.
+Function \code{plotD3Residual} plots resudial values vs target, observed or variable values in the model.
 It uses output from \code{modelAudit} or \code{modelResiduals} function.
 
 If the picture is not displayed in the viewer, please update your RStudio.

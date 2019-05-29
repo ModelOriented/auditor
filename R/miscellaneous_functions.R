@@ -10,17 +10,12 @@ orderResidualsDF <- function(object, variable, is.df = FALSE, std.residuals = FA
                                         )
                       )
 
-  if(!is.null(variable)){
-    if((variable == "Predicted response") || (variable == "Fitted values")) {
-      values <- object$fitted.values
-    } else if (variable == "Observed response") {
-      values <- object$y
-    } else {
-      values <- object$data[,variable]
-    }
-
+  if (is.null(variable)) {
+    values <- object$y
+  } else if (variable == "") {
+    values <- 1:nrow(object$data)
   } else {
-    values <- 1:nrow(tmpDF)
+    values <- object$data[,variable]
   }
 
   tmpDF$values <- values

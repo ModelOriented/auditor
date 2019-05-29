@@ -45,8 +45,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
-        <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
+	  <a class = "navbar-mi2logo" href="http://DrWhy.AI/">
+        <img src = "https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
       <a class="navbar-brand navbar-mi2" href="../index.html">Automated tests for model residuals</a>
     </div>
@@ -156,10 +156,16 @@
 #&gt;    Checks for trend in residuals
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  lm 
-#&gt;     Standardised loess fit:  +5.09     . </div><div class='input'> </div><div class='input'> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"DALEX2"</span>)</div><div class='output co'>#&gt; <span class='message'>Welcome to DALEX2 (version: 0.9).</span></div><div class='input'> <span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX2</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX2/topics/dragons'>dragons</a></span>
- <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"ranger"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in library("ranger"): nie ma pakietu o nazwie 'ranger'</span></div><div class='input'> <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'>ranger</span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)</div><div class='output co'>#&gt; <span class='error'>Error in ranger(life_length ~ ., data = dragons): nie udało się znaleźć funkcji 'ranger'</span></div><div class='input'> <span class='no'>predict_function</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>m</span>,<span class='no'>x</span>,<span class='no'>...</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>m</span>, <span class='no'>x</span>, <span class='no'>...</span>)$<span class='no'>predictions</span>
+#&gt;     Standardised loess fit:  +5.09     . </div><div class='input'> </div><span class='co'># NOT RUN {</span>
+ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"DALEX2"</span>)
+ <span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX2</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX2/topics/dragons'>dragons</a></span>
+ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"ranger"</span>)
+ <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'>ranger</span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+ <span class='no'>predict_function</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>m</span>,<span class='no'>x</span>,<span class='no'>...</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>m</span>, <span class='no'>x</span>, <span class='no'>...</span>)$<span class='no'>predictions</span>
  <span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>,
-           <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='no'>predict_function</span>)</div><div class='output co'>#&gt; <span class='error'>Error in audit(rf_model, data = dragons, y = dragons$life_length, predict.function = predict_function): nie znaleziono obiektu 'rf_model'</span></div><div class='input'> <span class='fu'>check_residuals</span>(<span class='no'>rf_au</span>)</div><div class='output co'>#&gt; <span class='error'>Error in check_residuals_autocorrelation(model, ...): nie znaleziono obiektu 'rf_au'</span></div></pre>
+           <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='no'>predict_function</span>)
+ <span class='fu'>check_residuals</span>(<span class='no'>rf_au</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

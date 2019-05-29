@@ -1,7 +1,7 @@
 template:
-  package: MI2template
+  package: DrWhyTemplate
   default_assets: false
 home:
   links:
   - text: Source code
-    href: https://github.com/mi2-warsaw/auditor
+    href: https://github.com/MI2DataLab/auditor

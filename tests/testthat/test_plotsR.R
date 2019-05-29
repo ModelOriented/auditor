@@ -8,7 +8,10 @@ test_that("plotACF", {
 })
 
 test_that("plotAutocorrelation", {
-  expect_is(plotAutocorrelation(au.lm, "income"), "gg")
+  expect_is(plotAutocorrelation(au.lm), "gg")
+  expect_is(plotAutocorrelation(au.lm, variable = ""), "gg")
+  expect_is(plotAutocorrelation(au.lm, variable = "income"), "gg")
+  expect_is(plotAutocorrelation(au.lm, smooth = TRUE), "gg")
   expect_is(plotAutocorrelation(au.rf, au.lm), "gg")
 })
 
@@ -19,12 +22,17 @@ test_that("plotCook", {
 
 test_that("plotPrediction", {
   expect_is(plotPrediction(au.rf, smooth = TRUE), "gg")
+  expect_is(plotPrediction(au.rf, variable = "Prewt"), "gg")
+  expect_is(plotPrediction(au.rf, variable = ""), "gg")
+  expect_is(plotPrediction(au.rf, abline = TRUE), "gg")
 })
 
 test_that("plotResiduals", {
   expect_is(plotResidual(au.glm), "gg")
+  expect_is(plotResidual(au.glm, variable = ""), "gg")
+  expect_is(plotResidual(au.glm, variable = "Prewt"), "gg")
+  expect_is(plotResidual(au.glm, std.residuals = TRUE, smooth = TRUE, nlabel = 5), "gg")
   expect_is(plotResidual(au_expl_lm), "gg")
-  expect_is(plotResidual(au.rf, "Prewt"), "gg")
 })
 
 test_that("plotResidualBoxplot", {
@@ -32,12 +40,19 @@ test_that("plotResidualBoxplot", {
 })
 
 test_that("plotResidualDeensity", {
+  expect_is(plotResidualDensity(au.lm), "gg")
   expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
+  expect_is(plotResidualDensity(au.lm, variable = ""), "gg")
+  expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
+  expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
 })
 
 test_that("plotScaleLocation", {
   expect_is(plotScaleLocation(au.glm), "gg")
-  expect_is(plotScaleLocation(au.rf, "Prewt"), "gg")
+  expect_is(plotScaleLocation(au.glm, variable = ""), "gg")
+  expect_is(plotScaleLocation(au.glm, smooth = TRUE), "gg")
+  expect_is(plotScaleLocation(au.glm, peaks = TRUE), "gg")
+  expect_is(plotScaleLocation(au.rf, variable = "Prewt"), "gg")
 })
 
 test_that("plotHalfNormal", {
@@ -47,7 +62,7 @@ test_that("plotHalfNormal", {
 })
 
 test_that("plotLIFT", {
-  expect_is(plotLIFT(au.class.glm2), "gg")
+  expect_is(plotLIFT(au.class.glm2), "gtable")
 })
 
 test_that("plotROC", {
@@ -73,13 +88,13 @@ test_that("plot", {
   expect_is(plot(au.lm, au.rf, type="TwoSidedECDF"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelPCA"), "gg")
   expect_is(plot(au.lm, type="ResidualDensity"), "gg")
-  expect_is(plot(au.class.glm2,  type="LIFT"), "gg")
+  expect_is(plot(au.class.glm2, type="LIFT"), "gtable")
   expect_is(plot(au.glm, au.rf, type="ModelCorrelation"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelCorrelation", values = "Residuals"), "gg")
   expect_is(plot(au.lm, au.rf, type="Prediction"), "gg")
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
-  expect_is(plot(au.lm, type="ScaleLocation", score = TRUE), "gg")
+  expect_is(plot(au.lm, type="ScaleLocation"), "gg")
   expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
   expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="RROC"), "gg")
@@ -114,4 +129,10 @@ lm.mp2 <- modelPerformance(au.lm,
                           scores = c("MAE", "MSE", "REC", "RROC"),
                           new.score = new_score)
 expect_is(plot(lm.mp, lm.mp2, type="ModelRanking", table=FALSE), "gg")
+})
+
+
+test_that("theme drwhy colors generates rigth length vectors", {
+  z <- 1:9
+  all.equal(unlist(lapply(z, function(x) length(theme_drwhy_colors(x)))), z)
 })
