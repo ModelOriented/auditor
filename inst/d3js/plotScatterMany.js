@@ -8,9 +8,7 @@ var points = options.points, smooth = options.smooth,
 
 var plotHeight, plotWidth,
     margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70},
-    w = width - margin.left - margin.right,
     h = height - margin.top - margin.bottom,
-    labelsMargin = margin.left - 8,
     plotTop = margin.top, plotLeft = margin.left;
 
 if (options.scalePlot === true) {
@@ -158,7 +156,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform","translate(" + plotLeft + ",0)")
+              .attr("transform","translate(" + (plotLeft-8) + ",0)")
               .call(yAxis)
               .call(g => g.select(".domain").remove());
     }
@@ -238,7 +236,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
     	svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", 15)
+          .attr("y", margin.left - 45)
           .attr("x", -(margin.top + plotTop + plotHeight)/2)
           .attr("text-anchor", "middle")
           .text(yTitle);

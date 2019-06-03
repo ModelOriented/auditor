@@ -7,10 +7,8 @@ var points = options.points, smooth = options.smooth,
     chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
-    w = width - margin.left - margin.right,
-    h = height - margin.top - margin.bottom,
-    labelsMargin = margin.left - 8;
+    margin = {top: 98, right: 30, bottom: 61+8, left: 60+8, inner: 42},
+    h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
   plotHeight = h;
@@ -74,7 +72,7 @@ function singlePlot(modelName, pData, sData, i) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", margin.left - 50)
+          .attr("y", margin.left - 45 - 8)
           .attr("x", -(margin.top + plotHeight/2))
           .attr("text-anchor", "middle")
           .text(yTitle);
@@ -143,7 +141,7 @@ function singlePlot(modelName, pData, sData, i) {
       // axis and grid
       var xGrid = svg.append("g")
                .attr("class", "grid")
-               .attr("transform", "translate(0,"+ (margin.top + plotHeight - 6) + ")")
+               .attr("transform", "translate(0,"+ (margin.top + plotHeight) + ")")
                .call(d3.axisBottom(x)
                       .ticks(8)
                       .tickSize(-plotHeight)
@@ -157,7 +155,7 @@ function singlePlot(modelName, pData, sData, i) {
 
       xAxis = svg.append("g")
                 .attr("class", "axisLabel")
-                .attr("transform", "translate(0,"+ (margin.top + plotHeight) + ")")
+                .attr("transform", "translate(0,"+ (margin.top + plotHeight + 8) + ")")
                 .call(xAxis);
 
       var yGrid = svg.append("g")
@@ -176,7 +174,7 @@ function singlePlot(modelName, pData, sData, i) {
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform","translate(" + labelsMargin + ",0)")
+              .attr("transform","translate(" + (margin.left - 8) + ",0)")
               .call(yAxis);
 
       if (n!=1) {

@@ -5,9 +5,7 @@ var minVariable = options.xmin, maxVariable = options.xmax,
 
 var plotHeight, plotWidth,
     margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
-    w = width - margin.left - margin.right,
-    h = height - margin.top - margin.bottom,
-    labelsMargin = margin.left - 8;
+    h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
   plotHeight = h;
@@ -62,7 +60,7 @@ function singlePlot(modelName, pData, i) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", margin.left - 50)
+          .attr("y", margin.left - 45)
           .attr("x", -(margin.top + plotHeight/2))
           .attr("text-anchor", "middle")
           .text(yTitle);
@@ -154,7 +152,7 @@ function singlePlot(modelName, pData, i) {
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform","translate(" + labelsMargin + ",0)")
+              .attr("transform","translate(" + (margin.left-8) + ",0)")
               .call(yAxis)
               .call(g => g.select(".domain").remove());
 
