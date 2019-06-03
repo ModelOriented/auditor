@@ -4,7 +4,7 @@ var minVariable = options.xmin, maxVariable = options.xmax,
     yTitle = options.yTitle, chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 120, inner: 42},
+    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
     w = width - margin.left - margin.right,
     h = height - margin.top - margin.bottom,
     labelsMargin = margin.left - 8;
