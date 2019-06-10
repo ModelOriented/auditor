@@ -9,7 +9,8 @@
 check_object <- function(object, type = "res") {
   model_type <- switch(type,
                        "res" = "modelResiduals",
-                       "eva" = "modelEvaluation")
+                       "eva" = "modelEvaluation",
+                       "infl" = "observationInfluence")
 
   if (!(model_type %in% class(object) || "modelAudit" %in% class(object))) {
     stop("The function requires an object created with audit() or modelResiduals().")
@@ -25,8 +26,9 @@ check_object <- function(object, type = "res") {
 #' @param ... Other modelAudit objects to be plotted together
 #' @param variable Variable
 #' @param type Type of check; default is \code{res} which stands for "model residuals".
+#' @param nlabel Number of labels in calculating `observationInfluence`
 #' Other possible values: \code{eva} - model evaluation
-make_dataframe <- function(object, ..., variable = NULL, type = "res") {
+make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res") {
 
   if (type == "res" &  !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
 
@@ -41,7 +43,17 @@ make_dataframe <- function(object, ..., variable = NULL, type = "res") {
   if (type == "scal" & !"modelResiduals"  %in% class(object)) object <- make_scale_loc_df(modelResiduals(object, variable))
   if (type == "scal" &  "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
 
+  if (type == "pca") {
+    if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object)
+    df <- data.frame(y = object$res)
+    colnames(df) <- as.character(object$label[1])
+    object <- df
+  }
+
+
   if (type == "eva" &  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object))$CGains
+
+  if (type == "infl" & !"observationInfluence" %in% class(object)) object <- obs_influence_add(object, nlabel)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
@@ -62,9 +74,19 @@ make_dataframe <- function(object, ..., variable = NULL, type = "res") {
         if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
         object <- rbind(object, make_rroc_df(resp))
       }
+      if (type == "pca") {
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        df_tmp <- data.frame(resp$res)
+        colnames(df_tmp)[1] <- as.character(resp$label[1])
+        object <- cbind(object, df_tmp)
+      }
       if (type == "eva") {
         if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
         if ("modelEvaluation" %in% class(resp)) object <- rbind(object, attributes(resp)$CGains)
+      }
+      if (type == "infl") {
+        if ("modelAudit" %in% class(resp)) resp <- obs_influence_add(resp, nlabel)
+        if ("observationInfluence" %in% class(resp)) object <- rbind(object, resp)
       }
     }
   }
@@ -123,15 +145,22 @@ make_rroc_df <- function(object) {
   rroc_x[n + 2] <- Inf
   rroc_y[n + 2] <- 0
 
-  df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$label[1], subset = "curve")
+  df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$label[1], curve = TRUE)
 
   # calculation of the shift equals 0 which is represented on the plot by a dot
   err <- sort(object$fitted.values - object$y)
   df <- rbind(df, data.frame(rroc_x = sum(err[which(err > 0)], na.rm = TRUE),
                              rroc_y = sum(err[which(err < 0)], na.rm = TRUE),
                              label = object$label[1],
-                             subset = "zero"))
+                             curve = FALSE))
+  return(df)
+}
 
+
+obs_influence_add <- function(object, nlabel) {
+
+  df <- observationInfluence(object)
+  df$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(df) - nlabel))
   return(df)
 }
 

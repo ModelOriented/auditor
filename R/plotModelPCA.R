@@ -6,7 +6,6 @@
 #' @param object An object of class modelAudit or modelResiduals,
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param scale A logical value indicating whether the models residuals should be scaled before the analysis.
-#' @param invisible A text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".
 #'
 #' @return ggplot object
 #'
@@ -28,38 +27,43 @@
 #' @export
 
 
-plotModelPCA <- function(object, ..., scale = TRUE, invisible = "none"){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
+plotModelPCA <- function(object, ..., scale = TRUE) {
+
+  # some safeguard
   residuals <- label <- NULL
 
-    df <- data.frame(y = object$res)
-    colnames(df)[1] <- as.character(object$label[1])
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
+
+  # PCA object for ggplot object
+  df <- make_dataframe(object, ..., type = "pca")
+  pca_object <- prcomp(df, scale = scale)
+
+  colours <- rev(theme_drwhy_colors(length(names(df))))
+
+  arrows <- data.frame(pca_object$rotation)
+  arrows$label <- rownames(arrows)
 
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <-  modelResiduals(resp)
-      if("modelResiduals" %in% class(resp)){
-        df_tmp <- data.frame(resp$res)
-        colnames(df_tmp)[1] <- as.character(resp$label[1])
-        df <- cbind(df, df_tmp)
-      }
-    }
-  }
 
-  res_pca <- prcomp(df, scale = scale)
+  ggplot(data = data.frame(pca_object$x), aes(x = PC1, y = PC2)) +
+    geom_point(colour = "grey") +
+    geom_hline(aes(yintercept = 0), size = 0.25) +
+    geom_vline(aes(xintercept = 0), size = 0.25) +
+    geom_segment(data = arrows, aes(x = 0, y = 0, xend = PC1, yend = PC2, colour = label),
+                 arrow = grid::arrow(length = grid::unit(2, "points"))) +
+    ggtitle("Model PCA") +
+    scale_color_manual(values = rev(colours),
+                       breaks = arrows$label) +
+    theme_drwhy()
 
-  if(invisible == "model") invisible <- "var"
-  if(invisible == "observ") invisible <- "observ"
 
-  fviz_pca_biplot(res_pca,
-                  repel = TRUE,
-                  label = c("var"),
-                  col.var = "#000000",
-                  col.ind = "#d8d8d8",
-                  invisible = invisible,
-                  title = "Model PCA") +
-    theme_light()
+  # fviz_pca_biplot(pca_object,
+  #                 repel = TRUE,
+  #                 label = c("var"),
+  #                 col.var = "#000000",
+  #                 col.ind = "#d8d8d8",
+  #                 title = "Model PCA") +
+  #   theme_drwhy() +
+  #   theme(axis.line.x = element_line(color = "#371ea3"))
 }

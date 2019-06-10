@@ -24,5 +24,8 @@ test_that("objects in plots", {
 
 
 test_that("objects in calculation functions", {
-  expect_error(modeleProfmance(model.lm))
+  expect_error(modelProfmance(model.lm))
+  expect_error(modelResiduals(au.lm, variable = "ok"))
+  expect_error(modelResiduals(model.lm))
+  expect_error(modelEvaluation(model.lm))
 })

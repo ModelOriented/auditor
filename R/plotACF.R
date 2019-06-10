@@ -26,39 +26,45 @@
 #'
 #' @export
 plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
-
+  # some safeguard
   lag <- acf <- ymin <- NULL
 
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
-  df <- object
-
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) df <- rbind( df, modelResiduals(resp, variable) )
-      if("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
-    }
-  }
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., variable = variable, type = "res")
 
   resultDF <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
-  for(label in unique(df$label)){
+  for (label in unique(df$label)) {
     orderedResiduals <- df[which(df$label == label), "res"]
     acf <- acf(orderedResiduals, plot = FALSE)
     resultDF <- rbind(resultDF, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
   }
 
-  conf_lims <- c(-1,1)*qnorm((1 + alpha)/2)/sqrt(nrow(object))
+  conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(df))
 
-  ggplot(resultDF, aes(x = lag)) +
-    geom_segment(aes(x=lag, xend=lag, y=ymin, yend=acf, color = label)) +
-    geom_hline(yintercept=conf_lims[1], color='blue', linetype = "dashed") +
-    geom_hline(yintercept=conf_lims[2], color='blue', linetype = "dashed") +
-    facet_grid(label ~ ., switch = "y", scales="free_y") +
-    theme_light() +
-    ggtitle("ACF plot") +
-    ylab("")
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+
+  p <- ggplot(resultDF, aes(x = lag)) +
+    geom_segment(aes(x = lag, xend = lag, y = ymin, yend = acf, colour = label), size = 1, alpha = 0.65) +
+    geom_hline(yintercept = conf_lims, color = "darkgrey", linetype = "dashed") +
+    facet_grid(label ~ ., switch = "y", scales = "free_y")
+
+
+  # theme, colours, titles, axes, scales, etc.
+  p <- p + theme_drwhy() +
+    theme(axis.line.x = element_blank(),
+          strip.background = element_blank(),
+          strip.text = element_blank()) +
+    scale_color_manual(values = rev(colours),
+                       breaks = levels(df$label))
+
+  p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+
+  p + xlab("Lag") + ylab("") + ggtitle("ACF plot")
+
+
 
 }

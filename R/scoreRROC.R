@@ -20,12 +20,14 @@
 #' @export
 
 
-scoreRROC <- function(object){
+scoreRROC <- function(object) {
 
   check_object(object, type = "res")
 
+  if (!"modelResiduals" %in% class(object)) object <- modelResiduals(object, variable = NULL)
+
   RROCF <- make_rroc_df(object)
-  RROCF <- RROCF[RROCF$subset == "curve",]
+  RROCF <- RROCF[RROCF$curve == TRUE,]
   x <- RROCF$rroc_x
   y <- RROCF$rroc_y
 

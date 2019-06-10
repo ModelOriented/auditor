@@ -44,7 +44,6 @@ plotRROC <- function(object, ...) {
 
   # some safeguard
   rroc_x <- rroc_y <- label <- NULL
-  # RROCX <- RROCY <- RROCX0 <- RROCY0 <- label <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")
@@ -60,9 +59,9 @@ plotRROC <- function(object, ...) {
 
   # main chart
   p <- ggplot(data = df, aes(x = rroc_x, y = rroc_y, colour = label)) +
-    geom_line(data =  df[df$subset != "zero",], aes(group = ord)) +
-    geom_point(data = df[df$subset == "zero",], aes(colour = label), size = 2.5, show.legend = FALSE) +
-    geom_point(data = df[df$subset == "zero",], colour = "white", size = 1.5)
+    geom_line(data = subset(df, curve == TRUE), aes(group = ord)) +
+    geom_point(data = subset(df, curve == FALSE), aes(colour = label), size = 2.5, show.legend = FALSE) +
+    geom_point(data = subset(df, curve == FALSE), colour = "white", size = 1.5)
 
   # theme, colours, titles, axes, scales, etc.
   p + theme_drwhy() +
