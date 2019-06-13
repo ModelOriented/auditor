@@ -7,11 +7,7 @@
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
 #' @param object modelAudit object, modelFit object.
-#' @param score If TRUE score based on probability density function is displayed on the plot.
-#' @param quant.scale if TRUE values on axis are on quantile scale.
-#' @param main Title of plot.
-#' @param xlab The text for the x axis.
-#' @param ylab The text for the y axis.
+#' @param quant if TRUE values on axis are on quantile scale.
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
 #'
 #' @return An object of class ggplot
@@ -25,54 +21,56 @@
 #'
 #' @export
 
-plotHalfNormal <- function(object, score=TRUE, quant.scale=FALSE,
-                           xlab = "half-normal Quantiles", ylab = "residuals",
-                           main = "", ...){
-  if("modelAudit" %in% class(object)) {
-    object <- modelFit(object, quant.scale = quant.scale, ...)
-  }
+plotHalfNormal <- function(object, quant = FALSE, ...) {
 
+  # some safeguard
   x <- residuals <- upper <- lower <- NULL
 
-  p <- ggplot(object, aes(x = x)) +
-    geom_point(aes(y = residuals)) +
-    geom_line(aes(y=upper))+
-    geom_line(aes(y=lower))+
-    geom_line(aes(y=median), linetype = 2) +
-    scale_x_continuous(expand = c(0,0)) +
-    scale_y_continuous(expand = c(0,0)) +
-    xlab(xlab) +
-    ylab(ylab) +
-    ggtitle(main) +
-    theme_light()
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., quant = quant, type = "fit")
 
-  if(quant.scale==TRUE) {
-    p <- p +
-      scale_x_continuous(limits=c(0,1)) +
-      scale_y_continuous(limits=c(0,1)) +
+
+  # main chart
+  p <- ggplot(data = df, aes(x)) +
+    geom_point(aes(y = residuals), colour = "#371ea3") +
+    geom_line(aes(y = upper)) +
+    geom_line(aes(y = lower)) +
+    geom_line(aes(y = median), linetype = 2, colour = "darkgrey")
+
+  # theme, colours, titles, axes, scales, etc.
+  p <- p + theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3")) +
+    xlab("Half-normal Quantiles") +
+    ylab("Residuals") +
+    ggtitle("Podaj tytuł")
+
+  if (quant == TRUE) {
+    p + scale_x_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
+      scale_y_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
       coord_fixed(ratio = 1)
-  }
-  if(score==TRUE) {
-    envScore <- calculateScorePDF(object)
-    p <- p + geom_text(x = -Inf, y = Inf, label = paste("Score:",round(envScore,2)), hjust = -1, vjust = 1)
+
+  } else {
+    p + scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
+      scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks())
 
   }
+
   return(p)
 }
 
-# Calculating Likelihood for each residual
-calculateKDE <- function(res, simres){
-  simres <- as.numeric(simres)
-  (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
-}
-
-
-# Calculating PDF score
-calculateScorePDF <- function(hnpObject){
-  res <- hnpObject$residuals
-  simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
-  n <- length(res)
-  PDFs <- mapply(calculateKDE, res, simres)
-  return(sum(PDFs))
-}
-
+# # Calculating Likelihood for each residual
+# calculateKDE <- function(res, simres){
+#   simres <- as.numeric(simres)
+#   (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
+# }
+#
+#
+# # Calculating PDF score
+# calculateScorePDF <- function(hnpObject){
+#   res <- hnpObject$residuals
+#   simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
+#   n <- length(res)
+#   PDFs <- mapply(calculateKDE, res, simres)
+#   return(sum(PDFs))
+# }
+#
