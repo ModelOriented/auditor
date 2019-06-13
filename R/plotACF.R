@@ -25,7 +25,7 @@
 #' @importFrom stats qnorm acf
 #'
 #' @export
-plotACF <- function(object, ..., variable=NULL, alpha = 0.95){
+plotACF <- function(object, ..., variable = NULL, alpha = 0.95) {
   # some safeguard
   lag <- acf <- ymin <- NULL
 

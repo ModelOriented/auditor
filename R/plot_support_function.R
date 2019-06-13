@@ -28,20 +28,20 @@ check_object <- function(object, type = "res") {
 #' @param type Type of check; default is \code{res} which stands for "model residuals".
 #' @param nlabel Number of labels in calculating `observationInfluence`
 #' Other possible values: \code{eva} - model evaluation
-make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res") {
+make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res", quant = NULL) {
 
-  if (type == "res" &  !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
+  if (type == "res" &&  !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
 
-  if (type == "rec" &  !"modelResiduals"  %in% class(object)) object <- make_rec_df(modelResiduals(object))
-  if (type == "rec" &   "modelResiduals"  %in% class(object)) object <- make_rec_df(object)
+  if (type == "rec" &&  !"modelResiduals"  %in% class(object)) object <- make_rec_df(modelResiduals(object, variable))
+  if (type == "rec" &&   "modelResiduals"  %in% class(object)) object <- make_rec_df(object)
 
   if (type == "rroc") {
-    if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object)
+    if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
     object <- make_rroc_df(object)
   }
 
-  if (type == "scal" & !"modelResiduals"  %in% class(object)) object <- make_scale_loc_df(modelResiduals(object, variable))
-  if (type == "scal" &  "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
+  if (type == "scal" && !"modelResiduals"  %in% class(object)) object <- make_scale_loc_df(modelResiduals(object, variable))
+  if (type == "scal" &&  "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
 
   if (type == "pca") {
     if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object)
@@ -50,10 +50,15 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
     object <- df
   }
 
+  if (type == "dens") {
+    if (!"modelResiduals" %in% class(object)) object <- modelResiduals(object, variable)
+    object <- get_division(object)
+  }
+  if (type == "eva" &&  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object))$CGains
 
-  if (type == "eva" &  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object))$CGains
+  if (type == "infl" && !"observationInfluence" %in% class(object)) object <- obs_influence_add(object, nlabel)
 
-  if (type == "infl" & !"observationInfluence" %in% class(object)) object <- obs_influence_add(object, nlabel)
+  if (type == "fit") object <- modelFit(object, quant.scale = quant, ...)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
@@ -79,6 +84,10 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
         df_tmp <- data.frame(resp$res)
         colnames(df_tmp)[1] <- as.character(resp$label[1])
         object <- cbind(object, df_tmp)
+      }
+      if (type == "dens") {
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        object <- rbind(object, get_division(resp))
       }
       if (type == "eva") {
         if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
@@ -163,6 +172,23 @@ obs_influence_add <- function(object, nlabel) {
   df$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(df) - nlabel))
   return(df)
 }
+
+
+
+
+get_division <- function(modelData) {
+  variable <- modelData$variable[1]
+  df <- modelData
+  if (class(modelData$val) %in% c("numeric","integer")) {
+    varMedian <- median(modelData$val)
+    df$div <- ifelse(modelData$val > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
+  } else {
+    df$div <- modelData$val
+  }
+
+  return(df)
+}
+
 
 
 #' @title DrWhy's wrapper for geom_point function
