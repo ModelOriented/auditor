@@ -7,7 +7,7 @@
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
 #' @param object modelAudit object, modelFit object.
-#' @param quant if TRUE values on axis are on quantile scale.
+#' @param quantiles if TRUE values on axis are on quantile scale.
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
 #'
 #' @return An object of class ggplot
@@ -21,13 +21,13 @@
 #'
 #' @export
 
-plotHalfNormal <- function(object, quant = FALSE, ...) {
+plotHalfNormal <- function(object, quantiles = FALSE, ...) {
 
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
 
   # data frame for ggplot object
-  df <- make_dataframe(object, ..., quant = quant, type = "fit")
+  df <- make_dataframe(object, ..., quant = quantiles, type = "fit")
 
 
   # main chart
@@ -44,7 +44,7 @@ plotHalfNormal <- function(object, quant = FALSE, ...) {
     ylab("Residuals") +
     ggtitle("Podaj tytuł")
 
-  if (quant == TRUE) {
+  if (quantiles == TRUE) {
     p + scale_x_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
       scale_y_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
       coord_fixed(ratio = 1)

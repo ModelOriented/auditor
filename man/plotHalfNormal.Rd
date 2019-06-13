@@ -4,12 +4,12 @@
 \alias{plotHalfNormal}
 \title{Half-Normal plot}
 \usage{
-plotHalfNormal(object, quant = FALSE, ...)
+plotHalfNormal(object, quantiles = FALSE, ...)
 }
 \arguments{
 \item{object}{modelAudit object, modelFit object.}
 
-\item{quant}{if TRUE values on axis are on quantile scale.}
+\item{quantiles}{if TRUE values on axis are on quantile scale.}
 
 \item{...}{extra arguments passed to \link[hnp]{hnp}.}
 }

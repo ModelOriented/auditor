@@ -58,7 +58,7 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
 
   if (type == "infl" && !"observationInfluence" %in% class(object)) object <- obs_influence_add(object, nlabel)
 
-  if (type == "fit") object <- modelFit(object, quant.scale = quant, ...)
+  if (type == "fit" && !"modelFit" %in% class(object)) object <- modelFit(object, quant.scale = quant, ...)
 
   dfl <- list(...)
   if (length(dfl) > 0) {
