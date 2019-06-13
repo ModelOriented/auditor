@@ -27,6 +27,7 @@ check_object <- function(object, type = "res") {
 #' @param variable Variable
 #' @param type Type of check; default is \code{res} which stands for "model residuals".
 #' @param nlabel Number of labels in calculating `observationInfluence`
+#' @param quant if TRUE values on axis are on quantile scale in `plotHalfNormal`
 #' Other possible values: \code{eva} - model evaluation
 make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res", quant = NULL) {
 

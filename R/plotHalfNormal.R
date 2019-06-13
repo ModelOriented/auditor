@@ -42,7 +42,7 @@ plotHalfNormal <- function(object, quantiles = FALSE, ...) {
     theme(axis.line.x = element_line(color = "#371ea3")) +
     xlab("Half-normal Quantiles") +
     ylab("Residuals") +
-    ggtitle("Podaj tytuł")
+    ggtitle("Podaj tytul")
 
   if (quantiles == TRUE) {
     p + scale_x_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
@@ -58,19 +58,20 @@ plotHalfNormal <- function(object, quantiles = FALSE, ...) {
   return(p)
 }
 
-# # Calculating Likelihood for each residual
-# calculateKDE <- function(res, simres){
-#   simres <- as.numeric(simres)
-#   (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
-# }
-#
-#
-# # Calculating PDF score
-# calculateScorePDF <- function(hnpObject){
-#   res <- hnpObject$residuals
-#   simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
-#   n <- length(res)
-#   PDFs <- mapply(calculateKDE, res, simres)
-#   return(sum(PDFs))
-# }
-#
+# Calculating Likelihood for each residual
+calculateKDE <- function(res, simres){
+  simres <- as.numeric(simres)
+  (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
+}
+
+
+# Calculating PDF score
+calculateScorePDF <- function(hnpObject){
+  res <- hnpObject$residuals
+  simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
+  n <- length(res)
+  PDFs <- mapply(calculateKDE, res, simres)
+  return(sum(PDFs))
+}
+
+

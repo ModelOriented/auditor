@@ -14,10 +14,12 @@ make_dataframe(object, ..., variable = NULL, nlabel = NULL,
 
 \item{variable}{Variable}
 
-\item{nlabel}{Number of labels in calculating `observationInfluence`
-Other possible values: \code{eva} - model evaluation}
+\item{nlabel}{Number of labels in calculating `observationInfluence`}
 
 \item{type}{Type of check; default is \code{res} which stands for "model residuals".}
+
+\item{quant}{if TRUE values on axis are on quantile scale in `plotHalfNormal`
+Other possible values: \code{eva} - model evaluation}
 }
 \description{
 Makes data frame(s) from passed models
