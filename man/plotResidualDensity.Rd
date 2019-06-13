@@ -4,16 +4,16 @@
 \alias{plotResidualDensity}
 \title{Residual Density Plot}
 \usage{
-plotResidualDensity(object, ..., split.var = TRUE, variable = NULL)
+plotResidualDensity(object, ..., variable = NULL, split = FALSE)
 }
 \arguments{
 \item{object}{An object of class ModelAudit.}
 
 \item{...}{Other modelAudit objects to be plotted together.}
 
-\item{split.var}{Logical. Indicates whenever plot should be splitted by variable.}
-
 \item{variable}{variable name o split. Optional. Should be provided  only for modelAudit object.}
+
+\item{split}{Logical. Indicates whenever plot should be splitted by variable.}
 }
 \value{
 ggplot object

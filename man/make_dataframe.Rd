@@ -5,7 +5,7 @@
 \title{Make data frame}
 \usage{
 make_dataframe(object, ..., variable = NULL, nlabel = NULL,
-  type = "res")
+  type = "res", quant = NULL)
 }
 \arguments{
 \item{object}{Object passed to the function}
@@ -14,8 +14,10 @@ make_dataframe(object, ..., variable = NULL, nlabel = NULL,
 
 \item{variable}{Variable}
 
-\item{type}{Type of check; default is \code{res} which stands for "model residuals".
+\item{nlabel}{Number of labels in calculating `observationInfluence`
 Other possible values: \code{eva} - model evaluation}
+
+\item{type}{Type of check; default is \code{res} which stands for "model residuals".}
 }
 \description{
 Makes data frame(s) from passed models
