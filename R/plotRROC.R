@@ -43,7 +43,7 @@
 plotRROC <- function(object, ...) {
 
   # some safeguard
-  rroc_x <- rroc_y <- label <- NULL
+  rroc_x <- rroc_y <- label <- curve <- ord <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")

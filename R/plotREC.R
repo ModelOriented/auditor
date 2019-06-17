@@ -36,7 +36,7 @@
 plotREC <- function(object, ...) {
 
   # some safeguard
-  rec_x <- rec_y <- label <- NULL
+  rec_x <- rec_y <- label <- ord <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")

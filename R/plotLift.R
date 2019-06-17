@@ -26,7 +26,7 @@
 #' @export
 plotLIFT <- function(object, ...) {
   # some safeguard
-  rpp <- tp <- label <- NULL
+  rpp <- tp <- label <- variable <- line <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")

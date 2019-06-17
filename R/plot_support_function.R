@@ -55,7 +55,7 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
     if (!"modelResiduals" %in% class(object)) object <- modelResiduals(object, variable)
     object <- get_division(object)
   }
-  if (type == "eva" &&  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object))$CGains
+  if (type == "eva" &&  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object, variable))$CGains
 
   if (type == "infl" && !"observationInfluence" %in% class(object)) object <- obs_influence_add(object, nlabel)
 
@@ -73,25 +73,25 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
         if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_scale_loc_df(resp))
       }
       if (type == "rec") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
         if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_rec_df(resp))
       }
       if (type == "rroc") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
         object <- rbind(object, make_rroc_df(resp))
       }
       if (type == "pca") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
         df_tmp <- data.frame(resp$res)
         colnames(df_tmp)[1] <- as.character(resp$label[1])
         object <- cbind(object, df_tmp)
       }
       if (type == "dens") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
+        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
         object <- rbind(object, get_division(resp))
       }
       if (type == "eva") {
-        if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
+        if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp, variable)
         if ("modelEvaluation" %in% class(resp)) object <- rbind(object, attributes(resp)$CGains)
       }
       if (type == "infl") {
@@ -180,7 +180,7 @@ obs_influence_add <- function(object, nlabel) {
 get_division <- function(modelData) {
   variable <- modelData$variable[1]
   df <- modelData
-  if (class(modelData$val) %in% c("numeric","integer")) {
+  if (class(modelData$val) %in% c("numeric", "integer")) {
     varMedian <- median(modelData$val)
     df$div <- ifelse(modelData$val > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
   } else {

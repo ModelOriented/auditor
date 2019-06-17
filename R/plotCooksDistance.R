@@ -30,7 +30,7 @@
 plotCooksDistance <- function(object, ..., nlabel = 3) {
 
   # some safeguard
-  index <- cooks.dist <- big <- nameIndex <- NULL
+  index <- cooks.dist <- big <- nameIndex <- variable <- label <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "infl")

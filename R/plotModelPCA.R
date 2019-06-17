@@ -30,7 +30,7 @@
 plotModelPCA <- function(object, ..., scale = TRUE) {
 
   # some safeguard
-  residuals <- label <- NULL
+  residuals <- label <- PC1 <- PC2 <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")
@@ -43,8 +43,6 @@ plotModelPCA <- function(object, ..., scale = TRUE) {
 
   arrows <- data.frame(pca_object$rotation)
   arrows$label <- rownames(arrows)
-
-
 
   ggplot(data = data.frame(pca_object$x), aes(x = PC1, y = PC2)) +
     geom_point(colour = "grey") +
