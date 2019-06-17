@@ -17,7 +17,7 @@ test_that("plotAutocorrelation", {
 
 test_that("plotCook", {
   expect_is(plotCooksDistance(au.lm), "gg")
-  expect_is(plotCooksDistance(au.rf), "gg")
+  expect_is(plotCooksDistance(au.lm, au.rf), "gg")
 })
 
 test_that("plotPrediction", {
@@ -41,6 +41,7 @@ test_that("plotResidualBoxplot", {
 
 test_that("plotResidualDeensity", {
   expect_is(plotResidualDensity(au.lm), "gg")
+  expect_is(plotResidualDensity(au.lm, split = TRUE), "gg")
   expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
   expect_is(plotResidualDensity(au.lm, variable = ""), "gg")
   expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
@@ -49,6 +50,8 @@ test_that("plotResidualDeensity", {
 
 test_that("plotScaleLocation", {
   expect_is(plotScaleLocation(au.glm), "gg")
+  expect_is(plotScaleLocation(au.lm, au.rf), "gg")
+  expect_is(plotScaleLocation(modelResiduals(au.glm)), "gg")
   expect_is(plotScaleLocation(au.glm, variable = ""), "gg")
   expect_is(plotScaleLocation(au.glm, smooth = TRUE), "gg")
   expect_is(plotScaleLocation(au.glm, peaks = TRUE), "gg")
@@ -63,6 +66,7 @@ test_that("plotHalfNormal", {
 
 test_that("plotLIFT", {
   expect_is(plotLIFT(au.class.glm2), "gtable")
+  expect_is(plotLIFT(au.class.glm, au.class.glm), "gtable")
 })
 
 test_that("plotROC", {
@@ -77,6 +81,7 @@ test_that("plotRROC", {
 
 test_that("plotREC", {
   expect_is(plotREC(au.glm), "gg")
+  expect_is(plotREC(modelResiduals(au.glm)), "gg")
   expect_is(plotREC(au.glm, au.rf), "gg")
 })
 
