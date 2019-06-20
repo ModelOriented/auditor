@@ -25,7 +25,11 @@
 #' @import ggplot2
 #'
 #' @export
-plotResidualDensity <- function(object, ..., variable = NULL, split = FALSE) {
+plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
+
+  if (split == FALSE && (!is.null(variable) && nchar(variable) > 1))
+    stop("Please change argument `split` to `TRUE` if you want to plot residual density of a specific variable")
+
   # some safeguard
   res <- label <- div <- NULL
 
@@ -76,7 +80,7 @@ plotResidualDensity <- function(object, ..., variable = NULL, split = FALSE) {
   } else {
     p <- p + facet_wrap(. ~ label, scales = "free_x", ncol = 2) +
       theme(strip.text = element_text(colour = "#160e3b", size = rel(1), face = "bold"),
-            panel.margin.y = unit(0.5, "lines"),
+            panel.spacing.y = unit(0.5, "lines"),
             strip.text.x = element_text(margin = margin(0.1, 0, 0.2, 0, "cm")))
     if (model_count == 1) p <- p + theme(strip.text = element_blank())
     p

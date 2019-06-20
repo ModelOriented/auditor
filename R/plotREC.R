@@ -57,8 +57,9 @@ plotREC <- function(object, ...) {
   # theme, colours, titles, axes, scales, etc.
   p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label)) +
-    scale_y_continuous(labels = scales::percent) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df$rec_x) * 1.1)) +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, max(df$rec_y) * 1.1), labels = scales::percent) +
     xlab("Error tolerance") +
     ylab("") +
     ggtitle("REC Curve")

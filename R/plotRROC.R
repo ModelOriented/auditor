@@ -60,16 +60,20 @@ plotRROC <- function(object, ...) {
   # main chart
   p <- ggplot(data = df, aes(x = rroc_x, y = rroc_y, colour = label)) +
     geom_line(data = subset(df, curve == TRUE), aes(group = ord)) +
-    geom_point(data = subset(df, curve == FALSE), aes(colour = label), size = 2.5, show.legend = FALSE) +
-    geom_point(data = subset(df, curve == FALSE), colour = "white", size = 1.5)
+    geom_point(data = subset(df, curve == FALSE), aes(colour = label), size = 2, show.legend = FALSE)
 
   # theme, colours, titles, axes, scales, etc.
   p + theme_drwhy() +
-    theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label)) +
+    theme(axis.line.x = element_line(color = "#371ea3"),
+          plot.title = element_text(margin = margin(b = 10)),
+          legend.margin = margin(b = 15)) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df[df$rroc_x !=  Inf, ]$rroc_x) * 1.1), breaks = scales::pretty_breaks()) +
+    scale_y_continuous(expand = c(0, 0), limits = c(min(df[df$rroc_y != -Inf, ]$rroc_y) * 1.1, 0), breaks = scales::pretty_breaks()) +
     ylab("Under-estimation") +
     xlab("Over-estimation") +
     ggtitle("RROC Curve")
+
 
 }
 

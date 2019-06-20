@@ -10,10 +10,11 @@ check_object <- function(object, type = "res") {
   model_type <- switch(type,
                        "res" = "modelResiduals",
                        "eva" = "modelEvaluation",
-                       "infl" = "observationInfluence")
+                       "infl" = "observationInfluence",
+                       "fit" = "modelFit")
 
   if (!(model_type %in% class(object) || "modelAudit" %in% class(object))) {
-    stop("The function requires an object created with audit() or modelResiduals().")
+    stop(paste0("The function requires an object created with audit() or ", model_type, "()."))
   }
 }
 
@@ -31,72 +32,15 @@ check_object <- function(object, type = "res") {
 #' Other possible values: \code{eva} - model evaluation
 make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res", quant = NULL) {
 
-  if (type == "res" &&  !"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
+  object <- prepare_object(object, variable, nlabel, type, quant)
 
-  if (type == "rec" &&  !"modelResiduals"  %in% class(object)) object <- make_rec_df(modelResiduals(object, variable))
-  if (type == "rec" &&   "modelResiduals"  %in% class(object)) object <- make_rec_df(object)
-
-  if (type == "rroc") {
-    if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object, variable)
-    object <- make_rroc_df(object)
-  }
-
-  if (type == "scal" && !"modelResiduals"  %in% class(object)) object <- make_scale_loc_df(modelResiduals(object, variable))
-  if (type == "scal" &&  "modelResiduals"  %in% class(object)) object <- make_scale_loc_df(object)
-
-  if (type == "pca") {
-    if (!"modelResiduals"  %in% class(object)) object <- modelResiduals(object)
-    df <- data.frame(y = object$res)
-    colnames(df) <- as.character(object$label[1])
-    object <- df
-  }
-
-  if (type == "dens") {
-    if (!"modelResiduals" %in% class(object)) object <- modelResiduals(object, variable)
-    object <- get_division(object)
-  }
-  if (type == "eva" &&  !"modelEvaluation" %in% class(object)) object <- attributes(modelEvaluation(object, variable))$CGains
-
-  if (type == "infl" && !"observationInfluence" %in% class(object)) object <- obs_influence_add(object, nlabel)
-
-  if (type == "fit" && !"modelFit" %in% class(object)) object <- modelFit(object, quant.scale = quant, ...)
-
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if (type == "res") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        if ("modelResiduals" %in% class(resp)) object <- rbind(object, resp)
-      }
-      if (type == "scal") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_scale_loc_df(resp))
-      }
-      if (type == "rec") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        if ("modelResiduals" %in% class(resp)) object <- rbind(object, make_rec_df(resp))
-      }
-      if (type == "rroc") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        object <- rbind(object, make_rroc_df(resp))
-      }
+  if (length(list(...)) > 0) {
+    for (resp in list(...)) {
+      resp <- prepare_object(object = resp, variable, nlabel, type, quant)
       if (type == "pca") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        df_tmp <- data.frame(resp$res)
-        colnames(df_tmp)[1] <- as.character(resp$label[1])
-        object <- cbind(object, df_tmp)
-      }
-      if (type == "dens") {
-        if ("modelAudit" %in% class(resp)) resp <- modelResiduals(resp, variable)
-        object <- rbind(object, get_division(resp))
-      }
-      if (type == "eva") {
-        if ("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp, variable)
-        if ("modelEvaluation" %in% class(resp)) object <- rbind(object, attributes(resp)$CGains)
-      }
-      if (type == "infl") {
-        if ("modelAudit" %in% class(resp)) resp <- obs_influence_add(resp, nlabel)
-        if ("observationInfluence" %in% class(resp)) object <- rbind(object, resp)
+        object <- cbind(object, resp)
+      } else {
+        object <- rbind(object, resp)
       }
     }
   }
@@ -186,10 +130,40 @@ get_division <- function(modelData) {
   } else {
     df$div <- modelData$val
   }
-
   return(df)
 }
 
+make_pca_df <- function(object) {
+  df <- data.frame(y = object$res)
+  colnames(df) <- as.character(object$label[1])
+  object <- df
+}
+
+
+#' @title Prepare object for `make_dataframe`` function
+#'
+#' @param object An audited model
+#' @param variable Variable
+#' @param nlabel Number of labels
+#' @param quant Logical
+#' @param type Type of model passed
+prepare_object <- function(object, variable, nlabel, type, quant) {
+  if ("modelAudit" %in% class(object)) {
+    if (type %in% c("res", "rec", "rroc", "scal", "dens", "pca")) object <- modelResiduals(object, variable)
+    switch(type,
+           "eva"  = { object <- modelEvaluation(object, variable) },
+           "infl" = { object <- obs_influence_add(object, nlabel) },
+           "fit"  = { object <- modelFit(object, quant.scale = quant) })
+  }
+  switch(type,
+         "rec"  = { object <- make_rec_df(object) },
+         "rroc" = { object <- make_rroc_df(object) },
+         "scal" = { object <- make_scale_loc_df(object) },
+         "dens" = { object <- get_division(object) },
+         "eva"  = { object <- attributes(object)$CGains },
+         "pca"  = { object <- make_pca_df(object) })
+  return(object)
+}
 
 
 #' @title DrWhy's wrapper for geom_point function

@@ -39,29 +39,25 @@ plotModelPCA <- function(object, ..., scale = TRUE) {
   df <- make_dataframe(object, ..., type = "pca")
   pca_object <- prcomp(df, scale = scale)
 
+  # colours for the model(s)
   colours <- rev(theme_drwhy_colors(length(names(df))))
 
+  # arrows for models
   arrows <- data.frame(pca_object$rotation)
   arrows$label <- rownames(arrows)
+  arrows2 <- arrows
+  arrows2$PC1 <- arrows2$PC2 <- 0
+  arrows2 <- rbind(arrows, arrows2)
 
+  # plot
   ggplot(data = data.frame(pca_object$x), aes(x = PC1, y = PC2)) +
-    geom_point(colour = "grey") +
+    geom_point(colour = "grey", alpha = 0.75) +
     geom_hline(aes(yintercept = 0), size = 0.25) +
     geom_vline(aes(xintercept = 0), size = 0.25) +
+    geom_line(data = arrows2, aes(PC1, PC2, colour = label)) +
     geom_segment(data = arrows, aes(x = 0, y = 0, xend = PC1, yend = PC2, colour = label),
-                 arrow = grid::arrow(length = grid::unit(2, "points"))) +
+                 arrow = grid::arrow(length = grid::unit(2, "points")), show.legend = FALSE) +
     ggtitle("Model PCA") +
-    scale_color_manual(values = rev(colours),
-                       breaks = arrows$label) +
+    scale_color_manual(values = rev(colours), breaks = arrows$label, guide = guide_legend(nrow = 1)) +
     theme_drwhy()
-
-
-  # fviz_pca_biplot(pca_object,
-  #                 repel = TRUE,
-  #                 label = c("var"),
-  #                 col.var = "#000000",
-  #                 col.ind = "#d8d8d8",
-  #                 title = "Model PCA") +
-  #   theme_drwhy() +
-  #   theme(axis.line.x = element_line(color = "#371ea3"))
 }

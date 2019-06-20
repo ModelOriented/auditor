@@ -32,7 +32,7 @@ plotCooksDistance <- function(object, ..., nlabel = 3) {
   # some safeguard
   index <- cooks.dist <- big <- nameIndex <- variable <- label <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "observationInfluence" or "modelAudit"
   check_object(object, type = "infl")
 
   # data frame for ggplot object
@@ -52,12 +52,11 @@ plotCooksDistance <- function(object, ..., nlabel = 3) {
   p <- p + geom_text_repel(data = subset(df, big == TRUE), aes(label = as.character(index)),
                            color = "#f05a71", size = 3)
 
-
   # theme, colours, titles, axes, scales, etc.
-  p <- p + theme_drwhy() +
+  p <- p +
+    theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours),
-                       breaks = levels(df$label))
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
 
   p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
 

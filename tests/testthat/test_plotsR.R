@@ -42,7 +42,7 @@ test_that("plotResidualBoxplot", {
 test_that("plotResidualDeensity", {
   expect_is(plotResidualDensity(au.lm), "gg")
   expect_is(plotResidualDensity(au.lm, split = TRUE), "gg")
-  expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
+  expect_is(plotResidualDensity(au.lm, variable = "women", split = TRUE), "gg")
   expect_is(plotResidualDensity(au.lm, variable = ""), "gg")
   expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
   expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
@@ -59,9 +59,9 @@ test_that("plotScaleLocation", {
 })
 
 test_that("plotHalfNormal", {
-  expect_is(plotHalfNormal(au.glm, sim=10), "gg")
-  expect_is(plotHalfNormal(au.lm, quantiles = TRUE, sim=10), "gg")
-  expect_is(plotHalfNormal(au.class.rf, sim=10), "gg")
+  expect_is(plotHalfNormal(au.glm), "gg")
+  expect_is(plotHalfNormal(au.lm, quantiles = TRUE), "gg")
+  expect_is(plotHalfNormal(au.class.rf), "gg")
 })
 
 test_that("plotLIFT", {
@@ -100,7 +100,7 @@ test_that("plot", {
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
   expect_is(plot(au.lm, type="ScaleLocation"), "gg")
-  expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
+  expect_is(plot(au.glm, type = "HalfNormal"), "gg")
   expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="RROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="REC"), "gg")
@@ -114,12 +114,12 @@ test_that("multiple plots on grid", {
 
 
 test_that("plot, grid equals FALSE", {
-  expect_is(plot(au.lm, au.rf, type=c("Prediction", "Residual"), grid = FALSE, ask = FALSE), "auditorPlotList")
+  expect_is(plot(au.lm, au.rf, type = c("Prediction", "Residual"), grid = FALSE, ask = FALSE), "auditorPlotList")
 })
 
 test_that("plot type is not provided", {
   expect_is(plot(cd.lm), "gg")
-  expect_is(plot(mp.lm, table=FALSE), "gg")
+  expect_is(plot(mp.lm, table = FALSE), "gg")
   expect_is(plot(mf.lm), "gg")
 })
 

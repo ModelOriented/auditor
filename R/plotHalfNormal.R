@@ -26,9 +26,11 @@ plotHalfNormal <- function(object, quantiles = FALSE, ...) {
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
 
+  # check if passed object is of class "modelFit" or "modelAudit"
+  check_object(object, type = "fit")
+
   # data frame for ggplot object
   df <- make_dataframe(object, ..., quant = quantiles, type = "fit")
-
 
   # main chart
   p <- ggplot(data = df, aes(x)) +
@@ -41,37 +43,16 @@ plotHalfNormal <- function(object, quantiles = FALSE, ...) {
   p <- p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
     xlab("Half-normal Quantiles") +
-    ylab("Residuals") +
-    ggtitle("Podaj tytul")
+    ggtitle("Half-normal plot")
 
   if (quantiles == TRUE) {
-    p + scale_x_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
-      scale_y_continuous(limits = c(0, 1), breaks = scales::pretty_breaks()) +
-      coord_fixed(ratio = 1)
-
+    p + scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
+      scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
+      coord_fixed(ratio = 1) +
+      ylab("Quantiles of |residuals|")
   } else {
     p + scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
-      scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks())
-
+      scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
+      ylab("|Residuals|")
   }
-
-  return(p)
 }
-
-# Calculating Likelihood for each residual
-calculateKDE <- function(res, simres){
-  simres <- as.numeric(simres)
-  (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
-}
-
-
-# Calculating PDF score
-calculateScorePDF <- function(hnpObject){
-  res <- hnpObject$residuals
-  simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
-  n <- length(res)
-  PDFs <- mapply(calculateKDE, res, simres)
-  return(sum(PDFs))
-}
-
-

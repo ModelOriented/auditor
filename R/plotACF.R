@@ -50,20 +50,22 @@ plotACF <- function(object, ..., variable = NULL, alpha = 0.95) {
   p <- ggplot(resultDF, aes(x = lag)) +
     geom_segment(aes(x = lag, xend = lag, y = ymin, yend = acf, colour = label), size = 1, alpha = 0.65) +
     geom_hline(yintercept = conf_lims, color = "darkgrey", linetype = "dashed") +
-    facet_grid(label ~ ., switch = "y", scales = "free_y")
-
+    facet_wrap(. ~ label, scales = "free_y", ncol = 1)
 
   # theme, colours, titles, axes, scales, etc.
   p <- p + theme_drwhy() +
     theme(axis.line.x = element_blank(),
-          strip.background = element_blank(),
-          strip.text = element_blank()) +
-    scale_color_manual(values = rev(colours),
-                       breaks = levels(df$label))
+          strip.text = element_text(margin = margin(t = 10)),
+          panel.spacing = unit(1, "lines"),
+          legend.text = element_text(margin = margin(r = 5, l = 3)),
+          legend.key = element_rect(colour = NA, fill = NA),
+          legend.position = "none") +
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
 
   p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
 
-  p + xlab("Lag") + ylab("") + ggtitle("ACF plot")
+  p + xlab(ifelse(!is.null(variable) & nchar(variable) > 1, paste0("Lag of ", variable))) +
+    ylab("") + ggtitle("ACF plot")
 
 
 
