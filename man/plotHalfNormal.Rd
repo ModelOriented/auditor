@@ -4,14 +4,16 @@
 \alias{plotHalfNormal}
 \title{Half-Normal plot}
 \usage{
-plotHalfNormal(object, quantiles = FALSE, ...)
+plotHalfNormal(object, ..., quantiles = FALSE, sim = 99)
 }
 \arguments{
 \item{object}{modelAudit object, modelFit object.}
 
+\item{...}{extra arguments passed to \link[hnp]{hnp}.}
+
 \item{quantiles}{if TRUE values on axis are on quantile scale.}
 
-\item{...}{extra arguments passed to \link[hnp]{hnp}.}
+\item{sim}{number of residuals to simulate}
 }
 \value{
 An object of class ggplot

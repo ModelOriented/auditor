@@ -9,6 +9,7 @@
 #' @param object modelAudit object, modelFit object.
 #' @param quantiles if TRUE values on axis are on quantile scale.
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
+#' @param sim number of residuals to simulate
 #'
 #' @return An object of class ggplot
 #'
@@ -21,7 +22,7 @@
 #'
 #' @export
 
-plotHalfNormal <- function(object, quantiles = FALSE, ...) {
+plotHalfNormal <- function(object, ..., quantiles = FALSE, sim = 99) {
 
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
