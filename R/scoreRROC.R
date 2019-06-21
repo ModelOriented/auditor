@@ -20,13 +20,16 @@
 #' @export
 
 
-scoreRROC <- function(object){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+scoreRROC <- function(object) {
 
+  check_object(object, type = "res")
 
-  RROCF <- getRROCDF(object)
-  x <- RROCF$RROCX
-  y <- RROCF$RROCY
+  if (!"modelResiduals" %in% class(object)) object <- modelResiduals(object, variable = NULL)
+
+  RROCF <- make_rroc_df(object)
+  RROCF <- RROCF[RROCF$curve == TRUE,]
+  x <- RROCF$rroc_x
+  y <- RROCF$rroc_y
 
   aoc <- 0
   for (i in 2:(length(x) - 2)) {

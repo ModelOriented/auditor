@@ -21,12 +21,15 @@
 #' @export
 
 
-scoreREC <- function(object){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+scoreREC <- function(object) {
+
+  check_object(object, type = "res")
+
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
-  RECDF <- getRECDF(object)
-  x <- RECDF$RECX
-  y <- RECDF$RECY
+
+  rec_df <- make_rec_df(object)
+  x <- rec_df$rec_x
+  y <- rec_df$rec_y
 
   aoc <- max(x) * max(y)
   for (i in 2:length(x)) {

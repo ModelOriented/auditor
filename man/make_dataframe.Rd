@@ -4,7 +4,8 @@
 \alias{make_dataframe}
 \title{Make data frame}
 \usage{
-make_dataframe(object, ..., variable, type = "res")
+make_dataframe(object, ..., variable = NULL, nlabel = NULL,
+  type = "res", quant = NULL)
 }
 \arguments{
 \item{object}{Object passed to the function}
@@ -13,7 +14,11 @@ make_dataframe(object, ..., variable, type = "res")
 
 \item{variable}{Variable}
 
-\item{type}{Type of check; default is \code{res} which stands for "model residuals".
+\item{nlabel}{Number of labels in calculating `observationInfluence`}
+
+\item{type}{Type of check; default is \code{res} which stands for "model residuals".}
+
+\item{quant}{if TRUE values on axis are on quantile scale in `plotHalfNormal`
 Other possible values: \code{eva} - model evaluation}
 }
 \description{

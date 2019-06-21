@@ -4,7 +4,7 @@
 \alias{plotModelPCA}
 \title{Principal Component Analysis of models}
 \usage{
-plotModelPCA(object, ..., scale = TRUE, invisible = "none")
+plotModelPCA(object, ..., scale = TRUE)
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals,}
@@ -12,8 +12,6 @@ plotModelPCA(object, ..., scale = TRUE, invisible = "none")
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
 \item{scale}{A logical value indicating whether the models residuals should be scaled before the analysis.}
-
-\item{invisible}{A text specifying the elements to be hidden on the plot. Default value is "none". Allowed values are "model", "observ".}
 }
 \value{
 ggplot object

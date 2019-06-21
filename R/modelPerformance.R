@@ -17,30 +17,26 @@
 #'
 #'
 #' @export
-modelPerformance <- function(object, scores = c("MAE", "MSE", "REC", "RROC"), new.score = NULL){
-  if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
+modelPerformance <- function(object, scores = c("MAE", "MSE", "REC", "RROC"), new.score = NULL) {
 
+  if (!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
-    df <- data.frame(score = score(object, type = scores[1])$score, label = object$label, name = scores[1])
+    scores <- sapply(scores, function(x) score(object, type = x)$score)
 
-    if(length(scores) > 1){
-      for(i in 2:length(scores)){
-        df <- rbind(df, data.frame(score = score(object, type = scores[i])$score, label = object$label, name = scores[i]))
-      }
-    }
+    df <- data.frame(score = scores[1], label = object$label, name = names(scores[1]))
+    if (length(scores) > 1) df <- rbind(df, data.frame(score = scores[-1], label = object$label, name = names(scores[-1])))
 
-    if(!is.null(new.score)){
-      if (class(new.score) == "function"){
+    if (!is.null(new.score)) {
+      if (class(new.score) == "function") {
         df <- rbind(df, data.frame(score = new.score(object), label = object$label, name = as.character(substitute(new.score))))
       }
       if(class(new.score) == "list") {
-        for(i in names(new.score)){
+        for (i in names(new.score)) {
           df <- rbind(df, data.frame(score = new.score[[i]](object), label = object$label, name = i))
         }
       }
     }
-  result <- df
-  class(result) <- c("modelPerformance", "data.frame")
 
-  return(result)
+  class(df) <- c("modelPerformance", "data.frame")
+  return(df)
 }

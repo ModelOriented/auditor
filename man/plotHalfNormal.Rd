@@ -4,23 +4,16 @@
 \alias{plotHalfNormal}
 \title{Half-Normal plot}
 \usage{
-plotHalfNormal(object, score = TRUE, quant.scale = FALSE,
-  xlab = "half-normal Quantiles", ylab = "residuals", main = "", ...)
+plotHalfNormal(object, ..., quantiles = FALSE, sim = 99)
 }
 \arguments{
 \item{object}{modelAudit object, modelFit object.}
 
-\item{score}{If TRUE score based on probability density function is displayed on the plot.}
-
-\item{quant.scale}{if TRUE values on axis are on quantile scale.}
-
-\item{xlab}{The text for the x axis.}
-
-\item{ylab}{The text for the y axis.}
-
-\item{main}{Title of plot.}
-
 \item{...}{extra arguments passed to \link[hnp]{hnp}.}
+
+\item{quantiles}{if TRUE values on axis are on quantile scale.}
+
+\item{sim}{number of residuals to simulate}
 }
 \value{
 An object of class ggplot
