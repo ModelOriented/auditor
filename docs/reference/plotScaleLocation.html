@@ -111,8 +111,8 @@
 A vertical line corresponds to median.</p>
     
 
-    <pre class="usage"><span class='fu'>plotScaleLocation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotScaleLocation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -127,11 +127,10 @@ A vertical line corresponds to median.</p>
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
-    </tr>
-    <tr>
-      <th>score</th>
-      <td><p>A logical value. If TRUE value of <a href='scorePeak.html'>scorePeak</a> will be added.</p></td>
+      <td><p>Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (<code>y</code> parameter
+passed to the <code><a href='audit.html'>audit</a></code> function). One can also pass any name of any other variable
+in the data set. If <code>variable = ""</code> is set, unordered observations are presented.</p></td>
     </tr>
     <tr>
       <th>smooth</th>

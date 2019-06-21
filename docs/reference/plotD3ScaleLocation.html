@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 Package. — plotD3Residual • auditor</title>
+<title>Scale Location Plot in D3 with r2d3 Package. — plotD3ScaleLocation • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://DrWhy.AI/">
         <img src = "https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 Package.</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Scale Location Plot in D3 with r2d3 Package.</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,18 +103,20 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 Package.</h1>
+    <h1>Scale Location Plot in D3 with r2d3 Package.</h1>
     </div>
 
     
-    <p>Function <code>plotD3Residual</code> plots resudial values vs target, observed or variable values in the model.
+    <p>Function <code>plotD3ScaleLocation</code> plots square root of the absolute value of the residuals vs target,
+observed or variable values in the model.
 It uses output from <code>modelAudit</code> or <code>modelResiduals</code> function.</p>
-<p>If the picture is not displayed in the viewer, please update your RStudio.</p>
+
+    <p>If the picture is not displayed in the viewer, please update your RStudio.</p>
     
 
-    <pre class="usage"><span class='fu'>plotD3Residual</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>std_residuals</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>point_count</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>single_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale_plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>background</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotD3ScaleLocation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>point_count</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>single_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>scale_plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>background</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -135,16 +137,12 @@ passed to the <code><a href='audit.html'>audit</a></code> function). One can als
 in the data set. If <code>variable = ""</code> is set, unordered observations are presented.</p></td>
     </tr>
     <tr>
-      <th>points</th>
-      <td><p>Logical, indicates whenever observations should be added as points. By defaul it's TRUE.</p></td>
-    </tr>
-    <tr>
       <th>smooth</th>
       <td><p>Logical, indicates whenever smoothed lines should be added. By default it's FALSE.</p></td>
     </tr>
     <tr>
-      <th>std_residuals</th>
-      <td><p>Logical, indicates whenever standardized residuals should be used. By default it's FALSE.</p></td>
+      <th>peaks</th>
+      <td><p>Logical, indicates whenever peak observations should be highlighted. By defaul it's FALSE.</p></td>
     </tr>
     <tr>
       <th>point_count</th>
@@ -170,7 +168,7 @@ in the data set. If <code>variable = ""</code> is set, unordered observations ar
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='plotResidual.html'>plotResidual</a></code></p></div>
+    <div class='dont-index'><p><code><a href='plotScaleLocation.html'>plotScaleLocation</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -179,14 +177,15 @@ in the data set. If <code>variable = ""</code> is set, unordered observations ar
 
 <span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>m2.price</span> ~<span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>apartments</span>)
 <span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)
-<span class='fu'>plotD3Residual</span>(<span class='no'>lm_au</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"construction.year"</span>)
+<span class='fu'>plotD3ScaleLocation</span>(<span class='no'>lm_au</span>, <span class='kw'>peaks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"construction.year"</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>randomForest</span>)
 <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>m2.price</span> ~<span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>apartments</span>)
 <span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"rf"</span>)
 <span class='no'>rf_mr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='modelResiduals.html'>modelResiduals</a></span>(<span class='no'>rf_au</span>, <span class='st'>"construction.year"</span>)
-<span class='fu'>plotD3Residual</span>(<span class='no'>lm_au</span>, <span class='no'>rf_mr</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"construction.year"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>plotD3Residual</span>(<span class='no'>lm_au</span>, <span class='no'>rf_mr</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"construction.year"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>single_plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div></pre>
+<span class='fu'>plotD3ScaleLocation</span>(<span class='no'>lm_au</span>, <span class='no'>rf_mr</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"construction.year"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>plotD3ScaleLocation</span>(<span class='no'>lm_au</span>, <span class='no'>rf_mr</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"construction.year"</span>,
+                                  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>single_plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

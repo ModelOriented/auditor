@@ -93,29 +93,29 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Stable version from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"auditor"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"auditor"</span>)</code></pre></div>
 <p>Developer version from GitHub:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/agosiewska/auditor"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/agosiewska/auditor"</span>)</code></pre></div>
 </div>
 <div id="demo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#demo" class="anchor"></a>Demo</h2>
 <p>Run the code below or try the auditor.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(randomForest)</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(mtcars)</a>
-<a class="sourceLine" id="cb3-4" title="4"></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co"># fitting models</span></a>
-<a class="sourceLine" id="cb3-6" title="6">model_lm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb3-8" title="8">model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
-<a class="sourceLine" id="cb3-9" title="9"></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co"># creating a modelAudit object which contains all necessary components required for further processing</span></a>
-<a class="sourceLine" id="cb3-11" title="11">au_lm &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_lm)</a>
-<a class="sourceLine" id="cb3-12" title="12">au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_rf, <span class="dt">label =</span> <span class="st">"rf"</span>)</a>
-<a class="sourceLine" id="cb3-13" title="13"></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co"># generating plots</span></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="kw"><a href="reference/plotResidual.html">plotResidual</a></span>(au_lm, au_rf, <span class="dt">variable =</span> <span class="st">"wt"</span>, <span class="dt">smooth =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(randomForest)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(mtcars)
+
+<span class="co"># fitting models</span>
+model_lm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)
+model_rf &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)
+
+<span class="co"># creating a modelAudit object which contains all necessary components required for further processing</span>
+au_lm &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_lm)
+au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_rf, <span class="dt">label =</span> <span class="st">"rf"</span>)
+
+<span class="co"># generating plots</span>
+<span class="kw"><a href="reference/plotResidual.html">plotResidual</a></span>(au_lm, au_rf, <span class="dt">variable =</span> <span class="st">"wt"</span>, <span class="dt">smooth =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
 <div id="more" class="section level2">
@@ -124,13 +124,9 @@
 <ul>
 <li><p><a href="NEWS.html">News</a></p></li>
 <li><p><a href="https://mi2datalab.github.io/auditor/">Reference Manual</a></p></li>
-<li>
-<p>Cheatsheets</p>
-<ul>
+<li><p>Cheatsheets</p></li>
 <li><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png">Error analysis with auditor</a></li>
-<li><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png">ROC plots with auditor</a></li>
-</ul>
-</li>
+<li><p><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png">ROC plots with auditor</a></p></li>
 <li><p>A <a href="https://arxiv.org/abs/1809.07763">preprint of the article about auditor</a> is available on arxiv.</p></li>
 <li><p>Acknowledgments: Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.</p></li>
 </ul>
@@ -141,9 +137,9 @@
 <colgroup>
 <col width="17%">
 <col width="22%">
-<col width="3%">
+<col width="4%">
 <col width="5%">
-<col width="51%">
+<col width="50%">
 </colgroup>
 <thead><tr class="header">
 <th>Plot name</th>

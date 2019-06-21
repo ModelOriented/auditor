@@ -114,8 +114,7 @@ Points on the plot correspond to ordered absolute values of model diagnostic
 (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.</p>
     
 
-    <pre class="usage"><span class='fu'>plotHalfNormal</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quant.scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"half-normal Quantiles"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"residuals"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotHalfNormal</span>(<span class='no'>object</span>, <span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -125,24 +124,8 @@ Points on the plot correspond to ordered absolute values of model diagnostic
       <td><p>modelAudit object, modelFit object.</p></td>
     </tr>
     <tr>
-      <th>score</th>
-      <td><p>If TRUE score based on probability density function is displayed on the plot.</p></td>
-    </tr>
-    <tr>
-      <th>quant.scale</th>
+      <th>quantiles</th>
       <td><p>if TRUE values on axis are on quantile scale.</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>The text for the x axis.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>The text for the y axis.</p></td>
-    </tr>
-    <tr>
-      <th>main</th>
-      <td><p>Title of plot.</p></td>
     </tr>
     <tr>
       <th>...</th>
