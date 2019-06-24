@@ -132,7 +132,7 @@ Scores are calculated on the basis of simulated data, so they may differ between
 ## Quantile scale
 In function `plotHalfNormal` there is also a posibility to draw half-normal plot on a quantile scale.
 ```{r, results='hide', fig.keep='all'}
-plotHalfNormal(fit2_b_au, quant.scale = TRUE)
+plotHalfNormal(fit2_b_au, quantiles = TRUE)
 ```
 
 # Classification

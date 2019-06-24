@@ -59,8 +59,7 @@ plotAutocorrelation <- function(object, ..., variable = NULL, smooth = FALSE) {
   p <- p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3"),
           plot.subtitle = element_text(vjust = -1)) +
-    scale_color_manual(values = rev(colours),
-                       breaks = levels(df$label))
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
 
   chart_title <- "Autocorrelation "
   x_lab <- as.character(df_temp$variable[1])

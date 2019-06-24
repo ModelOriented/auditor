@@ -111,7 +111,7 @@
     
 
     <pre class="usage"><span class='fu'>plotPrediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>abline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+  <span class='kw'>abline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -126,7 +126,10 @@
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>Only for modelAudit objects. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
+      <td><p>Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (<code>y</code> parameter
+passed to the <code><a href='audit.html'>audit</a></code> function). One can also pass any name of any other variable
+in the data set. If <code>variable = ""</code> is set, unordered observations are presented.</p></td>
     </tr>
     <tr>
       <th>smooth</th>
@@ -134,15 +137,8 @@
     </tr>
     <tr>
       <th>abline</th>
-      <td><p>Logical, indicates whenever function y=x shoulbe added.</p></td>
-    </tr>
-    <tr>
-      <th>split</th>
-      <td><p>Character. If "model" plot will be splitted by model.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Numeric. Opacity of points.</p></td>
+      <td><p>Logical, indicates whenever function y = x shoul be added. Works only
+with <code>variable = NULL</code> which is a default option.</p></td>
     </tr>
     </table>
     
@@ -155,11 +151,11 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
 <span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plotPrediction</span>(<span class='no'>lm_au</span>)</div><div class='img'><img src='plotPrediction-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotPrediction</span>(<span class='no'>lm_au</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"prestige"</span>, <span class='kw'>abline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotPrediction-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>randomForest</span>)
 <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
 <span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plotPrediction</span>(<span class='no'>lm_au</span>, <span class='no'>rf_au</span>)</div><div class='img'><img src='plotPrediction-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotPrediction</span>(<span class='no'>lm_au</span>, <span class='no'>rf_au</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"prestige"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotPrediction-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

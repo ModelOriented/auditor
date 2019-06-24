@@ -16,6 +16,7 @@ test_that("objects in plots", {
   expect_error(plotResidual(model.lm))
   expect_error(plotResidualBoxplot(model.lm))
   expect_error(plotResidualDensity(model.lm))
+  expect_error(plotResidualDensity(au.lm, variable = "women"))
   expect_error(plotROC(model.lm))
   expect_error(plotRROC(model.lm))
   expect_error(plotScaleLocation(model.lm))
@@ -24,5 +25,8 @@ test_that("objects in plots", {
 
 
 test_that("objects in calculation functions", {
-  expect_error(modeleProfmance(model.lm))
+  expect_error(modelProfmance(model.lm))
+  expect_error(modelResiduals(au.lm, variable = "ok"))
+  expect_error(modelResiduals(model.lm))
+  expect_error(modelEvaluation(model.lm))
 })

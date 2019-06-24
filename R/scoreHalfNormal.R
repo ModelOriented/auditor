@@ -35,5 +35,19 @@ scoreHalfNormal <- function(object, ...){
 }
 
 
+# Calculating Likelihood for each residual
+calculateKDE <- function(res, simres){
+  simres <- as.numeric(simres)
+  (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
+}
 
-# calculateScorePDF fucntion is in plotHalfNormal.R file
+
+# Calculating PDF score
+calculateScorePDF <- function(hnpObject){
+  res <- hnpObject$residuals
+  simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
+  n <- length(res)
+  PDFs <- mapply(calculateKDE, res, simres)
+  return(sum(PDFs))
+}
+

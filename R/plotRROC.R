@@ -40,70 +40,40 @@
 #' @import ggplot2
 #'
 #' @export
+plotRROC <- function(object, ...) {
 
+  # some safeguard
+  rroc_x <- rroc_y <- label <- curve <- ord <- NULL
 
-plotRROC <- function(object, ...){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
-  RROCX <- RROCY <- RROCX0 <- RROCY0 <- label <- NULL
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
-  df <- getRROCDF(object)
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., type = "rroc")
 
-  err <- sort(object$fitted.values - object$y)
-  RROCX0 <- sum(err[which(err > 0)], na.rm = TRUE )
-  RROCY0 <- sum(err[which(err < 0)], na.rm = TRUE )
-  df0 <- data.frame(RROCX0 = RROCX0, RROCY0 = RROCY0, label = object$label)
+  # new varibale to set an order o curves
+  df$ord <- paste(rev(as.numeric(df$label)), df$label)
 
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if(any(class(resp)=="modelAudit") || any(class(resp)=="modelResiduals")){
-        if("modelAudit" %in% class(resp)) resp <- modelResiduals(resp)
-        df <- rbind( df, getRROCDF(resp) )
-        err <- sort(resp$fitted.values - resp$y)
-        RROCX0 <- sum(err[which(err > 0)], na.rm = TRUE )
-        RROCY0 <- sum(err[which(err < 0)], na.rm = TRUE )
-        df0 <- rbind(df0, data.frame(RROCX0 = RROCX0, RROCY0 = RROCY0, label=resp$label[1]))
-      }
-    }
-  }
+  # main chart
+  p <- ggplot(data = df, aes(x = rroc_x, y = rroc_y, colour = label)) +
+    geom_line(data = subset(df, curve == TRUE), aes(group = ord)) +
+    geom_point(data = subset(df, curve == FALSE), aes(colour = label), size = 2, show.legend = FALSE)
 
-
-
-
-  ggplot(df, aes(x=RROCX, y=RROCY, color = label)) +
-    geom_line() +
-    geom_point(data = df0, aes(x=RROCX0, y=RROCY0), size = 3) +
-    theme_light() +
-    ylab("under-estimation") +
-    xlab("over-estimation") +
+  # theme, colours, titles, axes, scales, etc.
+  p + theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3"),
+          plot.title = element_text(margin = margin(b = 10)),
+          legend.margin = margin(b = 15)) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df[df$rroc_x !=  Inf, ]$rroc_x) * 1.1), breaks = scales::pretty_breaks()) +
+    scale_y_continuous(expand = c(0, 0), limits = c(min(df[df$rroc_y != -Inf, ]$rroc_y) * 1.1, 0), breaks = scales::pretty_breaks()) +
+    ylab("Under-estimation") +
+    xlab("Over-estimation") +
     ggtitle("RROC Curve")
 
+
 }
-
-
-getRROCDF <- function(object){
-  err <- sort(object$fitted.values - object$y)
-  n <- length(err)
-  RROCX <- numeric(n+2)
-  RROCY <- numeric(n+2)
-  RROCX[1] <- 0
-  RROCY[1] <- -Inf
-
-  for(i in 1:n){
-    s <- -err[i]
-    tErr <- err + s
-    RROCX[i+1] <- sum(tErr[which(tErr > 0)], na.rm = TRUE )
-    RROCY[i+1] <- sum(tErr[which(tErr < 0)], na.rm = TRUE )
-  }
-
-  RROCX[n+2] <- Inf
-  RROCY[n+2] <- 0
-
-  df <- data.frame(RROCX = RROCX, RROCY = RROCY, label = object$label[1])
-  return(df)
-}
-
-
 

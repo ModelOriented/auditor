@@ -3,7 +3,7 @@ context("plots")
 source("objects_for_tests.R")
 
 test_that("plotACF", {
-  expect_is(plotACF(au.lm, "income"), "gg")
+  expect_is(plotACF(au.lm, variable = "income"), "gg")
   expect_is(plotACF(au.rf), "gg")
 })
 
@@ -17,7 +17,7 @@ test_that("plotAutocorrelation", {
 
 test_that("plotCook", {
   expect_is(plotCooksDistance(au.lm), "gg")
-  expect_is(plotCooksDistance(au.rf), "gg")
+  expect_is(plotCooksDistance(au.lm, au.rf), "gg")
 })
 
 test_that("plotPrediction", {
@@ -41,7 +41,8 @@ test_that("plotResidualBoxplot", {
 
 test_that("plotResidualDeensity", {
   expect_is(plotResidualDensity(au.lm), "gg")
-  expect_is(plotResidualDensity(au.lm, variable = "women"), "gg")
+  expect_is(plotResidualDensity(au.lm, split = TRUE), "gg")
+  expect_is(plotResidualDensity(au.lm, variable = "women", split = TRUE), "gg")
   expect_is(plotResidualDensity(au.lm, variable = ""), "gg")
   expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
   expect_is(plotResidualDensity(au.lm, au.rf, variable = ""), "gg")
@@ -49,6 +50,8 @@ test_that("plotResidualDeensity", {
 
 test_that("plotScaleLocation", {
   expect_is(plotScaleLocation(au.glm), "gg")
+  expect_is(plotScaleLocation(au.lm, au.rf), "gg")
+  expect_is(plotScaleLocation(modelResiduals(au.glm)), "gg")
   expect_is(plotScaleLocation(au.glm, variable = ""), "gg")
   expect_is(plotScaleLocation(au.glm, smooth = TRUE), "gg")
   expect_is(plotScaleLocation(au.glm, peaks = TRUE), "gg")
@@ -56,13 +59,14 @@ test_that("plotScaleLocation", {
 })
 
 test_that("plotHalfNormal", {
-  expect_is(plotHalfNormal(au.glm, sim=10), "gg")
-  expect_is(plotHalfNormal(au.lm, sim=10, quant.scale = TRUE), "gg")
-  expect_is(plotHalfNormal(au.class.rf, sim=10), "gg")
+  expect_is(plotHalfNormal(au.glm), "gg")
+  expect_is(plotHalfNormal(au.lm, quantiles = TRUE), "gg")
+  expect_is(plotHalfNormal(au.class.rf), "gg")
 })
 
 test_that("plotLIFT", {
   expect_is(plotLIFT(au.class.glm2), "gtable")
+  expect_is(plotLIFT(au.class.glm, au.class.glm), "gtable")
 })
 
 test_that("plotROC", {
@@ -77,6 +81,7 @@ test_that("plotRROC", {
 
 test_that("plotREC", {
   expect_is(plotREC(au.glm), "gg")
+  expect_is(plotREC(modelResiduals(au.glm)), "gg")
   expect_is(plotREC(au.glm, au.rf), "gg")
 })
 
@@ -84,7 +89,7 @@ test_that("plot", {
   expect_is(plot(au.lm, type="ACF"), "gg")
   expect_is(plot(au.lm, type="Autocorrelation", score = TRUE), "gg")
   expect_is(plot(au.lm, type="CooksDistance", print=FALSE), "gg")
-  expect_is(plot(au.lm, au.rf, type="ModelRanking"), "gtable")
+  # expect_is(plot(au.lm, au.rf, type="ModelRanking"), "gtable")
   expect_is(plot(au.lm, au.rf, type="TwoSidedECDF"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelPCA"), "gg")
   expect_is(plot(au.lm, type="ResidualDensity"), "gg")
@@ -95,7 +100,7 @@ test_that("plot", {
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
   expect_is(plot(au.lm, type="ScaleLocation"), "gg")
-  expect_is(plot(au.glm, type="HalfNormal", sim=10), "gg")
+  expect_is(plot(au.glm, type = "HalfNormal"), "gg")
   expect_is(plot(au.class.glm, au.class.glm2, type="ROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="RROC"), "gg")
   expect_is(plot(au.glm, au.rf, type="REC"), "gg")
@@ -109,12 +114,12 @@ test_that("multiple plots on grid", {
 
 
 test_that("plot, grid equals FALSE", {
-  expect_is(plot(au.lm, au.rf, type=c("Prediction", "Residual"), grid = FALSE, ask = FALSE), "auditorPlotList")
+  expect_is(plot(au.lm, au.rf, type = c("Prediction", "Residual"), grid = FALSE, ask = FALSE), "auditorPlotList")
 })
 
 test_that("plot type is not provided", {
   expect_is(plot(cd.lm), "gg")
-  expect_is(plot(mp.lm, table=FALSE), "gg")
+  expect_is(plot(mp.lm, table = FALSE), "gg")
   expect_is(plot(mf.lm), "gg")
 })
 

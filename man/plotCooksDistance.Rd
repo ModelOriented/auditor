@@ -4,14 +4,14 @@
 \alias{plotCooksDistance}
 \title{Influence of observations plot}
 \usage{
-plotCooksDistance(object, nlabel = 3, ...)
+plotCooksDistance(object, ..., nlabel = 3)
 }
 \arguments{
 \item{object}{An object of class ModelAudit.}
 
-\item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
-
 \item{...}{Other arguments passed to \code{\link{scoreCooksDistance}}.}
+
+\item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
 }
 \description{
 Cook’s distances are used for estimate the influence of an single observation.

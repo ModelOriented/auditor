@@ -82,7 +82,7 @@
       <h1>Model Performance Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-05-13</h4>
+            <h4 class="date">2019-06-21</h4>
       
       
       <div class="hidden name"><code>model_performance_audit.Rmd</code></div>
@@ -95,9 +95,9 @@
 <h1 class="hasAnchor">
 <a href="#regression-use-case---dragons-data" class="anchor"></a>Regression use case - dragons data</h1>
 <p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset dragons available in the <a href="https://github.com/ModelOriented/DALEX2"><em>DALEX2</em></a> package. Our goal is to predict the length of life of dragons.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(DALEX2)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"dragons"</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(dragons)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(DALEX2)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"dragons"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(dragons)</code></pre></div>
 <pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
 ## 1         -1291 59.40365 15.32391     7    red              1700
 ## 2          1589 46.21374 11.80819     5    red              1700
@@ -119,24 +119,24 @@
 <div id="linear-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-model" class="anchor"></a>Linear model</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
 </div>
 <div id="random-forest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#random-forest" class="anchor"></a>Random forest</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">59</span>)</a>
-<a class="sourceLine" id="cb4-3" title="3">rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">59</span>)
+rf_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
 </div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preparation-for-error-analysis" class="anchor"></a>Preparation for error analysis</h1>
 <p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"auditor"</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a>
-<a class="sourceLine" id="cb5-4" title="4">rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"auditor"</span>)
+
+lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)
+rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</code></pre></div>
 </div>
 <div id="model-performance-audit" class="section level1">
 <h1 class="hasAnchor">
@@ -146,31 +146,31 @@
 <a href="#model-ranking-radar-plot" class="anchor"></a>Model Ranking radar plot</h2>
 <p>Model performance measures may be plotted together to easily compare model performances.</p>
 <p>Function <code><a href="../reference/modelPerformance.html">modelPerformance()</a></code> compute chosen model performance measures. A result further from the center means a better model performance.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit, <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))</a>
-<a class="sourceLine" id="cb6-2" title="2">rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit, <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))</a>
-<a class="sourceLine" id="cb6-3" title="3"></a>
-<a class="sourceLine" id="cb6-4" title="4">lm_mp</a></code></pre></div>
-<pre><code>##          score label name
-## 1 3.334652e+01    lm  MAE
-## 2 1.656454e+03    lm  MSE
-## 3 3.330139e+01    lm  REC
-## 4 3.312907e+09    lm RROC</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit, <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
+rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit, <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>))
+
+lm_mp</code></pre></div>
+<pre><code>##             score label name
+## MAE  3.334652e+01    lm  MAE
+## MSE  1.656454e+03    lm  MSE
+## REC  3.330139e+01    lm  REC
+## RROC 3.312907e+09    lm RROC</code></pre>
 <p>Results of <code><a href="../reference/modelPerformance.html">modelPerformance()</a></code> function for multiple models may be plotted together on one plot. Parameter <code>table</code> indicates whether the table with scores should be generated.</p>
 <p>On the plot scores are inversed and scaled to [0,1].</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="model_performance_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>There is a possibiliy to define functions with custom model performance measure.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">new_score &lt;-<span class="st"> </span><span class="cf">function</span>(object) <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(object<span class="op">$</span>residuals)))</a>
-<a class="sourceLine" id="cb9-2" title="2"></a>
-<a class="sourceLine" id="cb9-3" title="3">lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit,  </a>
-<a class="sourceLine" id="cb9-4" title="4">                          <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), </a>
-<a class="sourceLine" id="cb9-5" title="5">                          <span class="dt">new.score =</span> new_score)</a>
-<a class="sourceLine" id="cb9-6" title="6"></a>
-<a class="sourceLine" id="cb9-7" title="7">rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit,  </a>
-<a class="sourceLine" id="cb9-8" title="8">                          <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), </a>
-<a class="sourceLine" id="cb9-9" title="9">                          <span class="dt">new.score =</span> new_score)</a>
-<a class="sourceLine" id="cb9-10" title="10"></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_score &lt;-<span class="st"> </span><span class="cf">function</span>(object) <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(object<span class="op">$</span>residuals)))
+
+lm_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(lm_audit,  
+                          <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
+                          <span class="dt">new.score =</span> new_score)
+
+rf_mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelPerformance.html">modelPerformance</a></span>(rf_audit,  
+                          <span class="dt">scores =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MAE"</span>, <span class="st">"MSE"</span>, <span class="st">"REC"</span>, <span class="st">"RROC"</span>), 
+                          <span class="dt">new.score =</span> new_score)
+
+<span class="kw"><a href="../reference/plotModelRanking.html">plotModelRanking</a></span>(lm_mp, rf_mp, <span class="dt">table =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="model_performance_audit_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>

@@ -27,31 +27,39 @@
 #' @import ggplot2
 #'
 #' @export
-plotCooksDistance <- function(object, nlabel = 3, ...){
-  if(!("observationInfluence" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or observationInfluence().")
-  if(!("observationInfluence" %in% class(object))) object <- observationInfluence(object)
-  index <- cooks.dist <- big <- nameIndex <- NULL
+plotCooksDistance <- function(object, ..., nlabel = 3) {
 
-  df <- object
-  df$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(df)-nlabel))
+  # some safeguard
+  index <- cooks.dist <- big <- nameIndex <- variable <- label <- NULL
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <- observationInfluence(resp)
-      if("observationInfluence" %in% class(resp)) {
-        resp$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(resp)-nlabel))
-        df <- rbind(df, resp)
-      }
-    }
-  }
+  # check if passed object is of class "observationInfluence" or "modelAudit"
+  check_object(object, type = "infl")
 
-  ggplot(df, aes(index, cooks.dist)) +
-      geom_point() +
-      geom_text(data = subset(df, big==TRUE), aes(label=as.character(index)), color = "grey") +
-      facet_grid(label ~ .) +
-      xlab("observation index") +
-      ylab("cook's distance") +
-      ggtitle("Influence of observations") +
-      theme_light()
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., variable = variable, type = "infl", nlabel = nlabel)
+
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+
+  # main chart
+  p <- ggplot(data = df, aes(index, cooks.dist))
+
+  # points
+  p <- p + drwhy_geom_point(df, alpha_val = 0.95)
+  p <- p + geom_point(data = subset(df, big == TRUE), aes(colour = label), size = 1.5)
+
+  # text labels for extreme observations
+  p <- p + geom_text_repel(data = subset(df, big == TRUE), aes(label = as.character(index)),
+                           color = "#f05a71", size = 3)
+
+  # theme, colours, titles, axes, scales, etc.
+  p <- p +
+    theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3")) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
+
+  p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+
+  p + xlab("Observation index") + ylab("Cook's distance") + ggtitle("Influence of observations")
+
 }
