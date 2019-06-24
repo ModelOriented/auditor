@@ -76,10 +76,10 @@ plotResidual <- function(object, ..., variable = NULL, smooth = FALSE,
                              show.legend = FALSE)
 
   # theme, colours, titles, axes, scales, etc.
-  p <- p + theme_drwhy() +
+  p <- p +
+    theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours),
-                       breaks = levels(df$label))
+    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
 
   chart_title <- "Residuals"
   if (x_lab != "Observations") {

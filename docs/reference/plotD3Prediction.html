@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot TODO — plotD3Prediction • auditor</title>
+<title>Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 Package. — plotD3Prediction • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 	  <a class = "navbar-mi2logo" href="http://DrWhy.AI/">
         <img src = "https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
-      <a class="navbar-brand navbar-mi2" href="../index.html">Plot TODO</a>
+      <a class="navbar-brand navbar-mi2" href="../index.html">Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 Package.</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="navbar-mi2 nav navbar-nav">
@@ -103,11 +103,13 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot TODO</h1>
+    <h1>Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 Package.</h1>
     </div>
 
     
-    <p>If the picture is not displayed in the viewer, please update your RStudio.</p>
+    <p>Function <code>plotD3Prediction</code> plots predicted values vs target, observed or variable values in the model.
+It uses output from <code>modelAudit</code> or <code>modelResiduals</code> function.</p>
+<p>If the picture is not displayed in the viewer, please update your RStudio.</p>
     
 
     <pre class="usage"><span class='fu'>plotD3Prediction</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -127,7 +129,10 @@
     </tr>
     <tr>
       <th>variable</th>
-      <td><p>Name of model variable to order residuals. If value is NULL data order is taken or variable from modelResiduals object. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (<code>y</code> parameter passed to the <code><a href='audit.html'>audit</a></code> function).</p></td>
+      <td><p>Only for modelAudit objects. Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (<code>y</code> parameter
+passed to the <code><a href='audit.html'>audit</a></code> function). One can also pass any name of any other variable
+in the data set. If <code>variable = ""</code> is set, unordered observations are presented.</p></td>
     </tr>
     <tr>
       <th>points</th>

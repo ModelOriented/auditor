@@ -4,7 +4,7 @@
 #'
 #' @param object An object of class ModelAudit.
 #' @param ... Other modelAudit objects to be plotted together.
-#' @param split.var Logical. Indicates whenever plot should be splitted by variable.
+#' @param split Logical. Indicates whenever plot should be splitted by variable.
 #' @param variable variable name o split. Optional. Should be provided  only for modelAudit object.
 #'
 #' @return ggplot object
@@ -25,59 +25,64 @@
 #' @import ggplot2
 #'
 #' @export
+plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
 
+  if (split == FALSE && (!is.null(variable) && nchar(variable) > 1))
+    stop("Please change argument `split` to `TRUE` if you want to plot residual density of a specific variable")
 
-plotResidualDensity <- function(object, ..., split.var = TRUE, variable = NULL){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
-
+  # some safeguard
   res <- label <- div <- NULL
 
-  df <- getDivision(object)
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-        if("modelAudit" %in% class(resp)) df <- rbind( df, getDivision(modelResiduals(resp, variable)) )
-        if("modelResiduals" %in% class(resp)) df <- rbind( df, getDivision(resp) )
-    }
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., variable = variable, type = "dens")
+
+  # some helpfull objects
+  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  model_count <- length(levels(df$label))
+
+  # arguments values differ depending on splitting or not
+  if (split == TRUE) {
+    var_split <- "div"
+    colours <- theme_drwhy_colors(length(unique(df$div)))
+    legend_pos <- "bottom"
+    legend_just <- "center"
+    split_by <- unique(df$div)
+  } else if (split == FALSE) {
+    var_split <- "label"
+    colours <- theme_drwhy_colors(model_count)
+    legend_pos <- "top"
+    legend_just <- c(1, 0)
+    if (model_count == 1) legend_pos <- "none"
+    split_by <- unique(df$label)
   }
 
-  variable <- df$variable[1]
+  p <- ggplot(data = df, aes(x = res)) +
+    geom_density(alpha = 0.3, aes_string(fill = var_split)) +
+    geom_rug(aes_string(color = var_split), alpha = 0.5) +
+    geom_vline(xintercept = 0, colour = "darkgrey") +
+    annotate("segment", x = -Inf, xend = Inf,  y = -Inf, yend = -Inf, colour = "#371ea3") +
+    scale_color_manual(values = colours) +
+    scale_fill_manual(values = colours, breaks = split_by) +
+    guides(fill = guide_legend(override.aes = list(alpha = 0.5)), col = FALSE) +
+    theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3"),
+          legend.text = element_text(margin = margin(r = 5, l = 3)),
+          legend.key = element_rect(colour = NA, fill = NA),
+          legend.position = legend_pos,
+          legend.justification = legend_just) +
+    xlab("") + ylab("") + ggtitle("Residuals density")
 
-  if(split.var == FALSE || is.na(variable)) {
-    p <- ggplot(df, aes(x = res, fill = label)) +
-      stat_density(alpha = 0.3, position="identity")+
-      geom_vline(xintercept = 0) +
-      geom_rug(aes(color = label), alpha = 0.5) +
-      theme_light() +
-      xlab("residuals") +
-      ggtitle("Residual Density")
+  if (model_count > 1 && split == FALSE) {
+    p
   } else {
-    p <- ggplot(df, aes(x = res, fill = div)) +
-      stat_density(alpha = 0.3, position="identity")+
-      geom_vline(xintercept = 0) +
-      geom_rug(aes(color = div), alpha = 0.5) +
-      facet_grid(label~.) +
-      theme_light() +
-      xlab("residuals") +
-      ggtitle("Residual Density")
+    p <- p + facet_wrap(. ~ label, scales = "free_x", ncol = 2) +
+      theme(strip.text = element_text(colour = "#160e3b", size = rel(1), face = "bold"),
+            panel.spacing.y = unit(0.5, "lines"),
+            strip.text.x = element_text(margin = margin(0.1, 0, 0.2, 0, "cm")))
+    if (model_count == 1) p <- p + theme(strip.text = element_blank())
+    p
   }
-
-  return(p)
 }
-
-
-getDivision <- function(modelData){
-    variable <- modelData$variable[1]
-    df <- modelData
-    if (class(modelData$val) %in% c("numeric","integer")) {
-      varMedian <- median(modelData$val)
-      df$div <- ifelse(modelData$val > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
-    } else {
-      df$div <- modelData$val
-    }
-
-  return(df)
-}
-

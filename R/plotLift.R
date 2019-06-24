@@ -26,7 +26,7 @@
 #' @export
 plotLIFT <- function(object, ...) {
   # some safeguard
-  rpp <- tp <- label <- NULL
+  rpp <- tp <- label <- variable <- line <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")
@@ -68,12 +68,18 @@ plotLIFT <- function(object, ...) {
     scale_linetype_manual(values = c("solid", "dashed"), guide = FALSE)
 
   # X axis labels
-  p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks(), expand = c(0, 0))
+  p1 <- p1 +
+    scale_x_continuous(breaks = scales::pretty_breaks(), expand = c(0, 0)) +
+    scale_y_continuous(breaks = scales::pretty_breaks(), expand = c(0, 0))
 
   # theme and colours
   p1 <- p1 + theme_drwhy() +
-    scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"), breaks = levels(df1$label)) +
+    scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"),
+                       breaks = levels(df1$label),
+                       guide = guide_legend(nrow = 1)) +
     theme(plot.margin = unit(c(0, 0.5, 0, 0), "cm"),
+          plot.title = element_text(margin = margin(b = 10)),
+          legend.margin = margin(b = 15),
           axis.line.x = element_line(color = "#371ea3"))
 
   # plot of ideal and dummy models - just to get the legend

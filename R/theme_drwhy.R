@@ -18,7 +18,7 @@ theme_drwhy <- function() {
       # legend
       legend.direction = "horizontal",
       legend.justification = c(1, 0),
-      legend.position = c(1, 0.98),
+      legend.position = c(1, 0.97),
       legend.background = element_blank(),
       legend.title = element_blank(),
       legend.key = element_blank(),
