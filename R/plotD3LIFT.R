@@ -18,7 +18,7 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
 
   # prepare data frame for ideal and dummy model
   ideal_df <- attributes(modelEvaluation(object))$idealCGains
-  ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
+  ideal_df <- rbind(c(0, 0, 0, "ideal"), ideal_df)
 
   cols <- c("rpp", "tp", "alpha")
   ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
@@ -32,7 +32,7 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
 
   # prepare data frame for the main ggplot object
   df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
-  for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
+  #for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
 
   df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
 

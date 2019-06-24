@@ -143,7 +143,7 @@ function singlePlot(modelName, pData, sData, i) {
                .attr("class", "grid")
                .attr("transform", "translate(0,"+ (margin.top + plotHeight) + ")")
                .call(d3.axisBottom(x)
-                      .ticks(8)
+                      .ticks(10)
                       .tickSize(-plotHeight)
                       .tickFormat("")
               ).call(g => g.select(".domain").remove());
@@ -162,7 +162,7 @@ function singlePlot(modelName, pData, sData, i) {
                .attr("class", "grid")
                .attr("transform", "translate(" + margin.left + ",0)")
                .call(d3.axisLeft(y)
-                      .ticks(8)
+                      .ticks(10)
                       .tickSize(-plotWidth)
                       .tickFormat("")
               ).call(g => g.select(".domain").remove());
