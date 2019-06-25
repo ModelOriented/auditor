@@ -48,3 +48,8 @@ test_that("plotD3CooksDistance", {
   expect_is(plotD3CooksDistance(au.rf, au.lm, single_plot = TRUE, scale_plot = TRUE), "r2d3")
   expect_error(plotD3CooksDistance(list(1,2,3)))
 })
+
+test_that("plotD3LIFT", {
+  expect_is(plotD3LIFT(au.class.glm), "r2d3")
+  expect_is(plotD3CooksDistance(au.class.glm, au.class.glm2, scale_plot = TRUE), "r2d3")
+})

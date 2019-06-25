@@ -1,5 +1,37 @@
+#' @title Plot LIFT in D3 with r2d3 Package.
+#'
+#' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
+#' It is useful for measuring and comparing the accuracy of the classificators.
+#'
+#' @param object An object of class modelAudit or modelEvaluation.
+#' @param ... Other modelAudit objects to be plotted together.
+#' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
+#'
+#' @return a `r2d3` object
+#'
+#' @seealso \code{\link{plotLIFT}}
+#'
+#' @examples
+#'
+#' library(mlbench)
+#' library("auditor")
+#' data("PimaIndiansDiabetes")
+#' Pima <- PimaIndiansDiabetes
+#' Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
+#'
+#' glm_model <- glm(diabetes ~ ., family = binomial, data=Pima)
+#' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes, label = "glm1")
+#'
+#' plotD3LIFT(glm_au)
+#'
+#' glm_model2 <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
+#' glm_au2 <- audit(glm_model2, data = Pima, y = Pima$diabetes, label = "glm2")
+#'
+#' plotD3LIFT(glm_au, glm_au2, scale_plot = TRUE)
+#'
 #' @export
 #' @rdname plotD3LIFT
+
 plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
 
   # some safeguard
@@ -31,8 +63,7 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
   df2 <- rbind(ideal_df, random_df)
 
   # prepare data frame for the main ggplot object
-  df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
-  #for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
+  df1 <- make_dataframe(object, ..., variable = NULL, type = "eva")
 
   df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
 
@@ -56,7 +87,10 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
                   xTitle = xTitle, yTitle = yTitle, chartTitle = chartTitle)
 
   r2d3::r2d3(data = temp, script = system.file("d3js/plotCurve.js", package = "auditor"),
-             dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+             dependencies = list(
+               system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               system.file("d3js/tooltipD3.js", package = "auditor")
+             ),
              css = system.file("d3js/themeDrWhy.css", package = "auditor"),
              d3_version = 4,
              options = options)
