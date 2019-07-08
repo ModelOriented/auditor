@@ -38,6 +38,8 @@ theme_drwhy <- function() {
       axis.line.x = element_line(color = "#371ea3"),
       axis.line.y = element_blank(),
       axis.ticks.y = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
       panel.grid.major.y = element_line(color = "grey90", size = 0.5, linetype = 1),
       panel.grid.minor.y = element_line(color = "grey90", size = 0.5, linetype = 1)
     )
