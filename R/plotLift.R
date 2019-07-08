@@ -36,7 +36,7 @@ plotLIFT <- function(object, ...) {
   ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
 
   cols <- c("rpp", "tp", "alpha")
-  ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
+  ideal_df[, cols] = apply(ideal_df[, cols], 2, function(x) as.numeric(x))
 
   random_df <- data.frame(rpp = c(0, 1),
                           tp =  c(0, max(ideal_df$tp)),
@@ -46,10 +46,11 @@ plotLIFT <- function(object, ...) {
   df2 <- rbind(ideal_df, random_df)
 
   # prepare data frame for the main ggplot object
-  df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
+  df1 <- make_dataframe(object, ..., variable = variable, type = "lift")
+  df1$label <- as.character(df1$label)
   for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
 
-  df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
+  df1[,cols] = apply(df1[, cols], 2, function(x) as.numeric(x))
 
   # new variable to set different style of line for ideal and dummy models
   df1$line <- "1"
