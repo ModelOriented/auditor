@@ -1,4 +1,4 @@
-#' @title Autocorrelation Plot in D3 with r2d3 Package.
+#' @title Autocorrelation Plot in D3 with r2d3 package.
 #'
 #' @description Plot of i-th residual vs i+1-th residual.
 #'
@@ -40,7 +40,8 @@
 #' @export
 #' @rdname plotD3Autocorrelation
 plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
-                                  point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE) {
+                                  point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
+                                  background = FALSE) {
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
 

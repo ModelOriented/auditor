@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3CooksDistance.R
 \name{plotD3CooksDistance}
 \alias{plotD3CooksDistance}
-\title{Influence of observations Plot in D3 with r2d3 Package.}
+\title{Influence of observations Plot in D3 with r2d3 package.}
 \usage{
 plotD3CooksDistance(object, ..., nlabel = 3, single_plot = FALSE,
   scale_plot = FALSE, background = FALSE)

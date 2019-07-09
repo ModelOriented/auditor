@@ -8,7 +8,7 @@ var points = options.points, smooth = options.smooth,
     background = options.background;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 60+8, left: 60+8, inner: 70},
+    margin = {top: 98, right: 30, bottom: 71, left: 60+8, inner: 70},
     h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
@@ -49,11 +49,11 @@ function autocorrelation(data){
 function singlePlot(modelName, pointData, smoothData, i) {
 
     var x = d3.scaleLinear()
-          .range([plotLeft + 10, plotLeft + plotWidth - 10])
+          .range([plotLeft + 5, plotLeft + plotWidth - 5])
           .domain([xmin, xmax]);
 
     var y = d3.scaleLinear()
-          .range([plotTop + plotHeight - 10, plotTop + 10])
+          .range([plotTop + plotHeight - 5, plotTop + 5])
           .domain([ymin, ymax]);
 
     // function to draw smooth lines
@@ -77,66 +77,14 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .attr("y", plotTop - 15)
         .text(modelName);
 
-    // find 5 nice ticks with max and min - do better than d3
-    var domain = x.domain();
-    var tickValues = d3.ticks(domain[0], domain[1],5);
-
-    switch (tickValues.length){
-      case 3:
-        tickValues.unshift(domain[0]);
-        tickValues.push(domain[1]);
-        break;
-
-      case 4:
-        if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
-          tickValues.shift();
-          tickValues.unshift(domain[0]);
-          tickValues.push(domain[1]);
-        } else {
-          tickValues.pop();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-        }
-        break;
-
-      case 5:
-        tickValues.pop();
-        tickValues.shift();
-        tickValues.push(domain[1]);
-        tickValues.unshift(domain[0]);
-        break;
-
-      case 6:
-        if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
-          tickValues.pop();
-          tickValues.shift();
-          tickValues.shift();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-        } else {
-          tickValues.pop();
-          tickValues.pop();
-          tickValues.shift();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-        }
-        break;
-
-      case 7:
-        tickValues.pop();
-        tickValues.pop();
-        tickValues.shift();
-        tickValues.shift();
-        tickValues.push(domain[1]);
-        tickValues.unshift(domain[0]);
-    }
+    var tickValues = getTickValues(x.domain());
 
     // axis and grid
     var xGrid = svg.append("g")
                .attr("class", "grid")
                .attr("transform", "translate(0,"+ (plotTop + plotHeight) + ")")
                .call(d3.axisBottom(x)
-                      .ticks(8)
+                      .ticks(10)
                       .tickSize(-plotHeight)
                       .tickFormat("")
               ).call(g => g.select(".domain").remove());
@@ -155,8 +103,8 @@ function singlePlot(modelName, pointData, smoothData, i) {
              .attr("class", "grid")
              .attr("transform", "translate(" + plotLeft + ",0)")
              .call(d3.axisLeft(y)
-                    .ticks(8)
-                    .tickSize(-(plotWidth-6))
+                    .ticks(10)
+                    .tickSize(-plotWidth)
                     .tickFormat("")
             ).call(g => g.select(".domain").remove());
 

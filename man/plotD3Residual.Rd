@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3Residual.R
 \name{plotD3Residual}
 \alias{plotD3Residual}
-\title{Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 Package.}
+\title{Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 package.}
 \usage{
 plotD3Residual(object, ..., variable = NULL, points = TRUE,
   smooth = FALSE, std_residuals = FALSE, point_count = NULL,

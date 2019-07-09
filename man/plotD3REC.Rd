@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3REC.R
 \name{plotD3REC}
 \alias{plotD3REC}
-\title{Regression Error Characteristic Curves (REC) in D3 with r2d3 Package.}
+\title{Regression Error Characteristic Curves (REC) in D3 with r2d3 package.}
 \usage{
 plotD3REC(object, ..., scale_plot = FALSE)
 }
@@ -14,7 +14,7 @@ plotD3REC(object, ..., scale_plot = FALSE)
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 }
 \value{
-r2d3 object
+a `r2d3` object.
 }
 \description{
 Error Characteristic curves are a generalization of ROC curves.
@@ -27,6 +27,7 @@ REC curve estimates the Cumulative Distribution Function (CDF) of the error
 Area Over the REC Curve (REC) is a biased estimate of the expected error
 }
 \examples{
+library(auditor)
 library(car)
 lm_model <- lm(prestige~education + women + income, data = Prestige)
 lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)

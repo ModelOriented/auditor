@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3LIFT.R
 \name{plotD3LIFT}
 \alias{plotD3LIFT}
-\title{Plot LIFT in D3 with r2d3 Package.}
+\title{Plot LIFT in D3 with r2d3 package.}
 \usage{
 plotD3LIFT(object, ..., scale_plot = FALSE)
 }
@@ -21,7 +21,6 @@ LIFT is a plot of the rate of positive prediction against true positive rate for
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
-
 library(mlbench)
 library("auditor")
 data("PimaIndiansDiabetes")

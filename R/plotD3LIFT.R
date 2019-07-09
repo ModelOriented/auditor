@@ -1,4 +1,4 @@
-#' @title Plot LIFT in D3 with r2d3 Package.
+#' @title Plot LIFT in D3 with r2d3 package.
 #'
 #' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
@@ -12,7 +12,6 @@
 #' @seealso \code{\link{plotLIFT}}
 #'
 #' @examples
-#'
 #' library(mlbench)
 #' library("auditor")
 #' data("PimaIndiansDiabetes")
@@ -82,7 +81,6 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
                                 lineData[setdiff(names(lineData), c("ideal","random"))]))
 
   options <- list(ymax = ymax, ymin = ymin,
-                  modelNames = modelNames,
                   scalePlot = scale_plot, n = n,
                   xTitle = xTitle, yTitle = yTitle, chartTitle = chartTitle)
 
