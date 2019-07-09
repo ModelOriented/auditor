@@ -10,6 +10,7 @@ test_that("objects in plots", {
   expect_error(plotHalfNormal(model.lm))
   expect_error(plotLIFT(model.lm))
   expect_error(plotModelCorrelation(model.lm))
+  expect_error(plotModelCorrelation(au.glm, au.rf, values = "new"))
   expect_error(plotModelPCA(model.lm))
   expect_error(plotModelRanking(model.lm))
   expect_error(plotPrediction(model.lm))

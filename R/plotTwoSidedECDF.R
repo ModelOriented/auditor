@@ -28,78 +28,48 @@
 #' @importFrom ggrepel geom_text_repel
 #'
 #' @export
-
-
 plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
-                             residuals = TRUE, y.reversed = FALSE){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
-
+                             residuals = TRUE, y.reversed = FALSE) {
+  # some safeguard
   res <- ecd <- label <- big <- no.obs <- NULL
-  df <- getTwoSidedECDF(object, error.scaled, outliers, y.reversed)
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) df <- rbind( df, getTwoSidedECDF(modelResiduals(resp), error.scaled, outliers, y.reversed) )
-      if("modelResiduals" %in% class(resp)) df <- rbind(df, getTwoSidedECDF(resp, error.scaled, outliers, y.reversed))
-    }
-  }
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
-  p <- ggplot(df, aes(x = res, y = ecd, color = label)) +
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., type = "ecdf", error.scaled = error.scaled, outliers = outliers,
+                       y.reversed = y.reversed)
+
+  # new varibale to set an order o curves
+  df <- df[order(-as.numeric(factor(df$ecd))), ]
+
+  # colors for model(s)
+  colours <- theme_drwhy_colors(length(levels(df$label)))
+
+  # main chart
+  p <- ggplot(df, aes(x = res, y = ecd, colour = label, group = label)) +
     geom_step() +
-    theme_light() +
-    scale_y_continuous(breaks = seq(0,1,0.1),
-                       labels = paste(seq(0, 100, 10),"%"),
-                       name = "") +
-    xlab("residuals") +
+    scale_colour_manual(values = colours, breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
+    scale_x_continuous(breaks = scales::pretty_breaks()) +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, max(df$ecd) * 1.05), labels = scales::percent) +
+    theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3")) +
+    xlab("Residuals") +
+    ylab("What ?") +
     ggtitle("Two-sided Cumulative Distribution Function")
 
   if (residuals == TRUE) {
-    p <- p +
-      geom_point( aes(x = res, y = ecd, color = label)) +
-      geom_text_repel(data = subset(df, big==TRUE), aes(label=as.character(no.obs)),
-                      show.legend = FALSE, direction = "y", color="black")
-  }
-
-  return(p)
-}
-
-
-getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed){
-  res <- object$res
-  resids <- data.frame(no.obs = 1:(length(res)), res=res, sign = ifelse(res>=0, "pos", "neg"))
-  df <- resids
-
-  dfLower <- df[which(df$sign=="neg"),]
-  dfHigher <- df[which(df$sign=="pos"),]
-  dfLower$ecd <- ecdf(dfLower$res)(dfLower$res)
-  dfHigher$ecd <- ecdf(dfHigher$res)(dfHigher$res)
-  df <- rbind(dfLower, dfHigher)
-
-  if (y.reversed == FALSE){
-    df$ecd <- ifelse(df$sign == "neg", 1 - df$ecd, df$ecd)
+    df <- df[order(-as.numeric(factor(df$label))), ]
+    p + geom_point(data = df, show.legend = FALSE, size = 1) +
+      geom_text_repel(data = subset(df, big == TRUE),
+                      aes(label = as.character(no.obs)),
+                      color = "#160e3b",
+                      segment.colour = "#160e3b",
+                      show.legend = FALSE,
+                      direction = "y",
+                      nudge_x = 0.7,
+                      size = 3.5)
   } else {
-    df$ecd <- ifelse(df$sign == "neg", df$ecd, 1 - df$ecd)
+    p
   }
-
-  if (error.scaled == TRUE) {
-    negProportion <- sum(df$sign == "neg") / (sum(df$sign == "neg") + sum(df$sign == "pos"))
-    posProportion <- 1 - negProportion
-
-    df$ecd <- ifelse(df$sign == "neg", df$ecd * negProportion, df$ecd * posProportion)
-  }
-
-  if (!is.na(outliers)) {
-    df <- df[order(df$res), ]
-    df$big <- c(rep(TRUE, outliers), rep(FALSE, nrow(object$data) - 2 * outliers), rep(TRUE, outliers))
-  } else {
-    df$big <- FALSE
-  }
-
-  df$label = object$label
-  return(df)
 }
-
-
-

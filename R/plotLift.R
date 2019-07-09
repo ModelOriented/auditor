@@ -35,10 +35,12 @@ plotLIFT <- function(object, ...) {
   df1 <- df1[ ,c("rpp", "tp", "label")]
   df1$line <- "1"
   # prepare data frame for ideal and dummy model
+
   pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
   ideal_df <- data.frame(rpp = c(0, pr, 1),
                          tp = c(0, max(df1$tp), max(df1$tp)),
                          label = c("ideal", "ideal", "ideal"))
+
 
   random_df <- data.frame(rpp = c(0, 1),
                           tp =  c(0, max(df1$tp)),
@@ -48,10 +50,12 @@ plotLIFT <- function(object, ...) {
   df2$line <- "2"
 
   # prepare data frame for the main ggplot object
+
   # df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
   # for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
 
   # df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
+
 
   # new variable to set different style of line for ideal and dummy models
   df <- rbind(df1, df2)

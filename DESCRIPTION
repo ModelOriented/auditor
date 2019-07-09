@@ -17,7 +17,6 @@ License: GPL
 Encoding: UTF-8
 LazyData: true
 Imports: fdrtool,
-    GGally,
     ggplot2,
     ggrepel,
     grid,
