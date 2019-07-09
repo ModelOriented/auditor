@@ -13,8 +13,6 @@
 #' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
 #' scoreRuns(lm_au)
 #'
-#' @importFrom tseries runs.test
-#'
 #' @export
 
 scoreRuns <- function(object, variable = NULL){
@@ -24,14 +22,23 @@ scoreRuns <- function(object, variable = NULL){
 
   orderedResiduals <- object$res
 
-  signumOfResiduals <- factor(sign(orderedResiduals))
-  RunsTested <- runs.test(signumOfResiduals)
+  sinum_of_res <- factor(sign(orderedResiduals))
+
+  n <- length(sinum_of_res)
+  R <- 1 + sum(as.numeric(sinum_of_res[-1] != sinum_of_res[-n]))
+  n1 <- sum(levels(sinum_of_res)[1] == sinum_of_res)
+  n2 <- sum(levels(sinum_of_res)[2] == sinum_of_res)
+  m <- 1 + 2*n1*n2 / (n1+n2)
+  s <- sqrt(2*n1*n2 * (2*n1*n2 - n1 - n2) / ((n1+n2)^2 * (n1+n2-1)))
+
+  statistic <- (R - m) / s
+  pvalue <- 2 * pnorm(-abs(statistic))
 
 
   result <- list(
     name = "Runs",
-    score = RunsTested$statistic[[1]],
-    pValue = RunsTested$p.value
+    score = statistic,
+    pValue = pvalue
   )
 
     class(result) <- "scoreAudit"

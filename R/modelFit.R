@@ -13,6 +13,8 @@
 #'
 #' mf.glm <- modelFit(audit.glm)
 #'
+#' @importFrom stats pnorm
+#'
 #' @export
 modelFit <- function(object, quant.scale = FALSE, ...){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
@@ -81,3 +83,13 @@ datasetHalfNormalPlot <- function(hnpObject, quant.scale, ...){
   return(dataPlot)
 }
 
+
+phalfnorm <- function(residuals)
+{
+  theta <- sqrt(pi/2)
+  #lower tail
+  sd.norm <- sqrt(pi/2)/theta
+  p <- ifelse(residuals < 0, 0, 2*pnorm(residuals, mean=0, sd=sd.norm)-1)
+
+  return(p)
+}

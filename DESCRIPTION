@@ -16,14 +16,12 @@ Depends: R (>= 3.0.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: fdrtool,
-    ggplot2,
+Imports: ggplot2,
     ggrepel,
     grid,
     gridExtra,
     hnp,
-    scales,
-    tseries
+    scales
 RoxygenNote: 6.1.1
 Suggests: aods3,
     breakDown,

@@ -7,15 +7,15 @@ data("PimaIndiansDiabetes")
 
 set.seed(123)
 
-# # simulate artificial prestige data set
-# n <- 100
-# Prestige <- data.frame(education = rnorm(n),
-#                                   income = runif(n),
-#                                   women = runif(n),
-#                                   census = rnorm(n),
-#                                   type = factor(sample(c("a","b","c"), n, replace = TRUE)))
-# Prestige$prestige <- Prestige$education + Prestige$income^2 +
-#   Prestige$women * Prestige$census + as.numeric(Prestige$type)
+# simulate artificial prestige data set
+n <- 100
+Prestige <- data.frame(education = rnorm(n),
+                                  income = runif(n),
+                                  women = runif(n),
+                                  census = rnorm(n),
+                                  type = factor(sample(c("a","b","c"), n, replace = TRUE)))
+Prestige$prestige <- Prestige$education + Prestige$income^2 +
+  Prestige$women * Prestige$census + as.numeric(Prestige$type)
 
 set.seed(71)
 PimaIndiansDiabetes$diabetes <- ifelse(PimaIndiansDiabetes$diabetes == "pos", 1,0 )
