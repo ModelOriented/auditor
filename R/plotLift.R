@@ -27,37 +27,41 @@ plotLIFT <- function(object, ...) {
   # some safeguard
   rpp <- tp <- label <- variable <- line <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "modelEvaluation" or "modelAudit"
   check_object(object, type = "eva")
 
+  df1 <- make_dataframe(object, ..., type = "eva")
+  # take only columns required to plot LIFT curve
+  df1 <- df1[ ,c("rpp", "tp", "label")]
+  df1$line <- "1"
   # prepare data frame for ideal and dummy model
-  ideal_df <- attributes(modelEvaluation(object))$idealCGains
-  ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
 
-  cols <- c("rpp", "tp", "alpha")
-  ideal_df[, cols] = apply(ideal_df[, cols], 2, function(x) as.numeric(x))
+  pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
+  ideal_df <- data.frame(rpp = c(0, pr, 1),
+                         tp = c(0, max(df1$tp), max(df1$tp)),
+                         label = c("ideal", "ideal", "ideal"))
+
 
   random_df <- data.frame(rpp = c(0, 1),
-                          tp =  c(0, max(ideal_df$tp)),
-                          alpha = c(0, 1),
+                          tp =  c(0, max(df1$tp)),
                           label = c("random", "random"))
 
   df2 <- rbind(ideal_df, random_df)
+  df2$line <- "2"
 
   # prepare data frame for the main ggplot object
-  df1 <- make_dataframe(object, ..., variable = variable, type = "lift")
-  df1$label <- as.character(df1$label)
-  for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
 
-  df1[,cols] = apply(df1[, cols], 2, function(x) as.numeric(x))
+  # df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
+  # for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
+
+  # df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
+
 
   # new variable to set different style of line for ideal and dummy models
-  df1$line <- "1"
-  df2$line <- "2"
   df <- rbind(df1, df2)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df1$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # main plot
   p1 <- ggplot(df, aes(x = rpp, y = tp)) +

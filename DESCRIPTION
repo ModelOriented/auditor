@@ -22,7 +22,6 @@ Imports: fdrtool,
     grid,
     gridExtra,
     hnp,
-    plotROC,
     scales,
     tseries
 RoxygenNote: 6.1.1

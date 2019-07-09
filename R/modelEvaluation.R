@@ -20,16 +20,15 @@
 modelEvaluation <- function(object, variable = NULL){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
-  result <- calculate_classif_evaluation(object$fitted.values, object$y)
-
-  idealCGainsDF <- getidealCGainsDF(object)[-1,]
+  result <- calculate_classif_evaluation(object$fitted.values, object$y, object$label)
 
     class(result) <- c("modelEvaluation", "data.frame")
-    attr(result,'idealCGains') <- idealCGainsDF
   return(result)
 }
 
-calculate_classif_evaluation <- function(predictions, y){
+
+
+calculate_classif_evaluation <- function(predictions, y, label){
 
   y <- factor(y)
   levels <- levels(y)
@@ -39,39 +38,32 @@ calculate_classif_evaluation <- function(predictions, y){
   pred <- data.frame(predictions = predictions, y = y)
 
   pred_sorted <- pred[order(pred$predictions, decreasing = TRUE), ]
-
+  # true positives & false negatives
   tp <- cumsum(pred_sorted$y == pos_label)
   fp <- cumsum(pred_sorted$y == neg_label)
-
-
+  # cutoffs aka thresholds aka alpha
   cutoffs <- c(Inf, pred_sorted$predictions)
-
+  # number of positives & negatives
   n_pos <- sum(y == levels[2] )
   n_neg <- sum(y == levels[1] )
-
+  # false negatives & true negatives
   fn <- n_pos - tp
   tn <- n_neg - fp
-
+  # number of positive predistions & number of negative predictions
   n_pos_pred <- tp + fp
   n_neg_pred <- fn + tn
-
+  # true positive rate & false positive rate
   tpr <- tp / n_pos
   fpr <- fp / n_neg
-
+  # rate of positive predictions
   rpp <- (tp + fp) / (tp +fp +tn +fn)
-
-  data.frame(fitted.values = c(1, predictions), y = c(1, y), cutoffs = cutoffs, tpr = c(1, tpr), fpr = c(1, fpr), rpp = c(1, rpp), tp = c(1, tp))
-}
-
-
-
-getidealCGainsDF <- function(object){
-
-  predictions <- object$y
-  y <- as.numeric(as.character(object$y))
-
-  res <- calculate_classif_evaluation(predictions, y)
-  res <- cbind(res, label = "ideal")
-
-  return(res)
+  res <- data.frame(fitted.values = c(1, predictions),
+             y = c(1, y),
+             cutoffs = cutoffs,
+             tpr = c(1, tpr),
+             fpr = c(1, fpr),
+             rpp = c(1, rpp),
+             tp = c(max(tp), tp))
+  res$label <- label
+  res
 }
