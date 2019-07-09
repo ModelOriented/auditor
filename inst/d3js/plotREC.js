@@ -1,10 +1,9 @@
-var minValue = options.ymin, maxValue = options.ymax,
+var minValue = options.xmin, maxValue = options.xmax,
     n = options.n,
     xTitle = options.xTitle,
-    yTitle = options.yTitle,
     chartTitle = options.chartTitle;
 
-var xmin = 0, xmax = 1, size = 2;
+var ymin = 0, ymax = 1, size = 2;
 
 var plotHeight, plotWidth,
     margin = {top: 98, right: 30, bottom: 71, left: 60+8, inner: 42},
@@ -18,17 +17,16 @@ if (options.scalePlot === true) {
   plotWidth = 420;
 }
 
-var colors = getColors(n, "line"),
-    colors2 = ["#4378bf", "#ae2c87"];
+var colors = getColors(n, "line");
 
 // scale
 var x = d3.scaleLinear()
           .range([margin.left, margin.left + plotWidth])
-          .domain([xmin, xmax]);
+          .domain([minValue, maxValue]);
 
 var y = d3.scaleLinear()
       .range([margin.top + plotHeight, margin.top])
-      .domain([minValue, maxValue]);
+      .domain([ymin, ymax]);
 
 // title
 svg.append("text")
@@ -36,14 +34,6 @@ svg.append("text")
     .attr("x", margin.left)
     .attr("y", margin.top - 60)
     .text(chartTitle);
-
-svg.append("text")
-    .attr("class", "axisTitle")
-    .attr("transform", "rotate(-90)")
-    .attr("y", margin.left - 45 - 8)
-    .attr("x", -(margin.top + plotHeight/2))
-    .attr("text-anchor", "middle")
-    .text(yTitle);
 
 svg.append("text")
     .attr("class", "axisTitle")
@@ -62,8 +52,10 @@ var xGrid = svg.append("g")
                       .tickFormat("")
               ).call(g => g.select(".domain").remove());
 
+var tickValues = getTickValues(x.domain());
+
 var xAxis = d3.axisBottom(x)
-          .ticks(5)
+          .tickValues(tickValues)
           .tickSizeInner(0)
           .tickPadding(15);
 
@@ -81,57 +73,23 @@ var yGrid = svg.append("g")
                 .tickFormat("")
         ).call(g => g.select(".domain").remove());
 
-var tickValues = getTickValues(y.domain());
-
 var yAxis = d3.axisLeft(y)
-          .tickValues(tickValues)
+          .ticks(5)
           .tickSizeInner(0)
-          .tickPadding(15);
+          .tickPadding(15)
+          .tickFormat(d3.format(".0%"));
 
 yAxis = svg.append("g")
         .attr("class", "axisLabel")
         .attr("transform","translate(" + (margin.left - 8) + ",0)")
-        .call(yAxis);
+        .call(yAxis)
+        .call(g => g.select(".domain").remove());
 
 // line
 var line = d3.line()
-      .x(function(d) { return x(d.rpp); })
-      .y(function(d) { return y(d.tp); })
+      .x(function(d) { return x(d.x); })
+      .y(function(d) { return y(d.y); })
       .curve(d3.curveCardinal.tension(1));
-
-// add ideal/random lines
-var supportData = data[0];
-var supportNames = Object.keys(supportData);
-
-supportNames.forEach(function(key, i) {
-      svg.append("path")
-        .data([supportData[key]])
-        .attr("class", "line" + key.replace(/\s/g, ''))
-        .attr("d", line)
-        .style("fill", "none")
-        .style("stroke-dasharray", ("3, 3"))
-        .style("stroke", colors2[i])
-        .style("opacity", 1)
-        .style("stroke-width", 2);
-});
-
-svg.append("text")
-    .attr("class", "legendLabel")
-    .attr("x", x(supportData[supportNames[0]][1].rpp))
-    .attr("y", y(supportData[supportNames[0]][1].tp)-3)
-    .style("fill", colors2[0])
-    .text(supportNames[0]);
-
-svg.append("text")
-    .attr("class", "legendLabel")
-    .attr("x", 0)
-    .attr("y", 0)
-    .style("fill", colors2[1])
-    .attr("text-anchor", "middle")
-    .attr("transform" ,
-    "translate ("+x((supportData[supportNames[1]][0].rpp + supportData[supportNames[1]][1].rpp)/2)+
-    ","+(y((supportData[supportNames[1]][0].tp + supportData[supportNames[1]][1].tp)/2)+12)+") rotate(-33.68)")
-    .text(supportNames[1]);
 
 // make tooltip
 var tool_tip = d3.tip()
@@ -144,7 +102,7 @@ var tool_tip = d3.tip()
 svg.call(tool_tip);
 
 // function to find nearest point on the line
-var bisectXhat = d3.bisector(d => d.rpp).right;
+var bisectXhat = d3.bisector(d => d.x).right;
 
 // tooltip appear with info nearest to mouseover
 function appear(data){
@@ -152,13 +110,13 @@ function appear(data){
       i = bisectXhat(data, x0),
       d0 = data[i - 1],
       d1 = data[i],
-      d = x0 - d0.rpp > d1.rpp - x0 ? d1 : d0;
+      d = x0 - d0.x > d1.x - x0 ? d1 : d0;
 
   tool_tip.show(d);
 }
 
 // add model lines
-var modelData = data[1];
+var modelData = data[0];
 var modelNames = Object.keys(modelData);
 
 modelNames.forEach(function(key, i) {
@@ -234,17 +192,12 @@ function staticTooltipHtml(d){
   var temp = "";
   for (var [k, v] of Object.entries(d)) {
     switch(k) {
-      case "alpha":
-        k = "Threshold";
-        temp += "<center>" +  k + ": " + v + "</br>";
-        temp += "</br>";
-        break;
-      case "rpp":
-        k = "RPP";
+      case "x":
+        k = "Error tolerance";
         temp += "<center>" +  k + ": " + v + "</br>";
         break;
-      case "tp":
-        k = "TP";
+      case "y":
+        k = "Percentage";
         temp += "<center>" +  k + ": " + v + "</br>";
         break;
       case "label":
