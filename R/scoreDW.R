@@ -14,8 +14,6 @@
 #' scoreDW(lm_au)
 #'
 #'
-#' @importFrom car durbinWatsonTest
-#'
 #' @return an object of class scoreAudit
 #'
 #' @export
@@ -24,11 +22,20 @@ scoreDW <- function(object, variable = NULL){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
 
-  orderedResiduals <- object$res
+  residuals <- object$res
+  max_lag <- 1
+  n <-  length(residuals)
+  durbin_watson <- rep(0, max_lag)
+  den <- sum(residuals^2)
+  for (lag in 1:max_lag){
+    durbin_watson[lag] <- (sum((residuals[(lag+1):n] - residuals[1:(n-lag)])^2))/den
+  }
+
+  durbin_watson
 
   result <- list(
     name = "Durbin-Watson",
-    score = durbinWatsonTest(orderedResiduals)
+    score = durbin_watson
   )
   class(result) <- "scoreAudit"
   return(result)

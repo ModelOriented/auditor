@@ -1,7 +1,7 @@
 context("errors")
 
 test_that("data consistency", {
-  expect_error( audit(model.lm, data = carData::Prestige, y = c(1,2)))
+  expect_error( audit(model.lm, data = Prestige, y = c(1,2)))
 })
 test_that("objects in plots", {
   expect_error(plotACF(model.lm))

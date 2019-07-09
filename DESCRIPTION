@@ -16,10 +16,7 @@ Depends: R (>= 3.0.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: car,
-    carData,
-    factoextra,
-    fdrtool,
+Imports: fdrtool,
     GGally,
     ggplot2,
     ggrepel,
@@ -27,12 +24,12 @@ Imports: car,
     gridExtra,
     hnp,
     plotROC,
-    ROCR,
     scales,
     tseries
 RoxygenNote: 6.1.1
 Suggests: aods3,
     breakDown,
+    car,
     DALEX2,
     e1071,
     gamlss,

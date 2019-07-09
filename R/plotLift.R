@@ -20,7 +20,6 @@
 #' plotLIFT(glm_au)
 #'
 #' @import ggplot2
-#' @importFrom ROCR performance prediction
 #'
 #'
 #' @export

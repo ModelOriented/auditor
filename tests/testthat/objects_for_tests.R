@@ -1,19 +1,30 @@
 library(auditor)
-library(car)
-library(carData)
 library(MASS)
 library(DALEX2)
 library(randomForest)
 library(mlbench)
+library(carData)
 data("PimaIndiansDiabetes")
-data("Prestige")
+
+set.seed(123)
+
+# # simulate artificial prestige data set
+# n <- 100
+# Prestige <- data.frame(education = rnorm(n),
+#                                   income = runif(n),
+#                                   women = runif(n),
+#                                   census = rnorm(n),
+#                                   type = factor(sample(c("a","b","c"), n, replace = TRUE)))
+# Prestige$prestige <- Prestige$education + Prestige$income^2 +
+#   Prestige$women * Prestige$census + as.numeric(Prestige$type)
+
 set.seed(71)
 PimaIndiansDiabetes$diabetes <- ifelse(PimaIndiansDiabetes$diabetes == "pos", 1,0 )
 
 model.lm <- lm(prestige~education + women + income, data = Prestige)
 model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
                  family = gaussian, data = anorexia)
-model.rf <- randomForest::randomForest(Postwt ~ Prewt + Treat, data = anorexia)
+model.rf <- randomForest(Postwt ~ Prewt + Treat, data = anorexia)
 model.class.glm <- glm(diabetes~., family=binomial,	data=PimaIndiansDiabetes)
 model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
                         proximity=TRUE)
@@ -35,3 +46,4 @@ mp.lm <- modelPerformance(au.lm)
 mf.lm <- modelFit(au.lm)
 glm_mr <- modelResiduals(au.glm, "Prewt")
 rf_mr <- modelResiduals(au.rf, "Treat")
+
