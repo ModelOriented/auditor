@@ -4,7 +4,7 @@
 #'
 #' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param values "Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.
+#' @param values "fit" for model fitted values or "res" for residual values.
 #'
 #' @return ggplot object
 #'
@@ -19,43 +19,54 @@
 #'
 #' @seealso \code{\link{plot.modelAudit}}
 #'
-#' @import ggplot2
-#' @importFrom GGally ggpairs
+#' @import grid
+#' @import gridExtra
+#' @importFrom stats cor
+#' @importFrom utils combn
 #'
 #' @export
+plotModelCorrelation <- function(object, ..., values = "fit") {
 
-
-plotModelCorrelation <- function(object, ..., values = "Fitted values"){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if("modelResiduals" %in% class(object)) variable <- object$variable[1]
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
   x <- y <- NULL
 
-  if((values == "Fitted values") || (values == "Predicted response")) {
-    df <- data.frame(y = object$y, fit = object$fitted.values)
-    colnames(df)[2] <- as.character(object$label[1])
-  } else {
-    df <- data.frame(y = object$res)
-    colnames(df)[1] <- as.character(object$label[1])
-  }
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., values = values, type = "corr")
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <-  modelResiduals(resp)
-      if((values == "Fitted values") || (values == "Predicted response")) {
-        df_tmp <- data.frame(resp$fitted.values)
-      } else {
-        df_tmp <- data.frame(resp$res)
-      }
-      colnames(df_tmp)[1] <- as.character(resp$label[1])
-      df <- cbind(df, df_tmp)
-    }
-  }
+  # plots of density
+  vars <- names(df)
+  lab_x <- vars %in% vars[length(vars)]
+  lab_y <- vars %in% vars[1]
+  lim_y <- max(sapply(vars, function(x) max(density(df[, x])[["y"]])))
 
-  ggpairs(df) +
-    theme_light() +
-    ggtitle("Model Correlation")
+  args <- mapply(c, vars, lab_x, lab_y, lim_y, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  plots_dens <- lapply(args, corr_density, df)
+
+  # plots of fitted values / residuals
+  lay_matrix <- prepare_matrix(df)
+  slots <- lay_matrix[lower.tri(lay_matrix)]
+  lab_x <- slots %in% lay_matrix[nrow(lay_matrix), ]
+  lab_y <- slots %in% lay_matrix[, 1]
+  vars <- combn(names(df), 2, simplify = FALSE)
+
+  args <- mapply(c, vars, lab_x, lab_y, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  plots_scat <- lapply(args, corr_points, df)
+
+  # correlation coefficients
+  coefs <- as.vector(cor(df))
+  coefs <- round(unique(coefs[coefs != 1]), 3)
+  coefs <- paste0("Correlation: \n", coefs)
+  coefs <- lapply(coefs, function(x) {
+    textGrob(label = x, gp = gpar(col = "#160e3b", fontsize = 10))
+  })
+
+  # pairs of plot
+  # grid.newpage()
+  # grid.draw(p)
+  a <- grid.arrange(arrangeGrob(grobs = c(plots_dens, plots_scat, coefs), layout_matrix = lay_matrix))
+  return(a)
+  # invisible(NULL)
 
 }

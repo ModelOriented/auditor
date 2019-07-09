@@ -104,6 +104,13 @@ test_that("plotModelRanking", {
   expect_is(plot(lm.mp, lm.mp2)[[1]], "gg")
 })
 
+
+test_that("plotModelCorrelation", {
+  expect_is(plotModelCorrelation(au.glm, au.rf), "gtable")
+  expect_is(plotModelCorrelation(au.glm, au.rf, values = "res"), "gtable")
+})
+
+
 test_that("plot", {
   expect_is(plot(au.lm, type="ACF"), "gg")
   expect_is(plot(au.lm, type="Autocorrelation", score = TRUE), "gg")
@@ -113,8 +120,8 @@ test_that("plot", {
   expect_is(plot(au.glm, au.rf, type="ModelPCA"), "gg")
   expect_is(plot(au.lm, type="ResidualDensity"), "gg")
   expect_is(plot(au.class.glm2, type="LIFT"), "gtable")
-  # expect_is(plot(au.glm, au.rf, type="ModelCorrelation"), "gg")
-  # expect_is(plot(au.glm, au.rf, type="ModelCorrelation", values = "Residuals"), "gg")
+  expect_is(plot(au.glm, au.rf, type="ModelCorrelation"), "gtable")
+  expect_is(plot(au.glm, au.rf, type="ModelCorrelation", values = "res"), "gtable")
   expect_is(plot(au.lm, au.rf, type="Prediction"), "gg")
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
