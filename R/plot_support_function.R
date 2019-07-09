@@ -45,7 +45,6 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
   object <- prepare_object(object, variable, nlabel, type, quant, values, error.scaled, outliers,
                            y.reversed, scores, new.score)
 
-
   if (length(list(...)) > 0) {
     for (resp in list(...)) {
       resp <- prepare_object(object = resp, variable, nlabel, type, quant, values, error.scaled, outliers,
@@ -196,7 +195,6 @@ make_corr_df <- function(object, values) {
   return(df)
 }
 
-
 getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed) {
   res <- object$res
   resids <- data.frame(no.obs = 1:(length(res)), res = res, sign = ifelse(res >= 0, "pos", "neg"))
@@ -230,31 +228,6 @@ getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed) {
 
   df$label <- object$label
   return(df)
-
-#' @title Prepare object for `make_dataframe`` function
-#'
-#' @param object An audited model
-#' @param variable Variable
-#' @param nlabel Number of labels
-#' @param quant Logical
-#' @param type Type of model passed
-prepare_object <- function(object, variable, nlabel, type, quant) {
-  if ("modelAudit" %in% class(object)) {
-    if (type %in% c("res", "rec", "rroc", "scal", "dens", "pca")) object <- modelResiduals(object, variable)
-    switch(type,
-           "eva"  = { object <- modelEvaluation(object) },
-           "infl" = { object <- obs_influence_add(object, nlabel) },
-           "fit"  = { object <- modelFit(object, quant.scale = quant) })
-  }
-  switch(type,
-         "rec"  = { object <- make_rec_df(object) },
-         "rroc" = { object <- make_rroc_df(object) },
-         "scal" = { object <- make_scale_loc_df(object) },
-         "dens" = { object <- get_division(object) },
-         "eva"  = { object <- object },
-         "pca"  = { object <- make_pca_df(object) })
-  return(object)
-
 }
 
 scaleModelRankingDF <- function(df) {

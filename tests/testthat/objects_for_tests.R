@@ -3,7 +3,6 @@ library(MASS)
 library(DALEX2)
 library(randomForest)
 library(mlbench)
-library(carData)
 data("PimaIndiansDiabetes")
 
 set.seed(123)
