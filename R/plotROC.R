@@ -40,8 +40,8 @@ plotROC <- function(object, ...){
     }
   }
 
-  ggplot(df, aes(d = y, m = fitted.values, color = label)) +
-    geom_roc() +
+  ggplot(df, aes(x = fpr, y = tpr, color = label)) +
+    geom_step() +
     xlab("false positive fraction") +
     ylab("true positive fraction") +
     ggtitle("ROC Curve") +
