@@ -63,10 +63,6 @@ plotModelCorrelation <- function(object, ..., values = "fit") {
   })
 
   # pairs of plot
-  # grid.newpage()
-  # grid.draw(p)
   a <- grid.arrange(arrangeGrob(grobs = c(plots_dens, plots_scat, coefs), layout_matrix = lay_matrix))
   return(a)
-  # invisible(NULL)
-
 }

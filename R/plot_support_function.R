@@ -183,12 +183,14 @@ make_pca_df <- function(object) {
 
 make_corr_df <- function(object, values) {
   y <- fitted.values <- NULL
-  if ((values == "Fitted values") || (values == "Predicted response")) {
+  if (values == "fit") {
     df <- subset(object, select = c(y, fitted.values))
     names(df)[names(df) == "fitted.values"] <- as.character(object$label[1])
-  } else {
+  } else if (values == "res") {
     df <- data.frame(y = object$res)
     colnames(df)[1] <- as.character(object$label[1])
+  } else {
+    stop("Parameter 'values' should take 'fit' or 'res' values.")
   }
   return(df)
 }
@@ -303,12 +305,6 @@ drwhy_geom_smooth <- function(df) {
 }
 
 
-#' Function to make customised polar plot
-#'
-#' @param names_n Number of unique models to be printed
-#' @description Modified solution from https://stackoverflow.com/questions/36579767/add-unit-labels-to-radar-plot-and-remove-outer-ring-ggplot2-spider-web-plot-co/37277609
-#'
-#' @examples
 coord_radar <- function(names_n = 2) {
 
   rename_data <- function(coord, data) {
@@ -374,3 +370,48 @@ coord_radar <- function(names_n = 2) {
   ggproto("CordRadar", CoordPolar, theta = "x", r = "y", start = - pi / names_n,
           direction = 1, is_linear = function() TRUE, render_bg = render_bg_function)
 }
+
+prepare_matrix <- function(df) {
+  if (dim(df)[2] == 2) {
+    layout_matrix <- matrix(c(1, 4, 3, 2), nrow = 2, byrow = TRUE)
+  } else {
+    vars <- ncol(df)
+    layout_matrix <- matrix(0, nrow = vars, ncol = vars)
+
+    # diagonal axis
+    diag(layout_matrix) <- 1L:vars
+
+    # lower and upper triangular part of a matrix
+    low_tri <- lower.tri(layout_matrix)
+    low_ind <- which(low_tri, arr.ind = TRUE)
+    layout_matrix[low_ind] <- vars + 1L:sum(low_tri)
+
+    upp_tri <- upper.tri(layout_matrix)
+    upp_ind <- which(upp_tri, arr.ind = TRUE)
+    upp_ind <- upp_ind[order(upp_ind[, "row"]), ]
+    layout_matrix[upp_ind] <- vars + sum(low_tri) + 1L:sum(upp_tri)
+  }
+  layout_matrix
+}
+
+corr_density <- function(args, data) {
+
+  ggplot(data = data, aes_string(x = args[1])) +
+    geom_density(colour = "#160e3b") +
+    theme_drwhy() +
+    theme(axis.text = element_text(size = 8, face = "bold")) +
+    xlab(ifelse(args[2], args[1], "")) +
+    ylab(ifelse(args[3], args[1], "")) +
+    scale_y_continuous(limits = c(0, round(as.numeric(args[4]) * 1.2, 2)),
+                       breaks = scales::pretty_breaks(3))
+}
+
+corr_points <- function(args, data) {
+  ggplot(data = data, aes_string(x = args[1], y = args[2])) +
+    geom_point(colour = "#160e3b", alpha = 0.65, stroke = 0.2) +
+    theme_drwhy() +
+    theme(axis.text = element_text(size = 8)) +
+    xlab(ifelse(args[3], args[1], "")) +
+    ylab(ifelse(args[4], args[2], ""))
+}
+
