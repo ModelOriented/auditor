@@ -87,7 +87,7 @@ function getTickValues(domain) {
       break;
 
     case 6:
-      if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
+      if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[5])){
         tickValues.pop();
         tickValues.shift();
         tickValues.shift();
@@ -109,13 +109,34 @@ function getTickValues(domain) {
       tickValues.shift();
       tickValues.push(domain[1]);
       tickValues.unshift(domain[0]);
+      break;
+
+    case 8:
+      if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[7])){
+        tickValues.pop();
+        tickValues.pop();
+        tickValues.shift();
+        tickValues.shift();
+        tickValues.shift();
+        tickValues.push(domain[1]);
+        tickValues.unshift(domain[0]);
+      } else {
+        tickValues.pop();
+        tickValues.pop();
+        tickValues.pop();
+        tickValues.shift();
+        tickValues.shift();
+        tickValues.push(domain[1]);
+        tickValues.unshift(domain[0]);
+      }
+      break;
     }
 
   return tickValues;
 }
 
 function calculateTextWidth(text) {
-  // calculate max width of 11px label text
+  // calculate max width of 11px text array
 
   var temp = svg.selectAll()
                 .data(text)
@@ -139,4 +160,13 @@ function calculateTextWidth(text) {
   var maxLength = d3.max(textWidth);
 
   return maxLength;
+}
+
+function getTextWidth(text, fontSize, fontFace) {
+  // calculate width of single text
+
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+  context.font = fontSize + 'px ' + fontFace;
+  return context.measureText(text).width;
 }

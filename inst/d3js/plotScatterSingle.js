@@ -83,59 +83,7 @@ function singlePlot(modelName, pData, sData, i) {
           .attr("text-anchor", "middle")
           .text(xTitle);
 
-      // find 5 nice ticks with max and min - do better than d3
-      var domain = x.domain();
-      var tickValues = d3.ticks(domain[0], domain[1],5);
-
-      switch (tickValues.length){
-        case 3:
-          tickValues.unshift(domain[0]);
-          tickValues.push(domain[1]);
-          break;
-
-        case 4:
-          if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
-            tickValues.shift();
-            tickValues.unshift(domain[0]);
-            tickValues.push(domain[1]);
-          } else {
-            tickValues.pop();
-            tickValues.push(domain[1]);
-            tickValues.unshift(domain[0]);
-          }
-          break;
-
-        case 5:
-          tickValues.pop();
-          tickValues.shift();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-          break;
-
-        case 6:
-          if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
-            tickValues.pop();
-            tickValues.shift();
-            tickValues.shift();
-            tickValues.push(domain[1]);
-            tickValues.unshift(domain[0]);
-          } else {
-            tickValues.pop();
-            tickValues.pop();
-            tickValues.shift();
-            tickValues.push(domain[1]);
-            tickValues.unshift(domain[0]);
-          }
-          break;
-
-        case 7:
-          tickValues.pop();
-          tickValues.pop();
-          tickValues.shift();
-          tickValues.shift();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-      }
+      var tickValues = getTickValues(x.domain());
 
       // axis and grid
       var xAxis = d3.axisBottom(x)
@@ -169,31 +117,25 @@ function singlePlot(modelName, pData, sData, i) {
 
       if (n!=1) {
 
+        var tempW = -20+14;
+
         var legend = svg.selectAll(".legend")
               .data(modelNames)
               .enter()
               .append("g")
-              .attr("class", "legend");
-
-        // add legend
-        var textWidth = [];
+              .attr("class", "legend")
+              .attr("transform", function(d, i) {
+                let temp = getTextWidth(d, 11, "Fira Sans, sans-serif");
+                tempW = tempW + temp + 20;
+                return "translate(" + (margin.left+plotWidth - tempW) +
+                    "," + (margin.top - 20) + ")";
+              });
 
         legend.append("text")
-                .attr("dy", ".6em")
-                .attr("class", "legendLabel")
-                .text(function(d) { return d;})
-                .attr("x", 14)
-                .each(function(d,i) {
-                    var thisWidth = this.getComputedTextLength();
-                    textWidth.push(thisWidth);
-                });
-
-        // make nice legend text and boxes
-        var maxLength = d3.max(textWidth)+30;
-        legend.attr("transform", function(d, i) {
-            return "translate(" + (margin.left+plotWidth - maxLength*(n-i)) +
-            "," + (margin.top - 20) + ")";
-        });
+              .attr("dy", ".6em")
+              .attr("class", "legendLabel")
+              .text(function(d) { return d;})
+              .attr("x", 14);
 
         var activeLink = modelNames[1].replace(/\s/g, '');
 
