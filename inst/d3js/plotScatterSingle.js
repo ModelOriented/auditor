@@ -2,14 +2,12 @@ var points = options.points, smooth = options.smooth,
     peaks = options.peaks,
     minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax,
-    variableName = options.variable, n = options.n,
+    xTitle = options.variable, n = options.n,
     yTitle = options.yTitle, chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 120, inner: 42},
-    w = width - margin.left - margin.right,
-    h = height - margin.top - margin.bottom,
-    labelsMargin = margin.left - 8;
+    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
+    h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
   plotHeight = h;
@@ -73,7 +71,7 @@ function singlePlot(modelName, pData, sData, i) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", margin.left - 50)
+          .attr("y", margin.left - 45)
           .attr("x", -(margin.top + plotHeight/2))
           .attr("text-anchor", "middle")
           .text(yTitle);
@@ -83,7 +81,7 @@ function singlePlot(modelName, pData, sData, i) {
           .attr("transform",
                 "translate(" + (margin.left + plotWidth/2) + " ," + (margin.top + plotHeight + 50) + ")")
           .attr("text-anchor", "middle")
-          .text(variableName);
+          .text(xTitle);
 
       // find 5 nice ticks with max and min - do better than d3
       var domain = x.domain();
@@ -165,7 +163,7 @@ function singlePlot(modelName, pData, sData, i) {
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform","translate(" + labelsMargin + ",0)")
+              .attr("transform","translate(" + (margin.left-8) + ",0)")
               .call(yAxis)
               .call(g => g.select(".domain").remove());
 

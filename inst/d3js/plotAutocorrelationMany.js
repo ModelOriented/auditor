@@ -7,11 +7,9 @@ var points = options.points, smooth = options.smooth,
     chartTitle = options.chartTitle,
     background = options.background;
 
-var plotHeight, plotWidth;
-    margin = {top: 98, right: 30, bottom: 60, left: 60, inner: 70};
-    w = width - margin.left - margin.right;
-    h = height - margin.top - margin.bottom;
-    labelsMargin = margin.left - 8;
+var plotHeight, plotWidth,
+    margin = {top: 98, right: 30, bottom: 60+8, left: 60+8, inner: 70},
+    h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
 var m = Math.ceil(n/2);
@@ -136,7 +134,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
     // axis and grid
     var xGrid = svg.append("g")
                .attr("class", "grid")
-               .attr("transform", "translate(0,"+ (plotTop + plotHeight - 6) + ")")
+               .attr("transform", "translate(0,"+ (plotTop + plotHeight) + ")")
                .call(d3.axisBottom(x)
                       .ticks(8)
                       .tickSize(-plotHeight)
@@ -150,12 +148,12 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
     xAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform", "translate(0,"+ (plotTop + plotHeight) + ")")
+              .attr("transform", "translate(0,"+ (plotTop + plotHeight + 8) + ")")
               .call(xAxis);
 
     var yGrid = svg.append("g")
              .attr("class", "grid")
-             .attr("transform", "translate(" + (plotLeft + 6) + ",0)")
+             .attr("transform", "translate(" + plotLeft + ",0)")
              .call(d3.axisLeft(y)
                     .ticks(8)
                     .tickSize(-(plotWidth-6))
@@ -170,7 +168,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform","translate(" + plotLeft + ",0)")
+              .attr("transform","translate(" + (plotLeft-8) + ",0)")
               .call(yAxis);
     }
 
@@ -243,7 +241,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
     	svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", 15)
+          .attr("y", margin.left - 45 - 8)
           .attr("x", -(margin.top + plotTop + plotHeight)/2)
           .attr("text-anchor", "middle")
           .text(yTitle);
@@ -251,7 +249,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("y", (plotTop + plotHeight + margin.bottom - 15))
-          .attr("x", (margin.left + m*plotWidth + (m-1)*25 + margin.right)/2)
+          .attr("x", (margin.left + plotWidth + 25/2))
           .attr("text-anchor", "middle")
           .text(xTitle);
  	  }

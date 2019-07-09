@@ -21,7 +21,7 @@
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.
 #'
-#' @return an `r2d3` object.
+#' @return a `r2d3` object.
 #'
 #' @examples
 #' library("auditor")
