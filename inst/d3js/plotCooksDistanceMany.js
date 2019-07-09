@@ -6,9 +6,7 @@ var minVariable = options.xmin, maxVariable = options.xmax,
 
 var plotHeight, plotWidth,
     margin = {top: 98, right: 30, bottom: 60, left: 60, inner: 70},
-    w = width - margin.left - margin.right,
     h = height - margin.top - margin.bottom,
-    labelsMargin = margin.left - 8,
     plotTop = margin.top, plotLeft = margin.left;
 
 var m = Math.ceil(n/2);
@@ -148,7 +146,7 @@ function singlePlot(modelName, pointData, i) {
 
       yAxis = svg.append("g")
               .attr("class", "axisLabel")
-              .attr("transform","translate(" + plotLeft + ",0)")
+              .attr("transform","translate(" + (plotLeft-8) + ",0)")
               .call(yAxis)
               .call(g => g.select(".domain").remove());
     }
@@ -194,13 +192,13 @@ function singlePlot(modelName, pointData, i) {
         .text(function(d){ return d.x;})
         .attr("x", d => x(d.x))
         .attr("y", d => y(d.y)-2)
-        .attr("text-anchor", "middle")
+        .attr("text-anchor", "middle");
 
     if (i==n){
     	svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")
-          .attr("y", 15)
+          .attr("y", margin.left - 45)
           .attr("x", -(margin.top + plotTop + plotHeight)/2)
           .attr("text-anchor", "middle")
           .text(yTitle);
@@ -208,7 +206,7 @@ function singlePlot(modelName, pointData, i) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("y", (plotTop + plotHeight + margin.bottom - 15))
-          .attr("x", (margin.left + m*plotWidth + (m-1)*25 + margin.right)/2)
+          .attr("x", (margin.left + plotWidth + 25/2))
           .attr("text-anchor", "middle")
           .text(xTitle);
  	  }

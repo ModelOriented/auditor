@@ -20,6 +20,9 @@ plotD3CooksDistance(object, ..., nlabel = 3, single_plot = FALSE,
 
 \item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
 }
+\value{
+a `r2d3` object.
+}
 \description{
 Cook’s distances are used for estimate the influence of an single observation.
 If the picture is not displayed in the viewer, please update your RStudio.

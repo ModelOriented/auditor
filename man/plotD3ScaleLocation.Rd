@@ -31,7 +31,7 @@ in the data set. If \code{variable = ""} is set, unordered observations are pres
 \item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
 }
 \value{
-an `r2d3` object.
+a `r2d3` object.
 }
 \description{
 Function \code{plotD3ScaleLocation} plots square root of the absolute value of the residuals vs target,

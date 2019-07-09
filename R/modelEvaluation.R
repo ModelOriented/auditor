@@ -20,43 +20,58 @@
 modelEvaluation <- function(object, variable = NULL){
   if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
-  CGainsDF <- getCGainsDF(object)[-1,]
+  result <- calculate_classif_evaluation(object$fitted.values, object$y)
+
   idealCGainsDF <- getidealCGainsDF(object)[-1,]
 
-  result <- data.frame(
-    y=object$y,
-    fitted.values = object$fitted.values,
-    label=object$label)
-
     class(result) <- c("modelEvaluation", "data.frame")
-    attr(result,'CGains') <- CGainsDF
     attr(result,'idealCGains') <- idealCGainsDF
   return(result)
 }
 
+calculate_classif_evaluation <- function(predictions, y){
 
-getCGainsDF <- function(object){
+  y <- factor(y)
+  levels <- levels(y)
+  pos_label <- levels[2]
+  neg_label <- levels[1]
 
-  predictions <- object$fitted.values
-  y <- as.numeric(as.character(object$y))
+  pred <- data.frame(predictions = predictions, y = y)
 
-  pred <- ROCR::prediction(predictions, y)
-  gain <- ROCR::performance(pred, "tpr", "rpp")
+  pred_sorted <- pred[order(pred$predictions, decreasing = TRUE), ]
 
-  res <- data.frame(rpp = gain@x.values[[1]], tp = pred@tp[[1]], alpha = gain@alpha.values[[1]],
-                    label = object$label)
-  return(res)
+  tp <- cumsum(pred_sorted$y == pos_label)
+  fp <- cumsum(pred_sorted$y == neg_label)
+
+
+  cutoffs <- c(Inf, pred_sorted$predictions)
+
+  n_pos <- sum(y == levels[2] )
+  n_neg <- sum(y == levels[1] )
+
+  fn <- n_pos - tp
+  tn <- n_neg - fp
+
+  n_pos_pred <- tp + fp
+  n_neg_pred <- fn + tn
+
+  tpr <- tp / n_pos
+  fpr <- fp / n_neg
+
+  rpp <- (tp + fp) / (tp +fp +tn +fn)
+
+  data.frame(fitted.values = c(1, predictions), y = c(1, y), cutoffs = cutoffs, tpr = c(1, tpr), fpr = c(1, fpr), rpp = c(1, rpp), tp = c(1, tp))
 }
+
+
 
 getidealCGainsDF <- function(object){
 
   predictions <- object$y
   y <- as.numeric(as.character(object$y))
 
-  pred <- ROCR::prediction(predictions, y)
-  gain <- ROCR::performance(pred, "tpr", "rpp")
+  res <- calculate_classif_evaluation(predictions, y)
+  res <- cbind(res, label = "ideal")
 
-  res <- data.frame(rpp = gain@x.values[[1]], tp = pred@tp[[1]], alpha = gain@alpha.values[[1]],
-                    label = "ideal")
   return(res)
 }
