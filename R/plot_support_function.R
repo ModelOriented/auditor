@@ -33,7 +33,6 @@ check_object <- function(object, type = "res") {
 make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res", quant = NULL) {
 
   object <- prepare_object(object, variable, nlabel, type, quant)
-
   if (length(list(...)) > 0) {
     for (resp in list(...)) {
       resp <- prepare_object(object = resp, variable, nlabel, type, quant)
@@ -151,7 +150,7 @@ prepare_object <- function(object, variable, nlabel, type, quant) {
   if ("modelAudit" %in% class(object)) {
     if (type %in% c("res", "rec", "rroc", "scal", "dens", "pca")) object <- modelResiduals(object, variable)
     switch(type,
-           "eva"  = { object <- modelEvaluation(object, variable) },
+           "eva"  = { object <- modelEvaluation(object) },
            "infl" = { object <- obs_influence_add(object, nlabel) },
            "fit"  = { object <- modelFit(object, quant.scale = quant) })
   }
@@ -160,7 +159,7 @@ prepare_object <- function(object, variable, nlabel, type, quant) {
          "rroc" = { object <- make_rroc_df(object) },
          "scal" = { object <- make_scale_loc_df(object) },
          "dens" = { object <- get_division(object) },
-         "eva"  = { object <- attributes(object)$CGains },
+         "eva"  = { object <- object },
          "pca"  = { object <- make_pca_df(object) })
   return(object)
 }
