@@ -42,7 +42,7 @@ calculate_classif_evaluation <- function(predictions, y, label){
   tp <- cumsum(pred_sorted$y == pos_label)
   fp <- cumsum(pred_sorted$y == neg_label)
   # cutoffs aka thresholds aka alpha
-  cutoffs <- c(Inf, pred_sorted$predictions)
+  cutoffs <- pred_sorted$predictions
   # number of positives & negatives
   n_pos <- sum(y == levels[2] )
   n_neg <- sum(y == levels[1] )
@@ -57,13 +57,13 @@ calculate_classif_evaluation <- function(predictions, y, label){
   fpr <- fp / n_neg
   # rate of positive predictions
   rpp <- (tp + fp) / (tp +fp +tn +fn)
-  res <- data.frame(fitted.values = c(1, predictions),
-             y = c(1, y),
+  res <- data.frame(fitted.values = predictions,
+             y = y,
              cutoffs = cutoffs,
-             tpr = c(1, tpr),
-             fpr = c(1, fpr),
-             rpp = c(1, rpp),
-             tp = c(max(tp), tp))
+             tpr = tpr,
+             fpr = fpr,
+             rpp = rpp,
+             tp = tp)
   res$label <- label
   res
 }

@@ -1,5 +1,5 @@
 var minValue = options.ymin, maxValue = options.ymax,
-    modelNames = options.modelNames, n = options.n,
+    n = options.n,
     xTitle = options.xTitle,
     yTitle = options.yTitle,
     chartTitle = options.chartTitle;
@@ -232,8 +232,8 @@ function staticTooltipHtml(d){
   var temp = "";
   for (var [k, v] of Object.entries(d)) {
     switch(k) {
-      case "alpha":
-        k = "Threshold";
+      case "cutoffs":
+        k = "Cutoffs";
         temp += "<center>" +  k + ": " + v + "</br>";
         temp += "</br>";
         break;
