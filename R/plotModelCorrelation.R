@@ -6,7 +6,7 @@
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param values "fit" for model fitted values or "res" for residual values.
 #'
-#' @return ggplot object
+#' @return Invisibly returns a \code{\link[gtable]{gtable}} object.
 #'
 #' @examples
 #' library(car)
@@ -63,6 +63,8 @@ plotModelCorrelation <- function(object, ..., values = "fit") {
   })
 
   # pairs of plot
-  a <- grid.arrange(arrangeGrob(grobs = c(plots_dens, plots_scat, coefs), layout_matrix = lay_matrix))
-  return(a)
+  a <- arrangeGrob(grobs = c(plots_dens, plots_scat, coefs), layout_matrix = lay_matrix)
+  grid.newpage()
+  grid.draw(a)
+  invisible(a)
 }
