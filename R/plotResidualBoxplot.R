@@ -19,32 +19,37 @@
 #' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @import ggplot2
+#' @importFrom stats aggregate
 #'
 #' @export
-plotResidualBoxplot <- function(object, ...){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
+plotResidualBoxplot <- function(object, ...) {
 
+  # some safeguard
   res <- label <- NULL
 
-  df <- object
+  # check if passed object is of class "modelResiduals" or "modelAudit"
+  check_object(object, type = "res")
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) df <- rbind( df, modelResiduals(resp) )
-      if("modelResiduals" %in% class(resp)) df <- rbind(df, resp)
-    }
-  }
+  # data frame for ggplot object
+  df <- make_dataframe(object, ..., type = "res")
 
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
-  ggplot(df, aes(label, abs(res), fill = label)) +
-    geom_boxplot(coef = 1000) +
-    stat_summary(fun.y=function(x){sqrt(mean(x^2))}, geom="point", shape=20, size=10, color="red", fill="red") +
+  # additional values
+  df$label <- strtrim(df$label, 7)
+  df_points <- aggregate(list(res = df$res), list(label = df$label), FUN = function(x) { sqrt(mean(x^2)) })
+
+  # main chart
+  ggplot(data = df, aes(x = label, y = abs(res))) +
+    geom_boxplot(coef = 1000, show.legend = FALSE, fill = "#ceced9", alpha = 0.5, width = 0.65) +
+    geom_point(data = df_points, aes(x = label, y = res), shape = 4, size = 2.5, color = "red", show.legend = FALSE) +
     xlab("") +
     ylab("") +
-    ggtitle("Boxplots of | residuals |", "Red dot stands for root mean square of residuals") +
-    theme_light() +
+    ggtitle("Absolute residuals") +
+    theme_drwhy() +
+    theme(axis.line.x = element_line(color = "#371ea3"), panel.grid = element_blank()) +
+    scale_fill_manual(values = rev(colours), breaks = levels(df$label)) +
     coord_flip()
 }
 

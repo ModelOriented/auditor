@@ -58,6 +58,13 @@ test_that("plotScaleLocation", {
   expect_is(plotScaleLocation(au.rf, variable = "Prewt"), "gg")
 })
 
+test_that("plotTwoSidedECDF", {
+  expect_is(plotTwoSidedECDF(au.lm, au.rf), "gg")
+  expect_is(plotTwoSidedECDF(au.lm, au.rf, residuals = FALSE), "gg")
+  expect_is(plotTwoSidedECDF(au.lm, au.rf, y.reversed = TRUE), "gg")
+  expect_is(plotTwoSidedECDF(au.lm, au.rf, outliers = 2), "gg")
+})
+
 test_that("plotHalfNormal", {
   expect_is(plotHalfNormal(au.glm), "gg")
   expect_is(plotHalfNormal(au.lm, quantiles = TRUE), "gg")
@@ -85,17 +92,36 @@ test_that("plotREC", {
   expect_is(plotREC(au.glm, au.rf), "gg")
 })
 
+test_that("plotModelRanking", {
+  new_score1 <- function(object) sum(sqrt(abs(object$residuals)))
+  new_score2 <- function(object) sum(sqrt(abs(object$residuals)) + 1)
+  lm.mp <- modelPerformance(au.lm,
+                            scores = c("MAE", "MSE", "REC", "RROC"),
+                            new.score = list(n1 = new_score1, n2 = new_score2))
+  lm.mp2 <- modelPerformance(au.rf,
+                             scores = c("MAE", "MSE", "REC", "RROC"),
+                             new.score = new_score1)
+  expect_is(plot(lm.mp, lm.mp2)[[1]], "gg")
+})
+
+
+test_that("plotModelCorrelation", {
+  expect_is(plotModelCorrelation(au.glm, au.rf), "gtable")
+  expect_is(plotModelCorrelation(au.glm, au.rf, values = "res"), "gtable")
+})
+
+
 test_that("plot", {
   expect_is(plot(au.lm, type="ACF"), "gg")
   expect_is(plot(au.lm, type="Autocorrelation", score = TRUE), "gg")
   expect_is(plot(au.lm, type="CooksDistance", print=FALSE), "gg")
-  # expect_is(plot(au.lm, au.rf, type="ModelRanking"), "gtable")
+  expect_is(plot(au.lm, au.rf, type="ModelRanking")[[1]], "gg")
   expect_is(plot(au.lm, au.rf, type="TwoSidedECDF"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelPCA"), "gg")
   expect_is(plot(au.lm, type="ResidualDensity"), "gg")
   expect_is(plot(au.class.glm2, type="LIFT"), "gtable")
-  expect_is(plot(au.glm, au.rf, type="ModelCorrelation"), "gg")
-  expect_is(plot(au.glm, au.rf, type="ModelCorrelation", values = "Residuals"), "gg")
+  expect_is(plot(au.glm, au.rf, type="ModelCorrelation"), "gtable")
+  expect_is(plot(au.glm, au.rf, type="ModelCorrelation", values = "res"), "gtable")
   expect_is(plot(au.lm, au.rf, type="Prediction"), "gg")
   expect_is(plot(au.lm, type="Residual"), "gg")
   expect_is(plot(au.lm, type="ResidualBoxplot"), "gg")
@@ -107,11 +133,9 @@ test_that("plot", {
   expect_error(plot(au.lm, type="wrongType"))
 })
 
-
 test_that("multiple plots on grid", {
   expect_is(plot(au.lm, au.rf, type=c("Prediction", "Residual"), grid = TRUE), "gtable")
 })
-
 
 test_that("plot, grid equals FALSE", {
   expect_is(plot(au.lm, au.rf, type = c("Prediction", "Residual"), grid = FALSE, ask = FALSE), "auditorPlotList")
@@ -119,23 +143,9 @@ test_that("plot, grid equals FALSE", {
 
 test_that("plot type is not provided", {
   expect_is(plot(cd.lm), "gg")
-  expect_is(plot(mp.lm, table = FALSE), "gg")
+  expect_is(plot(mp.lm)[[1]], "gg")
   expect_is(plot(mf.lm), "gg")
 })
-
-
-test_that("plot type is not provided", {
-new_score <- function(object) sum(sqrt(abs(object$residuals)))
-new_score2 <- function(object) sum(sqrt(abs(object$residuals))+1)
-lm.mp <- modelPerformance(au.lm,
-                          scores = c("MAE", "MSE", "REC", "RROC"),
-                          new.score = list(n1=new_score, n2=new_score2))
-lm.mp2 <- modelPerformance(au.lm,
-                          scores = c("MAE", "MSE", "REC", "RROC"),
-                          new.score = new_score)
-expect_is(plot(lm.mp, lm.mp2, type="ModelRanking", table=FALSE), "gg")
-})
-
 
 test_that("theme drwhy colors generates rigth length vectors", {
   z <- 1:9

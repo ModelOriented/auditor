@@ -4,17 +4,17 @@
 \alias{plotModelCorrelation}
 \title{Model Correlation Plot}
 \usage{
-plotModelCorrelation(object, ..., values = "Fitted values")
+plotModelCorrelation(object, ..., values = "fit")
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{values}{"Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.}
+\item{values}{"fit" for model fitted values or "res" for residual values.}
 }
 \value{
-ggplot object
+Invisibly returns a \code{\link[gtable]{gtable}} object.
 }
 \description{
 Matrix of plots

@@ -21,14 +21,12 @@
 #' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @import ggplot2
-#' @importFrom factoextra fviz_pca_biplot
 #' @importFrom stats prcomp
 #'
 #' @export
 
 
 plotModelPCA <- function(object, ..., scale = TRUE) {
-
   # some safeguard
   residuals <- label <- PC1 <- PC2 <- NULL
 
@@ -38,7 +36,6 @@ plotModelPCA <- function(object, ..., scale = TRUE) {
   # PCA object for ggplot object
   df <- make_dataframe(object, ..., type = "pca")
   pca_object <- prcomp(df, scale = scale)
-
   # colours for the model(s)
   colours <- rev(theme_drwhy_colors(length(names(df))))
 

@@ -11,7 +11,6 @@
 #' @seealso \code{\link{plot.modelAudit}, \link{plotRROC}, \link{plotREC}}
 #'
 #' @import ggplot2
-#' @import plotROC
 #'
 #' @examples
 #' library(mlbench)
@@ -28,20 +27,12 @@
 plotROC <- function(object, ...){
   if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelEvaluation().")
   if(!("modelEvaluation" %in% class(object))) object <- modelEvaluation(object)
-  y <- fitted.values <- label <- NULL
+  label <- fpr <- tpr <- NULL
 
-  df <- object
+  df <- make_dataframe(object, ..., type = "eva")
 
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      if("modelAudit" %in% class(resp)) resp <- modelEvaluation(resp)
-      if("modelEvaluation" %in% class(resp))  df <- rbind( df, resp )
-    }
-  }
-
-  ggplot(df, aes(d = y, m = fitted.values, color = label)) +
-    geom_roc() +
+  ggplot(df, aes(x = fpr, y = tpr, color = label)) +
+    geom_step() +
     xlab("false positive fraction") +
     ylab("true positive fraction") +
     ggtitle("ROC Curve") +

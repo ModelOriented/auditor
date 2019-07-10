@@ -46,30 +46,25 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")
 
-  modelNames <- lapply(list(object, ...), function(x) x$label)
+  df1 <- make_dataframe(object, ..., type = "eva")
 
+  # take only columns required to plot LIFT curve
+  df1 <- df1[ ,c("rpp", "tp","cutoffs", "label")]
   # prepare data frame for ideal and dummy model
-  ideal_df <- attributes(modelEvaluation(object))$idealCGains
-  ideal_df <- rbind(c(0, 0, 0, "ideal"), ideal_df)
 
-  cols <- c("rpp", "tp", "alpha")
-  ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
+  pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
+  ideal_df <- data.frame(rpp = c(0, pr, 1),
+                         tp = c(0, max(df1$tp), max(df1$tp)),
+                         cutoffs = c(0,0,0),
+                         label = c("ideal", "ideal", "ideal"))
+
 
   random_df <- data.frame(rpp = c(0, 1),
-                          tp =  c(0, max(ideal_df$tp)),
-                          alpha = c(0, 1),
+                          tp =  c(0, max(df1$tp)),
+                          cutoffs = c(0,1),
                           label = c("random", "random"))
 
   df2 <- rbind(ideal_df, random_df)
-
-  # prepare data frame for the main ggplot object
-  df1 <- make_dataframe(object, ..., variable = NULL, type = "eva")
-
-  df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
-
-  # new variable to set different style of line for ideal and dummy models
-  df1$line <- "1"
-  df2$line <- "2"
   df <- rbind(df2, df1)
 
   #:#
@@ -82,11 +77,10 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
                                 lineData[setdiff(names(lineData), c("ideal","random"))]))
 
   options <- list(ymax = ymax, ymin = ymin,
-                  modelNames = modelNames,
                   scalePlot = scale_plot, n = n,
                   xTitle = xTitle, yTitle = yTitle, chartTitle = chartTitle)
 
-  r2d3::r2d3(data = temp, script = system.file("d3js/plotCurve.js", package = "auditor"),
+  r2d3::r2d3(data = temp, script = system.file("d3js/plotLIFT.js", package = "auditor"),
              dependencies = list(
                system.file("d3js/colorsDrWhy.js", package = "auditor"),
                system.file("d3js/tooltipD3.js", package = "auditor")
