@@ -27,9 +27,9 @@ It shows how much all the values in the model change when the i-th observation i
 For model classes other than lm and glm the distances are computed directly from the definition.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 plotCooksDistance(lm_au)
 
 }

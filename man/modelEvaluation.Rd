@@ -15,14 +15,14 @@ modelEvaluation(object, variable = NULL)
 Creates modelEvaluation object to be plotted. Model evaluation concentrates on classification models.
 }
 \examples{
-library(mlbench)
-data("PimaIndiansDiabetes")
-Pima <- PimaIndiansDiabetes
-Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-glm_model <- glm(diabetes~., family=binomial,	data=Pima)
-glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+titanic$survived <- titanic$survived == "yes"
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm, y = titanic$survived)
 
-modelEvaluation(glm_au)
+modelEvaluation(audit_glm)
 
 
 }

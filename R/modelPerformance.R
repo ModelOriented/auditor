@@ -1,6 +1,6 @@
 #' @title Create Model Performance Explainer
 #'
-#' @description  Creates observationInfluence object to be plotted.
+#' @description  Creates modelPerformance object to be plotted.
 #'
 #' @param object An object of class ModelAudit.
 #' @param scores Vector of score names to be plotted.
@@ -9,11 +9,14 @@
 #'
 #'
 #' @examples
-#' library(MASS)
-#' model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
-#' audit.glm <- audit(model.glm)
+#' library(DALEX)
+#' data(titanic)
+#' titanic <- na.omit(titanic)
+#' titanic$survived <- titanic$survived == "yes"
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' audit_glm <- audit(model_glm, y = titanic$survived)
 #'
-#' mp.glm <- modelPerformance(audit.glm)
+#' modelPerformance(audit_glm)
 #'
 #'
 #' @export
@@ -22,7 +25,6 @@ modelPerformance <- function(object, scores = c("MAE", "MSE", "REC", "RROC"), ne
   if (!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
 
     scores <- sapply(scores, function(x) score(object, type = x)$score)
-
     df <- data.frame(score = scores[1], label = object$label, name = names(scores[1]))
     if (length(scores) > 1) df <- rbind(df, data.frame(score = scores[-1], label = object$label, name = names(scores[-1])))
 

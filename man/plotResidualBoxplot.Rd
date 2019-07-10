@@ -9,22 +9,20 @@ plotResidualBoxplot(object, ...)
 \arguments{
 \item{object}{An object of class modelAudit.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
-}
-\description{
-A plot of residuals.
-}
-\examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+\item{...}{Other modelAudit objects to be plotted together.
+
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 plotResidual(lm_au)
 
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
-plotResidualBoxplot(lm_au, rf_au)
-
+rf_model <- randomForest(life_length~., data = dragons)
+rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
+plotResidualBoxplot(lm_au, rf_au)}
+}
+\description{
+A plot of residuals.
 }
 \seealso{
 \code{\link{plot.modelAudit}}

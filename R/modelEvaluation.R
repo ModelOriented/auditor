@@ -6,14 +6,14 @@
 #' @param variable Optional. Name of variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @examples
-#' library(mlbench)
-#' data("PimaIndiansDiabetes")
-#' Pima <- PimaIndiansDiabetes
-#' Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-#' glm_model <- glm(diabetes~., family=binomial,	data=Pima)
-#' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
+#' library(DALEX)
+#' data(titanic)
+#' titanic <- na.omit(titanic)
+#' titanic$survived <- titanic$survived == "yes"
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' audit_glm <- audit(model_glm, y = titanic$survived)
 #'
-#' modelEvaluation(glm_au)
+#' modelEvaluation(audit_glm)
 #'
 #'
 #' @export

@@ -14,15 +14,15 @@
 #' with \code{variable = NULL} which is a default option.
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige~education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
-#' plotPrediction(lm_au, variable = "prestige", abline = TRUE)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+#' plotPrediction(lm_au, variable = "height", abline = TRUE)
 #'
 #' library(randomForest)
-#' rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-#' rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
-#' plotPrediction(lm_au, rf_au, variable = "prestige", smooth = TRUE)
+#' rf_model <- randomForest(life_length~., data = dragons)
+#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
+#' plotPrediction(lm_au, rf_au, variable = "height", smooth = TRUE)
 #'
 #' @seealso \code{\link{plot.modelAudit}}
 #'

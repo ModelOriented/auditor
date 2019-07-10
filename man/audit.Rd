@@ -41,16 +41,18 @@ Models may have very different structures. This function creates a unified repre
 which can be further processed by various error analysis functions.
 }
 \examples{
-library(MASS)
-model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
-audit.glm <- audit(model.glm)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm)
 
-p.fun <- function(model, data){predict(model, data, response = "link")}
-audit.glm.newpred <- audit(model.glm, predict.function = p.fun)
+p_fun <- function(model, data){predict(model, data, response = "link")}
+audit_glm_newpred <- audit(model_glm, predict.function = p_fun)
 
 
 library(randomForest)
-model.rf <- randomForest(Species ~ ., data=iris)
-audit.rf <- audit(model.rf)
+model_rf <- randomForest(Species ~ ., data=iris)
+audit_rf <- audit(model_rf)
 
 }
