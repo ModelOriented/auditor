@@ -14,7 +14,7 @@ plotModelCorrelation(object, ..., values = "fit")
 \item{values}{"fit" for model fitted values or "res" for residual values.}
 }
 \value{
-Invisibly returns an object of the \code{\link[gtable]{gtable}} class.
+Invisibly returns a \code{\link[gtable]{gtable}} object.
 }
 \description{
 Matrix of plots
