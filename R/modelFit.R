@@ -7,11 +7,13 @@
 #' @param ... other parameters passed do \code{\link[hnp]{hnp}} function.
 #'
 #' @examples
-#' library(MASS)
-#' model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
-#' audit.glm <- audit(model.glm)
+#' library(DALEX)
+#' data(titanic)
+#' titanic <- na.omit(titanic[1:100,])
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' audit_glm <- audit(model_glm)
 #'
-#' mf.glm <- modelFit(audit.glm)
+#' modelFit(audit_glm)
 #'
 #' @importFrom stats pnorm
 #'

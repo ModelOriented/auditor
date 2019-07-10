@@ -1,6 +1,6 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 0.3.5
+Version: 0.3.6
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-6563-5742")),
@@ -23,24 +23,16 @@ Imports: ggplot2,
     hnp,
     scales
 RoxygenNote: 6.1.1
-Suggests: aods3,
-    breakDown,
-    car,
-    DALEX2,
+Suggests: 
+    DALEX,
     e1071,
-    gamlss,
+    jsonlite,
     knitr,
-    lme4,
-    MASS,
-    mlbench,
+    mgcv,
+    r2d3,
     randomForest,
     rmarkdown,
-    testthat,
-    covr,
-    jsonlite,
-    r2d3,
-    mgcv,
-    DALEX
+    testthat
 VignetteBuilder: knitr
 URL: https://mi2datalab.github.io/auditor/
 BugReports: https://github.com/MI2DataLab/auditor/issues

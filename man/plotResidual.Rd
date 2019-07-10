@@ -27,14 +27,14 @@ in the data set. If \code{variable = ""} is set, unordered observations are pres
 A plot of residuals against fitted values, observed values or any variable.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 plotResidual(lm_au)
 
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+rf_model <- randomForest(life_length~., data = dragons)
+rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
 plotResidual(lm_au, rf_au)
 
 }

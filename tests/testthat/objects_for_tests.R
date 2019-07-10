@@ -1,9 +1,6 @@
 library(auditor)
-library(MASS)
-library(DALEX2)
+library(DALEX)
 library(randomForest)
-library(mlbench)
-data("PimaIndiansDiabetes")
 
 set.seed(123)
 
@@ -17,8 +14,24 @@ Prestige <- data.frame(education = rnorm(n),
 Prestige$prestige <- Prestige$education + Prestige$income^2 +
   Prestige$women * Prestige$census + as.numeric(Prestige$type)
 
+# simulate artificial PimaIndianDiabetes data set
+PimaIndiansDiabetes <- data.frame(pregnant = rnorm(n),
+                                  glucose =  rnorm(n),
+                                  pressure =  rnorm(n),
+                                  triceps  = rnorm(n),
+                                  insulin  = rnorm(n),
+                                  mss  = rnorm(n),
+                                  pedigree = rnorm(n),
+                                  age  = rnorm(n),
+                                  diabetes = factor(rbinom(n, 1, prob = 0.5)))
+
+
+# simulate artificial anorexia data set
+anorexia <- data.frame(Treat = factor(rbinom(n, 1, prob = 0.5)),
+                                      Prewt = rnorm(n),
+                                      Postwt = rnorm(n))
+
 set.seed(71)
-PimaIndiansDiabetes$diabetes <- ifelse(PimaIndiansDiabetes$diabetes == "pos", 1,0 )
 
 model.lm <- lm(prestige~education + women + income, data = Prestige)
 model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),

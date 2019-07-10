@@ -63,9 +63,9 @@ For a well-fitted model, diagnostic values should lay within the envelope.
 First step of auditing is fitting a model and creating a `modelAudit` object which wraps up a model with meta-data.
 
 ```{r binomial2, results='hide', fig.keep='all'}
-model.bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
+model_bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
 
-bin_au <- audit(model.bin, data = corn, y = corn$y)
+bin_au <- audit(model_bin, data = corn, y = corn$y)
 ```
 
 `modelAudit` object may be plotted.
@@ -87,52 +87,12 @@ bin_mf <- modelFit(bin_au)
 plot(bin_mf, sim=500)
 ```
 
-## Other glm models
 
-Next step is to try fitting overdispersion models: quasi-binomial, beta-binomial and logistic-normal.
-
-### Quasi-binomial model
-```{r quasibinomial2, results='hide', fig.keep='all'}
-fit2_b <- glm(cbind(y, m - y) ~ extract, family = quasibinomial, data = corn)
-fit2_b_au <- audit(fit2_b, data = corn, y = corn$y)
-plotHalfNormal(fit2_b_au, sim=500)
-```
-
-### Beta-binomial model
-```{r beta-binomial2, results='hide', fig.keep='all'}
-library(aods3)
-fit3_b <- aodml(cbind(y, m - y) ~ extract, family = "bb", data = corn)
-fit3_b_au <- audit(fit3_b, data = corn, y = corn$y)
-plotHalfNormal(fit3_b_au, sim=500)
-```
-
-
-### Logistic-normal model
-```{r normal-logit-binomial, results='hide', fig.keep='all'}
-x <- factor(seq_len(nrow(corn)))
-fit4_b <- glmer(cbind(y, m - y) ~ extract + (1 | x), family = binomial, data = corn)
-fit4_b_au <- audit(fit4_b, data = corn, y = corn$y)
-plotHalfNormal(fit4_b_au, sim=500)
-```
-
-The results of all models are quite similar.
-
-A useful tool to compare goodness-of-fit of two models is Score calculated by `plotHalfNormal()` function with parameter `score==TRUE`.
-
-Score is approximately:
-
-$ \sum{\#[res_i \leq simres_{i,j}] - n }$ with the distinction that each element of sum is also scaled to take values from $[0,1]$.
-
-$res_i$ is a residual for i-th observation, $simres_{i,j}$ is the residual of j-th simulation for i-th observation, and n is the number of simulations for each observation.
-
-
-
-Scores are calculated on the basis of simulated data, so they may differ between function calls.
 
 ## Quantile scale
 In function `plotHalfNormal` there is also a posibility to draw half-normal plot on a quantile scale.
 ```{r, results='hide', fig.keep='all'}
-plotHalfNormal(fit2_b_au, quantiles = TRUE)
+plotHalfNormal(bin_mf, quantiles = TRUE)
 ```
 
 # Classification

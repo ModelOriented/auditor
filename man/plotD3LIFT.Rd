@@ -21,22 +21,19 @@ LIFT is a plot of the rate of positive prediction against true positive rate for
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+titanic$survived <- titanic$survived == "yes"
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm, data = titanic, y = titanic$survived)
 
-library(mlbench)
-library("auditor")
-data("PimaIndiansDiabetes")
-Pima <- PimaIndiansDiabetes
-Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
+plotD3LIFT(audit_glm)
 
-glm_model <- glm(diabetes ~ ., family = binomial, data=Pima)
-glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes, label = "glm1")
+model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
+audit_glm_2 <- audit(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
 
-plotD3LIFT(glm_au)
-
-glm_model2 <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
-glm_au2 <- audit(glm_model2, data = Pima, y = Pima$diabetes, label = "glm2")
-
-plotD3LIFT(glm_au, glm_au2, scale_plot = TRUE)
+plotD3LIFT(audit_glm, audit_glm_2, scale_plot = TRUE)
 
 }
 \seealso{

@@ -20,9 +20,9 @@ The score value is helpful in comparing models. It is worth pointing out that re
 when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 scoreDW(lm_au)
 
 

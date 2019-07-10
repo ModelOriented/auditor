@@ -20,10 +20,10 @@ knitr::opts_chunk$set(message = FALSE)
 
 # Regression use case - dragons data
 
-To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX2*](https://github.com/ModelOriented/DALEX2) package. Our goal is to predict the length of life of dragons.
+To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX*](https://github.com/pbiecek/DALEX) package. Our goal is to predict the length of life of dragons.
 
 ```{r}
-library(DALEX2)
+library(DALEX)
 data("dragons")
 head(dragons)
 ```
