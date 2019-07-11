@@ -9,10 +9,9 @@ var plotHeight, plotWidth,
     h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
-var m = Math.ceil(n/2);
-if (n == 2) { m = 2; }
-
 if (options.scalePlot === true) {
+  var m = Math.ceil(n/2);
+  if (n == 2) { m = 2; }
   plotHeight = (h-(m-1)*margin.inner)/m;
   plotWidth = 3*plotHeight/2;
 } else {

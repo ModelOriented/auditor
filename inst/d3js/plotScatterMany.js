@@ -188,7 +188,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
           .attr("x", -(margin.top + plotTop + plotHeight)/2)
           .attr("text-anchor", "middle")
           .text(yTitle);
- 	}
+ 	  }
 
     if (i%2 === 1){
       plotLeft += (25 + plotWidth);
