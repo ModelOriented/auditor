@@ -13,9 +13,9 @@
 #' @return an object of class scoreAudit, except Cooks distance, where numeric vector is returned
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige~education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' score(lm_au, type = 'Runs')
 #'
 #' @export

@@ -15,10 +15,12 @@ observationInfluence(object, ...)
 Creates observationInfluence object to be plotted.
 }
 \examples{
-library(MASS)
-model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
-audit.glm <- audit(model.glm)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm)
 
-oi.glm <- observationInfluence(audit.glm)
+observationInfluence(audit_glm)
 
 }

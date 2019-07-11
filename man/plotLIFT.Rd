@@ -19,13 +19,21 @@ LIFT is a plot of the rate of positive prediction against true positive rate for
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
-library(mlbench)
-data("PimaIndiansDiabetes")
-Pima <- PimaIndiansDiabetes
-Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-glm_model <- glm(diabetes ~ ., family = binomial, data=Pima)
-glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
-plotLIFT(glm_au)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+titanic$survived <- titanic$survived == "yes"
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm, data = titanic, y = titanic$survived)
+
+plotLIFT(audit_glm)
+
+model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
+audit_glm_2 <- audit(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+meva_glm_2 <- modelEvaluation(audit_glm_2)
+
+plotLIFT(audit_glm, audit_glm_2)
+
 
 }
 \seealso{

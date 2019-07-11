@@ -14,13 +14,11 @@
 #' @importFrom  utils head tail
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige ~ education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' check_residuals(lm_au)
 #'  \dontrun{
-#'  library("DALEX2")
-#'  dragons <- DALEX2::dragons
 #'  library("ranger")
 #'  rf_model <- ranger(life_length ~ ., data = dragons)
 #'  predict_function <- function(m,x,...) predict(m, x, ...)$predictions
@@ -47,9 +45,9 @@ check_residuals <- function(model, ...) {
 #' @export
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige ~ education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' check_residuals_outliers(lm_au)
 check_residuals_outliers <- function(model, n = 5) {
   model_name <- model$label
@@ -90,9 +88,9 @@ check_residuals_outliers <- function(model, n = 5) {
 #' @export
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige ~ education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' check_residuals_autocorrelation(lm_au)
 check_residuals_autocorrelation <- function(model, method = "pearson") {
   model_name <- model$label
@@ -126,9 +124,9 @@ check_residuals_autocorrelation <- function(model, method = "pearson") {
 #' @export
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige ~ education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' check_residuals_trend(lm_au)
 check_residuals_trend <- function(model, B = 20) {
   model_name <- model$label

@@ -11,11 +11,11 @@
 #' @param smooth Logical, if TRUE smooth line will be added.
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige~education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' plotAutocorrelation(lm_au)
-#' plotAutocorrelation(lm_au, variable = "income", score = TRUE, smooth = TRUE)
+#' plotAutocorrelation(lm_au, variable = "height", score = TRUE, smooth = TRUE)
 #'
 #' @import ggplot2
 #'

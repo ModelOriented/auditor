@@ -5,7 +5,9 @@
 \title{Make data frame}
 \usage{
 make_dataframe(object, ..., variable = NULL, nlabel = NULL,
-  type = "res", quant = NULL)
+  type = "res", quant = NULL, values = NULL, error.scaled = TRUE,
+  outliers = NA, residuals = TRUE, y.reversed = FALSE,
+  scores = NULL, new.score = NULL)
 }
 \arguments{
 \item{object}{Object passed to the function}
@@ -18,7 +20,21 @@ make_dataframe(object, ..., variable = NULL, nlabel = NULL,
 
 \item{type}{Type of check; default is \code{res} which stands for "model residuals".}
 
-\item{quant}{if TRUE values on axis are on quantile scale in `plotHalfNormal`
+\item{quant}{if TRUE values on axis are on quantile scale in `plotHalfNormal`}
+
+\item{values}{for `plotModelCorrelation`}
+
+\item{error.scaled}{A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions; `plotECDF`}
+
+\item{outliers}{Number of outliers to be marked on `plotECDF`}
+
+\item{residuals}{A logical value indicating whether residuals should be marked on `plotECDF`}
+
+\item{y.reversed}{A logical value indicating whether values on y axis should be reversed on `plotECDF`}
+
+\item{scores}{Vector of standard scores for modelRankingPlot}
+
+\item{new.score}{Function for custom score for modelRankingPlot
 Other possible values: \code{eva} - model evaluation}
 }
 \description{

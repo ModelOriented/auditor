@@ -29,15 +29,14 @@ If the picture is not displayed in the viewer, please update your RStudio.
 }
 \examples{
 library("auditor")
-library(car)
-
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige, label = "lm")
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 plotD3CooksDistance(lm_au)
 
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige, label = "rf")
+rf_model <- randomForest(life_length~., data = dragons)
+rf_au <- audit(rf_model, data = dragons, y = dragons$life_length, label = "rf")
 plotD3CooksDistance(lm_au, rf_au, nlabel = 4)
 
 }

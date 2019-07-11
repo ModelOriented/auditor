@@ -33,14 +33,14 @@ Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
  The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 plotRROC(lm_au)
 
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+rf_model <- randomForest(life_length~., data = dragons)
+rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
 plotRROC(lm_au, rf_au)
 
 }

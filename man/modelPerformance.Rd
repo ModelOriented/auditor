@@ -17,14 +17,17 @@ modelPerformance(object, scores = c("MAE", "MSE", "REC", "RROC"),
 \item{...}{other parameters.}
 }
 \description{
-Creates observationInfluence object to be plotted.
+Creates modelPerformance object to be plotted.
 }
 \examples{
-library(MASS)
-model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
-audit.glm <- audit(model.glm)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+titanic$survived <- titanic$survived == "yes"
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm, y = titanic$survived)
 
-mp.glm <- modelPerformance(audit.glm)
+modelPerformance(audit_glm)
 
 
 }

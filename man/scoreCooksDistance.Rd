@@ -29,9 +29,9 @@ Models of classes other than lm and glm the distances are computed directly from
 so this may take a while.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 scoreCooksDistance(lm_au)
 
 
