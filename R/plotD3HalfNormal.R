@@ -15,7 +15,6 @@
 #' @return a `r2d3` object.
 #'
 #' @importFrom hnp hnp
-#' @importFrom fdrtool phalfnorm
 #' @importFrom stats ecdf dnorm density
 #'
 #' @seealso \code{\link{scoreHalfNormal}, \link{plotHalfNormal}}
