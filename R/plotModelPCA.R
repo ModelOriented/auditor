@@ -42,11 +42,19 @@ plotModelPCA <- function(object, ..., scale = TRUE) {
   colours <- rev(theme_drwhy_colors(length(names(df))))
 
   # arrows for models
-  arrows <- data.frame(pca_object$rotation)
+  loadings <- pca_object$rotation
+  std_dev <- pca_object$sdev
+
+  arrows <- apply(loadings, 1, function(x, y){x*y}, std_dev)
+  arrows <- data.frame(t(arrows))
   arrows$label <- rownames(arrows)
+
   arrows2 <- arrows
   arrows2$PC1 <- arrows2$PC2 <- 0
   arrows2 <- rbind(arrows, arrows2)
+
+  # length of arrows
+
 
   # plot
   ggplot(data = data.frame(pca_object$x), aes(x = PC1, y = PC2)) +
@@ -60,3 +68,5 @@ plotModelPCA <- function(object, ..., scale = TRUE) {
     scale_color_manual(values = rev(colours), breaks = arrows$label, guide = guide_legend(nrow = 1)) +
     theme_drwhy()
 }
+
+
