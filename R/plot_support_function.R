@@ -399,10 +399,10 @@ corr_density <- function(args, data) {
   ggplot(data = data, aes_string(x = args[1])) +
     geom_density(colour = "#160e3b") +
     theme_drwhy() +
-    theme(axis.text = element_text(size = 8, face = "bold")) +
+    theme(axis.text = element_text(size = 8)) +
     xlab(ifelse(args[2], args[1], "")) +
     ylab(ifelse(args[3], args[1], "")) +
-    scale_y_continuous(limits = c(0, round(as.numeric(args[4]) * 1.2, 2)),
+    scale_y_continuous(limits = c(0, as.numeric(args[4]) * 1.2),
                        breaks = scales::pretty_breaks(3))
 }
 

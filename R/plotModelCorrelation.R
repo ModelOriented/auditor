@@ -67,5 +67,39 @@ plotModelCorrelation <- function(object, ..., values = "fit") {
   a <- arrangeGrob(grobs = c(plots_dens, plots_scat, coefs), layout_matrix = lay_matrix)
   grid.newpage()
   grid.draw(a)
+  class(a) <- c("modelCorrelationPlot", class(a))
   invisible(a)
+}
+
+
+
+#' Modify a modelCorrelation object by adding an ggplot2 object to all plots
+#'
+#' This operator allows you to add ggplot2 objects to a modelCorrelation object.
+#'
+#' @param e1 An object of class \code{ggplot} or \code{theme}
+#' @param e2 A component to add to \code{e1}
+#'
+#' @export
+#' @seealso \code{\link[ggplot2]{+.gg}} and \code{\link[ggplot2]{theme}}
+#' @method + gg
+#' @rdname gg-add
+#' @examples
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' library(randomForest)
+#' rf_model <- randomForest(life_length~., data = dragons)
+#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
+#'
+#' plotModelCorrelation(lm_au, rf_au) + theme_bw()
+#'
+"+.gg" <- function(e1, e2) {
+
+  if (! "modelCorrelationPlot" %in% class(e1)) {
+    return(e1 %+% e2)
+  }
+  plot(e2)
+
 }
