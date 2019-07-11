@@ -20,36 +20,28 @@ knitr::opts_chunk$set(message = FALSE)
 
 In this vignette we present plots for classification models evaluation.
 
-```{r}
-library(auditor)
-library(mlbench)
-```
 
 ### Dataset
 
-We work on PimaIndianDiabetes dataset.
+We work on titanic dataset form the `DALEX` package.
 
 ```{r}
-data(PimaIndiansDiabetes)
-head(PimaIndiansDiabetes)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+head(titanic)
 ```
 
-We transform dependent variable into binary vector.
-
-```{r}
-pima <- PimaIndiansDiabetes
-pima$diabetes <- ifelse(pima$diabetes == "pos", 1, 0)
-```
 
 ### Models
 
 We fit 2 models: glm and svm.
 
 ```{r}
-model_glm <- glm(diabetes~., data = pima, family = binomial)
+model_glm <- glm(survived~., data = titanic, family = binomial)
 
 library(e1071)
-model_svm <- svm(diabetes~., data = pima)
+model_svm <- svm(survived~., data = titanic)
 ```
 
 ### Model Audit
@@ -57,8 +49,9 @@ model_svm <- svm(diabetes~., data = pima)
 First step of auditing is creating `modelAudit` object. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
 
 ```{r}
-au_glm <- audit(model_glm, data = pima, y = pima$diabetes)
-au_svm <- audit(model_svm, data = pima, y = pima$diabetes, label = "svm")
+library(auditor)
+au_glm <- audit(model_glm, data = titanic, y = titanic$survived)
+au_svm <- audit(model_svm, data = titanic, y = titanic$survived, label = "svm")
 ```
 
 

@@ -18,9 +18,9 @@ an object of class scoreAudit
 This score is calculated on the basis of Peak test, which is used for checking for homoscedasticity of residuals in regression analyses.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 scorePeak(lm_au)
 
 }

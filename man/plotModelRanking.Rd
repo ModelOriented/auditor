@@ -5,7 +5,7 @@
 \title{Model Ranking Plot}
 \usage{
 plotModelRanking(object, ..., scores = c("MAE", "MSE", "REC", "RROC"),
-  new.score = NULL, table = TRUE)
+  new.score = NULL)
 }
 \arguments{
 \item{object}{An object of class ModelAudit.}
@@ -15,8 +15,6 @@ plotModelRanking(object, ..., scores = c("MAE", "MSE", "REC", "RROC"),
 \item{scores}{Vector of score names to be plotted.}
 
 \item{new.score}{A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
-
-\item{table}{Logical. Specifies if rable with score values should be plotted}
 }
 \value{
 ggplot object
@@ -25,12 +23,12 @@ ggplot object
 Radar plot with model scores. Scores are scaled to [0,1], each score is inversed and divided by maximum score value.
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+rf_model <- randomForest(life_length~., data = dragons)
+rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
 plotModelRanking(lm_au, rf_au)
 
 }

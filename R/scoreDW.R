@@ -8,13 +8,11 @@
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige~education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' scoreDW(lm_au)
 #'
-#'
-#' @importFrom car durbinWatsonTest
 #'
 #' @return an object of class scoreAudit
 #'
@@ -24,11 +22,20 @@ scoreDW <- function(object, variable = NULL){
   if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
 
-  orderedResiduals <- object$res
+  residuals <- object$res
+  max_lag <- 1
+  n <-  length(residuals)
+  durbin_watson <- rep(0, max_lag)
+  den <- sum(residuals^2)
+  for (lag in 1:max_lag){
+    durbin_watson[lag] <- (sum((residuals[(lag+1):n] - residuals[1:(n-lag)])^2))/den
+  }
+
+  durbin_watson
 
   result <- list(
     name = "Durbin-Watson",
-    score = durbinWatsonTest(orderedResiduals)
+    score = durbin_watson
   )
   class(result) <- "scoreAudit"
   return(result)

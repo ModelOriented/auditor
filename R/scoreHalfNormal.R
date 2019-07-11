@@ -11,9 +11,9 @@
 #' @param ... Extra arguments passed to \link[hnp]{hnp}.
 #'
 #' @examples
-#' library(car)
-#' lm_model <- lm(prestige~education + women + income, data = Prestige)
-#' lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
 #' plotHalfNormal(lm_au)
 #'
 #'

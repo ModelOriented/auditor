@@ -15,7 +15,6 @@
 #'
 #' @import ggplot2
 #' @importFrom hnp hnp
-#' @importFrom fdrtool phalfnorm
 #' @importFrom stats ecdf dnorm density
 #'
 #' @seealso \code{\link{scoreHalfNormal}}
@@ -57,3 +56,4 @@ plotHalfNormal <- function(object, ..., quantiles = FALSE, sim = 99) {
       ylab("|Residuals|")
   }
 }
+

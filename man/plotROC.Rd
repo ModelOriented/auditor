@@ -19,13 +19,14 @@ Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
-library(mlbench)
-data("PimaIndiansDiabetes")
-Pima <- PimaIndiansDiabetes
-Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-glm_model <- glm(diabetes~., family=binomial,	data=Pima)
-glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
-plotROC(glm_au)
+library(DALEX)
+data(titanic)
+titanic <- na.omit(titanic)
+titanic$survived <- titanic$survived == "yes"
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+audit_glm <- audit(model_glm, y = titanic$survived)
+
+plotROC(audit_glm)
 
 }
 \seealso{

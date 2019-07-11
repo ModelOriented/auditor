@@ -11,16 +11,23 @@
 #' @seealso \code{\link{plot.modelAudit}}
 #'
 #' @examples
-#' library(mlbench)
-#' data("PimaIndiansDiabetes")
-#' Pima <- PimaIndiansDiabetes
-#' Pima$diabetes <- ifelse(Pima$diabetes == "pos", 1, 0)
-#' glm_model <- glm(diabetes ~ ., family = binomial, data=Pima)
-#' glm_au <- audit(glm_model, data = Pima, y = Pima$diabetes)
-#' plotLIFT(glm_au)
+#' library(DALEX)
+#' data(titanic)
+#' titanic <- na.omit(titanic)
+#' titanic$survived <- titanic$survived == "yes"
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' audit_glm <- audit(model_glm, data = titanic, y = titanic$survived)
+#'
+#' plotLIFT(audit_glm)
+#'
+#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
+#' audit_glm_2 <- audit(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+#' meva_glm_2 <- modelEvaluation(audit_glm_2)
+#'
+#' plotLIFT(audit_glm, audit_glm_2)
+#'
 #'
 #' @import ggplot2
-#' @importFrom ROCR performance prediction
 #'
 #'
 #' @export
@@ -28,36 +35,41 @@ plotLIFT <- function(object, ...) {
   # some safeguard
   rpp <- tp <- label <- variable <- line <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "modelEvaluation" or "modelAudit"
   check_object(object, type = "eva")
 
+  df1 <- make_dataframe(object, ..., type = "eva")
+  # take only columns required to plot LIFT curve
+  df1 <- df1[ ,c("rpp", "tp", "label")]
+  df1$line <- "1"
   # prepare data frame for ideal and dummy model
-  ideal_df <- attributes(modelEvaluation(object))$idealCGains
-  ideal_df <- rbind(ideal_df, c(0, 0, 0, "ideal"))
 
-  cols <- c("rpp", "tp", "alpha")
-  ideal_df[,cols] = apply(ideal_df[,cols], 2, function(x) as.numeric(x))
+  pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
+  ideal_df <- data.frame(rpp = c(0, pr, 1),
+                         tp = c(0, max(df1$tp), max(df1$tp)),
+                         label = c("ideal", "ideal", "ideal"))
+
 
   random_df <- data.frame(rpp = c(0, 1),
-                          tp =  c(0, max(ideal_df$tp)),
-                          alpha = c(0, 1),
+                          tp =  c(0, max(df1$tp)),
                           label = c("random", "random"))
 
   df2 <- rbind(ideal_df, random_df)
+  df2$line <- "2"
 
   # prepare data frame for the main ggplot object
-  df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
-  for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
 
-  df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
+  # df1 <- make_dataframe(object, ..., variable = variable, type = "eva")
+  # for (lab in unique(df1$label)) df1 <- rbind(df1, c("0", "0", "0", lab))
+
+  # df1[,cols] = apply(df1[,cols], 2, function(x) as.numeric(x))
+
 
   # new variable to set different style of line for ideal and dummy models
-  df1$line <- "1"
-  df2$line <- "2"
   df <- rbind(df1, df2)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df1$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # main plot
   p1 <- ggplot(df, aes(x = rpp, y = tp)) +

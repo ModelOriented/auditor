@@ -1,7 +1,7 @@
 context("errors")
 
 test_that("data consistency", {
-  expect_error( audit(model.lm, data = carData::Prestige, y = c(1,2)))
+  expect_error( audit(model.lm, data = Prestige, y = c(1,2)))
 })
 test_that("objects in plots", {
   expect_error(plotACF(model.lm))
@@ -10,6 +10,7 @@ test_that("objects in plots", {
   expect_error(plotHalfNormal(model.lm))
   expect_error(plotLIFT(model.lm))
   expect_error(plotModelCorrelation(model.lm))
+  expect_error(plotModelCorrelation(au.glm, au.rf, values = "new"))
   expect_error(plotModelPCA(model.lm))
   expect_error(plotModelRanking(model.lm))
   expect_error(plotPrediction(model.lm))

@@ -4,28 +4,29 @@
 \alias{plotModelCorrelation}
 \title{Model Correlation Plot}
 \usage{
-plotModelCorrelation(object, ..., values = "Fitted values")
+plotModelCorrelation(object, ..., values = "fit")
 }
 \arguments{
 \item{object}{An object of class modelAudit or modelResiduals.}
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{values}{"Fitted values" or "Predicted response" for model fitted values or "Residuals" for residual values.}
+\item{values}{"fit" for model fitted values or "res" for residual values.}
 }
 \value{
-ggplot object
+Invisibly returns a \code{\link[gtable]{gtable}} object.
 }
 \description{
 Matrix of plots
 }
 \examples{
-library(car)
-lm_model <- lm(prestige~education + women + income, data = Prestige)
-lm_au <- audit(lm_model, data = Prestige, y = Prestige$prestige)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+
 library(randomForest)
-rf_model <- randomForest(prestige~education + women + income, data = Prestige)
-rf_au <- audit(rf_model, data = Prestige, y = Prestige$prestige)
+rf_model <- randomForest(life_length~., data = dragons)
+rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
 plotModelCorrelation(lm_au, rf_au)
 
 }
