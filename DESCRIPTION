@@ -7,7 +7,8 @@ Authors@R: c(
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"),
       comment = c(ORCID = "0000-0001-8423-1823")),
     person("Hubert", "Baniecki", role =  c("ctb")),
-    person("Tomasz", "Mikołajczyk", role =  c("ctb"))
+    person("Tomasz", "Mikołajczyk", role =  c("ctb")),
+    person("Michal", "Burdukiewicz", role =  c("ctb"))
   )
 Description: Provides an easy to use unified interface for creating validation plots for any model. 
   The 'auditor' helps to avoid repetitive work consisting of writing code needed to create residual plots. 
@@ -16,7 +17,9 @@ Depends: R (>= 3.0.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: ggplot2,
+Imports: 
+    DALEX,
+    ggplot2,
     ggrepel,
     grid,
     gridExtra,
@@ -24,7 +27,6 @@ Imports: ggplot2,
     scales
 RoxygenNote: 6.1.1
 Suggests: 
-    DALEX,
     e1071,
     jsonlite,
     knitr,
