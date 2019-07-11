@@ -1,4 +1,4 @@
-#' @title Plot LIFT in D3 with r2d3 Package.
+#' @title Plot LIFT in D3 with r2d3 package.
 #'
 #' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.

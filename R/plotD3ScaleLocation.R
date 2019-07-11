@@ -1,4 +1,4 @@
-#' @title Scale Location Plot in D3 with r2d3 Package.
+#' @title Scale Location Plot in D3 with r2d3 package.
 #'
 #' @description
 #' Function \code{plotD3ScaleLocation} plots square root of the absolute value of the residuals vs target,
@@ -44,8 +44,9 @@
 #' @export
 #' @rdname plotD3ScaleLocation
 
-plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE,
-                                point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
+plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
+                                peaks = FALSE, point_count = NULL, single_plot = TRUE,
+                                scale_plot = FALSE, background = FALSE){
 
   n <- length(list(...)) + 1
 

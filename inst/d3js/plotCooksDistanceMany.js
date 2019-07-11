@@ -5,14 +5,13 @@ var minVariable = options.xmin, maxVariable = options.xmax,
     background = options.background;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 60, left: 60, inner: 70},
+    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 70},
     h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
-var m = Math.ceil(n/2);
-if (n == 2) { m = 2; }
-
 if (options.scalePlot === true) {
+  var m = Math.ceil(n/2);
+  if (n == 2) { m = 2; }
   plotHeight = (h-(m-1)*margin.inner)/m;
   plotWidth = 3*plotHeight/2;
 } else {
@@ -43,7 +42,7 @@ function residual(data){
 function singlePlot(modelName, pointData, i) {
 
     var x = d3.scaleLinear()
-          .range([plotLeft + 10, plotLeft + plotWidth - 10])
+          .range([plotLeft + 5, plotLeft + plotWidth - 5])
           .domain([minVariable, maxVariable]);
 
     var y = d3.scaleLinear()
@@ -65,59 +64,7 @@ function singlePlot(modelName, pointData, i) {
         .attr("y", plotTop - 15)
         .text(modelName);
 
-    // find 5 nice ticks with max and min - do better than d3
-    var domain = x.domain();
-    var tickValues = d3.ticks(domain[0], domain[1], 5);
-
-    switch (tickValues.length){
-      case 3:
-        tickValues.unshift(domain[0]);
-        tickValues.push(domain[1]);
-        break;
-
-      case 4:
-        if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
-          tickValues.shift();
-          tickValues.unshift(domain[0]);
-          tickValues.push(domain[1]);
-        } else {
-          tickValues.pop();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-        }
-        break;
-
-      case 5:
-        tickValues.pop();
-        tickValues.shift();
-        tickValues.push(domain[1]);
-        tickValues.unshift(domain[0]);
-        break;
-
-      case 6:
-        if(Math.abs(domain[0] - tickValues[0]) < Math.abs(domain[1] - tickValues[3])){
-          tickValues.pop();
-          tickValues.shift();
-          tickValues.shift();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-        } else {
-          tickValues.pop();
-          tickValues.pop();
-          tickValues.shift();
-          tickValues.push(domain[1]);
-          tickValues.unshift(domain[0]);
-        }
-        break;
-
-      case 7:
-        tickValues.pop();
-        tickValues.pop();
-        tickValues.shift();
-        tickValues.shift();
-        tickValues.push(domain[1]);
-        tickValues.unshift(domain[0]);
-    }
+    var tickValues = getTickValues(x.domain());
 
     // axis and grid
     var xAxis = d3.axisBottom(x)

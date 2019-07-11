@@ -1,4 +1,4 @@
-#' @title Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 Package.
+#' @title Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.
 #'
 #' @description
 #' Function \code{plotD3Prediction} plots predicted values vs target, observed or variable values in the model.
@@ -42,7 +42,8 @@
 #' @rdname plotD3Prediction
 
 plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
-                             point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
+                             point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
+                             background = FALSE){
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
 

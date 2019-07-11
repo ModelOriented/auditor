@@ -1,4 +1,4 @@
-#' @title Regression Error Characteristic Curves (REC) in D3 with r2d3 Package.
+#' @title Regression Error Characteristic Curves (REC) in D3 with r2d3 package.
 #'
 #' @description Error Characteristic curves are a generalization of ROC curves.
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage
@@ -8,7 +8,7 @@
 #' @param ... Other modelAudit or model Residuals objects to be plotted together.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
-#' @return r2d3 object
+#' @return a `r2d3` object.
 #'
 #' @details REC curve estimates the Cumulative Distribution Function (CDF) of the error
 #'
@@ -62,7 +62,6 @@ plotD3REC <- function(object, ..., scale_plot = FALSE) {
   temp <- jsonlite::toJSON(list(lineData))
 
   options <- list(xmax = xmax, xmin = xmin,
-                  modelNames = modelNames,
                   scalePlot = scale_plot, n = n,
                   xTitle = xTitle, chartTitle = chartTitle)
 
