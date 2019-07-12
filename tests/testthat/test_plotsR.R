@@ -72,13 +72,14 @@ test_that("plotHalfNormal", {
 })
 
 test_that("plotLIFT", {
-  expect_is(plotLIFT(au.class.glm2), "gtable")
-  expect_is(plotLIFT(au.class.glm, au.class.glm), "gtable")
+  expect_is(plotLIFT(au.class.glm2), "gg")
+  expect_is(plotLIFT(au.class.glm, au.class.glm), "gg")
 })
 
 test_that("plotROC", {
   expect_is(plotROC(au.class.glm), "gg")
   expect_is(plotROC(au.class.glm, au.class.glm2), "gg")
+  expect_is(plotROC(au.class.glm, au.class.glm2, nlabels = 4), "gg")
 })
 
 test_that("plotRROC", {
@@ -119,7 +120,7 @@ test_that("plot", {
   expect_is(plot(au.lm, au.rf, type="TwoSidedECDF"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelPCA"), "gg")
   expect_is(plot(au.lm, type="ResidualDensity"), "gg")
-  expect_is(plot(au.class.glm2, type="LIFT"), "gtable")
+  expect_is(plot(au.class.glm2, type="LIFT"), "gg")
   expect_is(plot(au.glm, au.rf, type="ModelCorrelation"), "gtable")
   expect_is(plot(au.glm, au.rf, type="ModelCorrelation", values = "res"), "gtable")
   expect_is(plot(au.lm, au.rf, type="Prediction"), "gg")

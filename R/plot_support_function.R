@@ -83,7 +83,6 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, error.
       object <- modelResiduals(object, variable)
     switch(type,
            "eva"  = { object <- modelEvaluation(object, variable) },
-           "lift" = { object <- modelEvaluation(object, variable) },
            "infl" = { object <- obs_influence_add(object, nlabel) },
            "fit"  = { object <- modelFit(object, quant.scale = quant) },
            "prfm" = { object <- modelPerformance(object, scores, new.score) })
@@ -93,7 +92,6 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, error.
          "rroc" = { object <- make_rroc_df(object) },
          "scal" = { object <- make_scale_loc_df(object) },
          "dens" = { object <- get_division(object) },
-         "lift" = { object <- attributes(object)$CGains },
          "pca"  = { object <- make_pca_df(object) },
          "corr" = { object <- make_corr_df(object, values) },
          "ecdf" = { object <- getTwoSidedECDF(object, error.scaled, outliers, y.reversed) })

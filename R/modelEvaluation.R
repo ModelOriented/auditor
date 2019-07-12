@@ -64,6 +64,6 @@ calculate_classif_evaluation <- function(predictions, y, label){
              fpr = fpr,
              rpp = rpp,
              tp = tp)
-  res$label <- factor(label)
+  res$label <- label
   res
 }

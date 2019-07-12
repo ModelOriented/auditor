@@ -36,13 +36,12 @@ plotResidualBoxplot <- function(object, ...) {
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # additional values
-  df$label <- strtrim(df$label, 7)
   df_points <- aggregate(list(res = df$res), list(label = df$label), FUN = function(x) { sqrt(mean(x^2)) })
 
   # main chart
-  ggplot(data = df, aes(x = label, y = abs(res))) +
-    geom_boxplot(coef = 1000, show.legend = FALSE, fill = "#ceced9", alpha = 0.5, width = 0.65) +
-    geom_point(data = df_points, aes(x = label, y = res), shape = 4, size = 2.5, color = "red", show.legend = FALSE) +
+  ggplot(data = df, aes(x = label, y = abs(res), fill = label)) +
+    geom_boxplot(coef = 1000, show.legend = FALSE, width = 0.65) +
+    geom_point(data = df_points, aes(x = label, y = res), shape = 4, size = 2.5, show.legend = FALSE) +
     xlab("") +
     ylab("") +
     ggtitle("Absolute residuals") +

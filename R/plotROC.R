@@ -27,7 +27,8 @@
 
 
 plotROC <- function(object, ..., nlabels = NULL) {
-  label <- fpr <- tpr <- NULL
+
+  label <- fpr <- tpr <- ord <- cutoffs <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")
@@ -36,7 +37,7 @@ plotROC <- function(object, ..., nlabels = NULL) {
   df <- make_dataframe(object, ..., type = "eva")
 
   # if cutoff points should be placed on the chart
-  n_models  <- length(levels(df$label))
+  n_models  <- length(unique(df$label))
   len_model <- nrow(df) / n_models
   inds <- c()
   if (!is.null(nlabels)) {
