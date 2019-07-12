@@ -28,6 +28,15 @@ their quantiles against each other.
 Points on the plot correspond to ordered absolute values of model diagnostic
 (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 }
+\examples{
+library(auditor)
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_au <- audit(lm_model, data = dragons, y = dragons$life_length, label = "lm")
+
+plotD3HalfNormal(lm_au)
+
+}
 \seealso{
 \code{\link{scoreHalfNormal}, \link{plotHalfNormal}}
 }

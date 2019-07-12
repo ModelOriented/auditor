@@ -14,6 +14,14 @@
 #'
 #' @return a `r2d3` object.
 #'
+#' @examples
+#' library(auditor)
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length, label = "lm")
+#'
+#' plotD3HalfNormal(lm_au)
+#'
 #' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density
 #'
@@ -27,11 +35,41 @@ plotD3HalfNormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plo
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
 
+  xTitle <- "Half-normal Quantiles"
+  chartTitle <- "Half-normal plot"
+  yTitle <- ifelse(quantiles==TRUE, "Quantiles of |residuals|", "|Residuals|")
+
+  n <- length(list(object, ...))
+
   # check if passed object is of class "modelFit" or "modelAudit"
   check_object(object, type = "fit")
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., quant = quantiles, type = "fit")
 
-  df
+  df <- df[,c("x","lower","median","upper","residuals","label")]
+
+  plotData <- split(df, f = df$label)
+
+  xMinMax <- lapply(plotData, function(x){
+    range(x$x)
+  })
+  yMinMax <- lapply(plotData, function(x){
+    range(x[,setdiff(colnames(x), c("x","label"))])
+  })
+
+  temp <- jsonlite::toJSON(list(plotData, xMinMax, yMinMax))
+
+  options <- list(scalePlot = scale_plot, n = n,
+                  xTitle = xTitle, yTitle = yTitle,
+                  chartTitle = chartTitle)
+
+  r2d3::r2d3(data = temp, script = system.file("d3js/plotHalfNormalMany.js", package = "auditor"),
+             dependencies = list(
+               system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               system.file("d3js/tooltipD3.js", package = "auditor")
+             ),
+             css = system.file("d3js/themeDrWhy.css", package = "auditor"),
+             d3_version = 4,
+             options = options)
 }
