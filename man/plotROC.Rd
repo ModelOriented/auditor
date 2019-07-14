@@ -4,12 +4,14 @@
 \alias{plotROC}
 \title{Receiver Operating Characteristic (ROC)}
 \usage{
-plotROC(object, ...)
+plotROC(object, ..., nlabels = NULL)
 }
 \arguments{
 \item{object}{An object of class ModelAudit or modelEvaluation.}
 
 \item{...}{Other modelAudit objects to be plotted together.}
+
+\item{nlabels}{Number of cutoff points to show on the plot. Default is `NULL`.}
 }
 \value{
 ggplot object
