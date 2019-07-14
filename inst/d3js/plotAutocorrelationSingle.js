@@ -7,7 +7,7 @@ var points = options.points, smooth = options.smooth,
     chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 61+8, left: 60+8, inner: 42},
+    margin = {top: 98, right: 30, bottom: 71, left: 60+8, inner: 42},
     h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {

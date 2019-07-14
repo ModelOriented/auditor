@@ -34,9 +34,10 @@ modelFit <- function(object, quant.scale = FALSE, ...){
 
   result <- datasetHalfNormalPlot(hnpObject, quant.scale, ...)
 
-
   class(result) <- c("modelFit", "data.frame")
-
+  
+  result$label <- object$label
+  
   return(result)
 }
 

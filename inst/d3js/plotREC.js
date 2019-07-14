@@ -6,7 +6,7 @@ var minValue = options.xmin, maxValue = options.xmax,
 var ymin = 0, ymax = 1, size = 2;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60+8, inner: 42},
+    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
     h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
@@ -81,7 +81,7 @@ var yAxis = d3.axisLeft(y)
 
 yAxis = svg.append("g")
         .attr("class", "axisLabel")
-        .attr("transform","translate(" + (margin.left - 8) + ",0)")
+        .attr("transform","translate(" + (margin.left) + ",0)")
         .call(yAxis)
         .call(g => g.select(".domain").remove());
 

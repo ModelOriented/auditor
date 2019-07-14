@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3Autocorrelation.R
 \name{plotD3Autocorrelation}
 \alias{plotD3Autocorrelation}
-\title{Autocorrelation Plot in D3 with r2d3 Package.}
+\title{Autocorrelation Plot in D3 with r2d3 package.}
 \usage{
 plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
   smooth = FALSE, point_count = NULL, single_plot = TRUE,

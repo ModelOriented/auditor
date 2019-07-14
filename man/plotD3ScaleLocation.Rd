@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3ScaleLocation.R
 \name{plotD3ScaleLocation}
 \alias{plotD3ScaleLocation}
-\title{Scale Location Plot in D3 with r2d3 Package.}
+\title{Scale Location Plot in D3 with r2d3 package.}
 \usage{
 plotD3ScaleLocation(object, ..., variable = NULL, smooth = FALSE,
   peaks = FALSE, point_count = NULL, single_plot = TRUE,

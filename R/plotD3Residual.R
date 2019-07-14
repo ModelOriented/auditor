@@ -1,4 +1,4 @@
-#' @title Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 Package.
+#' @title Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 package.
 #'
 #' @description
 #' Function \code{plotD3Residual} plots resudial values vs target, observed or variable values in the model.
@@ -42,8 +42,9 @@
 #' @export
 #' @rdname plotD3Residual
 
-plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE, std_residuals = FALSE,
-                            point_count = NULL, single_plot = TRUE, scale_plot = FALSE, background = FALSE){
+plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+                           std_residuals = FALSE,point_count = NULL, single_plot = TRUE,
+                           scale_plot = FALSE, background = FALSE){
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
 

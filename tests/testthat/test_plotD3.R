@@ -58,3 +58,14 @@ test_that("plotD3REC", {
   expect_is(plotD3REC(au.glm), "r2d3")
   expect_is(plotD3REC(au.glm, au.lm, scale_plot = TRUE), "r2d3")
 })
+
+test_that("plotD3ACF", {
+  expect_is(plotD3ACF(au.glm), "r2d3")
+  expect_is(plotD3ACF(au.glm, au.lm, scale_plot = TRUE), "r2d3")
+  expect_is(plotD3ACF(au.glm, au.lm, scale_plot = TRUE, alpha = 0.1), "r2d3")
+})
+
+test_that("plotD3HalfNormal", {
+  expect_is(plotD3HalfNormal(au.glm), "r2d3")
+  expect_is(plotD3HalfNormal(au.glm, au.lm, scale_plot = TRUE), "r2d3")
+})

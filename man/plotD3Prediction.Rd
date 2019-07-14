@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3Prediction.R
 \name{plotD3Prediction}
 \alias{plotD3Prediction}
-\title{Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 Package.}
+\title{Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.}
 \usage{
 plotD3Prediction(object, ..., variable = NULL, points = TRUE,
   smooth = FALSE, point_count = NULL, single_plot = TRUE,
