@@ -8,13 +8,13 @@
 #' Other possible values: \code{eva} - model evaluation
 check_object <- function(object, type = "res") {
   model_type <- switch(type,
-                       "res" = "modelResiduals",
-                       "eva" = "modelEvaluation",
-                       "infl" = "observationInfluence",
-                       "fit" = "modelFit",
-                       "prfm" = "modelPerformance")
+                       "res" = "model_residual",
+                       "eva" = "model_evaluation",
+                       "infl" = "model_cooksdistance",
+                       "fit" = "model_halfnormal",
+                       "prfm" = "model_performance")
 
-  if (!(model_type %in% class(object) || "modelAudit" %in% class(object))) {
+  if (!(model_type %in% class(object) || "model_audit" %in% class(object))) {
     stop(paste0("The function requires an object created with audit() or ", model_type, "()."))
   }
 }
@@ -25,10 +25,10 @@ check_object <- function(object, type = "res") {
 #' @description Makes data frame(s) from passed models
 #'
 #' @param object Object passed to the function
-#' @param ... Other modelAudit objects to be plotted together
+#' @param ... Other model_audit objects to be plotted together
 #' @param variable Variable
 #' @param type Type of check; default is \code{res} which stands for "model residuals".
-#' @param nlabel Number of labels in calculating `observationInfluence`
+#' @param nlabel Number of labels in calculating `model_cooksdistance`
 #' @param quant if TRUE values on axis are on quantile scale in `plotHalfNormal`
 #' @param values for `plotModelCorrelation`
 #' @param error.scaled A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions; `plotECDF`
@@ -78,14 +78,14 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
 #' @param type Type of model passed
 prepare_object <- function(object, variable, nlabel, type, quant, values, error.scaled, outliers, y.reversed,
                            scores, new.score) {
-  if ("modelAudit" %in% class(object)) {
+  if ("model_audit" %in% class(object)) {
     if (type %in% c("res", "rec", "rroc", "scal", "dens", "pca", "corr", "ecdf"))
-      object <- modelResiduals(object, variable)
+      object <- model_residual(object, variable)
     switch(type,
-           "eva"  = { object <- modelEvaluation(object, variable) },
+           "eva"  = { object <- model_evaluation(object, variable) },
            "infl" = { object <- obs_influence_add(object, nlabel) },
-           "fit"  = { object <- modelFit(object, quant.scale = quant) },
-           "prfm" = { object <- modelPerformance(object, scores, new.score) })
+           "fit"  = { object <- model_halfnormal(object, quant.scale = quant) },
+           "prfm" = { object <- model_performance(object, scores, new.score) })
   }
   switch(type,
          "rec"  = { object <- make_rec_df(object) },
@@ -156,7 +156,7 @@ make_rroc_df <- function(object) {
 
 obs_influence_add <- function(object, nlabel) {
 
-  df <- observationInfluence(object)
+  df <- model_cooksdistance(object)
   df$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(df) - nlabel))
   return(df)
 }

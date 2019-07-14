@@ -34,6 +34,8 @@ An object of class ModelAudit, which contains:
 \item \code{residuals}
 \item \code{std.residuals} standardized residuals - the residuals divided by theirs standard deviation.
 }
+
+An object of class model_audit.
 }
 \description{
 Function \code{audit} create modelAudit object for further validation of a model.

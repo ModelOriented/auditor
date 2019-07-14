@@ -12,11 +12,11 @@ make_dataframe(object, ..., variable = NULL, nlabel = NULL,
 \arguments{
 \item{object}{Object passed to the function}
 
-\item{...}{Other modelAudit objects to be plotted together}
+\item{...}{Other model_audit objects to be plotted together}
 
 \item{variable}{Variable}
 
-\item{nlabel}{Number of labels in calculating `observationInfluence`}
+\item{nlabel}{Number of labels in calculating `model_cooksdistance`}
 
 \item{type}{Type of check; default is \code{res} which stands for "model residuals".}
 

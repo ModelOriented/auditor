@@ -24,7 +24,7 @@
 #' \item \code{residuals}
 #' \item \code{std.residuals} standardized residuals - the residuals divided by theirs standard deviation.
 #' }
-#'
+#' @return An object of class model_audit.
 #'
 #' @importFrom stats model.frame sd
 #'
@@ -70,7 +70,7 @@ audit.default <- function(object, data=NULL, y = NULL, predict.function = yhat, 
     residuals = residuals,
     std.residuals = residuals / sd(residuals)
   )
-  class(result) <- "modelAudit"
+  class(result) <- "model_audit"
   return(result)
 }
 
