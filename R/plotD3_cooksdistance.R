@@ -3,7 +3,7 @@
 #' @description Cook’s distances are used for estimate the influence of an single observation.
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
-#' @param object An object of class modelAudit or observationInfluence.
+#' @param object An object of class 'model_audit' or 'model_cooksdistance'.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's FALSE.
@@ -17,19 +17,19 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotD3CooksDistance(lm_au)
+#' plotD3_cooksdistance(lm_au)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length, label = "rf")
-#' plotD3CooksDistance(lm_au, rf_au, nlabel = 4)
+#' plotD3_cooksdistance(lm_au, rf_au, nlabel = 4)
 #'
-#' @seealso \code{\link{plotCooksDistance}}
+#' @seealso \code{\link{plot_cooksdistance}}
 #'
 #' @export
-#' @rdname plotD3CooksDistance
+#' @rdname plotD3_cooksdistance
 
-plotD3CooksDistance <- function(object, ..., nlabel = 3,
+plotD3_cooksdistance <- function(object, ..., nlabel = 3,
                               single_plot = FALSE, scale_plot = FALSE, background = FALSE){
 
   n <- length(list(...)) + 1
@@ -46,7 +46,7 @@ plotD3CooksDistance <- function(object, ..., nlabel = 3,
   for (i in 1:n) {
     object <- aul[[i]]
 
-    if (!any(class(object) %in%  c("modelAudit","observationInfluence"))) stop("The function requires an object created with audit() or observationInfluence()")
+    if (!any(class(object) %in%  c("model_audit","model_cooksdistance"))) stop("The function requires an object created with audit() or model_cooksdistance()")
     if (!("observationInfluence" %in% class(object))) {
       oi <- observationInfluence(object)
     } else {
@@ -101,4 +101,13 @@ plotD3CooksDistance <- function(object, ..., nlabel = 3,
                d3_version = 4,
                options = options)
   }
+}
+
+#' @rdname plot_cooksdistance
+#' @export
+plotD3CooksDistance <- function(object, ..., nlabel = 3,
+                    single_plot = FALSE, scale_plot = FALSE, background = FALSE){
+  message("Please note that 'plotD3CooksDistance()' is now deprecated, it is better to use 'plotD3_cooksdistance()' instead.")
+  plotD3_cooksdistance(object, ..., nlabel,
+           single_plot, scale_plot, background)
 }

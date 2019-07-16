@@ -4,7 +4,7 @@
 #' The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 #' under-estimation.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
+#' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit or model Residuals objects to be plotted together.
 #'
 #' @return ggplot object
@@ -23,24 +23,24 @@
 #'
 #' @references Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
 #'
-#' @seealso \code{\link{plot.model_audit}, \link{plotROC}, \link{plotREC}}
+#' @seealso \code{\link{plot.model_audit}, \link{plot_roc}, \link{plot_rec}}
 #'
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotRROC(lm_au)
+#' plot_rroc(lm_au)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotRROC(lm_au, rf_au)
+#' plot_rroc(lm_au, rf_au)
 #'
 #' @import ggplot2
 #'
 #' @export
-plotRROC <- function(object, ...) {
+plot_rroc <- function(object, ...) {
 
   # some safeguard
   rroc_x <- rroc_y <- label <- curve <- ord <- NULL
@@ -77,3 +77,9 @@ plotRROC <- function(object, ...) {
 
 }
 
+#' @rdname plot_rroc
+#' @export
+plotRROC <- function(object, ...) {
+  message("Please note that 'plotRROC()' is now deprecated, it is better to use 'plot_rroc()' instead.")
+  plot_rRoc(object, ...)
+}

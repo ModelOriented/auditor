@@ -4,7 +4,7 @@
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage
 #' of observations predicted within the given tolerance.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
+#' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit or model Residuals objects to be plotted together.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
@@ -21,17 +21,17 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotD3REC(lm_au)
+#' plotD3_rec(lm_au)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotD3REC(lm_au, rf_au)
+#' plotD3_rec(lm_au, rf_au)
 #'
 #' @export
-#' @rdname plotD3REC
+#' @rdname plotD3_rec
 
-plotD3REC <- function(object, ..., scale_plot = FALSE) {
+plotD3_rec <- function(object, ..., scale_plot = FALSE) {
 
   # some safeguard
   rec_x <- rec_y <- label <- NULL
@@ -70,4 +70,12 @@ plotD3REC <- function(object, ..., scale_plot = FALSE) {
              css = system.file("d3js/themeDrWhy.css", package = "auditor"),
              d3_version = 4,
              options = options)
+}
+
+
+#' @rdname plotD3_rec
+#' @export
+plotD3_rec <- function(object, ..., scale_plot = FALSE) {
+  message("Please note that 'plotD3REC()' is now deprecated, it is better to use 'plotD3_rec()' instead.")
+  plotD3_rec(object, ..., scale_plot)
 }

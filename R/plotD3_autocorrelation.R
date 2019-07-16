@@ -32,14 +32,14 @@
 #' lm_mr_year <- modelResiduals(lm_au, variable = "construction.year")
 #' rf_mr_year <- modelResiduals(rf_au, variable = "construction.year")
 #'
-#' plotD3Autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
+#' plotD3_autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
 #'
-#' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE)
-#' plotD3Autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, single_plot = FALSE)
+#' plotD3_autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE)
+#' plotD3_autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, single_plot = FALSE)
 #'
 #' @export
-#' @rdname plotD3Autocorrelation
-plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+#' @rdname plotD3_autocorrelation
+plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                                   point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
                                   background = FALSE) {
 
@@ -148,4 +148,15 @@ plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, s
                d3_version = 4,
                options = options)
   }
+}
+
+#' @rdname plotD3_autocorrelation
+#' @export
+plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+                                  point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
+                                  background = FALSE) {
+  message("Please note that 'plotD3Autocorrelation()' is now deprecated, it is better to use 'plotD3_autocorrelation()' instead.")
+  plotD3_autocorrelation(object, ..., variable, points, smooth,
+           point_count, single_plot, scale_plot,
+           background)
 }

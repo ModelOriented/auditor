@@ -3,13 +3,13 @@
 #' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class modelAudit or modelEvaluation.
+#' @param object An object of class 'model_audit' or 'model_evaluation'.
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
 #' @return a `r2d3` object
 #'
-#' @seealso \code{\link{plotLIFT}}
+#' @seealso \code{\link{plot_lift}}
 #'
 #' @examples
 #' library(DALEX)
@@ -19,17 +19,17 @@
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 #' audit_glm <- audit(model_glm, data = titanic, y = titanic$survived)
 #'
-#' plotD3LIFT(audit_glm)
+#' plotD3_lift(audit_glm)
 #'
 #' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
 #' audit_glm_2 <- audit(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
 #'
-#' plotD3LIFT(audit_glm, audit_glm_2, scale_plot = TRUE)
+#' plotD3_lift(audit_glm, audit_glm_2, scale_plot = TRUE)
 #'
 #' @export
-#' @rdname plotD3LIFT
+#' @rdname plotD3_lift
 
-plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
+plotD3_lift <- function(object, ..., scale_plot = FALSE) {
 
   # some safeguard
   rpp <- tp <- label <- NULL
@@ -85,4 +85,12 @@ plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
              css = system.file("d3js/themeDrWhy.css", package = "auditor"),
              d3_version = 4,
              options = options)
+}
+
+
+#' @rdname plotD3_lift
+#' @export
+plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
+  message("Please note that 'plotD3LIFT()' is now deprecated, it is better to use 'plotD3_lift()' instead.")
+  plotD3_lift(object, ..., scale_plot)
 }

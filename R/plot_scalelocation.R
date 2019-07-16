@@ -4,7 +4,7 @@
 #' A vertical line corresponds to median.
 #'
 #'
-#' @param object An object of class modelAudit or modelResiduals.
+#' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals.
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
@@ -17,14 +17,14 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotScaleLocation(lm_au)
+#' plot_scalelocation(lm_au)
 #'
 #'
 #' @import ggplot2
 #' @importFrom stats median
 #'
 #' @export
-plotScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
+plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
 
   # some safeguard
   values <- sqrt.std.residuals <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
@@ -75,4 +75,12 @@ plotScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peak
   p <- p + xlab(x_lab) + ylab("\u221A|Standarized residuals|") + ggtitle(chart_title)
 
   return(p)
+}
+
+
+#' @rdname plot_scalelocation
+#' @export
+plotScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
+  message("Please note that 'plotScaleLocation()' is now deprecated, it is better to use 'plot_scalelocation()' instead.")
+  plot_scalelocation(object, ..., variable, smooth, peaks)
 }

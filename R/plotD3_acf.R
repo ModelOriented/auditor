@@ -2,9 +2,9 @@
 #'
 #' @description Plot Autocorrelation Function of models residuals.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Only for modelAudit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param object An object of class 'model_audit' or 'model_residuals'.
+#' @param ... Other 'model_audit' or modelResiduals objects to be plotted together.
+#' @param variable Only for 'model_audit' object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #' @param alpha Confidence level of the interval.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
@@ -14,19 +14,19 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotD3ACF(lm_au)
+#' plotD3_acf(lm_au)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotD3ACF(lm_au, rf_au)
+#' plotD3_acf(lm_au, rf_au)
 #'
 #' @importFrom stats qnorm acf
 #'
 #' @export
-#' @rdname plotD3ACF
+#' @rdname plotD3_acf
 
-plotD3ACF <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE) {
+plotD3_acf <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE) {
 
   # some safeguard
   lag <- acf <- ymin <- NULL
@@ -36,7 +36,7 @@ plotD3ACF <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = F
 
   n <- length(list(object, ...))
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -76,4 +76,12 @@ plotD3ACF <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = F
              css = system.file("d3js/themeDrWhy.css", package = "auditor"),
              d3_version = 4,
              options = options)
+}
+
+
+#' @rdname plotD3_acf
+#' @export
+plotD3ACF <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE) {
+  message("Please note that 'plotD3ACF()' is now deprecated, it is better to use 'plotD3_acf()' instead.")
+  plotD3_acf(object, ..., variable, alpha, scale_plot)
 }

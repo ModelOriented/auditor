@@ -2,7 +2,7 @@
 #'
 #' @description A plot of residuals.
 #'
-#' @param object An object of class modelAudit.
+#' @param object An object of class 'model_audit'.
 #' @param ... Other modelAudit objects to be plotted together.
 #'
 #' dragons <- DALEX::dragons[1:100, ]
@@ -21,12 +21,12 @@
 #' @importFrom stats aggregate
 #'
 #' @export
-plotResidualBoxplot <- function(object, ...) {
+plot_residual_boxplot <- function(object, ...) {
 
   # some safeguard
   res <- label <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -51,4 +51,9 @@ plotResidualBoxplot <- function(object, ...) {
     coord_flip()
 }
 
-
+#' @rdname plot_residual_boxplot
+#' @export
+plotResidualBoxplot <- function(object, ...) {
+  message("Please note that 'plotResidualBoxplot()' is now deprecated, it is better to use 'plot_residual_boxplot()' instead.")
+  plot_residual_boxplot(object, ...)
+}

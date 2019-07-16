@@ -2,12 +2,12 @@
 #'
 #' @description Cumulative Distribution Function for positive and negative residuals.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class 'model_audit'.
 #' @param ... Other modelAudit objects to be plotted together.
-#' @param error.scaled  A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.
+#' @param scale_error  A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.
 #' @param outliers Number of outliers to be marked.
 #' @param residuals A logical value indicating whether residuals should be marked.
-#' @param y.reversed A logical value indicating whether values on y axis should be reversed.
+#' @param reverse_y A logical value indicating whether values on y axis should be reversed.
 #'
 #' @return ggplot object
 #'
@@ -15,12 +15,12 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotTwoSidedECDF(lm_au)
+#' plot_tsecdf(lm_au)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotTwoSidedECDF(lm_au, rf_au, y.reversed = TRUE)
+#' plot_tsecdf(lm_au, rf_au, reverse_y = TRUE)
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
@@ -28,12 +28,12 @@
 #' @importFrom ggrepel geom_text_repel
 #'
 #' @export
-plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
-                             residuals = TRUE, y.reversed = FALSE) {
+plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
+                             residuals = TRUE, reverse_y = FALSE) {
   # some safeguard
   res <- ecd <- label <- big <- no.obs <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -72,4 +72,13 @@ plotTwoSidedECDF <- function(object, ..., error.scaled = TRUE, outliers = NA,
   } else {
     p
   }
+}
+
+
+#' @rdname plot_tsecdf
+#' @export
+plotTwoSidedECDF <- function(object, ..., scale_error = TRUE, outliers = NA,
+                             residuals = TRUE, reverse_y = FALSE) {
+  message("Please note that 'plotTwosidedECDF()' is now deprecated, it is better to use 'plot_tsecdf()' instead.")
+  plot_tsecdf(object, ..., scale_error, outliers, residuals, reverse_y)
 }

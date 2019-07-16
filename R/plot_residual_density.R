@@ -2,7 +2,7 @@
 #'
 #' @description Density of model residuals.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class 'model_audit'.
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param split Logical. Indicates whenever plot should be splitted by variable.
 #' @param variable variable name o split. Optional. Should be provided  only for modelAudit object.
@@ -25,7 +25,7 @@
 #' @import ggplot2
 #'
 #' @export
-plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
+plot_residual_density <- function(object, ..., split = FALSE, variable = NULL) {
 
   if (split == FALSE && (!is.null(variable) && nchar(variable) > 1))
     stop("Please change argument `split` to `TRUE` if you want to plot residual density of a specific variable")
@@ -33,7 +33,7 @@ plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
   # some safeguard
   res <- label <- div <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "model_residuals" or "model_audit"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -85,4 +85,12 @@ plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
     if (model_count == 1) p <- p + theme(strip.text = element_blank())
     p
   }
+}
+
+
+#' @rdname plot_residual_boxplot
+#' @export
+plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
+  message("Please note that 'plotResidualDensity()' is now deprecated, it is better to use 'plot_residual_density()' instead.")
+  plot_residual_density(object, ..., split, variable)
 }

@@ -29,7 +29,7 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
   # some safeguard
   lag <- acf <- ymin <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -73,5 +73,5 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
 #' @export
 plotACF <- function(object, ..., variable = NULL, alpha = 0.95) {
   message("Please note that 'plotACF()' is now deprecated, it is better to use 'plot_acf()' instead.")
-  plot_acf(object, ..., variable = NULL, alpha = 0.95)
+  plot_acf(object, ..., variable, alpha)
 }

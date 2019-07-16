@@ -1,12 +1,12 @@
 #' @title Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.
 #'
 #' @description
-#' Function \code{plotD3Prediction} plots predicted values vs target, observed or variable values in the model.
-#' It uses output from \code{modelAudit} or \code{modelResiduals} function.
+#' Function \code{plotD3_prediction} plots predicted values vs target, observed or variable values in the model.
+#' It uses output from \code{model_audit} or \code{model_residual} function.
 #'
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
+#' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals.
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
@@ -33,15 +33,15 @@
 #' rf_model <- randomForest(m2.price ~., data = apartments)
 #' rf_au <- audit(rf_model, label = "rf")
 #' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3Prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-#' plotD3Prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
+#' plotD3_prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' plotD3_prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 #'
-#' @seealso \code{\link{plotPrediction}}
+#' @seealso \code{\link{plot_rrediction}}
 #'
 #' @export
-#' @rdname plotD3Prediction
+#' @rdname plotD3_prediction
 
-plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+plotD3_prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                              point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
                              background = FALSE){
 
@@ -54,14 +54,14 @@ plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth
   yTitle <- "Predicted values"
   chartTitle <- "Predicted"
 
-  # make every input modelResiduals, check `variable`
+  # make every input 'model_residuals', check `variable`
   mrl <- list()
   varl <- c()
 
   for (i in 1:n) {
     object <- aul[[i]]
 
-    if (!any(class(object) %in%  c("modelAudit","modelResiduals"))) stop("The function requires an object created with audit() or modelResiduals().")
+    if (!any(class(object) %in%  c("model_audit","model_residual"))) stop("The function requires an object created with audit() or modelResiduals().")
     if (!("modelResiduals" %in% class(object))) {
       mr <- modelResiduals(object, variable)
     } else {
@@ -157,4 +157,15 @@ plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth
                d3_version = 4,
                options = options)
   }
+}
+
+#' @rdname plotD3_prediction
+#' @export
+plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+                              point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
+                              background = FALSE) {
+  message("Please note that 'plotD3_prediction()' is now deprecated, it is better to use 'plotD3_prediction()' instead.")
+  plotD3_prediction(object, ..., variable, points, smooth,
+           point_count, single_plot, scale_plot,
+           background)
 }

@@ -6,7 +6,7 @@
 #' Points on the plot correspond to ordered absolute values of model diagnostic
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
-#' @param object modelAudit object, modelFit object.
+#' @param object 'model_audit' object, 'model_halfnormal' object.
 #' @param quantiles if TRUE values on axis are on quantile scale.
 #' @param ... extra arguments passed to \link[hnp]{hnp}.
 #' @param sim number of residuals to simulate
@@ -20,17 +20,17 @@
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length, label = "lm")
 #'
-#' plotD3HalfNormal(lm_au)
+#' plotD3_halfnormal(lm_au)
 #'
 #' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density
 #'
-#' @seealso \code{\link{scoreHalfNormal}, \link{plotHalfNormal}}
+#' @seealso \code{\link{score_halfnormal}, \link{plot_halfnormal}}
 #'
 #' @export
-#' @rdname plotD3HalfNormal
+#' @rdname plotD3_halfnormal
 
-plotD3HalfNormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE) {
+plotD3_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE) {
 
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
@@ -72,4 +72,12 @@ plotD3HalfNormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plo
              css = system.file("d3js/themeDrWhy.css", package = "auditor"),
              d3_version = 4,
              options = options)
+}
+
+
+#' @rdname plotD3_halfnormal
+#' @export
+plotD3_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE) {
+  message("Please note that 'plotD3HalfNormal()' is now deprecated, it is better to use 'plotD3_halfnormal()' instead.")
+  plotD3_halfnormal(object, ..., quantiles, sim, scale_plot)
 }

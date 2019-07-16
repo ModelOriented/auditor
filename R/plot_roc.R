@@ -3,7 +3,7 @@
 #' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class ModelAudit or modelEvaluation.
+#' @param object An object of class 'model_audit' or 'model_evaluation'.
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param nlabels Number of cutoff points to show on the plot. Default is `NULL`.
 #'
@@ -21,12 +21,12 @@
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 #' audit_glm <- audit(model_glm, y = titanic$survived)
 #'
-#' plotROC(audit_glm)
+#' plot_roc(audit_glm)
 #'
 #' @export
 
 
-plotROC <- function(object, ..., nlabels = NULL) {
+plot_roc <- function(object, ..., nlabels = NULL) {
 
   label <- fpr <- tpr <- ord <- cutoffs <- NULL
 
@@ -63,4 +63,11 @@ plotROC <- function(object, ..., nlabels = NULL) {
     xlab("False positive fraction") +
     ylab("True positive fraction") +
     ggtitle("ROC curve")
+}
+
+#' @rdname plot_roc
+#' @export
+plotROC <- function(object, ..., nlabels = NULL) {
+  message("Please note that 'plotROC()' is now deprecated, it is better to use 'plot_roc()' instead.")
+  plot_roc(object, ..., nlabels)
 }
