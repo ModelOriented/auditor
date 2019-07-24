@@ -25,7 +25,8 @@ scoreROC <- function(object){
   if(!("modelEvaluation" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
   if("modelAudit" %in% class(object)) object <- modelEvaluation(object)
 
-  pred <- calculate_classif_evaluation(object$fitted.values, object$y, object$label)
+  pred <- data.frame(fitted.values = object$fitted.values,
+                     object$y)
   pred_sorted <- pred[order(pred$fitted.values, decreasing = TRUE), ]
   roc_y <- factor(pred_sorted$y)
   levels <- levels(roc_y)
@@ -39,5 +40,5 @@ scoreROC <- function(object){
   )
 
   class(ROCResults) <- "scoreAudit"
-  return(ROCResults)
+  ROCResults
 }
