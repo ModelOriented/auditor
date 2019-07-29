@@ -31,7 +31,7 @@ model_halfnormal <- function(object, quant = FALSE, ...){
   if("randomForest" %in% class(model)) {
     hnpObject <- hnpObject.randomForest(object, data)
   } else {
-    hnpObject <- hnp(model, plot.sim=FALSE, ...)
+    hnpObject <- hnp(model, plot.sim=FALSE, halfnormal=FALSE, ...)
   }
 
   result <- dataset_halfnormal_plot(hnpObject, quant, ...)
@@ -58,7 +58,7 @@ hnpObject.randomForest <- function(object, data){
     mod <- update(object$model, data = newdata)
     return(mod)
   }
-  hnpObject <- hnp(object$model, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun)
+  hnpObject <- hnp(object$model, newclass = TRUE, diagfun = d.fun, simfun = s.fun, fitfun = f.fun, plot.sim = FALSE)
 
   return(hnpObject)
 }

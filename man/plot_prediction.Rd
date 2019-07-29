@@ -12,7 +12,7 @@ plotPrediction(object, ..., variable = NULL, smooth = FALSE,
   abline = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_residual'.}
+\item{object}{An object of class 'model_audit' or 'model_residual.}
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 

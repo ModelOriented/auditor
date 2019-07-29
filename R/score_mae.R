@@ -23,7 +23,7 @@ score_mae <- function(object){
 
   MAEResults <- list(
     name = "mae",
-    score = mean(abs(object$y - object$fitted.values))
+    score = mean(abs(object$y - object$fitted_values))
     )
 
   class(MAEResults) <- "score_audit"

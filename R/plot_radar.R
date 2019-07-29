@@ -6,6 +6,7 @@
 #' @param ... Other model_audit objects to be plotted together.
 #' @param score Vector of score names to be plotted.
 #' @param new_score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
+#' @param print logical, should values of scores be printed?
 #'
 #' @return ggplot object
 #'
@@ -27,7 +28,7 @@
 #' @import scales
 #'
 #' @export
-plot_radar <- function(object, ..., score = c("MAE", "MSE", "REC", "RROC"), new_score = NULL) {
+plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_score = NULL, print = TRUE) {
 
   # safeguard
   x <- y <- value <- scaled <- name <- label <- NULL
@@ -35,7 +36,6 @@ plot_radar <- function(object, ..., score = c("MAE", "MSE", "REC", "RROC"), new_
 
   # check if passed object is of class "model_performance" or "model_audit"
   check_object(object, type = "prfm")
-
   # data frame for ggplot object
   df <- make_dataframe(object, ..., score = score, new_score = new_score, type = "prfm")
 
@@ -63,7 +63,9 @@ plot_radar <- function(object, ..., score = c("MAE", "MSE", "REC", "RROC"), new_
 
   df$name <- gsub("inv\n", "", df$name)
 
-  return(list(plot_ranking = p, data = subset(df, select = c(name, label, value, scaled))))
+  if(print == TRUE) print(subset(df, select = c(name, label, value, scaled)))
+
+   p
 }
 
 #' @rdname plot_radar

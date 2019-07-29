@@ -1,5 +1,5 @@
-library(auditor)
 library(DALEX)
+library(auditor)
 library(randomForest)
 
 set.seed(123)
@@ -54,8 +54,7 @@ explainer_lm <- explain(model_lm, data = artifficial_regr, y = artifficial_regr$
 au_expl_lm <- audit(explainer_lm)
 
 cd_lm <- model_cooksdistance(au_lm)
-mp_lm <- modelPerformance(au_lm)
-mf_lm <- modelFit(au_lm)
-glm_mr <- modelResiduals(au.glm, "x2")
-rf_mr <- modelResiduals(au.rf, "x1")
-
+mp_lm <- model_performance(au_lm)
+mf_lm <- model_halfnormal(au_lm)
+glm_mr <- model_residual(au_glm, "x2")
+rf_mr <- model_residual(au_rf, "x1")

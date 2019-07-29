@@ -34,7 +34,6 @@
 plot_lift <- function(object, ...) {
   # some safeguard
   rpp <- tp <- label <- variable <- line <- ord <- NULL
-
   # check if passed object is of class "modelEvaluation" or "modelAudit"
   check_object(object, type = "eva")
 

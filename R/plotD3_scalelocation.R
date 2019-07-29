@@ -63,15 +63,15 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
     object <- aul[[i]]
 
     if (!any(class(object) %in%  c("model_audit","model_residual"))) stop("The function requires an object created with audit() or model_residual().")
-    if (!("modelResiduals" %in% class(object))) {
-      mr <- modelResiduals(object, variable)
+    if (!("model_residual" %in% class(object))) {
+      mr <- model_residual(object, variable)
     } else {
       mr <- object
     }
 
     varl <- c(varl, as.character(mr$variable[1]))
 
-    df <- make_scale_loc_df(mr)[, c("sqrt.std.residuals", "values", "label", "peak")]
+    df <- make_scale_loc_df(mr)[, c("sqrt_std_residuals", "values", "label", "peak")]
 
     colnames(df) <- c("y", "x", "label", "peak")
     mrl[[i]] <- df

@@ -4,7 +4,7 @@
 \alias{modelPerformance}
 \title{Create Model Performance Explainer}
 \usage{
-modelPerformance(object, scores = c("MAE", "MSE", "REC", "RROC"),
+modelPerformance(object, scores = c("mae", "mse", "rec", "rroc"),
   new.score = NULL)
 }
 \arguments{

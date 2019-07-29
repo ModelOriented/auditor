@@ -3,7 +3,7 @@
 #' @description Plot of predicted response vs observed or variable Values.
 #'
 #'
-#' @param object An object of class 'model_audit' or 'model_residual'.
+#' @param object An object of class 'model_audit' or 'model_residual.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Only for 'model_audit' objects. Name of model variable to order residuals.
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
@@ -32,7 +32,7 @@
 plot_prediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = FALSE) {
 
   # some safeguard
-  val <- fitted.values <- label <- NULL
+  val <- fitted_values <- label <- NULL
 
   # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
@@ -50,7 +50,7 @@ plot_prediction <- function(object, ..., variable = NULL, smooth = FALSE, abline
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # main chart
-  p <- ggplot(data = df, aes(val, fitted.values))
+  p <- ggplot(data = df, aes(val, fitted_values))
 
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)

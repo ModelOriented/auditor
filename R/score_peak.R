@@ -19,9 +19,9 @@
 
 score_peak <- function(object, variable = NULL){
   if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'model_residual()'.")
-  if(!("model_residual" %in% class(object))) object <- modelResiduals(object, variable)
+  if(!("model_residual" %in% class(object))) object <- model_residual(object, variable)
 
-  peaks <- sum( (abs(object$std.res) >= cummax(abs(object$std.res)))) / nrow(object)
+  peaks <- sum( (abs(object$std_res) >= cummax(abs(object$std_res)))) / nrow(object)
 
     peak_results <- list(
       name = "peak",

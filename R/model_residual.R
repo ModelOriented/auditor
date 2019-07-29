@@ -24,9 +24,9 @@ model_residual <- function(object, variable = NULL){
   }
 
   residuals <- orderResidualsDF(object, variable, is.df = TRUE)
-  std.residuals <- orderResidualsDF(object, variable, type = "std.residuals")
+  std_residuals <- orderResidualsDF(object, variable, type = "std_residuals")
   y <- orderResidualsDF(object, variable, type = "y")
-  fitted.values <- orderResidualsDF(object, variable, type = "fitted.values")
+  fitted_values <- orderResidualsDF(object, variable, type = "fitted_values")
   if (is.null(variable)) {
     variable <- "Target variable"
   } else if (variable == "") {
@@ -38,8 +38,8 @@ model_residual <- function(object, variable = NULL){
                        val = residuals$value,
                        variable = variable,
                        y = y,
-                       fitted.values = fitted.values,
-                       std.res = std.residuals,
+                       fitted_values = fitted_values,
+                       std_res = std_residuals,
                        index = residuals$index
   )
   class(result) <- c("model_residual", "data.frame")

@@ -42,7 +42,7 @@
 #' @export
 #' @rdname plotD3Residual
 
-plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+plotD3_residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                            std_residuals = FALSE,point_count = NULL, single_plot = TRUE,
                            scale_plot = FALSE, background = FALSE){
 
@@ -54,7 +54,7 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
 
   # chose y
   if (std_residuals == TRUE) {
-    y <- "std.res"
+    y <- "std_res"
     yTitle <- "Standardized residuals"
     chartTitle <- "Standardized residuals"
   } else {
@@ -70,7 +70,7 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
   for (i in 1:n) {
     object <- aul[[i]]
 
-    if (!any(class(object) %in%  c("modelAudit","modelResiduals"))) stop("The function requires an object created with audit() or modelResiduals().")
+    if (!any(class(object) %in%  c("model_audit","model_residual"))) stop("The function requires an object created with audit() or model_residual().")
     if (!("modelResiduals" %in% class(object))) {
       mr <- modelResiduals(object, variable)
     } else {

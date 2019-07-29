@@ -46,8 +46,6 @@ score_rroc <- function(object) {
 
 }
 
-# getRROCDF is in plotRROC.R file
-
 
 #' @rdname score_roc
 #' @export

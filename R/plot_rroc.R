@@ -81,5 +81,5 @@ plot_rroc <- function(object, ...) {
 #' @export
 plotRROC <- function(object, ...) {
   message("Please note that 'plotRROC()' is now deprecated, it is better to use 'plot_rroc()' instead.")
-  plot_rRoc(object, ...)
+  plot_rroc(object, ...)
 }

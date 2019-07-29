@@ -13,19 +13,19 @@
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 #' audit_glm <- audit(model_glm, y = titanic$survived)
 #'
-#' score_roc(audit_glm)
+#' score_auc(audit_glm)
 #'
 #' @seealso \code{\link{plot_roc}}
 #'
 #' @export
 
 
-score_roc <- function(object){
+score_auc <- function(object){
   if(!("model_evaluation" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'modelResiduals()'.")
   if("model_audit" %in% class(object)) object <- model_evaluation(object)
 
-  pred <- calculate_classif_evaluation(object$fitted.values, object$y, object$label)
-  pred_sorted <- pred[order(pred$fitted.values, decreasing = TRUE), ]
+  pred <- calculate_classif_evaluation(object$fitted_values, object$y, object$label)
+  pred_sorted <- pred[order(pred$fitted_values, decreasing = TRUE), ]
   roc_y <- factor(pred_sorted$y)
   levels <- levels(roc_y)
   x = cumsum(roc_y == levels[1])/sum(roc_y == levels[1])
@@ -41,9 +41,9 @@ score_roc <- function(object){
   return(roc_results)
 }
 
-#' @rdname score_roc
+#' @rdname score_auc
 #' @export
 scoreROC<- function(object) {
-  message("Please note that 'scoreROC()' is now deprecated, it is better to use 'score_roc()' instead.")
-  score_roc(object)
+  message("Please note that 'scoreROC()' is now deprecated, it is better to use 'score_auc()' instead.")
+  score_auc(object)
 }

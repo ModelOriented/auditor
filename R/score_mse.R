@@ -22,7 +22,7 @@ score_mse <- function(object){
 
   mse_results <- list(
     name = "mae",
-    score = mean((object$y - object$fitted.values)^2)
+    score = mean((object$y - object$fitted_values)^2)
     )
 
   class(mse_results) <- "score_audit"

@@ -23,7 +23,7 @@ score_rmse <- function(object){
 
   mse_results <- list(
     name = "rmse",
-    score = sqrt(mean((object$y - object$fitted.values)^2))
+    score = sqrt(mean((object$y - object$fitted_values)^2))
     )
 
   class(mse_results) <- "score_audit"

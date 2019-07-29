@@ -27,9 +27,9 @@
 plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
 
   # some safeguard
-  values <- sqrt.std.residuals <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
+  values <- sqrt_std_residuals <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "model_residuals" or "model_audit"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -43,7 +43,7 @@ plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, pea
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # main chart
-  p <- ggplot(data = df, aes(values, sqrt.std.residuals))
+  p <- ggplot(data = df, aes(values, sqrt_std_residuals))
 
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)
@@ -62,7 +62,7 @@ plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, pea
 
   chart_title <- "Scale location"
 
-  if ("modelAudit" %in% class(object)) object <- modelResiduals(object, variable = variable)
+  if ("model_audit" %in% class(object)) object <- model_residual(object, variable = variable)
   x_lab <- as.character(object$variable[1])
 
   if (x_lab != "Observations") {

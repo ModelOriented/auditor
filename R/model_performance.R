@@ -21,12 +21,13 @@
 #'
 #'
 #' @export
-model_performance <- function(object, score = c("MAE", "MSE", "REC", "RROC"), new_score = NULL) {
-
+model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL) {
   if (!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
 
-    score <- sapply(score, function(x) score(object, type = x)$score)
+    score <- sapply(score, function(x) score(object, score = x)$score)
     df <- data.frame(score = score[1], label = object$label, name = names(score[1]))
+
+
     if (length(score) > 1) df <- rbind(df, data.frame(score = score[-1], label = object$label, name = names(score[-1])))
 
     if (!is.null(new_score)) {
@@ -67,7 +68,7 @@ model_performance <- function(object, score = c("MAE", "MSE", "REC", "RROC"), ne
 #' modelPerformance(audit_glm)
 #'
 #' @export
-modelPerformance  <- function(object, scores = c("MAE", "MSE", "REC", "RROC"), new.score = NULL) {
+modelPerformance  <- function(object, scores = c("mae", "mse", "rec", "rroc"), new.score = NULL) {
   message("Please note that 'modelPerformance()' is now deprecated, it is better to use 'model_performance()' instead.")
   model_performance(object, scores, new.score)
 }

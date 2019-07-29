@@ -70,7 +70,7 @@ plotD3_prediction <- function(object, ..., variable = NULL, points = TRUE, smoot
 
     varl <- c(varl, as.character(mr$variable[1]))
 
-    df <- mr[, c("fitted.values", "val", "label")]
+    df <- mr[, c("fitted_values", "val", "label")]
     class(df) <- "data.frame"
     colnames(df) <- c("y", "x", "label")
     mrl[[i]] <- df

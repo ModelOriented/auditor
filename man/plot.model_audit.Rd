@@ -6,33 +6,34 @@
 \alias{plot.model_audit}
 \alias{plot.model_cooksdistance}
 \alias{plot.model_halfnormal}
-\alias{plot.model_performance}
+\alias{plot.auditor_model_performance}
 \alias{plot.model_residual}
 \title{Model diagnostic plots}
 \usage{
-\method{plot}{model_audit}(x, ..., type = "Residual", ask = TRUE,
+\method{plot}{model_audit}(x, ..., type = "residual", ask = TRUE,
   grid = TRUE)
 
-\method{plot}{model_cooksdistance}(x, ..., type = "Residual",
+\method{plot}{model_cooksdistance}(x, ..., type = "residual",
   ask = TRUE, grid = TRUE)
 
-\method{plot}{model_halfnormal}(x, ..., type = "Residual", ask = TRUE,
+\method{plot}{model_halfnormal}(x, ..., type = "residual", ask = TRUE,
   grid = TRUE)
 
-\method{plot}{model_performance}(x, ..., type = "Residual", ask = TRUE,
-  grid = TRUE)
+\method{plot}{auditor_model_performance}(x, ..., type = "residual",
+  ask = TRUE, grid = TRUE)
 
-\method{plot}{model_residual}(x, ..., type = "Residual", ask = TRUE,
+\method{plot}{model_residual}(x, ..., type = "residual", ask = TRUE,
   grid = TRUE)
 }
 \arguments{
-\item{x}{object of class modelAudit, modelResiduals or observationInfluence.}
+\item{x}{object of class 'model_audit', 'model_residual', 'auditor_model_performance', 'model_evaluation',
+'model_cooksdistance', or 'model_halfnormal'.}
 
 \item{...}{other arguments dependent on the type of plot or additionl objects of class modelAudit}
 
-\item{type}{the type of plot. Possible values: 'ACF', 'Autocorrelation', 'CooksDistance', 'HalfNormal', 'Residuals', 'LIFT',
-ModelPCA', 'ModelRanking', ModelCorrelation', 'Prediction', 'REC', 'Resiual', 'ResidualBoxplot',ResidualDensity', 'ROC', 'RROC',
-ScaleLocation', 'TwoSidedECDF' (for detailed description see functions in see also section).}
+\item{type}{the type of plot. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residuals',
+'lift', 'pca', 'radar', 'correlation', 'prediction', 'rec', 'resiual', 'residual_boxplot','residual_density',
+'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see functions in see also section).}
 
 \item{ask}{logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.}
 
@@ -50,13 +51,14 @@ plot(lm_au)
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
 rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plot(lm_au, rf_au, type = "ModelRanking")
+plot(lm_au, rf_au, type = "radar")
 
 
 }
 \seealso{
-\code{\link{plotACF}, \link{plotAutocorrelation}, \link{plotCooksDistance},
-\link{plotHalfNormal}, \link{plotResidual}, \link{plotResidualBoxplot}, \link{plotLIFT}, \link{plotModelPCA}, \link{plotModelRanking}, \link{plotModelCorrelation},
-\link{plotPrediction}, \link{plotREC}, \link{plotResidualDensity}, \link{plotResidual}, \link{plotROC},
-\link{plotRROC}, \link{plotScaleLocation}, \link{plotTwoSidedECDF}}
+\code{\link{plot_acf}, \link{plot_autocorrelation}, \link{plot_cooksdistance},
+\link{plot_halfnormal}, \link{plot_residual}, \link{plot_residual_boxplot}, \link{plot_lift}, \link{plot_pca},
+\link{plot_radar}, \link{plot_correlation},
+\link{plot_prediction}, \link{plot_rec}, \link{plot_residual_density}, \link{plot_residual}, \link{plot_roc},
+\link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
 }

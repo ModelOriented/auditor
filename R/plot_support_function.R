@@ -12,7 +12,7 @@ check_object <- function(object, type = "res") {
                        "eva" = "model_evaluation",
                        "infl" = "model_cooksdistance",
                        "fit" = "model_halfnormal",
-                       "prfm" = "model_performance")
+                       "prfm" = "auditor_model_performance")
 
   if (!(model_type %in% class(object) || "model_audit" %in% class(object))) {
     stop(paste0("The function requires an object created with audit() or ", model_type, "()."))
@@ -31,24 +31,24 @@ check_object <- function(object, type = "res") {
 #' @param nlabel Number of labels in calculating `model_cooksdistance`
 #' @param quant if TRUE values on axis are on quantile scale in `plotHalfNormal`
 #' @param values for `plotModelCorrelation`
-#' @param error.scaled A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions; `plotECDF`
+#' @param scale_error A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions; `plotECDF`
 #' @param outliers Number of outliers to be marked on `plotECDF`
 #' @param residuals A logical value indicating whether residuals should be marked on `plotECDF`
-#' @param y.reversed A logical value indicating whether values on y axis should be reversed on `plotECDF`
-#' @param scores Vector of standard scores for modelRankingPlot
+#' @param reverse_y A logical value indicating whether values on y axis should be reversed on `plotECDF`
+#' @param score Vector of standard scores for modelRankingPlot
 #' @param new.score Function for custom score for modelRankingPlot
 #' Other possible values: \code{eva} - model evaluation
 make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res",
-                           quant = NULL, values = NULL, error.scaled = TRUE, outliers = NA,
-                           residuals = TRUE, y.reversed = FALSE, scores = NULL, new.score = NULL) {
+                           quant = NULL, values = NULL, scale_error = TRUE, outliers = NA,
+                           residuals = TRUE, reverse_y = FALSE, score = NULL, new.score = NULL) {
 
-  object <- prepare_object(object, variable, nlabel, type, quant, values, error.scaled, outliers,
-                           y.reversed, scores, new.score)
+  object <- prepare_object(object, variable, nlabel, type, quant, values, scale_error, outliers,
+                           reverse_y, score, new.score)
 
   if (length(list(...)) > 0) {
     for (resp in list(...)) {
-      resp <- prepare_object(object = resp, variable, nlabel, type, quant, values, error.scaled, outliers,
-                             y.reversed, scores, new.score)
+      resp <- prepare_object(object = resp, variable, nlabel, type, quant, values, scale_error, outliers,
+                             reverse_y, score, new.score)
       if (type %in% c("pca", "corr")) {
         object <- cbind(object, resp)
         object <- subset(object, select = which(!duplicated(names(object))))
@@ -70,14 +70,14 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
 #' @param nlabel Number of labels
 #' @param quant Logical
 #' @param values Values
-#' @param error.scaled Error scaled
+#' @param scale_error Error scaled
 #' @param outliers Outliers
-#' @param y.reversed y reversed
-#' @param scores Scores
+#' @param reverse_y y reversed
+#' @param score Scores
 #' @param new.score New scores
 #' @param type Type of model passed
-prepare_object <- function(object, variable, nlabel, type, quant, values, error.scaled, outliers, y.reversed,
-                           scores, new.score) {
+prepare_object <- function(object, variable, nlabel, type, quant, values, scale_error, outliers, reverse_y,
+                           score, new.score) {
   if ("model_audit" %in% class(object)) {
     if (type %in% c("res", "rec", "rroc", "scal", "dens", "pca", "corr", "ecdf"))
       object <- model_residual(object, variable)
@@ -85,7 +85,7 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, error.
            "eva"  = { object <- model_evaluation(object, variable) },
            "infl" = { object <- obs_influence_add(object, nlabel) },
            "fit"  = { object <- model_halfnormal(object, quant.scale = quant) },
-           "prfm" = { object <- model_performance(object, scores, new.score) })
+           "prfm" = { object <- model_performance(object, score, new.score) })
   }
   switch(type,
          "rec"  = { object <- make_rec_df(object) },
@@ -94,16 +94,16 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, error.
          "dens" = { object <- get_division(object) },
          "pca"  = { object <- make_pca_df(object) },
          "corr" = { object <- make_corr_df(object, values) },
-         "ecdf" = { object <- getTwoSidedECDF(object, error.scaled, outliers, y.reversed) })
+         "ecdf" = { object <- getTwoSidedECDF(object, scale_error, outliers, reverse_y) })
   return(object)
 }
 
 
 make_scale_loc_df <- function(object) {
-  resultDF <- data.frame(std.residuals = object$std.res, values = object$val)
-  resultDF$sqrt.std.residuals <- sqrt(abs(resultDF$std.residuals))
+  resultDF <- data.frame(std_residuals = object$std_res, values = object$val)
+  resultDF$sqrt_std_residuals <- sqrt(abs(resultDF$std_residuals))
   resultDF$label <- object$label[1]
-  resultDF$peak <- (abs(object$std.res) >= cummax(abs(object$std.res)))
+  resultDF$peak <- (abs(object$std_res) >= cummax(abs(object$std_res)))
   return(resultDF)
 }
 
@@ -126,7 +126,7 @@ make_rec_df <- function(object) {
 }
 
 make_rroc_df <- function(object) {
-  err <- sort(object$fitted.values - object$y)
+  err <- sort(object$fitted_values - object$y)
   n <- length(err)
   rroc_x <- numeric(n + 2)
   rroc_y <- numeric(n + 2)
@@ -146,7 +146,7 @@ make_rroc_df <- function(object) {
   df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$label[1], curve = TRUE)
 
   # calculation of the shift equals 0 which is represented on the plot by a dot
-  err <- sort(object$fitted.values - object$y)
+  err <- sort(object$fitted_values - object$y)
   df <- rbind(df, data.frame(rroc_x = sum(err[which(err > 0)], na.rm = TRUE),
                              rroc_y = sum(err[which(err < 0)], na.rm = TRUE),
                              label = object$label[1],
@@ -180,10 +180,10 @@ make_pca_df <- function(object) {
 }
 
 make_corr_df <- function(object, values) {
-  y <- fitted.values <- NULL
+  y <- fitted_values <- NULL
   if (values == "fit") {
-    df <- subset(object, select = c(y, fitted.values))
-    names(df)[names(df) == "fitted.values"] <- as.character(object$label[1])
+    df <- subset(object, select = c(y, fitted_values))
+    names(df)[names(df) == "fitted_values"] <- as.character(object$label[1])
   } else if (values == "res") {
     df <- data.frame(y = object$res)
     colnames(df)[1] <- as.character(object$label[1])
@@ -193,7 +193,7 @@ make_corr_df <- function(object, values) {
   return(df)
 }
 
-getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed) {
+getTwoSidedECDF <- function(object, scale_error, outliers, reverse_y) {
   res <- object$res
   resids <- data.frame(no.obs = 1:(length(res)), res = res, sign = ifelse(res >= 0, "pos", "neg"))
   df <- resids
@@ -204,15 +204,15 @@ getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed) {
   dfHigher$ecd <- ecdf(dfHigher$res)(dfHigher$res)
   df <- rbind(dfLower, dfHigher)
 
-  if (y.reversed == FALSE) {
+  if (reverse_y == FALSE) {
     df$ecd <- ifelse(df$sign == "neg", 1 - df$ecd, df$ecd)
   } else {
     df$ecd <- ifelse(df$sign == "neg", df$ecd, 1 - df$ecd)
   }
   # df$ecd <- ifelse(df$sign == "neg", df$ecd, 1 - df$ecd)
-  # if (y.reversed == FALSE) df$ecd <- ifelse(df$sign == "neg", 1 - df$ecd, df$ecd)
+  # if (reverse_y == FALSE) df$ecd <- ifelse(df$sign == "neg", 1 - df$ecd, df$ecd)
 
-  if (error.scaled == TRUE) {
+  if (scale_error == TRUE) {
     negProportion <- sum(df$sign == "neg") / (sum(df$sign == "neg") + sum(df$sign == "pos"))
     posProportion <- 1 - negProportion
     df$ecd <- ifelse(df$sign == "neg", df$ecd * negProportion, df$ecd * posProportion)
@@ -229,19 +229,18 @@ getTwoSidedECDF <- function(object, error.scaled, outliers, y.reversed) {
 }
 
 scaleModelRankingDF <- function(df) {
-
   df_new <- data.frame()
   scores <- unique(df$name)
   for(i in scores){
     scoresDF <- df[which(df$name == i),]
-    if (!(i %in% c("ROC"))) {
+    if (!(i %in% c("auc"))) {
+      scoresDF$score <- as.numeric(scoresDF$score)
       minScore <- min(scoresDF$score)
       scoresDF$score <- 1 / scoresDF$score
       scoresDF$score <- scoresDF$score * minScore
     }
     df_new <- rbind(df_new, scoresDF)
   }
-
   names(df)[names(df) == "score"] <- "value"
   df_new <- merge(df_new, df, by = c("label", "name"))
 

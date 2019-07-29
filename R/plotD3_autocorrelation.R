@@ -56,7 +56,7 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
   for (i in 1:n) {
     object <- aul[[i]]
 
-    if (!any(class(object) %in%  c("modelAudit","modelResiduals"))) stop("The function requires an object created with audit() or modelResiduals().")
+    if (!any(class(object) %in%  c("model_audit","model_residual"))) stop("The function requires an object created with audit() or model_residual().")
     if (!("modelResiduals" %in% class(object))) {
       mr <- modelResiduals(object, variable)
     } else {

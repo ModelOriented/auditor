@@ -77,7 +77,7 @@ plotD3_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_pl
 
 #' @rdname plotD3_halfnormal
 #' @export
-plotD3_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE) {
+plotD3HalfNormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE) {
   message("Please note that 'plotD3HalfNormal()' is now deprecated, it is better to use 'plotD3_halfnormal()' instead.")
   plotD3_halfnormal(object, ..., quantiles, sim, scale_plot)
 }

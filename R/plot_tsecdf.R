@@ -37,8 +37,8 @@ plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
   check_object(object, type = "res")
 
   # data frame for ggplot object
-  df <- make_dataframe(object, ..., type = "ecdf", error.scaled = error.scaled, outliers = outliers,
-                       y.reversed = y.reversed)
+  df <- make_dataframe(object, ..., type = "ecdf", scale_error = scale_error, outliers = outliers,
+                       reverse_y = reverse_y)
 
   # new varibale to set an order o curves
   df <- df[order(-as.numeric(factor(df$ecd))), ]

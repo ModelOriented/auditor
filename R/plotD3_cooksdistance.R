@@ -47,7 +47,7 @@ plotD3_cooksdistance <- function(object, ..., nlabel = 3,
     object <- aul[[i]]
 
     if (!any(class(object) %in%  c("model_audit","model_cooksdistance"))) stop("The function requires an object created with audit() or model_cooksdistance()")
-    if (!("observationInfluence" %in% class(object))) {
+    if (!("model_cooksdistance" %in% class(object))) {
       oi <- observationInfluence(object)
     } else {
       oi <- object

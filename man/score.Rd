@@ -4,12 +4,12 @@
 \alias{score}
 \title{Model Scores computations}
 \usage{
-score(object, type = "MSE", ...)
+score(object, score = "mse", ...)
 }
 \arguments{
 \item{object}{Object An object of class modelAudit.}
 
-\item{type}{The type of score to  be calculated. Possible values: 'Cook', 'DW', 'Peak', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
+\item{score}{The score to  be calculated. Possible values: 'auc' 'cook', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 (for detailed description see functions in see also section).}
 
 \item{...}{Other arguments dependent on the type of score.}
@@ -25,9 +25,9 @@ Scores can be also used to compare models.
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
 lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-score(lm_au, type = 'Runs')
+score(lm_au, type = 'mae')
 
 }
 \seealso{
-\code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scorePeak}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
+\code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae}, \link{score_mse}, \link{score_rec}, \link{score_auc}, \link{score_rroc}, \link{score_runs}}
 }

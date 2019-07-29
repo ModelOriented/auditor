@@ -33,7 +33,7 @@ plot_residual <- function(object, ..., variable = NULL, smooth = FALSE,
                          std_residuals = FALSE, nlabel = 0) {
 
   # some safeguard
-  res <- std.res <- val <- label <- index <- maybe_smooth <- maybe_labels <- NULL
+  res <- std_res <- val <- label <- index <- maybe_smooth <- maybe_labels <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")
@@ -48,8 +48,8 @@ plot_residual <- function(object, ..., variable = NULL, smooth = FALSE,
   # set values for labels of axes
   x_lab <- as.character(df$variable[1])
   y_lab <- "Residuals"
-  if (std.residuals == TRUE) {
-    df$res <- df$std.res
+  if (std_residuals == TRUE) {
+    df$res <- df$std_res
     y_lab <- "Standardized residuals"
   }
 

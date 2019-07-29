@@ -62,13 +62,13 @@ audit.default <- function(object, data=NULL, y = NULL, predict.function = yhat, 
     model.class = class(model),
     label = ifelse(is.null(label), class(model)[1], label),
     model = model,
-    fitted.values = predict.function(model, dataModel$data),
+    fitted_values = predict.function(model, dataModel$data),
     data = dataModel$data,
     y = dataModel$y,
     predict.function = predict.function,
     residual.function = residual.function,
     residuals = residuals,
-    std.residuals = residuals / sd(residuals)
+    std_residuals = residuals / sd(residuals)
   )
   class(result) <- "model_audit"
   return(result)

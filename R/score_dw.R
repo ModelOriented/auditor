@@ -20,7 +20,7 @@
 
 score_dw <- function(object, variable = NULL){
   if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with audit() or model_residuals().")
-  if(!("modelR_residual" %in% class(object))) object <- modelResiduals(object, variable)
+  if(!("model_residual" %in% class(object))) object <- model_residual(object, variable)
 
   residuals <- object$res
   max_lag <- 1
@@ -37,7 +37,7 @@ score_dw <- function(object, variable = NULL){
     name = "Durbin-Watson",
     score = durbin_watson
   )
-  class(result) <- "scoreAudit"
+  class(result) <- "score_audit"
   return(result)
 }
 

@@ -20,7 +20,7 @@
 model_evaluation <- function(object, variable = NULL){
   if(!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
 
-  result <- calculate_classif_evaluation(object$fitted.values, object$y, object$label)
+  result <- calculate_classif_evaluation(object$fitted_values, object$y, object$label)
 
     class(result) <- c("model_evaluation", "data.frame")
   return(result)
@@ -57,7 +57,7 @@ calculate_classif_evaluation <- function(predictions, y, label){
   fpr <- fp / n_neg
   # rate of positive predictions
   rpp <- (tp + fp) / (tp +fp +tn +fn)
-  res <- data.frame(fitted.values = predictions,
+  res <- data.frame(fitted_values = predictions,
              y = y,
              cutoffs = cutoffs,
              tpr = tpr,
