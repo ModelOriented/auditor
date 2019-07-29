@@ -5,14 +5,17 @@
 \alias{modelResiduals}
 \title{Create Model Residuals explainer}
 \usage{
-model_residual(object, variable = NULL)
+model_residual(x, variable = NULL)
 
-modelResiduals(object, variable = NULL)
+modelResiduals(x, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{variable}{Name of model variable to order residuals.
+If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{explain}} function). One can also pass any name of any other variable
+in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
-\item{variable}{Optional. Name of variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{object}{An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.}
 }
 \description{
 Creates modelResiduals object to be plotted.
@@ -21,9 +24,12 @@ Creates modelResiduals object to be plotted.
 library(DALEX)
 data(titanic)
 titanic <- na.omit(titanic)
-model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm)
 
-model_residual(audit_glm)
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
+
+library(auditor)
+model_residual(exp_glm)
 
 }

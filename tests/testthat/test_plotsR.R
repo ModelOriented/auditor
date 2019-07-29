@@ -3,16 +3,16 @@ context("plots")
 source("objects_for_tests.R")
 
 test_that("plot_acf", {
-  expect_is(plot_acf(au_lm, variable = "x2"), "gg")
-  expect_is(plot_acf(au_rf), "gg")
+  expect_is(plot_acf(rf_mr, variable = "x2"), "gg")
+  expect_is(plot_acf(rf_mr), "gg")
 })
 
 test_that("plot_autocorrelation", {
-  expect_is(plot_autocorrelation(au_lm), "gg")
-  expect_is(plot_autocorrelation(au_lm, variable = ""), "gg")
-  expect_is(plot_autocorrelation(au_lm, variable = "x2"), "gg")
-  expect_is(plot_autocorrelation(au_lm, smooth = TRUE), "gg")
-  expect_is(plot_autocorrelation(au_rf, au_lm), "gg")
+  expect_is(plot_autocorrelation(rf_mr), "gg")
+  expect_is(plot_autocorrelation(rf_mr, variable = ""), "gg")
+  expect_is(plot_autocorrelation(rf_mr, variable = "x2"), "gg")
+  expect_is(plot_autocorrelation(rf_mr, smooth = TRUE), "gg")
+  expect_is(plot_autocorrelation(rf_mr, glm_mr), "gg")
 })
 
 test_that("plot_cooksdistance", {
@@ -21,48 +21,45 @@ test_that("plot_cooksdistance", {
 })
 
 test_that("plot_prediction", {
-  expect_is(plot_prediction(au_rf, smooth = TRUE), "gg")
-  expect_is(plot_prediction(au_rf, variable = "x2"), "gg")
-  expect_is(plot_prediction(au_rf, variable = ""), "gg")
-  expect_is(plot_prediction(au_rf, abline = TRUE), "gg")
+  expect_is(plot_prediction(rf_mr, smooth = TRUE), "gg")
+  expect_is(plot_prediction(rf_mr), "gg")
+  expect_is(plot_prediction(rf_mr, variable = ""), "gg")
+  expect_is(plot_prediction(rf_mr, abline = TRUE), "gg")
 })
 
 test_that("plot_residual", {
-  expect_is(plot_residual(au_glm), "gg")
-  expect_is(plot_residual(au_glm, variable = ""), "gg")
-  expect_is(plot_residual(au_glm, variable = "x2"), "gg")
-  expect_is(plot_residual(au_glm, std_residuals = TRUE, smooth = TRUE, nlabel = 5), "gg")
-  expect_is(plot_residual(au_expl_lm), "gg")
+  expect_is(plot_residual(glm_mr), "gg")
+  expect_is(plot_residual(glm_mr, variable = ""), "gg")
+  expect_is(plot_residual(glm_mr, variable = "x2"), "gg")
+  expect_is(plot_residual(glm_mr, std_residuals = TRUE, smooth = TRUE, nlabel = 5), "gg")
 })
 
 test_that("plot_residual_boxplot", {
-  expect_is(plot_residual_boxplot(au_rf, au_lm), "gg")
+  expect_is(plot_residual_boxplot(rf_mr, au_lm), "gg")
 })
 
 test_that("plot_residual_density", {
-  expect_is(plot_residual_density(au_lm), "gg")
-  expect_is(plot_residual_density(au_lm, split = TRUE), "gg")
-  expect_is(plot_residual_density(au_lm, variable = "x3", split = TRUE), "gg")
-  expect_is(plot_residual_density(au_lm, variable = ""), "gg")
-  expect_is(plot_residual_density(au_lm, au_rf, variable = ""), "gg")
-  expect_is(plot_residual_density(au_lm, au_rf, variable = ""), "gg")
+  expect_is(plot_residual_density(rf_mr), "gg")
+  expect_is(plot_residual_density(rf_mr, split = TRUE), "gg")
+  expect_is(plot_residual_density(rf_mr, variable = "x3", split = TRUE), "gg")
+  expect_is(plot_residual_density(rf_mr, variable = ""), "gg")
+  expect_is(plot_residual_density(rf_mr, glm_mr, variable = ""), "gg")
+  expect_is(plot_residual_density(rf_mr, glm_mr, variable = ""), "gg")
 })
 
 test_that("plot_scalelocation", {
-  expect_is(plot_scalelocation(au_glm), "gg")
-  expect_is(plot_scalelocation(au_lm, au_rf), "gg")
-  expect_is(plot_scalelocation(model_residual(au_glm)), "gg")
-  expect_is(plot_scalelocation(au_glm, variable = ""), "gg")
-  expect_is(plot_scalelocation(au_glm, smooth = TRUE), "gg")
-  expect_is(plot_scalelocation(au_glm, peaks = TRUE), "gg")
-  expect_is(plot_scalelocation(au_rf, variable = "x2"), "gg")
+  expect_is(plot_scalelocation(rf_mr), "gg")
+  expect_is(plot_scalelocation(rf_mr, glm_mr), "gg")
+  expect_is(plot_scalelocation(rf_mr, variable = ""), "gg")
+  expect_is(plot_scalelocation(rf_mr, smooth = TRUE), "gg")
+  expect_is(plot_scalelocation(rf_mr, peaks = TRUE), "gg")
 })
 
 test_that("plot_tsecdf", {
-  expect_is(plot_tsecdf(au_lm, au_rf), "gg")
-  expect_is(plot_tsecdf(au_lm, au_rf, residuals = FALSE), "gg")
-  expect_is(plot_tsecdf(au_lm, au_rf, reverse_y = TRUE), "gg")
-  expect_is(plot_tsecdf(au_lm, au_rf, outliers = 2), "gg")
+  expect_is(plot_tsecdf(rf_mr, glm_mr), "gg")
+  expect_is(plot_tsecdf(rf_mr, glm_mr, residuals = FALSE), "gg")
+  expect_is(plot_tsecdf(rf_mr, glm_mr, reverse_y = TRUE), "gg")
+  expect_is(plot_tsecdf(rf_mr, glm_mr, outliers = 2), "gg")
 })
 
 test_that("plot_halfnormal", {
@@ -83,14 +80,13 @@ test_that("plot_roc", {
 })
 
 test_that("plot_rroc", {
-  expect_is(plot_rroc(au_glm), "gg")
-  expect_is(plot_rroc(au_glm, au_rf), "gg")
+  expect_is(plot_rroc(rf_mr), "gg")
+  expect_is(plot_rroc(rf_mr, glm_mr), "gg")
 })
 
 test_that("plot_rec", {
-  expect_is(plot_rec(au_glm), "gg")
-  expect_is(plot_rec(model_residual(au_glm)), "gg")
-  expect_is(plot_rec(au_glm, au_rf), "gg")
+  expect_is(plot_rec(rf_mr), "gg")
+  expect_is(plot_rec(rf_mr, glm_mr), "gg")
 })
 
 test_that("plot_radar", {
@@ -107,39 +103,39 @@ test_that("plot_radar", {
 
 
 test_that("plotModelCorrelation", {
-  expect_is(plot_correlation(au_glm, au_rf), "gtable")
-  expect_is(plot_correlation(au_glm, au_rf, values = "res"), "gtable")
+  expect_is(plot_correlation(rf_mr, glm_mr), "gtable")
+  expect_is(plot_correlation(rf_mr, glm_mr, values = "res"), "gtable")
 })
 
 
 test_that("plot", {
-  expect_is(plot(au_lm, type="acf"), "gg")
-  expect_is(plot(au_lm, type="autocorrelation", score = TRUE), "gg")
+  expect_is(plot(rf_mr, type="acf"), "gg")
+  expect_is(plot(rf_mr, type="autocorrelation", score = TRUE), "gg")
   expect_is(plot(au_lm, type="cooksdistance", print=FALSE), "gg")
   expect_is(plot(au_lm, au_rf, type="radar"), "gg")
-  expect_is(plot(au_lm, au_rf, type="tsecdf"), "gg")
-  expect_is(plot(au_glm, au_rf, type="pca"), "gg")
-  expect_is(plot(au_lm, type="residual_density"), "gg")
+  expect_is(plot(rf_mr, type="tsecdf"), "gg")
+  expect_is(plot(rf_mr, glm_mr, type="pca"), "gg")
+  expect_is(plot(rf_mr, type="residual_density"), "gg")
   expect_is(plot(au_class_glm2, type="lift"), "gg")
-  expect_is(plot(au_glm, au_rf, type="correlation"), "gtable")
-  expect_is(plot(au_glm, au_rf, type="correlation", values = "res"), "gtable")
-  expect_is(plot(au_lm, au_rf, type="prediction"), "gg")
-  expect_is(plot(au_lm, type="residual"), "gg")
-  expect_is(plot(au_lm, type="residual_boxplot"), "gg")
-  expect_is(plot(au_lm, type="scalelocation"), "gg")
+  expect_is(plot(rf_mr, glm_mr, type="correlation"), "gtable")
+  expect_is(plot(rf_mr, glm_mr, type="correlation", values = "res"), "gtable")
+  expect_is(plot(rf_mr, type="prediction"), "gg")
+  expect_is(plot(rf_mr, type="residual"), "gg")
+  expect_is(plot(rf_mr, type="residual_boxplot"), "gg")
+  expect_is(plot(rf_mr, type="scalelocation"), "gg")
   expect_is(plot(au_glm, type = "halfnormal"), "gg")
   expect_is(plot(au_class_glm, au_class_glm2, type="roc"), "gg")
-  expect_is(plot(au_glm, au_rf, type="rroc"), "gg")
-  expect_is(plot(au_glm, au_rf, type="rec"), "gg")
-  expect_error(plot(au_lm, type="wrongType"))
+  expect_is(plot(rf_mr, type="rroc"), "gg")
+  expect_is(plot(rf_mr, type="rec"), "gg")
+  expect_error(plot(rf_mr, type="wrongType"))
 })
 
 test_that("multiple plots on grid", {
-  expect_is(plot(au_lm, au_rf, type=c("prediction", "residual"), grid = TRUE), "gtable")
+  expect_is(plot(rf_mr, type=c("prediction", "residual"), grid = TRUE), "gtable")
 })
 
 test_that("plot, grid equals FALSE", {
-  expect_is(plot(au_lm, au_rf, type = c("prediction", "residual"), grid = FALSE, ask = FALSE), "auditor_plot_list")
+  expect_is(plot(rf_mr, type = c("prediction", "residual"), grid = FALSE, ask = FALSE), "auditor_plot_list")
 })
 
 test_that("plot type is not provided", {
