@@ -36,8 +36,8 @@ in the data set. If \code{variable = ""} is set, unordered observations are pres
 a `r2d3` object.
 }
 \description{
-Function \code{plotD3Residual} plots resudial values vs target, observed or variable values in the model.
-It uses output from \code{modelAudit} or \code{modelResiduals} function.
+Function \code{plotD3_residual} plots resudial values vs target, observed or variable values in the model.
+It uses output from \code{model_audit} or \code{model_residual} function.
 
 If the picture is not displayed in the viewer, please update your RStudio.
 }
@@ -53,8 +53,8 @@ library(randomForest)
 rf_model <- randomForest(m2.price ~., data = apartments)
 rf_au <- audit(rf_model, label = "rf")
 rf_mr <- modelResiduals(rf_au, "construction.year")
-plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
+plotD3_residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+plotD3_residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 
 }
 \seealso{

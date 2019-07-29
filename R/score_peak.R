@@ -9,24 +9,32 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' scorePeak(lm_au)
+#' score_peak(lm_au)
 #'
 #' @importFrom stats update rstandard predict pf sd
 #'
-#' @return an object of class scoreAudit
+#' @return an object of class 'score_audit'
 #'
 #' @export
 
-scorePeak <- function(object, variable = NULL){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
+score_peak <- function(object, variable = NULL){
+  if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'model_residual()'.")
+  if(!("model_residual" %in% class(object))) object <- modelResiduals(object, variable)
 
   peaks <- sum( (abs(object$std.res) >= cummax(abs(object$std.res)))) / nrow(object)
 
-    PeakResults <- list(
-      name = "Peak",
+    peak_results <- list(
+      name = "peak",
       score = peaks)
 
-  class(PeakResults) <- "scoreAudit"
-  return(PeakResults)
+  class(peak_results) <- "score_audit"
+  peak_results
+}
+
+
+#' @rdname score_peak
+#' @export
+scorePeak<- function(object) {
+  message("Please note that 'scorePeak()' is now deprecated, it is better to use 'score_peak()' instead.")
+  score_peak(object)
 }

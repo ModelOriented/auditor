@@ -10,7 +10,7 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' scoreRMSE(lm_au)
+#' score_rmse(lm_au)
 #'
 #'
 #' @seealso \code{\link{score}}
@@ -18,17 +18,23 @@
 #' @export
 
 
-scoreRMSE <- function(object){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
+score_rmse <- function(object){
+  if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'model_residuals()'.")
 
-  MSEResults <- list(
-    name = "RMSE",
+  mse_results <- list(
+    name = "rmse",
     score = sqrt(mean((object$y - object$fitted.values)^2))
     )
 
-  class(MSEResults) <- "scoreAudit"
-  return(MSEResults)
+  class(mse_results) <- "score_audit"
+  mse_results
 }
 
+#' @rdname score_rmse
+#' @export
+scoreRMSE<- function(object) {
+  message("Please note that 'scoreRMSE()' is now deprecated, it is better to use 'score_rmse()' instead.")
+  score_rmse(object)
+}
 
 

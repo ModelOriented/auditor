@@ -2,29 +2,29 @@
 #'
 #' @description The area over the Regression Receiver Operating Characteristic.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class 'model_audit'.
 #'
-#' @return an object of class scoreAudit
+#' @return an object of class 'score_audit'.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' scoreRROC(lm_au)
+#' score_rroc(lm_au)
 #'
 #'
-#' @seealso \code{\link{plotRROC}}
+#' @seealso \code{\link{plot_rroc}}
 #'
 #' @references Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
 #'
 #' @export
 
 
-scoreRROC <- function(object) {
+score_rroc <- function(object) {
 
   check_object(object, type = "res")
 
-  if (!"modelResiduals" %in% class(object)) object <- modelResiduals(object, variable = NULL)
+  if (!"model_residual" %in% class(object)) object <- model_residual(object, variable = NULL)
 
   RROCF <- make_rroc_df(object)
   RROCF <- RROCF[RROCF$curve == TRUE,]
@@ -36,17 +36,22 @@ scoreRROC <- function(object) {
     aoc <- aoc + 0.5 * (y[i+1] + y[i]) * (x[i+1] - x[i])
   }
 
-  RROCResults <- list(
-    name = "RROC",
+  rroc_results <- list(
+    name = "rroc",
     score = aoc
   )
 
-  class(RROCResults) <- "scoreAudit"
-  return(RROCResults)
+  class(rroc_results) <- "score_audit"
+  rroc_results
 
 }
 
 # getRROCDF is in plotRROC.R file
 
 
-
+#' @rdname score_roc
+#' @export
+scoreRROC<- function(object) {
+  message("Please note that 'scoreRROC()' is now deprecated, it is better to use 'score_rroc()' instead.")
+  score_rroc(object)
+}

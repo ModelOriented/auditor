@@ -36,7 +36,7 @@
 #' plotD3_prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
 #' plotD3_prediction(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 #'
-#' @seealso \code{\link{plot_rrediction}}
+#' @seealso \code{\link{plot_prediction}}
 #'
 #' @export
 #' @rdname plotD3_prediction
@@ -164,7 +164,7 @@ plotD3_prediction <- function(object, ..., variable = NULL, points = TRUE, smoot
 plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                               point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
                               background = FALSE) {
-  message("Please note that 'plotD3_prediction()' is now deprecated, it is better to use 'plotD3_prediction()' instead.")
+  message("Please note that 'plotD3Prediction()' is now deprecated, it is better to use 'plotD3_prediction()' instead.")
   plotD3_prediction(object, ..., variable, points, smooth,
            point_count, single_plot, scale_plot,
            background)

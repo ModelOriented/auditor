@@ -1,8 +1,8 @@
 #' @title Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 package.
 #'
 #' @description
-#' Function \code{plotD3Residual} plots resudial values vs target, observed or variable values in the model.
-#' It uses output from \code{modelAudit} or \code{modelResiduals} function.
+#' Function \code{plotD3_residual} plots resudial values vs target, observed or variable values in the model.
+#' It uses output from \code{model_audit} or \code{model_residual} function.
 #'
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
@@ -34,8 +34,8 @@
 #' rf_model <- randomForest(m2.price ~., data = apartments)
 #' rf_au <- audit(rf_model, label = "rf")
 #' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-#' plotD3Residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
+#' plotD3_residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' plotD3_residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 #'
 #' @seealso \code{\link{plotResidual}}
 #'
@@ -167,3 +167,16 @@ plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth =
            options = options)
   }
 }
+
+#' @rdname plotD3_prediction
+#' @export
+plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
+                           std_residuals = FALSE,point_count = NULL, single_plot = TRUE,
+                           scale_plot = FALSE, background = FALSE){
+  message("Please note that 'plotD3Residual()' is now deprecated, it is better to use 'plotD3_residual()' instead.")
+  plotD3_residual(object, ..., variable, points, smooth,
+                  std_residuals, point_count, single_plot,
+                  scale_plot, background)
+}
+
+

@@ -4,58 +4,58 @@ library(randomForest)
 
 set.seed(123)
 
-# simulate artificial prestige data set
+# simulate artificial classification data set
 n <- 100
-Prestige <- data.frame(education = rnorm(n),
-                                  income = runif(n),
-                                  women = runif(n),
-                                  census = rnorm(n),
-                                  type = factor(sample(c("a","b","c"), n, replace = TRUE)))
-Prestige$prestige <- Prestige$education + Prestige$income^2 +
-  Prestige$women * Prestige$census + as.numeric(Prestige$type)
+artifficial_regr <- data.frame(x1 = rnorm(n), # education
+                                  x2 = runif(n), # income
+                                  x3 = runif(n), # women
+                                  x4 = rnorm(n), # census
+                                  x5 = factor(sample(c(1, 2, 3), n, replace = TRUE))) # type
+artifficial_regr$y <- artifficial_regr$x1 + artifficial_regr$x2^2 +
+  artifficial_regr$x3 * artifficial_regr$x4 + as.numeric(artifficial_regr$x5)
 
-# simulate artificial PimaIndianDiabetes data set
-PimaIndiansDiabetes <- data.frame(pregnant = rnorm(n),
-                                  glucose =  rnorm(n),
-                                  pressure =  rnorm(n),
-                                  triceps  = rnorm(n),
-                                  insulin  = rnorm(n),
-                                  mss  = rnorm(n),
-                                  pedigree = rnorm(n),
-                                  age  = rnorm(n),
-                                  diabetes = factor(rbinom(n, 1, prob = 0.5)))
+# simulate artificial regression data set
+artifficial_classif <- data.frame(x1 = rnorm(n), # pregnant
+                                  x2 =  rnorm(n), # glucose
+                                  x3 =  rnorm(n), # pressure
+                                  x4  = rnorm(n), # triceps
+                                  x5  = rnorm(n), # insulin
+                                  x6  = rnorm(n), # mss
+                                  x7 = rnorm(n), # pedigree
+                                  x8  = rnorm(n), # age
+                                  y = factor(rbinom(n, 1, prob = 0.5))) # diabetes
 
 
 # simulate artificial anorexia data set
-anorexia <- data.frame(Treat = factor(rbinom(n, 1, prob = 0.5)),
-                                      Prewt = rnorm(n),
-                                      Postwt = rnorm(n))
+artifficial_classif_2 <- data.frame(x1 = factor(rbinom(n, 1, prob = 0.5)), # Treat
+                                   x2 = rnorm(n), # Prewt
+                                   y = rnorm(n)) # Postwt
 
 set.seed(71)
 
-model.lm <- lm(prestige~education + women + income, data = Prestige)
-model.glm <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
-                 family = gaussian, data = anorexia)
-model.rf <- randomForest(Postwt ~ Prewt + Treat, data = anorexia)
-model.class.glm <- glm(diabetes~., family=binomial,	data=PimaIndiansDiabetes)
-model.class.rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
+model_lm <- lm(y ~ ., data = artifficial_regr)
+model_glm <- glm(y ~ x1 + x2 + offset(x2), family = gaussian, data = artifficial_classif_2)
+model_rf <- randomForest(y ~ x2 + x1, data = artifficial_classif_2)
+model_class_glm <- glm(y ~ ., family=binomial,	data=artifficial_classif)
+model_class_rf <- randomForest(Species ~ ., data=iris, importance=TRUE,
                         proximity=TRUE)
+model_class_glm2 <- glm(y ~ x3, family=binomial,	data=artifficial_classif)
 
-model.class.glm2 <- glm(diabetes~pressure, family=binomial,	data=PimaIndiansDiabetes)
-au.class.glm2 <- audit(model.class.glm2)
 
-au.lm <- audit(model.lm, label = "lm")
-au.glm <- audit(model.glm, label = "glm")
-au.rf <- audit(model.rf, label="rf")
-au.class.glm <- audit(model.class.glm, label="class glm")
-au.class.rf <- audit(model.class.rf)
+au_class_glm2 <- audit(model_class_glm2)
 
-explainer_lm <- explain(model.lm, data = Prestige, y = Prestige$prestige)
+au_lm <- audit(model_lm, label = "lm")
+au_glm <- audit(model_glm, label = "glm")
+au_rf <- audit(model_rf, label="rf")
+au_class_glm <- audit(model_class_glm, label="class glm")
+au_class_rf <- audit(model_class_rf)
+
+explainer_lm <- explain(model_lm, data = artifficial_regr, y = artifficial_regr$y)
 au_expl_lm <- audit(explainer_lm)
 
-cd.lm <- observationInfluence(au.lm)
-mp.lm <- modelPerformance(au.lm)
-mf.lm <- modelFit(au.lm)
-glm_mr <- modelResiduals(au.glm, "Prewt")
-rf_mr <- modelResiduals(au.rf, "Treat")
+cd_lm <- model_cooksdistance(au_lm)
+mp_lm <- modelPerformance(au_lm)
+mf_lm <- modelFit(au_lm)
+glm_mr <- modelResiduals(au.glm, "x2")
+rf_mr <- modelResiduals(au.rf, "x1")
 

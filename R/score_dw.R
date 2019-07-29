@@ -11,16 +11,16 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' scoreDW(lm_au)
+#' score_dw(lm_au)
 #'
 #'
 #' @return an object of class scoreAudit
 #'
 #' @export
 
-scoreDW <- function(object, variable = NULL){
-  if(!("modelResiduals" %in% class(object) || "modelAudit" %in% class(object))) stop("The function requires an object created with audit() or modelResiduals().")
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object, variable)
+score_dw <- function(object, variable = NULL){
+  if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with audit() or model_residuals().")
+  if(!("modelR_residual" %in% class(object))) object <- modelResiduals(object, variable)
 
   residuals <- object$res
   max_lag <- 1
@@ -42,4 +42,9 @@ scoreDW <- function(object, variable = NULL){
 }
 
 
-
+#' @rdname score_cooksdistance
+#' @export
+scoreDW <- function(object, variable = NULL) {
+  message("Please note that 'scoreDW()' is now deprecated, it is better to use 'score_dw()' instead.")
+  score_dw(object, variable)
+}

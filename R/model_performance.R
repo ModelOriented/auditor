@@ -23,7 +23,7 @@
 #' @export
 model_performance <- function(object, score = c("MAE", "MSE", "REC", "RROC"), new_score = NULL) {
 
-  if (!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
+  if (!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
 
     score <- sapply(score, function(x) score(object, type = x)$score)
     df <- data.frame(score = score[1], label = object$label, name = names(score[1]))

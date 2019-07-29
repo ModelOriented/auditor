@@ -1,14 +1,14 @@
 #' @title Scale Location Plot in D3 with r2d3 package.
 #'
 #' @description
-#' Function \code{plotD3ScaleLocation} plots square root of the absolute value of the residuals vs target,
+#' Function \code{plotD3_scalelocation} plots square root of the absolute value of the residuals vs target,
 #' observed or variable values in the model.
-#' It uses output from \code{modelAudit} or \code{modelResiduals} function.
+#' It uses output from \code{model_audit} or \code{model_residual} function.
 #'
 #'
 #' If the picture is not displayed in the viewer, please update your RStudio.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
+#' @param object An object of class model_audit or model_residuals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals.
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
@@ -29,22 +29,22 @@
 #'
 #' lm_model <- lm(m2.price ~., data = apartments)
 #' lm_au <- audit(lm_model, label = "lm")
-#' plotD3ScaleLocation(lm_au, peaks = TRUE, variable = "construction.year")
+#' plotD3_scalelocation(lm_au, peaks = TRUE, variable = "construction.year")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(m2.price ~., data = apartments)
 #' rf_au <- audit(rf_model, label = "rf")
 #' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-#' plotD3ScaleLocation(lm_au, rf_mr, variable = "construction.year",
+#' plotD3_scalelocation(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
+#' plotD3_scalelocation(lm_au, rf_mr, variable = "construction.year",
 #'                                   smooth = TRUE, single_plot = FALSE)
 #'
-#' @seealso \code{\link{plotScaleLocation}}
+#' @seealso \code{\link{plot_scalelocation}}
 #'
 #' @export
-#' @rdname plotD3ScaleLocation
+#' @rdname plotD3_scalelocation
 
-plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
+plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
                                 peaks = FALSE, point_count = NULL, single_plot = TRUE,
                                 scale_plot = FALSE, background = FALSE){
 
@@ -62,7 +62,7 @@ plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
   for (i in 1:n) {
     object <- aul[[i]]
 
-    if (!any(class(object) %in%  c("modelAudit","modelResiduals"))) stop("The function requires an object created with audit() or modelResiduals().")
+    if (!any(class(object) %in%  c("model_audit","model_residual"))) stop("The function requires an object created with audit() or model_residual().")
     if (!("modelResiduals" %in% class(object))) {
       mr <- modelResiduals(object, variable)
     } else {
@@ -158,3 +158,19 @@ plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
   }
 
 }
+
+
+
+#' @rdname plotD3_scalelocation
+#' @export
+plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
+                                peaks = FALSE, point_count = NULL, single_plot = TRUE,
+                                scale_plot = FALSE, background = FALSE){
+
+  message("Please note that 'plotD3ScaleLocation()' is now deprecated, it is better to use 'plotD3_scalelocation()' instead.")
+  plotD3_scalelocation(object, ..., variable, smooth,
+                                  peaks, point_count, single_plot,
+                                  scale_plot, background)
+}
+
+

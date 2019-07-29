@@ -2,7 +2,7 @@
 #'
 #' @description Cook’s distance are used for estimate of the influence of an single observation.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class model_audit.
 #' @param print If TRUE progress is printed.
 #'
 #' @details Cook’s distance is a tool for identifying observations that may negatively affect the model.
@@ -19,7 +19,7 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' scoreCooksDistance(lm_au)
+#' score_cooksdistance(lm_au)
 #'
 #'
 #' @importFrom stats cooks.distance update
@@ -31,8 +31,8 @@
 #' @export
 #'
 
-scoreCooksDistance <- function(object, print=TRUE){
-  if(!("modelAudit" %in% class(object))) stop("The function requires an object created with audit().")
+score_cooksdistance <- function(object, print=TRUE){
+  if(!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
 
   if(any(object$model.class=="lm") || any(object$model.class == "glm")) {
     return(  cooks.distance(object$model) )
@@ -61,4 +61,9 @@ computeScoreCook <- function(model, modelData, print){
   return(D)
 }
 
-
+#' @rdname score_cooksdistance
+#' @export
+scoreCooksDistance <- function(object, print=TRUE) {
+  message("Please note that 'scoreCooksDistance()' is now deprecated, it is better to use 'score_cooksdistance()' instead.")
+  score_cooksdistance(object, print)
+}
