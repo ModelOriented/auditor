@@ -1,9 +1,16 @@
-#' @title Create Model Evaluation explainer
+#' @title Create Model Evaluation explaination
 #'
-#' @description  Creates modelEvaluation object to be plotted. Model evaluation concentrates on classification models.
+#' @description  Creates explanation of classification model.
+#'
+#' Returns, among others, true positive rate (tpr), false positive rate (fpr),
+#' rate of positive prediction (rpp), and true positives (tp).
+#'
+#' Created object of class 'auditor_model_evaluation' can be used to plot
+#' Receiver Operating Characteristic (ROC) curve (plot \code{\link{plot_roc}}) and LIFT curve (plot \code{\link{plot_lift}}).
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
-#' @param variable Optional. Name of variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#'
+#' @return An object of class 'auditor_model_evaluation'.
 #'
 #' @examples
 #' library(DALEX)
@@ -11,13 +18,13 @@
 #' titanic <- na.omit(titanic)
 #' titanic$survived <- titanic$survived == "yes"
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm, y = titanic$survived)
+#' exp_glm <- explain(model_glm, data= titanic, y = titanic$survived)
 #'
-#' model_evaluation(audit_glm)
+#' model_evaluation(exp_glm)
 #'
 #'
 #' @export
-model_evaluation <- function(object, variable = NULL){
+model_evaluation <- function(object){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   result <- calculate_classif_evaluation(object$y_hat, object$y, object$label)
@@ -71,7 +78,7 @@ calculate_classif_evaluation <- function(predictions, y, label){
 
 #' @rdname model_evaluation
 #' @export
-modelEvaluation <- function(object, variable = NULL) {
+modelEvaluation <- function(object) {
   message("Please note that 'modelEvaluation()' is now deprecated, it is better to use 'model_evaluation()' instead.")
-  model_evaluation(object, variable)
+  model_evaluation(object)
 }

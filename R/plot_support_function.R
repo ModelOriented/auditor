@@ -8,14 +8,22 @@
 #' Other possible values: \code{eva} - model evaluation
 check_object <- function(object, type = "res") {
   model_type <- switch(type,
-                       "res" = "model_residual",
-                       "eva" = "model_evaluation",
-                       "infl" = "model_cooksdistance",
-                       "fit" = "model_halfnormal",
-                       "prfm" = "auditor_model_performance")
+                       "res" = "auditor_model_residual",
+                       "eva" = "auditor_model_evaluation",
+                       "infl" = "auditor_model_cooksdistance",
+                       "fit" = "auditor_model_halfnormal",
+                       "prfm" = "auditor_model_performance",
+                       "exp" = "explainer")
+  function_name <- switch(type,
+                       "res" = "model_residual()",
+                       "eva" = "model_evaluation()",
+                       "infl" = "model_cooksdistance()",
+                       "fit" = "model_halfnormal()",
+                       "prfm" = "model_performance()",
+                       "exp" = "explain() from the DALEX package")
 
   if (!(model_type %in% class(object))) {
-    stop(paste0("The function requires an object created with ", model_type, "() function."))
+    stop(paste0("The function requires an object created with function", function_name, ".",))
   }
 }
 

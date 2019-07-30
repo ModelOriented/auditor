@@ -1,28 +1,32 @@
-#' @title Create Observation Influence Explainer
+#' @title Cook's distances
 #'
-#' @description  Calculates Cook's distances.
+#' @description  Calculates Cook's distances for each observation.
 #'
-#' @param object An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.
-#' @param ... other parameters.
+#' @param object An object of class 'explain' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#'
+#' @references Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
+#'
+#' @return An object of class 'auditor_model_cooksdistance'.
 #'
 #' @examples
 #' library(DALEX)
 #' data(titanic)
 #' titanic <- na.omit(titanic)
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm)
-#'
-#' model_cooksdistance(audit_glm)
+#' exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
+#' library(auditor)
+#' model_cooksdistance(exp_glm)
 #'
 #' @export
-model_cooksdistance <- function(object, ...){
+model_cooksdistance <- function(object){
+  check_object(object, type = "exp")
 
-  cooksDistances <- score_cooksdistance(object, ...)
+  cooksDistances <- score_cooksdistance(object)
 
   result <- data.frame(cooks.dist = cooksDistances, label = object$label, index = 1:length(object$y))
   result <- result[order(-result$cooks.dist),]
 
-  class(result) <- c("model_cooksdistance", "data.frame")
+  class(result) <- c("auditor_model_cooksdistance", "data.frame")
 
   return(result)
 }

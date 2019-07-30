@@ -3,27 +3,31 @@
 \name{model_cooksdistance}
 \alias{model_cooksdistance}
 \alias{observationInfluence}
-\title{Create Observation Influence Explainer}
+\title{Cook's distances}
 \usage{
-model_cooksdistance(object, ...)
+model_cooksdistance(object)
 
 observationInfluence(object, ...)
 }
 \arguments{
-\item{object}{An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.}
-
-\item{...}{other parameters.}
+\item{object}{An object of class 'explain' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+}
+\value{
+An object of class 'auditor_model_cooksdistance'.
 }
 \description{
-Calculates Cook's distances.
+Calculates Cook's distances for each observation.
 }
 \examples{
 library(DALEX)
 data(titanic)
 titanic <- na.omit(titanic)
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm)
+exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
+library(auditor)
+model_cooksdistance(exp_glm)
 
-model_cooksdistance(audit_glm)
-
+}
+\references{
+Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
 }

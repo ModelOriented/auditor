@@ -13,6 +13,7 @@
 #'
 #' @return An object of class ggplot
 #'
+#'
 #' @import ggplot2
 #' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density
