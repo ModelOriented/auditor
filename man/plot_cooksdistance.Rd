@@ -4,7 +4,7 @@
 \alias{plotD3CooksDistance}
 \alias{plot_cooksdistance}
 \alias{plotCooksDistance}
-\title{Influence of observations plot}
+\title{Influence of Observations Plot}
 \usage{
 plotD3CooksDistance(object, ..., nlabel = 3, single_plot = FALSE,
   scale_plot = FALSE, background = FALSE)
@@ -14,14 +14,17 @@ plot_cooksdistance(object, ..., nlabel = 3)
 plotCooksDistance(object, ..., nlabel = 3)
 }
 \arguments{
-\item{object}{An object of class model_audit.}
+\item{object}{An object of class 'auditor_model_cooksdistance' created with \code{\link{model_cooksdistance}} function.}
 
-\item{...}{Other arguments passed to \code{\link{score_cooksdistance}}.}
+\item{...}{Other objects of class 'auditor_model_cooksdistance'.}
 
 \item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
 }
+\value{
+A ggplot opbject.
+}
 \description{
-Cook’s distances are used for estimate the influence of an single observation.
+Plot of Cook’s distances used for estimate the influence of an single observation.
 }
 \details{
 Cook’s distance is a tool for identifying observations that may negatively affect the model.
@@ -36,7 +39,12 @@ For model classes other than lm and glm the distances are computed directly from
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plot_cooksdistance(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+library(auditor)
+lm_cd <- model_cooksdistance(lm_exp)
+plot_cooksdistance(lm_cd)
 
+}
+\references{
+Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
 }

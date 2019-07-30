@@ -4,12 +4,12 @@
 #' Scores can be also used to compare models.
 #'
 #' @param object Object An object of class 'model_audit'.
-#' @param score The score to  be calculated. Possible values: 'auc' 'cook', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
+#' @param score The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 #' (for detailed description see functions in see also section).
 #' @param ... Other arguments dependent on the type of score.
 #'
-#' @seealso \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
-#' \link{score_mse}, \link{score_rec}, \link{score_auc}, \link{score_rroc}, \link{score_runs}}
+#' @seealso \code{\link{score_auc}}, \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
+#' \link{score_mse}, \link{score_rec}, \link{score_rroc}, \link{score_runs}}
 #'
 #' @return an object of class scoreAudit, except Cooks distance, where numeric vector is returned
 #'

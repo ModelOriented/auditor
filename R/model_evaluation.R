@@ -1,4 +1,4 @@
-#' @title Create Model Evaluation explaination
+#' @title Create Model Evaluation Explaination
 #'
 #' @description  Creates explanation of classification model.
 #'
@@ -25,11 +25,11 @@
 #'
 #' @export
 model_evaluation <- function(object){
-  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  check_object(object, type = "exp")
 
   result <- calculate_classif_evaluation(object$y_hat, object$y, object$label)
 
-    class(result) <- c("model_evaluation", "data.frame")
+    class(result) <- c("auditor_model_evaluation", "data.frame")
   return(result)
 }
 

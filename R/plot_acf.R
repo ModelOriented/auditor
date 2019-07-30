@@ -3,22 +3,24 @@
 #' @description Plot Autocorrelation Function of models residuals.
 #'
 #'
-#' @param object An object of class modelAudit or modelResiduals.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Only for model_audit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together. Please, note that they should be created with the same value
+#' of parameter 'variable'.
 #' @param alpha Confidence level of the interval.
 #'
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotACF(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' plot_acf(lm_exp)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plot_acf(lm_au, rf_au)
+#' rf_exp <- explain(rf_model, data = dragons, y = dragons$life_length)
+#' plot_acf(lm_exp, rf_exp)
 #'
 #'
 #' @import ggplot2

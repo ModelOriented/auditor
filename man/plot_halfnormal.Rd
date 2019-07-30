@@ -10,16 +10,16 @@ plot_halfnormal(object, ..., quantiles = FALSE, sim = 99)
 plotHalfNormal(object, ..., quantiles = FALSE, sim = 99)
 }
 \arguments{
-\item{object}{'model_audit' object, 'model_halfnormal' object.}
+\item{object}{An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.}
 
-\item{...}{extra arguments passed to \link[hnp]{hnp}.}
+\item{...}{Other 'auditor_model_halfnormal' objects.}
 
-\item{quantiles}{if TRUE values on axis are on quantile scale.}
+\item{quantiles}{If TRUE values on axis are on quantile scale.}
 
-\item{sim}{number of residuals to simulate.}
+\item{sim}{Number of residuals to simulate.}
 }
 \value{
-An object of class ggplot
+A ggplot object.
 }
 \description{
 The half-normal plot is one of the tools designed to evaluate the goodness of fit of a
@@ -27,6 +27,15 @@ statistical models. It is a graphical method for comparing two probability distr
 their quantiles against each other.
 Points on the plot correspond to ordered absolute values of model diagnostic
 (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
+}
+\examples{
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+library(auditor)
+lm_hn <- model_halfnormal(lm_exp)
+plot_halfnormal(lm_hn)
+
 }
 \seealso{
 \code{\link{score_halfnormal}}

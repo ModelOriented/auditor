@@ -1,9 +1,11 @@
-#' @title Model Correlation Plot
+#' @title Correlation of Model's Residuals Plot
 #'
-#' @description Matrix of plots
+#' @description Matrix of plots. Left-down triangle consists of plots of fitted values (aternatively residuals),
+#' on the diagonal there are density plots of fitted values (alternatively residuals), in the right-top triangle
+#' there are correlations between fitte dvalues (alternatively residuals).
 #'
-#' @param object An object of class 'model_audit' or 'model_residual'.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param values "fit" for model fitted values or "res" for residual values.
 #'
 #' @return Invisibly returns a \code{\link[gtable]{gtable}} object.
@@ -11,14 +13,16 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' lm_mr <- model_residual(lm_exp)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotModelCorrelation(lm_au, rf_au)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
+#' plot_correlation(lm_mr, rf_mr)
 #'
-#' @seealso \code{\link{plot.model_audit}}
 #'
 #' @import grid
 #' @import gridExtra
@@ -30,7 +34,7 @@ plot_correlation <- function(object, ..., values = "fit") {
 
   x <- y <- NULL
 
-  # check if passed object is of class "model_residual" or "model_audit"
+  # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
 
   # data frame for ggplot object

@@ -6,13 +6,20 @@
 #' Points on the plot correspond to ordered absolute values of model diagnostic
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
-#' @param object 'model_audit' object, 'model_halfnormal' object.
-#' @param quantiles if TRUE values on axis are on quantile scale.
-#' @param ... extra arguments passed to \link[hnp]{hnp}.
-#' @param sim number of residuals to simulate.
+#' @param object An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.
+#' @param ... Other 'auditor_model_halfnormal' objects.
+#' @param quantiles If TRUE values on axis are on quantile scale.
+#' @param sim Number of residuals to simulate.
 #'
-#' @return An object of class ggplot
+#' @return A ggplot object.
 #'
+#' @examples
+#' dragons <- DALEX::dragons[1:100, ]
+#' lm_model <- lm(life_length ~ ., data = dragons)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' lm_hn <- model_halfnormal(lm_exp)
+#' plot_halfnormal(lm_hn)
 #'
 #' @import ggplot2
 #' @importFrom hnp hnp
@@ -26,7 +33,7 @@ plot_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99) {
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
 
-  # check if passed object is of class "model_halfnormal" or "model_audit"
+  # check if passed object is of class "auditor_model_halfnormal"
   check_object(object, type = "fit")
 
   # data frame for ggplot object

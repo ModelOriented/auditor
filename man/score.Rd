@@ -9,7 +9,7 @@ score(object, score = "mse", ...)
 \arguments{
 \item{object}{Object An object of class 'model_audit'.}
 
-\item{score}{The score to  be calculated. Possible values: 'auc' 'cook', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
+\item{score}{The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 (for detailed description see functions in see also section).}
 
 \item{...}{Other arguments dependent on the type of score.}
@@ -29,6 +29,6 @@ score(lm_au, type = 'mae')
 
 }
 \seealso{
-\code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
-\link{score_mse}, \link{score_rec}, \link{score_auc}, \link{score_rroc}, \link{score_runs}}
+\code{\link{score_auc}}, \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
+\link{score_mse}, \link{score_rec}, \link{score_rroc}, \link{score_runs}}
 }

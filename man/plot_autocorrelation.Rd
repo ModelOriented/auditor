@@ -3,23 +3,21 @@
 \name{plot_autocorrelation}
 \alias{plot_autocorrelation}
 \alias{plotAutocorrelation}
-\title{Autocorrelation Plot}
+\title{Autocorrelation of Residuals Plot}
 \usage{
-plot_autocorrelation(object, ..., variable = NULL, smooth = FALSE)
+plot_autocorrelation(object, ..., smooth = FALSE)
 
-plotAutocorrelation(object, ..., variable = NULL, smooth = FALSE)
+plotAutocorrelation(object, ..., smooth = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_residuals'.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
-
-\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-in the data set. If \code{variable = ""} is set, unordered observations are presented.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
 \item{smooth}{Logical, if TRUE smooth line will be added.}
+}
+\value{
+A ggplot object.
 }
 \description{
 Plot of i-th residual vs i+1-th residual.
@@ -27,8 +25,10 @@ Plot of i-th residual vs i+1-th residual.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plot_autocorrelation(lm_au)
-plot_autocorrelation(lm_au, variable = "height", score = TRUE, smooth = TRUE)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+
+library(auditor)
+plot_autocorrelation(lm_exp)
+plot_autocorrelation(lm_exp, score = TRUE, smooth = TRUE)
 
 }

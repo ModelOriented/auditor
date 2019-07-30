@@ -1,28 +1,31 @@
-#' @title Create Model Performance Explainer
+#' @title Create Model Performance Explaination
 #'
-#' @description  Creates modelPerformance object to be plotted.
+#' @description  Creates 'modelPerformance'auditor_model_performance' object that can be used to plot radar with ranking of models.
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
-#' @param score Vector of score names to be plotted.
+#' @param score Vector of score names to be plotted. Possible values are 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
+#' (for detailed description see functions in see also section).
 #' @param new_score A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
-#' @param ... other parameters.
+#'
+#' @seealso \code{\link{score_auc}}, \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
+#' \link{score_mse}, \link{score_rec}, \link{score_rroc}, \link{score_runs}}
 #'
 #' @return An object of the class 'auditor_model_performance'.
 #'
 #' @examples
 #' library(DALEX)
-#' data(titanic)
+#' data(DALEX::titanic)
 #' titanic <- na.omit(titanic)
 #' titanic$survived <- titanic$survived == "yes"
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm, y = titanic$survived)
+#' exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
 #'
-#' model_performance(audit_glm)
-#'
+#' library(auditor)
+#' model_performance(exp_glm)
 #'
 #' @export
 model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL) {
-  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  check_object(object, type = "exp")
 
     score <- sapply(score, function(x) score(object, score = x)$score)
     df <- data.frame(score = score[1], label = object$label, name = names(score[1]))

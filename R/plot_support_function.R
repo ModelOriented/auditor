@@ -23,7 +23,7 @@ check_object <- function(object, type = "res") {
                        "exp" = "explain() from the DALEX package")
 
   if (!(model_type %in% class(object))) {
-    stop(paste0("The function requires an object created with function", function_name, ".",))
+    stop(paste0("The function requires an object created with function ", function_name, "."))
   }
 }
 

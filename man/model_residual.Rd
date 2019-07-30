@@ -3,7 +3,7 @@
 \name{model_residual}
 \alias{model_residual}
 \alias{modelResiduals}
-\title{Create Model Residuals explainer}
+\title{Create Model Residuals Explaination}
 \usage{
 model_residual(x, variable = NULL)
 
@@ -18,18 +18,22 @@ in the data set. If \code{variable = ""} is set, unordered observations are pres
 \item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 }
 \description{
-Creates modelResiduals object to be plotted.
+Creates 'auditor_model_residual' that contains sorted residuals. An object can be further used to generate plots.
+For the list of possible plots see see also section.
 }
 \examples{
 library(DALEX)
-data(titanic)
+data(DALEX::titanic)
 titanic <- na.omit(titanic)
-
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-
 exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
 
 library(auditor)
 model_residual(exp_glm)
 
+}
+\seealso{
+\code{\link{plot_acf}, \link{plot_autocorrelation}, \link{plot_residual}, \link{plot_residual_boxplot},
+\link{plot_pca}, \link{plot_correlation}, \link{plot_prediction}, \link{plot_rec}, \link{plot_residual_density},
+\link{plot_residual}, \link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
 }

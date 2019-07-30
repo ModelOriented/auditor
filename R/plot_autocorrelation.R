@@ -1,26 +1,26 @@
-#' @title Autocorrelation Plot
+#' @title Autocorrelation of Residuals Plot
 #'
 #' @description Plot of i-th residual vs i+1-th residual.
 #'
-#' @param object An object of class 'model_audit' or 'model_residuals'.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param smooth Logical, if TRUE smooth line will be added.
+#'
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plot_autocorrelation(lm_au)
-#' plot_autocorrelation(lm_au, variable = "height", score = TRUE, smooth = TRUE)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' library(auditor)
+#' plot_autocorrelation(lm_exp)
+#' plot_autocorrelation(lm_exp, score = TRUE, smooth = TRUE)
 #'
 #' @import ggplot2
 #'
 #' @export
-plot_autocorrelation <- function(object, ..., variable = NULL, smooth = FALSE) {
+plot_autocorrelation <- function(object, ..., smooth = FALSE) {
 
   # some safeguard
   x <- y <- x_val <- y_val <- NULL
@@ -83,7 +83,7 @@ return(p)
 
 #' @rdname plot_autocorrelation
 #' @export
-plotAutocorrelation <- function(object, ..., variable = NULL, smooth = FALSE) {
+plotAutocorrelation <- function(object, ..., smooth = FALSE) {
   message("Please note that 'plotAutocorrelation()' is now deprecated, it is better to use 'plot_autocorrelation()' instead.")
-  plot_autocorrelation(object, ..., variable = NULL, smooth = FALSE)
+  plot_autocorrelation(object, ..., smooth = FALSE)
 }

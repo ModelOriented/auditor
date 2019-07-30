@@ -2,7 +2,7 @@
 % Please edit documentation in R/model_performance.R
 \name{model_performance}
 \alias{model_performance}
-\title{Create Model Performance Explainer}
+\title{Create Model Performance Explaination}
 \usage{
 model_performance(object, score = c("mae", "mse", "rec", "rroc"),
   new_score = NULL)
@@ -10,27 +10,30 @@ model_performance(object, score = c("mae", "mse", "rec", "rroc"),
 \arguments{
 \item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
-\item{score}{Vector of score names to be plotted.}
+\item{score}{Vector of score names to be plotted. Possible values are 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
+(for detailed description see functions in see also section).}
 
 \item{new_score}{A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
-
-\item{...}{other parameters.}
 }
 \value{
 An object of the class 'auditor_model_performance'.
 }
 \description{
-Creates modelPerformance object to be plotted.
+Creates 'modelPerformance'auditor_model_performance' object that can be used to plot radar with ranking of models.
 }
 \examples{
 library(DALEX)
-data(titanic)
+data(DALEX::titanic)
 titanic <- na.omit(titanic)
 titanic$survived <- titanic$survived == "yes"
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm, y = titanic$survived)
+exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
 
-model_performance(audit_glm)
+library(auditor)
+model_performance(exp_glm)
 
-
+}
+\seealso{
+\code{\link{score_auc}}, \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
+\link{score_mse}, \link{score_rec}, \link{score_rroc}, \link{score_runs}}
 }

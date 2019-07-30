@@ -2,7 +2,7 @@
 % Please edit documentation in R/model_halfnormal.R
 \name{model_halfnormal}
 \alias{model_halfnormal}
-\title{Create Model Fit explainer}
+\title{Create Halfnormal Explanation}
 \usage{
 model_halfnormal(object, quant = FALSE, ...)
 }
@@ -14,18 +14,21 @@ model_halfnormal(object, quant = FALSE, ...)
 \item{...}{other parameters passed do \code{\link[hnp]{hnp}} function.}
 }
 \value{
-An object of the class 'model_halfnormal'.
+An object of the class 'auditor_model_halfnormal'.
 }
 \description{
-Creates modelFit object to be plotted.
+Creates 'auditor_model_halfnormal' object that can be used for plotting halfnormal plot.
 }
 \examples{
 library(DALEX)
-data(titanic)
+data(DALEX::titanic)
 titanic <- na.omit(titanic[1:100,])
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm)
+exp_glm <- explain(model_glm)
+library(audit)
+model_halfnormal(exp_glm)
 
-model_halfnormal(audit_glm)
-
+}
+\references{
+Moral, R., Hinde, J., & Demétrio, C. (2017). Half-Normal Plots and Overdispersed Models in R: The hnp Package.doi:http://dx.doi.org/10.18637/jss.v081.i10
 }

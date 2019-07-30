@@ -1,6 +1,6 @@
-#' @title Create Model Fit explainer
+#' @title Create Halfnormal Explanation
 #'
-#' @description  Creates modelFit object to be plotted.
+#' @description  Creates 'auditor_model_halfnormal' object that can be used for plotting halfnormal plot.
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param quant if TRUE values on axis are on quantile scale.
@@ -8,20 +8,22 @@
 #'
 #' @examples
 #' library(DALEX)
-#' data(titanic)
+#' data(DALEX::titanic)
 #' titanic <- na.omit(titanic[1:100,])
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm)
+#' exp_glm <- explain(model_glm)
+#' library(audit)
+#' model_halfnormal(exp_glm)
 #'
-#' model_halfnormal(audit_glm)
+#' @references Moral, R., Hinde, J., & Demétrio, C. (2017). Half-Normal Plots and Overdispersed Models in R: The hnp Package.doi:http://dx.doi.org/10.18637/jss.v081.i10
 #'
-#' @return An object of the class 'model_halfnormal'.
+#' @return An object of the class 'auditor_model_halfnormal'.
 #'
 #' @importFrom stats pnorm
 #'
 #' @export
 model_halfnormal <- function(object, quant = FALSE, ...){
-  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  check_object(object, type = "exp")
 
   data <- NULL
 
@@ -36,7 +38,7 @@ model_halfnormal <- function(object, quant = FALSE, ...){
 
   result <- dataset_halfnormal_plot(hnpObject, quant, ...)
 
-  class(result) <- c("model_halfnormal", "data.frame")
+  class(result) <- c("auditor_model_halfnormal", "data.frame")
 
   result$label <- object$label
 

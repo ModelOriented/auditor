@@ -10,13 +10,15 @@ plot_acf(object, ..., variable = NULL, alpha = 0.95)
 plotACF(object, ..., variable = NULL, alpha = 0.95)
 }
 \arguments{
-\item{object}{An object of class modelAudit or modelResiduals.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
-
-\item{variable}{Only for model_audit object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together. Please, note that they should be created with the same value
+of parameter 'variable'.}
 
 \item{alpha}{Confidence level of the interval.}
+}
+\value{
+A ggplot object.
 }
 \description{
 Plot Autocorrelation Function of models residuals.
@@ -24,13 +26,14 @@ Plot Autocorrelation Function of models residuals.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plotACF(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+library(auditor)
+plot_acf(lm_exp)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plot_acf(lm_au, rf_au)
+rf_exp <- explain(rf_model, data = dragons, y = dragons$life_length)
+plot_acf(lm_exp, rf_exp)
 
 
 }
