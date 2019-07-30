@@ -23,15 +23,15 @@
 #' @export
 
 score_halfnormal <- function(object, ...){
-  if(!("model_halfnormal" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'model_halfnormal()'.")
-  if("model_audit" %in% class(object)) object <- model_halfnormal(object)
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  object <- model_halfnormal(object)
 
   result <- list(
     name = "halfnormal",
     score = calculate_score_pdf(object)
   )
 
-  class(result) <- "score_audit"
+  class(result) <- "auditor_score"
   return(result)
 }
 

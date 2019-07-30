@@ -7,7 +7,7 @@
 model_halfnormal(object, quant = FALSE, ...)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{quant}{if TRUE values on axis are on quantile scale.}
 

@@ -10,7 +10,7 @@ model_cooksdistance(object, ...)
 observationInfluence(object, ...)
 }
 \arguments{
-\item{object}{An object of class model_audit.}
+\item{object}{An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{...}{other parameters.}
 }

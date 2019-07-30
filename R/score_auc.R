@@ -21,8 +21,8 @@
 
 
 score_auc <- function(object){
-  if(!("model_evaluation" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'modelResiduals()'.")
-  if("model_audit" %in% class(object)) object <- model_evaluation(object)
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  object <- model_evaluation(object)
 
   pred <- calculate_classif_evaluation(object$fitted_values, object$y, object$label)
   pred_sorted <- pred[order(pred$fitted_values, decreasing = TRUE), ]
@@ -37,7 +37,7 @@ score_auc <- function(object){
     score = auc
   )
 
-  class(roc_results) <- "score_audit"
+  class(roc_results) <- "auditor_score"
   return(roc_results)
 }
 

@@ -1,6 +1,7 @@
-library(DALEX)
 library(auditor)
+library(DALEX)
 library(randomForest)
+
 
 set.seed(123)
 
@@ -47,11 +48,21 @@ exp_glm <- explain(model_glm, label = "glm", data = artifficial_classif_2, y = a
 exp_rf <- explain(model_rf, label="rf", data =artifficial_classif_2, y = artifficial_classif_2$y)
 exp_class_glm <- explain(model_class_glm, label="class glm", data = artifficial_classif, y = artifficial_classif$y)
 
-rf_mr <- model_residual(exp_rf, variable = "x2")
-glm_mr <- model_residual(exp_glm, variable = "x2")
+mr_rf <- model_residual(exp_rf, variable = "x2")
+mr_glm <- model_residual(exp_glm, variable = "x2")
 
 cd_lm <- model_cooksdistance(exp_lm)
-mp_lm <- model_performance(exp_lm)
-mf_lm <- model_halfnormal(exp_lm)
-glm_mr <- model_residual(exp_glm, "x2")
+cd_rf <- model_cooksdistance(exp_rf)
 
+new_score1 <- function(object) sum(sqrt(abs(object$residuals)))
+new_score2 <- function(object) sum(sqrt(abs(object$residuals)) + 1)
+mp_lm <- auditor::model_performance(exp_lm, score = c("mae", "mse", "rec", "rroc"),
+                           new_score = list(n1 = new_score1, n2 = new_score2))
+mp_rf <- auditor::model_performance(exp_rf, score = c("mae", "mse", "rec", "rroc"),
+                            new_score = list(n1 = new_score1, n2 = new_score2))
+
+hn_glm <- model_halfnormal(exp_glm)
+hn_rf <- model_halfnormal(exp_rf)
+
+ev_rf <- model_evaluation(exp_rf)
+ev_glm <- model_evaluation(exp_glm)

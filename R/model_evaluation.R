@@ -2,7 +2,7 @@
 #'
 #' @description  Creates modelEvaluation object to be plotted. Model evaluation concentrates on classification models.
 #'
-#' @param object An object of class model_audit.
+#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param variable Optional. Name of variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @examples
@@ -18,9 +18,9 @@
 #'
 #' @export
 model_evaluation <- function(object, variable = NULL){
-  if(!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  result <- calculate_classif_evaluation(object$fitted_values, object$y, object$label)
+  result <- calculate_classif_evaluation(object$y_hat, object$y, object$label)
 
     class(result) <- c("model_evaluation", "data.frame")
   return(result)

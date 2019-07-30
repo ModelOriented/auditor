@@ -2,7 +2,7 @@
 #'
 #' @description  Creates modelFit object to be plotted.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param quant if TRUE values on axis are on quantile scale.
 #' @param ... other parameters passed do \code{\link[hnp]{hnp}} function.
 #'
@@ -21,12 +21,12 @@
 #'
 #' @export
 model_halfnormal <- function(object, quant = FALSE, ...){
-  if(!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   data <- NULL
 
-    model <- object$model
-    data <- object$data
+  model <- object$model
+  data <- object$data
 
   if("randomForest" %in% class(model)) {
     hnpObject <- hnpObject.randomForest(object, data)

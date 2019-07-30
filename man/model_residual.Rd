@@ -15,7 +15,7 @@ If value is NULL the data is ordered by a vector of actual response (\code{y} pa
 passed to the \code{\link{explain}} function). One can also pass any name of any other variable
 in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
-\item{object}{An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 }
 \description{
 Creates modelResiduals object to be plotted.

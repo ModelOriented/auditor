@@ -2,7 +2,7 @@
 #'
 #' @description  Calculates Cook's distances.
 #'
-#' @param object An object of class model_audit.
+#' @param object An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param ... other parameters.
 #'
 #' @examples

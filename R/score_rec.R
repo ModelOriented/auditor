@@ -22,10 +22,9 @@
 
 
 score_rec <- function(object) {
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  check_object(object, type = "res")
-
-  if(!("modelResiduals" %in% class(object))) object <- modelResiduals(object)
+  object <- model_residual(object)
 
   rec_df <- make_rec_df(object)
   x <- rec_df$rec_x

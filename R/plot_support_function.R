@@ -14,8 +14,8 @@ check_object <- function(object, type = "res") {
                        "fit" = "model_halfnormal",
                        "prfm" = "auditor_model_performance")
 
-  if (!(model_type %in% class(object) || "model_audit" %in% class(object))) {
-    stop(paste0("The function requires an object created with audit() or ", model_type, "()."))
+  if (!(model_type %in% class(object))) {
+    stop(paste0("The function requires an object created with ", model_type, "() function."))
   }
 }
 

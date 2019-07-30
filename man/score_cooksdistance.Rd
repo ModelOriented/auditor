@@ -13,7 +13,7 @@ scoreCooksDistance(object, print = TRUE)
 scoreDW(object, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class model_audit.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{print}{If TRUE progress is printed.}
 }

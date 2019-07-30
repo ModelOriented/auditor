@@ -10,12 +10,12 @@ score_peak(object, variable = NULL)
 scorePeak(object)
 }
 \arguments{
-\item{object}{Object An object of class modelAudit or modelResidual.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 }
 \value{
-an object of class 'score_audit'
+an object of class 'auditor_score'
 }
 \description{
 This score is calculated on the basis of Peak test, which is used for checking for homoscedasticity of residuals in regression analyses.

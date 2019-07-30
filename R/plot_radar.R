@@ -34,7 +34,7 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
   x <- y <- value <- scaled <- name <- label <- NULL
   # name <- score <- label <- x2 <- y2 <- label2 <- NULL
 
-  # check if passed object is of class "model_performance" or "model_audit"
+  # check if passed object is of class "model_performance"
   check_object(object, type = "prfm")
   # data frame for ggplot object
   df <- make_dataframe(object, ..., score = score, new_score = new_score, type = "prfm")

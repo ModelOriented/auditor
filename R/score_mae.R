@@ -19,11 +19,11 @@
 
 
 score_mae <- function(object){
-  if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with 'audit()' or 'model_residual()'.")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   MAEResults <- list(
     name = "mae",
-    score = mean(abs(object$y - object$fitted_values))
+    score = mean(abs(object$y - object$y_hat))
     )
 
   class(MAEResults) <- "score_audit"

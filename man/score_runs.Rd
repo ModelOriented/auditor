@@ -10,7 +10,7 @@ score_runs(object, variable = NULL)
 scoreRuns(object, variable = NULL)
 }
 \arguments{
-\item{object}{object An object of class 'model_audit'.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{variable}{name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 }

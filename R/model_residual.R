@@ -2,7 +2,7 @@
 #'
 #' @description  Creates modelResiduals object to be plotted.
 #'
-#' @param object An object of class 'ModelAudit'explain' created with functio \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param variable Name of model variable to order residuals.
 #' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link{explain}} function). One can also pass any name of any other variable

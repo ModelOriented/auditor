@@ -4,7 +4,7 @@
 #' The score value is helpful in comparing models. It is worth pointing out that results of tests like p-value makes sense only
 #' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
+#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
 #'
 #' @examples
@@ -14,13 +14,13 @@
 #' score_dw(lm_au)
 #'
 #'
-#' @return an object of class scoreAudit
+#' @return an object of class 'scoreAudit'auditor_score'
 #'
 #' @export
 
 score_dw <- function(object, variable = NULL){
-  if(!("model_residual" %in% class(object) || "model_audit" %in% class(object))) stop("The function requires an object created with audit() or model_residuals().")
-  if(!("model_residual" %in% class(object))) object <- model_residual(object, variable)
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  object <- model_residual(object, variable)
 
   residuals <- object$res
   max_lag <- 1
@@ -37,7 +37,7 @@ score_dw <- function(object, variable = NULL){
     name = "Durbin-Watson",
     score = durbin_watson
   )
-  class(result) <- "score_audit"
+  class(result) <- "auditor_score"
   return(result)
 }
 

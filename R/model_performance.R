@@ -2,9 +2,9 @@
 #'
 #' @description  Creates modelPerformance object to be plotted.
 #'
-#' @param object An object of class ModelAudit.
+#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
 #' @param score Vector of score names to be plotted.
-#' @param new_score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
+#' @param new_score A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param ... other parameters.
 #'
 #' @return An object of the class 'auditor_model_performance'.
@@ -22,7 +22,7 @@
 #'
 #' @export
 model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL) {
-  if (!("model_audit" %in% class(object))) stop("The function requires an object created with audit().")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
     score <- sapply(score, function(x) score(object, score = x)$score)
     df <- data.frame(score = score[1], label = object$label, name = names(score[1]))

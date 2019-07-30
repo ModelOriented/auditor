@@ -62,12 +62,9 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
   for (i in 1:n) {
     object <- aul[[i]]
 
-    if (!any(class(object) %in%  c("model_audit","model_residual"))) stop("The function requires an object created with audit() or model_residual().")
-    if (!("model_residual" %in% class(object))) {
-      mr <- model_residual(object, variable)
-    } else {
-      mr <- object
-    }
+    check_object(object, type = "res")
+
+    mr <- object
 
     varl <- c(varl, as.character(mr$variable[1]))
 

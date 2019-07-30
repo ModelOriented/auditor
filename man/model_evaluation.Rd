@@ -10,7 +10,7 @@ model_evaluation(object, variable = NULL)
 modelEvaluation(object, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class model_audit.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{variable}{Optional. Name of variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 }

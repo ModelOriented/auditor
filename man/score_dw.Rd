@@ -7,12 +7,12 @@
 score_dw(object, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class modelAudit or modelResiduals.}
+\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
 
 \item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
 }
 \value{
-an object of class scoreAudit
+an object of class 'scoreAudit'auditor_score'
 }
 \description{
 Score based on Durbin-Watson test statistic.
