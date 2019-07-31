@@ -9,8 +9,8 @@ test_that("plot_acf", {
 
 test_that("plot_autocorrelation", {
   expect_is(plot_autocorrelation(mr_rf), "gg")
-  expect_is(plot_autocorrelation(mr_rf, variable = ""), "gg")
-  expect_is(plot_autocorrelation(mr_rf, variable = "x2"), "gg")
+  expect_is(plot_autocorrelation(mr_rf), "gg")
+  expect_is(plot_autocorrelation(mr_rf), "gg")
   expect_is(plot_autocorrelation(mr_rf, smooth = TRUE), "gg")
   expect_is(plot_autocorrelation(mr_rf, mr_glm), "gg")
 })

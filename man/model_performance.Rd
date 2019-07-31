@@ -22,13 +22,16 @@ An object of the class 'auditor_model_performance'.
 Creates 'modelPerformance'auditor_model_performance' object that can be used to plot radar with ranking of models.
 }
 \examples{
-library(DALEX)
-data(DALEX::titanic)
-titanic <- na.omit(titanic)
+titanic <- na.omit(DALEX::titanic)
 titanic$survived <- titanic$survived == "yes"
-model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
 
+# fit a model
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+# use DALEX package to wrap up a model into explainer
+exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+
+# explain model with auditor
 library(auditor)
 model_performance(exp_glm)
 

@@ -82,10 +82,9 @@ plot.model_audit <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
 
 plot_selected_type <- function(x, ..., type){
 
-  if("model_cooksdistance" %in% class(x)) type <- "cooksdistance"
-  if("model_performance" %in% class(x)) type <- "radar"
-  if("model_halfnormal" %in% class(x)) type <- "halfnormal"
+  if("auditor_model_cooksdistance" %in% class(x)) type <- "cooksdistance"
   if("auditor_model_performance" %in% class(x)) type <- "radar"
+  if("auditor_model_halfnormal" %in% class(x)) type <- "halfnormal"
 
 
   switch(type,

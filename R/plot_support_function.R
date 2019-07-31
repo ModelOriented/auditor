@@ -86,15 +86,25 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
 #' @param type Type of model passed
 prepare_object <- function(object, variable, nlabel, type, quant, values, scale_error, outliers, reverse_y,
                            score, new.score) {
-  if ("model_audit" %in% class(object)) {
-    if (type %in% c("res", "rec", "rroc", "scal", "dens", "pca", "corr", "ecdf"))
-      object <- model_residual(object, variable)
-    switch(type,
-           "eva"  = { object <- model_evaluation(object, variable) },
-           "infl" = { object <- obs_influence_add(object, nlabel) },
-           "fit"  = { object <- model_halfnormal(object, quant.scale = quant) },
-           "prfm" = { object <- model_performance(object, score, new.score) })
+
+  # check if variable is in data frame
+  if (!is.null(variable)) {
+    if (!variable %in% colnames(object)) {
+      stop("The model_residual() function requires `variable = '_y_'`,  `variable = _y_hat_`, `variable = NULL`,  or the name of variable from model data frame.")
+    }
   }
+
+  #sorting
+  if (! is.null(variable)){
+    object <- object[order(object[,variable]),]
+    object$`_val_` <- object[,variable]
+    object$`_variable_` <- variable
+  } else {
+    object$`_val_` <- 1:nrow(object)
+    object$`_variable_` <- "Observations"
+  }
+
+
   switch(type,
          "rec"  = { object <- make_rec_df(object) },
          "rroc" = { object <- make_rroc_df(object) },
@@ -281,11 +291,11 @@ scaleModelRankingDF <- function(df) {
 #' argument).  Default is \code{FALSE}
 #' @param alpha_val Numeric, level of alpha of points when smooth is drawn
 drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
-  # ordering data to get rigth order of points on the plot
-  df <- df[order(-as.numeric(factor(df$label))), ]
+  # ordering data to get right order of points on the plot
+  df <- df[order(-as.numeric(factor(df$`_label_`))), ]
 
   geom_point(data = df,
-             aes_string(colour = "label"),
+             aes(colour = `_label_`),
              alpha = ifelse(smooth == TRUE, alpha_val, 1),
              stroke = 0)
 }
@@ -297,10 +307,10 @@ drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
 #'
 #' @param df Data frame prepared by (\code{make_dataframe}) function
 drwhy_geom_smooth <- function(df) {
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  df$ord <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
   geom_smooth(data = df,
-              aes_string(group = "ord", colour = "label"),
+              aes(group = ord, colour = `_label_`),
               stat = "smooth",
               method = "gam",
               formula = y ~ s(x, bs = "cs"),

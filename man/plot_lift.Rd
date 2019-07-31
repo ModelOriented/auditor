@@ -3,42 +3,41 @@
 \name{plot_lift}
 \alias{plot_lift}
 \alias{plotLIFT}
-\title{LIFT}
+\title{LIFT Chart}
 \usage{
 plot_lift(object, ...)
 
 plotLIFT(object, ...)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_evaluation'.}
+\item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}
 
-\item{...}{Other 'model_audit' objects to be plotted together.}
+\item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
 }
 \value{
-ggplot object
+A ggplot object.docum
 }
 \description{
 LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
-library(DALEX)
-data(titanic)
-titanic <- na.omit(titanic)
+titanic <- na.omit(DALEX::titanic)
 titanic$survived <- titanic$survived == "yes"
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm, data = titanic, y = titanic$survived)
-
-plot_lift(audit_glm)
+exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+library(auditor)
+eva_glm <- model_evaluation(exp_glm)
+plot_lift(eva_glm)
 
 model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
-audit_glm_2 <- audit(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
-meva_glm_2 <- modelEvaluation(audit_glm_2)
+exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+eva_glm_2 <- model_evaluation(exp_glm_2)
 
-plot_lift(audit_glm, audit_glm_2)
+plot_lift(eva_glm, eva_glm_2)
 
 
 }
 \seealso{
-\code{\link{plot.model_audit}}
+\code{\link{model_evaluation}}
 }

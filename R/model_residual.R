@@ -4,10 +4,6 @@
 #' For the list of possible plots see see also section.
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
-#' @param variable Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{explain}} function). One can also pass any name of any other variable
-#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
 #'
 #' @seealso \code{\link{plot_acf}, \link{plot_autocorrelation}, \link{plot_residual}, \link{plot_residual_boxplot},
 #' \link{plot_pca}, \link{plot_correlation}, \link{plot_prediction}, \link{plot_rec}, \link{plot_residual_density},
@@ -26,31 +22,20 @@
 #' @rdname model_residual
 #'
 #' @export
-model_residual <- function(x, variable = NULL){
-  check_object(x, type = "exp")
+model_residual <- function(object){
+  check_object(object, type = "exp")
 
-  if (!is.null(variable)) {
-    if (variable != "" & !variable %in% colnames(x$data)) {
-      stop("The model_residual() function requires `variable = NULL`, `variable = ''` or the name of variable from model data frame.")
-    }
-  }
+  result <- data.frame(matrix(nrow=length(object$residuals), ncol = 0))
 
-  ordered_df <- order_residuals(x, variable)
+  result$`_residuals_` = object$residuals
+  result$`_std_residuals_` <- object$residuals / sd(object$residuals)
+  result$`_y_` <- object$y
+  result$`_y_hat_` <- object$y_hat
+  result$`_index_` <- rownames(object$data)
+  result$`_label_` <- factor(object$label)
 
-  if (is.null(variable)) {
-    variable <- "Target variable"
-  } else if (variable == "") {
-    variable <- "Observations"
-  }
-  result <- data.frame(label = x$label,
-                       res = ordered_df$residuals,
-                       val = ordered_df$values,
-                       variable = variable,
-                       y = ordered_df$y,
-                       fitted_values = ordered_df$y_hat,
-                       std_res = ordered_df$std_residuals,
-                       index = ordered_df$index
-  )
+  result <- cbind(result, object$data)
+
   class(result) <- c("auditor_model_residual", "data.frame")
 
   return(result)
@@ -59,7 +44,7 @@ model_residual <- function(x, variable = NULL){
 
 #' @rdname model_residual
 #' @export
-modelResiduals <- function(x, variable = NULL){
+modelResiduals <- function(x){
   message("Please note that 'modelResiduals()' is now deprecated, it is better to use 'model_residual()' instead.")
-  model_residual(x, variable)
+  model_residual(x)
 }

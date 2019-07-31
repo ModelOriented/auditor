@@ -19,11 +19,15 @@ An object of class 'auditor_model_cooksdistance'.
 Calculates Cook's distances for each observation.
 }
 \examples{
-library(DALEX)
-data(titanic)
-titanic <- na.omit(titanic)
+titanic <- na.omit(DALEX::titanic)
+
+# fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
+
+# use DALEX package to wrap up a model into explainer
+exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+
+# explain model with auditor
 library(auditor)
 model_cooksdistance(exp_glm)
 

@@ -13,13 +13,17 @@
 #' @return An object of class 'auditor_model_evaluation'.
 #'
 #' @examples
-#' library(DALEX)
-#' data(titanic)
-#' titanic <- na.omit(titanic)
+#' titanic <- na.omit(DALEX::titanic)
 #' titanic$survived <- titanic$survived == "yes"
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' exp_glm <- explain(model_glm, data= titanic, y = titanic$survived)
 #'
+#' # fit a model
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_glm <- DALEX::explain(model_glm, data= titanic, y = titanic$survived)
+#'
+#' # explain model with auditor
+#' library(auditor)
 #' model_evaluation(exp_glm)
 #'
 #'

@@ -13,6 +13,8 @@
 #'
 #' @return A ggplot object.
 #'
+#' @seealso \code{\link{model_halfnormal}}
+#'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)

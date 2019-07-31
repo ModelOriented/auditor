@@ -5,7 +5,7 @@
 \alias{plotPrediction}
 \title{Predicted response vs Observed or Variable Values}
 \usage{
-plot_prediction(object, ..., variable = NULL, smooth = FALSE,
+plot_prediction(object, ..., variable = "_y_", smooth = FALSE,
   abline = FALSE)
 
 plotPrediction(object, ..., variable = NULL, smooth = FALSE,
@@ -16,10 +16,11 @@ plotPrediction(object, ..., variable = NULL, smooth = FALSE,
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Only for 'model_audit' objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-in the data set. If \code{variable = ""} is set, unordered observations are presented.}
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{explain}} function).
+If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
@@ -32,15 +33,16 @@ Plot of predicted response vs observed or variable Values.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plotPrediction(lm_au, variable = "height", abline = TRUE)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+
+library(auditor)
+lm_mr <- model_residual(lm_exp)
+plot_prediction(lm_mr, variable = "height", abline = TRUE)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
 rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
 plotPrediction(lm_au, rf_au, variable = "height", smooth = TRUE)
 
-}
-\seealso{
-\code{\link{plot.model_audit}}
+
 }

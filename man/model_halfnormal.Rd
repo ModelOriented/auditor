@@ -20,11 +20,9 @@ An object of the class 'auditor_model_halfnormal'.
 Creates 'auditor_model_halfnormal' object that can be used for plotting halfnormal plot.
 }
 \examples{
-library(DALEX)
-data(DALEX::titanic)
-titanic <- na.omit(titanic[1:100,])
+titanic <- na.omit(DALEX::titanic[1:100,])
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-exp_glm <- explain(model_glm)
+exp_glm <- DALEX::explain(model_glm)
 library(audit)
 model_halfnormal(exp_glm)
 

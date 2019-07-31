@@ -38,5 +38,7 @@ plot_halfnormal(lm_hn)
 
 }
 \seealso{
+\code{\link{model_halfnormal}}
+
 \code{\link{score_halfnormal}}
 }
