@@ -48,9 +48,6 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
     variable <- "Observations"
   }
 
-  # data frame for extra geoms
-  maybe_smooth <- if (smooth == TRUE) df else df[0, ]
-
   # set value for label of the X axis
   if (variable == "Observations") {
     x_lab <- "Observations"
@@ -61,6 +58,9 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
   } else {
     x_lab <- as.character(df$`_variable_`[1])
   }
+
+  # data frame for extra geoms
+  maybe_smooth <- if (smooth == TRUE) df else df[0, ]
 
 
   # colors for model(s)

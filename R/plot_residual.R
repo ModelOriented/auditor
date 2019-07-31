@@ -4,10 +4,11 @@
 #'
 #' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit objects to be plotted together.
-#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
+#' @param variable Name of variable to order residuals on a plot.
+#' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link{explain}} function).
+#' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+#' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std_residuals Logical, indicates whenever standardized residuals should be used.
 #' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
@@ -15,8 +16,9 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plot_residual(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_residual(lm_mr)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
@@ -29,7 +31,7 @@
 #' @importFrom ggrepel geom_text_repel
 #'
 #' @export
-plot_residual <- function(object, ..., variable = NULL, smooth = FALSE,
+plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
                          std_residuals = FALSE, nlabel = 0) {
 
   # some safeguard
@@ -41,23 +43,37 @@ plot_residual <- function(object, ..., variable = NULL, smooth = FALSE,
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
+  if (is.null(variable)) {
+    variable <- "Observations"
+  }
+
+  # set value for label of the X axis
+  if (variable == "Observations") {
+    x_lab <- "Observations"
+  } else if (variable == "_y_")  {
+    x_lab <- "Target variable"
+  } else if (variable == "_y_hat_") {
+    x_lab <- "Actual response"
+  } else {
+    x_lab <- as.character(df$`_variable_`[1])
+  }
+
   # data frame for extra geoms
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
-  maybe_labels <- df[order(abs(df$res), decreasing = TRUE),][0:nlabel, ]
+  maybe_labels <- df[order(abs(df$`_residuals_`), decreasing = TRUE),][0:nlabel, ]
 
   # set values for labels of axes
-  x_lab <- as.character(df$variable[1])
   y_lab <- "Residuals"
   if (std_residuals == TRUE) {
-    df$res <- df$std_res
+    df$res <- df$`_std_residuals_`
     y_lab <- "Standardized residuals"
   }
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
 
   # main chart
-  p <- ggplot(data = df, aes(val, res))
+  p <- ggplot(data = df, aes(`_val_`, `_residuals_`))
 
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)

@@ -16,20 +16,24 @@ plotResidualDensity(object, ..., split = FALSE, variable = NULL)
 \arguments{
 \item{object}{An object of class 'model_audit'.}
 
-\item{...}{Other modelAudit objects to be plotted together.
-
-dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plotResidual(lm_au)
-
-library(randomForest)
-rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plotResidualBoxplot(lm_au, rf_au)}
+\item{...}{Other modelAudit objects to be plotted together.}
 }
 \description{
 A plot of residuals.
+}
+\examples{
+dragons <- DALEX::dragons[1:100, ]
+lm_model <- lm(life_length ~ ., data = dragons)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+lm_mr <- model_residual(lm_exp)
+plot_residual_boxplot(lm_mr)
+
+library(randomForest)
+rf_model <- randomForest(life_length~., data = dragons)
+rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+rf_mr <- model_residual(rf_exp)
+plot_residual_boxplot(lm_mr, rf_mr)
+
 }
 \seealso{
 \code{\link{plot.model_audit}}

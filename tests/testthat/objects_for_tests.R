@@ -48,8 +48,8 @@ exp_glm <- explain(model_glm, label = "glm", data = artifficial_classif_2, y = a
 exp_rf <- explain(model_rf, label="rf", data =artifficial_classif_2, y = artifficial_classif_2$y)
 exp_class_glm <- explain(model_class_glm, label="class glm", data = artifficial_classif, y = artifficial_classif$y)
 
-mr_rf <- model_residual(exp_rf, variable = "x2")
-mr_glm <- model_residual(exp_glm, variable = "x2")
+mr_rf <- model_residual(exp_rf)
+mr_glm <- model_residual(exp_glm)
 
 cd_lm <- model_cooksdistance(exp_lm)
 cd_rf <- model_cooksdistance(exp_rf)

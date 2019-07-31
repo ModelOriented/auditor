@@ -10,16 +10,6 @@
 #'
 #' @return a `r2d3` object.
 #'
-#' @examples
-#' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotD3_acf(lm_au)
-#'
-#' library(randomForest)
-#' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotD3_acf(lm_au, rf_au)
 #'
 #' @importFrom stats qnorm acf
 #'

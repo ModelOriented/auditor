@@ -27,19 +27,6 @@ a `r2d3` object.
 Cook’s distances are used for estimate the influence of an single observation.
 If the picture is not displayed in the viewer, please update your RStudio.
 }
-\examples{
-library("auditor")
-dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plotD3_cooksdistance(lm_au)
-
-library(randomForest)
-rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length, label = "rf")
-plotD3_cooksdistance(lm_au, rf_au, nlabel = 4)
-
-}
 \seealso{
 \code{\link{plot_cooksdistance}}
 }

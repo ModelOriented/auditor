@@ -1,3 +1,3 @@
 #' @rdname plot.model_audit
 #' @export
-plot.model_evaluation <- plot.model_audit
+plot.auditor_model_evaluation <- plot.model_audit

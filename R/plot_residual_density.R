@@ -12,13 +12,15 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotResidualDensity(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_residual_density(lm_mr)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotResidualDensity(lm_au, rf_au)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
+#' plot_residual_density(lm_mr, rf_mr)
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
@@ -26,40 +28,40 @@
 #'
 #' @export
 plot_residual_density <- function(object, ..., split = FALSE, variable = NULL) {
-
+  if(!is.null(variable)) split <- TRUE
   if (split == FALSE && (!is.null(variable) && nchar(variable) > 1))
     stop("Please change argument `split` to `TRUE` if you want to plot residual density of a specific variable")
 
   # some safeguard
   res <- label <- div <- NULL
-
-  # check if passed object is of class "model_residuals" or "model_audit"
+  # check if passed object is of class "auditor_model_residuals"
   check_object(object, type = "res")
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "dens")
 
+
   # some helpfull objects
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
-  model_count <- length(levels(df$label))
+  df$`_ord_` <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
+  model_count <- length(levels(df$`_label_`))
 
   # arguments values differ depending on splitting or not
   if (split == TRUE) {
-    var_split <- "div"
-    colours <- theme_drwhy_colors(length(unique(df$div)))
+    var_split <- "`_div_`"
+    colours <- theme_drwhy_colors(length(unique(df$`_div_`)))
     legend_pos <- "bottom"
     legend_just <- "center"
-    split_by <- unique(df$div)
+    split_by <- unique(df$`_div_`)
   } else if (split == FALSE) {
-    var_split <- "label"
+    var_split <- "`_label_`"
     colours <- theme_drwhy_colors(model_count)
     legend_pos <- "top"
     legend_just <- c(1, 0)
     if (model_count == 1) legend_pos <- "none"
-    split_by <- unique(df$label)
+    split_by <- unique(df$`_label_`)
   }
 
-  p <- ggplot(data = df, aes(x = res)) +
+  p <- ggplot(data = df, aes(x = `_residuals_`)) +
     geom_density(alpha = 0.3, aes_string(fill = var_split)) +
     geom_rug(aes_string(color = var_split), alpha = 0.5) +
     geom_vline(xintercept = 0, colour = "darkgrey") +
@@ -78,7 +80,7 @@ plot_residual_density <- function(object, ..., split = FALSE, variable = NULL) {
   if (model_count > 1 && split == FALSE) {
     p
   } else {
-    p <- p + facet_wrap(. ~ label, scales = "free_x", ncol = 2) +
+    p <- p + facet_wrap(. ~ `_label_`, scales = "free_x", ncol = 2) +
       theme(strip.text = element_text(colour = "#160e3b", size = rel(1), face = "bold"),
             panel.spacing.y = unit(0.5, "lines"),
             strip.text.x = element_text(margin = margin(0.1, 0, 0.2, 0, "cm")))

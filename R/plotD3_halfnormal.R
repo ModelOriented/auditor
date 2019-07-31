@@ -14,13 +14,6 @@
 #'
 #' @return a `r2d3` object.
 #'
-#' @examples
-#' library(auditor)
-#' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length, label = "lm")
-#'
-#' plotD3_halfnormal(lm_au)
 #'
 #' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density

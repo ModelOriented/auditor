@@ -5,15 +5,18 @@
 #' @param object An object of class 'model_audit'.
 #' @param ... Other modelAudit objects to be plotted together.
 #'
+#' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotResidual(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_residual_boxplot(lm_mr)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotResidualBoxplot(lm_au, rf_au)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
+#' plot_residual_boxplot(lm_mr, rf_mr)
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
@@ -36,10 +39,9 @@ plot_residual_boxplot <- function(object, ...) {
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # additional values
-  df_points <- aggregate(list(res = df$res), list(label = df$label), FUN = function(x) { sqrt(mean(x^2)) })
-
+  df_points <- aggregate(list(res = df$`_residuals_`), list(label = df$`_label_`), FUN = function(x) { sqrt(mean(x^2)) })
   # main chart
-  ggplot(data = df, aes(x = label, y = abs(res), fill = label)) +
+  ggplot(data = df, aes(x = `_label_`, y = abs(`_residuals_`), fill = label)) +
     geom_boxplot(coef = 1000, show.legend = FALSE, width = 0.65) +
     geom_point(data = df_points, aes(x = label, y = res), shape = 4, size = 2.5, show.legend = FALSE) +
     xlab("") +
@@ -47,7 +49,7 @@ plot_residual_boxplot <- function(object, ...) {
     ggtitle("Absolute residuals") +
     theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3"), panel.grid = element_blank()) +
-    scale_fill_manual(values = rev(colours), breaks = levels(df$label)) +
+    scale_fill_manual(values = rev(colours), breaks = levels(df$`_label_`)) +
     coord_flip()
 }
 

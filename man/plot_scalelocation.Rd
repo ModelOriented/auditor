@@ -5,7 +5,7 @@
 \alias{plotScaleLocation}
 \title{Scale location plot}
 \usage{
-plot_scalelocation(object, ..., variable = NULL, smooth = FALSE,
+plot_scalelocation(object, ..., variable = "_y_", smooth = FALSE,
   peaks = FALSE)
 
 plotScaleLocation(object, ..., variable = NULL, smooth = FALSE,
@@ -16,10 +16,11 @@ plotScaleLocation(object, ..., variable = NULL, smooth = FALSE,
 
 \item{...}{Other modelAudit objects to be plotted together.}
 
-\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-in the data set. If \code{variable = ""} is set, unordered observations are presented.}
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{explain}} function).
+If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
@@ -32,8 +33,10 @@ A vertical line corresponds to median.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plot_scalelocation(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+library(auditor)
+lm_mr <- model_residual(lm_exp)
+plot_scalelocation(lm_mr)
 
 
 }

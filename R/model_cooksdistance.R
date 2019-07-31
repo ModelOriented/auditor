@@ -27,8 +27,9 @@ model_cooksdistance <- function(object){
 
   cooksDistances <- score_cooksdistance(object)
 
-  result <- data.frame(cooks.dist = cooksDistances, label = object$label, index = 1:length(object$y))
-  result <- result[order(-result$cooks.dist),]
+  result <- data.frame(cooksDistances, object$label, 1:length(object$y))
+  colnames(result) <- c("`_cooks_dist_`", "`_label_`", "`_index_`")
+  result <- result[order(result[,"`_cooks_dist_`"], decreasing = TRUE),]
 
   class(result) <- c("auditor_model_cooksdistance", "data.frame")
 

@@ -14,13 +14,15 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plot_tsecdf(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_tsecdf(lm_mr)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plot_tsecdf(lm_au, rf_au, reverse_y = TRUE)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
+#' plot_tsecdf(lm_mr, rf_mr, reverse_y = TRUE)
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
@@ -33,7 +35,7 @@ plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
   # some safeguard
   res <- ecd <- label <- big <- no.obs <- NULL
 
-  # check if passed object is of class "model_residual" or "model_audit"
+  # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
 
   # data frame for ggplot object
@@ -42,14 +44,12 @@ plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
 
   # new varibale to set an order o curves
   df <- df[order(-as.numeric(factor(df$ecd))), ]
-
   # colors for model(s)
-  colours <- theme_drwhy_colors(length(levels(df$label)))
-
+  colours <- theme_drwhy_colors(length(levels(df$`_label_`)))
   # main chart
-  p <- ggplot(df, aes(x = res, y = ecd, colour = label, group = label)) +
+  p <- ggplot(df, aes(x = res, y = ecd, colour = `_label_`, group = `_label_`)) +
     geom_step() +
-    scale_colour_manual(values = colours, breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
+    scale_colour_manual(values = colours, breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
     scale_x_continuous(breaks = scales::pretty_breaks()) +
     scale_y_continuous(expand = c(0, 0), limits = c(0, max(df$ecd) * 1.05), labels = scales::percent) +
     theme_drwhy() +

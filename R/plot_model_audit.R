@@ -46,7 +46,6 @@ plot.model_audit <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
   plotNames <- c('acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residual', 'lift',
                  'pca', 'radar', 'correlation', 'prediction', 'rec', 'residual_boxplot', 'residual_density', 'residual',
                  'roc', 'rroc', 'scalelocation', 'tsecdf')
-
   if(!all(type %in% plotNames)){
     stop(paste0("Invalid plot type. Possible values are: ", paste(plotNames, collapse = ", "),"."))
   }

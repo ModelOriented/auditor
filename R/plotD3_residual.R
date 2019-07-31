@@ -22,20 +22,6 @@
 #'
 #' @return a `r2d3` object.
 #'
-#' @examples
-#' library("auditor")
-#' library("DALEX")
-#'
-#' lm_model <- lm(m2.price ~., data = apartments)
-#' lm_au <- audit(lm_model, label = "lm")
-#' plotD3Residual(lm_au, variable = "construction.year")
-#'
-#' library(randomForest)
-#' rf_model <- randomForest(m2.price ~., data = apartments)
-#' rf_au <- audit(rf_model, label = "rf")
-#' rf_mr <- modelResiduals(rf_au, "construction.year")
-#' plotD3_residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE)
-#' plotD3_residual(lm_au, rf_mr, variable = "construction.year", smooth = TRUE, single_plot = FALSE)
 #'
 #' @seealso \code{\link{plotResidual}}
 #'

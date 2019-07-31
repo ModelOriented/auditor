@@ -23,19 +23,21 @@
 #'
 #' @references Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
 #'
-#' @seealso \code{\link{plot.model_audit}, \link{plot_roc}, \link{plot_rec}}
+#' @seealso \code{ \link{plot_roc}, \link{plot_rec}}
 #'
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plot_rroc(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_rroc(lm_mr)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plot_rroc(lm_au, rf_au)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
+#' plot_rroc(lm_mr, rf_mr)
 #'
 #' @import ggplot2
 #'
@@ -45,18 +47,17 @@ plot_rroc <- function(object, ...) {
   # some safeguard
   rroc_x <- rroc_y <- label <- curve <- ord <- NULL
 
-  # check if passed object is of class "modelResiduals" or "modelAudit"
+  # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., type = "rroc")
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  df$ord <- paste(rev(as.numeric(df$label)), df$`_label_`)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
-
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
   # main chart
   p <- ggplot(data = df, aes(x = rroc_x, y = rroc_y, colour = label)) +
     geom_line(data = subset(df, curve == TRUE), aes(group = ord)) +

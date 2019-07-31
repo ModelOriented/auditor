@@ -31,7 +31,6 @@
 #'
 #' @export
 plot_correlation <- function(object, ..., values = "fit") {
-
   x <- y <- NULL
 
   # check if passed object is of class "auditor_model_residual"
@@ -39,13 +38,13 @@ plot_correlation <- function(object, ..., values = "fit") {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., values = values, type = "corr")
-
   # plots of density
   vars <- names(df)
+
   lab_x <- vars %in% vars[length(vars)]
   lab_y <- vars %in% vars[1]
   lim_y <- max(sapply(vars, function(x) max(density(df[, x])[["y"]])))
-
+  vars[[1]] <- paste0("`",vars[[1]],"`")
   args <- mapply(c, vars, lab_x, lab_y, lim_y, SIMPLIFY = FALSE, USE.NAMES = FALSE)
   plots_dens <- lapply(args, corr_density, df)
 
@@ -54,7 +53,9 @@ plot_correlation <- function(object, ..., values = "fit") {
   slots <- lay_matrix[lower.tri(lay_matrix)]
   lab_x <- slots %in% lay_matrix[nrow(lay_matrix), ]
   lab_y <- slots %in% lay_matrix[, 1]
-  vars <- combn(names(df), 2, simplify = FALSE)
+  vars <- names(df)
+  vars[[1]] <- paste0("`",vars[[1]],"`")
+  vars <- combn(vars, 2, simplify = FALSE)
 
   args <- mapply(c, vars, lab_x, lab_y, SIMPLIFY = FALSE, USE.NAMES = FALSE)
   plots_scat <- lapply(args, corr_points, df)
@@ -71,7 +72,7 @@ plot_correlation <- function(object, ..., values = "fit") {
   a <- arrangeGrob(grobs = c(plots_dens, plots_scat, coefs), layout_matrix = lay_matrix)
   grid.newpage()
   grid.draw(a)
-  class(a) <- c("modelCorrelationPlot", class(a))
+  class(a) <- c("model_correlation_plot", class(a))
   invisible(a)
 }
 

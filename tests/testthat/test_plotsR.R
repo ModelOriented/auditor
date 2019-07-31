@@ -23,13 +23,13 @@ test_that("plot_cooksdistance", {
 test_that("plot_prediction", {
   expect_is(plot_prediction(mr_rf, smooth = TRUE), "gg")
   expect_is(plot_prediction(mr_rf), "gg")
-  expect_is(plot_prediction(mr_rf, variable = ""), "gg")
+  expect_is(plot_prediction(mr_rf, variable = "_y_hat_"), "gg")
   expect_is(plot_prediction(mr_rf, abline = TRUE), "gg")
 })
 
 test_that("plot_residual", {
   expect_is(plot_residual(mr_glm), "gg")
-  expect_is(plot_residual(mr_glm, variable = ""), "gg")
+  expect_is(plot_residual(mr_glm, variable = "_y_hat_"), "gg")
   expect_is(plot_residual(mr_glm, variable = "x2"), "gg")
   expect_is(plot_residual(mr_glm, std_residuals = TRUE, smooth = TRUE, nlabel = 5), "gg")
 })
@@ -41,16 +41,15 @@ test_that("plot_residual_boxplot", {
 test_that("plot_residual_density", {
   expect_is(plot_residual_density(mr_rf), "gg")
   expect_is(plot_residual_density(mr_rf, split = TRUE), "gg")
-  expect_is(plot_residual_density(mr_rf, variable = "x3", split = TRUE), "gg")
-  expect_is(plot_residual_density(mr_rf, variable = ""), "gg")
-  expect_is(plot_residual_density(mr_rf, mr_glm, variable = ""), "gg")
-  expect_is(plot_residual_density(mr_rf, mr_glm, variable = ""), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = "x2", split = TRUE), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = "_y_hat_"), "gg")
+  expect_is(plot_residual_density(mr_rf, mr_glm, variable = "_y_hat_"), "gg")
 })
 
 test_that("plot_scalelocation", {
   expect_is(plot_scalelocation(mr_rf), "gg")
   expect_is(plot_scalelocation(mr_rf, mr_glm), "gg")
-  expect_is(plot_scalelocation(mr_rf, variable = ""), "gg")
+  expect_is(plot_scalelocation(mr_rf, variable = "_y_hat_"), "gg")
   expect_is(plot_scalelocation(mr_rf, smooth = TRUE), "gg")
   expect_is(plot_scalelocation(mr_rf, peaks = TRUE), "gg")
 })
@@ -117,6 +116,7 @@ test_that("plot", {
   expect_is(plot(mr_rf, type="rec"), "gg")
   expect_error(plot(mr_rf, type="wrongType"))
 })
+
 
 test_that("multiple plots on grid", {
   expect_is(plot(mr_rf, type=c("prediction", "residual"), grid = TRUE), "gtable")

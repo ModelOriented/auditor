@@ -41,8 +41,9 @@ plot_prediction(lm_mr, variable = "height", abline = TRUE)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plotPrediction(lm_au, rf_au, variable = "height", smooth = TRUE)
+rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+rf_mr <- model_residual(rf_exp)
+plot_prediction(lm_mr, rf_mr, variable = "height", smooth = TRUE)
 
 
 }

@@ -10,14 +10,14 @@ plot_pca(object, ..., scale = TRUE)
 plotModelPCA(object, ..., scale = TRUE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_residual',}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
 \item{scale}{A logical value indicating whether the models residuals should be scaled before the analysis.}
 }
 \value{
-ggplot object
+A ggplot object.
 }
 \description{
 Principal Component Analysis of models residuals.
@@ -26,13 +26,15 @@ PCA can be used to assess the similarity of the models.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+lm_mr <- model_residual(lm_exp)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
+rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+rf_mr <- model_residual(rf_exp)
 
-plot_pca(lm_au, rf_au)
+plot_pca(lm_mr, rf_mr)
 
 }
 \seealso{

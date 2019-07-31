@@ -17,25 +17,6 @@
 #'
 #' @return a `r2d3` object.
 #'
-#' @examples
-#' library(auditor)
-#' library(DALEX)
-#'
-#' lm_model <- lm(m2.price ~ ., data = apartments)
-#'
-#' library("randomForest")
-#' rf_model <- randomForest(m2.price ~ ., data = apartments)
-#'
-#' lm_au <- audit(lm_model, label = "lm", data = apartments, y = apartments$m2.price)
-#' rf_au <- audit(rf_model, label = "rf", data = apartments, y = apartments$m2.price)
-#'
-#' lm_mr_year <- modelResiduals(lm_au, variable = "construction.year")
-#' rf_mr_year <- modelResiduals(rf_au, variable = "construction.year")
-#'
-#' plotD3_autocorrelation(rf_mr_year, smooth = FALSE, scale_plot = TRUE, point_count = 1000)
-#'
-#' plotD3_autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE)
-#' plotD3_autocorrelation(rf_mr_year, lm_mr_year, smooth = TRUE, single_plot = FALSE)
 #'
 #' @export
 #' @rdname plotD3_autocorrelation

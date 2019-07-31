@@ -20,9 +20,11 @@
 
 score_dw <- function(object, variable = NULL){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
-  object <- model_residual(object, variable)
 
-  residuals <- object$res
+  object <- model_residual(object)
+  if(!is.null(variable)) object <- object[order(object[ ,variable]), ]
+  residuals <- object$`_residuals_`
+
   max_lag <- 1
   n <-  length(residuals)
   durbin_watson <- rep(0, max_lag)

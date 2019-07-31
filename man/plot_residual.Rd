@@ -5,7 +5,7 @@
 \alias{plotResidual}
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
-plot_residual(object, ..., variable = NULL, smooth = FALSE,
+plot_residual(object, ..., variable = "_y_", smooth = FALSE,
   std_residuals = FALSE, nlabel = 0)
 
 plotResidual(object, ..., variable = NULL, smooth = FALSE,
@@ -16,10 +16,11 @@ plotResidual(object, ..., variable = NULL, smooth = FALSE,
 
 \item{...}{Other modelAudit objects to be plotted together.}
 
-\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-in the data set. If \code{variable = ""} is set, unordered observations are presented.}
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{explain}} function).
+If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
@@ -33,8 +34,9 @@ A plot of residuals against fitted values, observed values or any variable.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plot_residual(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+lm_mr <- model_residual(lm_exp)
+plot_residual(lm_mr)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)

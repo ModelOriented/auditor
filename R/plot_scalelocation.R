@@ -6,25 +6,28 @@
 #'
 #' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit objects to be plotted together.
-#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
-#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
+#'@param variable Name of variable to order residuals on a plot.
+#' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link{explain}} function).
+#' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+#' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param peaks A logical value. If TRUE peaks are marked on plot by black dots.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plot_scalelocation(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_scalelocation(lm_mr)
 #'
 #'
 #' @import ggplot2
 #' @importFrom stats median
 #'
 #' @export
-plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
+plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, peaks = FALSE) {
 
   # some safeguard
   values <- sqrt_std_residuals <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
@@ -35,15 +38,29 @@ plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, pea
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "scal")
 
+  if (is.null(variable)) {
+    variable <- "Observations"
+  }
+
+  # set value for label of the X axis
+  if (variable == "Observations") {
+    x_lab <- "Observations"
+  } else if (variable == "_y_")  {
+    x_lab <- "Target variable"
+  } else if (variable == "_y_hat_") {
+    x_lab <- "Actual response"
+  } else {
+    x_lab <- as.character(df$`_variable_`[1])
+  }
+
   # data frame for extra geoms
   maybe_peaks  <- if (peaks == TRUE) subset(df, peak == TRUE) else df[0, ]
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
-
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 
   # main chart
-  p <- ggplot(data = df, aes(values, sqrt_std_residuals))
+  p <- ggplot(data = df, aes(`_val_`, `_sqrt_std_residuals_`))
 
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)
@@ -63,7 +80,6 @@ plot_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE, pea
   chart_title <- "Scale location"
 
   if ("model_audit" %in% class(object)) object <- model_residual(object, variable = variable)
-  x_lab <- as.character(object$variable[1])
 
   if (x_lab != "Observations") {
     p <- p + scale_x_continuous(breaks = scales::pretty_breaks())

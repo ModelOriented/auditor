@@ -33,13 +33,15 @@ Cumulative Distribution Function for positive and negative residuals.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plot_tsecdf(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+lm_mr <- model_residual(lm_exp)
+plot_tsecdf(lm_mr)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plot_tsecdf(lm_au, rf_au, reverse_y = TRUE)
+rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+rf_mr <- model_residual(rf_exp)
+plot_tsecdf(lm_mr, rf_mr, reverse_y = TRUE)
 
 }
 \seealso{

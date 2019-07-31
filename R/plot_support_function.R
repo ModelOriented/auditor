@@ -49,10 +49,8 @@ check_object <- function(object, type = "res") {
 make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res",
                            quant = NULL, values = NULL, scale_error = TRUE, outliers = NA,
                            residuals = TRUE, reverse_y = FALSE, score = NULL, new.score = NULL) {
-
   object <- prepare_object(object, variable, nlabel, type, quant, values, scale_error, outliers,
                            reverse_y, score, new.score)
-
   if (length(list(...)) > 0) {
     for (resp in list(...)) {
       resp <- prepare_object(object = resp, variable, nlabel, type, quant, values, scale_error, outliers,
@@ -95,13 +93,15 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, scale_
   }
 
   #sorting
-  if (! is.null(variable)){
-    object <- object[order(object[,variable]),]
-    object$`_val_` <- object[,variable]
-    object$`_variable_` <- variable
-  } else {
-    object$`_val_` <- 1:nrow(object)
-    object$`_variable_` <- "Observations"
+  if(type == "res"){
+    if (!is.null(variable)){
+      object <- object[order(object[,variable]),]
+      object$`_val_` <- object[,variable]
+      object$`_variable_` <- variable
+    } else {
+      object$`_val_` <- 1:nrow(object)
+      object$`_variable_` <- "Observations"
+    }
   }
 
 
@@ -109,24 +109,23 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, scale_
          "rec"  = { object <- make_rec_df(object) },
          "rroc" = { object <- make_rroc_df(object) },
          "scal" = { object <- make_scale_loc_df(object) },
-         "dens" = { object <- get_division(object) },
+         "dens" = { object <- get_division(object, variable) },
          "pca"  = { object <- make_pca_df(object) },
          "corr" = { object <- make_corr_df(object, values) },
-         "ecdf" = { object <- getTwoSidedECDF(object, scale_error, outliers, reverse_y) })
+         "ecdf" = { object <- get_tsecdf_df(object, scale_error, outliers, reverse_y) })
   return(object)
 }
 
 
 make_scale_loc_df <- function(object) {
-  resultDF <- data.frame(std_residuals = object$std_res, values = object$val)
-  resultDF$sqrt_std_residuals <- sqrt(abs(resultDF$std_residuals))
-  resultDF$label <- object$label[1]
-  resultDF$peak <- (abs(object$std_res) >= cummax(abs(object$std_res)))
-  return(resultDF)
+  result_df <- object
+  result_df$`_sqrt_std_residuals_` <- sqrt(abs(result_df$`_std_residuals_`))
+  result_df$`_peak_` <- (abs(object$`_std_residuals_`) >= cummax(abs(object$`_std_residuals_`)))
+  return(result_df)
 }
 
 make_rec_df <- function(object) {
-  err <- sort(abs(object$res))
+  err <- sort(abs(object$`_residuals_`))
   err <- c(0, err)
   n <- length(err)
   rec_x <- numeric(n)
@@ -139,12 +138,12 @@ make_rec_df <- function(object) {
     correct <- correct + 1
   }
 
-  df <- data.frame(rec_x = rec_x, rec_y = rec_y, label = object$label[1])
+  df <- data.frame(rec_x = rec_x, rec_y = rec_y, label = object$`_label_`[1])
   return(df)
 }
 
 make_rroc_df <- function(object) {
-  err <- sort(object$fitted_values - object$y)
+  err <- sort(object$`_y_hat_` - object$`_y_`)
   n <- length(err)
   rroc_x <- numeric(n + 2)
   rroc_y <- numeric(n + 2)
@@ -161,13 +160,13 @@ make_rroc_df <- function(object) {
   rroc_x[n + 2] <- Inf
   rroc_y[n + 2] <- 0
 
-  df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$label[1], curve = TRUE)
+  df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$`_label_`[1], curve = TRUE)
 
   # calculation of the shift equals 0 which is represented on the plot by a dot
-  err <- sort(object$fitted_values - object$y)
+  err <- sort(object$`_y_hat_` - object$`_y_`)
   df <- rbind(df, data.frame(rroc_x = sum(err[which(err > 0)], na.rm = TRUE),
                              rroc_y = sum(err[which(err < 0)], na.rm = TRUE),
-                             label = object$label[1],
+                             label = object$`_label_`[1],
                              curve = FALSE))
   return(df)
 }
@@ -179,40 +178,45 @@ obs_influence_add <- function(object, nlabel) {
   return(df)
 }
 
-get_division <- function(modelData) {
-  variable <- modelData$variable[1]
+get_division <- function(modelData, variable) {
   df <- modelData
-  if (class(modelData$val) %in% c("numeric", "integer")) {
-    varMedian <- median(modelData$val)
-    df$div <- ifelse(modelData$val > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
+  if(is.null(variable)){
+    modelData$`_val_`<- 1:nrow(modelData)
   } else {
-    df$div <- modelData$val
+    modelData$`_val_`<-modelData[,variable]
   }
+
+  if (any(class(modelData$`_val_`) %in% c("numeric", "integer"))) {
+    varMedian <- median(modelData$`_val_`)
+    df$`_div_` <- ifelse(modelData$`_val_` > varMedian, paste(">", variable, "median"), paste("<=", variable, "median"))
+  } else {
+    df$`_div_` <- unlist(modelData$`_val_`, use.names = FALSE)
+  }
+  rownames(df) <- NULL
   return(df)
 }
 
 make_pca_df <- function(object) {
-  df <- data.frame(y = object$res)
-  colnames(df) <- as.character(object$label[1])
+  df <- data.frame(y = object$`_residuals_`)
+  colnames(df) <- as.character(object$`_label_`[1])
   object <- df
 }
 
 make_corr_df <- function(object, values) {
-  y <- fitted_values <- NULL
   if (values == "fit") {
-    df <- subset(object, select = c(y, fitted_values))
-    names(df)[names(df) == "fitted_values"] <- as.character(object$label[1])
+    df <- subset(object, select = c(`_y_`, `_y_hat_`))
+    names(df)[names(df) == "_y_hat_"] <- as.character(object$`_label_`[1])
   } else if (values == "res") {
-    df <- data.frame(y = object$res)
-    colnames(df)[1] <- as.character(object$label[1])
+    df <- data.frame(y = object$`_residuals_`)
+    colnames(df)[1] <- as.character(object$`_label_`[1])
   } else {
     stop("Parameter 'values' should take 'fit' or 'res' values.")
   }
   return(df)
 }
 
-getTwoSidedECDF <- function(object, scale_error, outliers, reverse_y) {
-  res <- object$res
+get_tsecdf_df <- function(object, scale_error, outliers, reverse_y) {
+  res <- object$`_residuals_`
   resids <- data.frame(no.obs = 1:(length(res)), res = res, sign = ifelse(res >= 0, "pos", "neg"))
   df <- resids
 
@@ -221,6 +225,7 @@ getTwoSidedECDF <- function(object, scale_error, outliers, reverse_y) {
   dfLower$ecd  <- ecdf(dfLower$res)(dfLower$res)
   dfHigher$ecd <- ecdf(dfHigher$res)(dfHigher$res)
   df <- rbind(dfLower, dfHigher)
+  df$`_label_` <- object$`_label_`
 
   if (reverse_y == FALSE) {
     df$ecd <- ifelse(df$sign == "neg", 1 - df$ecd, df$ecd)
@@ -410,7 +415,6 @@ prepare_matrix <- function(df) {
 }
 
 corr_density <- function(args, data) {
-
   ggplot(data = data, aes_string(x = args[1])) +
     geom_density(colour = "#160e3b") +
     theme_drwhy() +

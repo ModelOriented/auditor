@@ -5,14 +5,18 @@
 \alias{plotAutocorrelation}
 \title{Autocorrelation of Residuals Plot}
 \usage{
-plot_autocorrelation(object, ..., smooth = FALSE)
+plot_autocorrelation(object, ..., variable = "_y_hat_", smooth = FALSE)
 
-plotAutocorrelation(object, ..., smooth = FALSE)
+plotAutocorrelation(object, ..., variable, smooth = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
 \item{...}{Other 'auditor_model_residual' objects to be plotted together.}
+
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link{explain}} function).}
 
 \item{smooth}{Logical, if TRUE smooth line will be added.}
 }
@@ -28,7 +32,8 @@ lm_model <- lm(life_length ~ ., data = dragons)
 lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
 
 library(auditor)
-plot_autocorrelation(lm_exp)
-plot_autocorrelation(lm_exp, score = TRUE, smooth = TRUE)
+lm_mr <- model_residual(lm_exp)
+plot_autocorrelation(lm_mr)
+plot_autocorrelation(lm_mr, score = TRUE, smooth = TRUE)
 
 }

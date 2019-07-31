@@ -38,18 +38,20 @@ Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-plot_rroc(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+lm_mr <- model_residual(lm_exp)
+plot_rroc(lm_mr)
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plot_rroc(lm_au, rf_au)
+rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+rf_mr <- model_residual(rf_exp)
+plot_rroc(lm_mr, rf_mr)
 
 }
 \references{
 Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
 }
 \seealso{
-\code{\link{plot.model_audit}, \link{plot_roc}, \link{plot_rec}}
+\code{ \link{plot_roc}, \link{plot_rec}}
 }

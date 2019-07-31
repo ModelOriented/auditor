@@ -4,6 +4,9 @@
 #'
 #' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
 #' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param variable Name of variable to order residuals on a plot.
+#' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link{explain}} function).
 #' @param smooth Logical, if TRUE smooth line will be added.
 #'
 #' @return A ggplot object.
@@ -14,13 +17,14 @@
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
 #'
 #' library(auditor)
-#' plot_autocorrelation(lm_exp)
-#' plot_autocorrelation(lm_exp, score = TRUE, smooth = TRUE)
+#' lm_mr <- model_residual(lm_exp)
+#' plot_autocorrelation(lm_mr)
+#' plot_autocorrelation(lm_mr, score = TRUE, smooth = TRUE)
 #'
 #' @import ggplot2
 #'
 #' @export
-plot_autocorrelation <- function(object, ..., smooth = FALSE) {
+plot_autocorrelation <- function(object, ..., variable = "_y_hat_", smooth = FALSE) {
 
   # some safeguard
   x <- y <- x_val <- y_val <- NULL
@@ -31,13 +35,30 @@ plot_autocorrelation <- function(object, ..., smooth = FALSE) {
   # data frame for ggplot object
   df_temp <- make_dataframe(object, ..., variable = variable, type = "res")
 
+  if (is.null(variable)) {
+    variable <- "Observations"
+  }
+
+  # set value for label of the X axis
+  if (variable == "Observations") {
+    x_lab <- "Observations"
+  } else if (variable == "_y_")  {
+    x_lab <- "Target variable"
+  } else if (variable == "_y_hat_") {
+    x_lab <- "Actual response"
+  } else {
+    x_lab <- as.character(df$`_variable_`[1])
+  }
+
+
   df <- data.frame(x_val = numeric(), y_val = numeric(), label = character())
-  for (label in levels(df_temp$label)) {
-    ord_res <- df_temp[which(df_temp$label == label), "res"]
+  for (label in levels(df_temp$`_label_`)) {
+    ord_res <- df_temp[which(df_temp$`_label_` == label), "_residuals_"]
     df <- rbind(df, data.frame(x_val = ord_res[-length(ord_res)],
                                y_val = ord_res[-1],
                                label = label))
   }
+  colnames(df)[3] <- "_label_"
 
   # data frame for extra geoms
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
@@ -62,11 +83,14 @@ plot_autocorrelation <- function(object, ..., smooth = FALSE) {
     scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
 
   chart_title <- "Autocorrelation "
-  x_lab <- as.character(df_temp$variable[1])
+
 
   if (x_lab == "Target variable") {
     p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
     chart_subtitle <- paste0("of residuals ordered by predicted values")
+  } else if (x_lab == "Actual response") {
+    p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
+    chart_subtitle <- paste0("of residuals ordered by model response")
   } else if (x_lab == "Observations") {
     p <- p + scale_x_continuous(breaks = 5, labels = "")
     chart_subtitle <- paste0("of unordered residuals")
@@ -83,7 +107,7 @@ return(p)
 
 #' @rdname plot_autocorrelation
 #' @export
-plotAutocorrelation <- function(object, ..., smooth = FALSE) {
+plotAutocorrelation <- function(object, ..., variable, smooth = FALSE) {
   message("Please note that 'plotAutocorrelation()' is now deprecated, it is better to use 'plot_autocorrelation()' instead.")
   plot_autocorrelation(object, ..., smooth = FALSE)
 }

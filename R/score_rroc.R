@@ -23,7 +23,7 @@
 score_rroc <- function(object) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  object <- model_residual(object, variable = NULL)
+  object <- model_residual(object)
 
   RROCF <- make_rroc_df(object)
   RROCF <- RROCF[RROCF$curve == TRUE,]

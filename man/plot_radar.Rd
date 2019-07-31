@@ -31,11 +31,14 @@ Radar plot with model score. score are scaled to [0,1], each score is inversed a
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+lm_mp <- model_performance(lm_exp)
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
-rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-plot_radar(lm_au, rf_au)
+rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+rf_mp <- model_performance(rf_exp)
+
+plot_radar(lm_mp, rf_mp)
 
 }
 \seealso{

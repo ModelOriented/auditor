@@ -29,7 +29,6 @@
 #' @export
 model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL) {
   check_object(object, type = "exp")
-
     score <- sapply(score, function(x) score(object, score = x)$score)
     df <- data.frame(score = score[1], label = object$label, name = names(score[1]))
 

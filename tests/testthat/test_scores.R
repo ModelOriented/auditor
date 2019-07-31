@@ -12,7 +12,6 @@ test_that("score_dw", {
   expect_is(score_dw(exp_rf, "x2"), "auditor_score")
 })
 
-
 test_that("score_runs", {
   expect_is(score_runs(exp_lm), "auditor_score")
   expect_is(score_runs(exp_glm, "x2"), "auditor_score")

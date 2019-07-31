@@ -18,10 +18,11 @@
 score_runs <- function(object, variable = NULL){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  object <- model_residual(object, variable)
+  object <- model_residual(object)
+  if(!is.null(variable)) object <- object[order(object[ ,variable]), ]
 
 
-  orderedResiduals <- object$res
+  orderedResiduals <- object$`_residuals_`
 
   sinum_of_res <- factor(sign(orderedResiduals))
 

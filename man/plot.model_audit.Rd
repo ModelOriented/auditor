@@ -5,30 +5,30 @@
 %   R/plot_model_residual.R
 \name{plot.model_audit}
 \alias{plot.model_audit}
-\alias{plot.model_cooksdistance}
-\alias{plot.model_evaluation}
-\alias{plot.model_halfnormal}
+\alias{plot.auditor_model_cooksdistance}
+\alias{plot.auditor_model_evaluation}
+\alias{plot.auditor_model_halfnormal}
 \alias{plot.auditor_model_performance}
-\alias{plot.model_residual}
+\alias{plot.auditor_model_residual}
 \title{Model diagnostic plots}
 \usage{
 \method{plot}{model_audit}(x, ..., type = "residual", ask = TRUE,
   grid = TRUE)
 
-\method{plot}{model_cooksdistance}(x, ..., type = "residual",
+\method{plot}{auditor_model_cooksdistance}(x, ..., type = "residual",
   ask = TRUE, grid = TRUE)
 
-\method{plot}{model_evaluation}(x, ..., type = "residual", ask = TRUE,
-  grid = TRUE)
+\method{plot}{auditor_model_evaluation}(x, ..., type = "residual",
+  ask = TRUE, grid = TRUE)
 
-\method{plot}{model_halfnormal}(x, ..., type = "residual", ask = TRUE,
-  grid = TRUE)
+\method{plot}{auditor_model_halfnormal}(x, ..., type = "residual",
+  ask = TRUE, grid = TRUE)
 
 \method{plot}{auditor_model_performance}(x, ..., type = "residual",
   ask = TRUE, grid = TRUE)
 
-\method{plot}{model_residual}(x, ..., type = "residual", ask = TRUE,
-  grid = TRUE)
+\method{plot}{auditor_model_residual}(x, ..., type = "residual",
+  ask = TRUE, grid = TRUE)
 }
 \arguments{
 \item{x}{object of class 'model_audit', 'model_residual', 'auditor_model_performance', 'model_evaluation',

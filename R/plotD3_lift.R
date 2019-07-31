@@ -11,20 +11,6 @@
 #'
 #' @seealso \code{\link{plot_lift}}
 #'
-#' @examples
-#' library(DALEX)
-#' data(titanic)
-#' titanic <- na.omit(titanic)
-#' titanic$survived <- titanic$survived == "yes"
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm, data = titanic, y = titanic$survived)
-#'
-#' plotD3_lift(audit_glm)
-#'
-#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
-#' audit_glm_2 <- audit(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
-#'
-#' plotD3_lift(audit_glm, audit_glm_2, scale_plot = TRUE)
 #'
 #' @export
 #' @rdname plotD3_lift

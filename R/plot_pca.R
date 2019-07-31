@@ -3,22 +3,24 @@
 #' @description Principal Component Analysis of models residuals.
 #' PCA can be used to assess the similarity of the models.
 #'
-#' @param object An object of class 'model_audit' or 'model_residual',
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param scale A logical value indicating whether the models residuals should be scaled before the analysis.
 #'
-#' @return ggplot object
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_mr <- model_residual(lm_exp)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
 #'
-#' plot_pca(lm_au, rf_au)
+#' plot_pca(lm_mr, rf_mr)
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
@@ -31,7 +33,7 @@ plot_pca <- function(object, ..., scale = TRUE) {
   # some safeguard
   residuals <- label <- PC1 <- PC2 <- NULL
 
-  # check if passed object is of class "model_residual" or "model_audit"
+  # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
 
   # PCA object for ggplot object

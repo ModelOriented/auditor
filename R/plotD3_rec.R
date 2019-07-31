@@ -17,17 +17,6 @@
 #' @references Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth
 #' International Conference on Machine Learning (ICML-2003), Washington, DC.
 #'
-#' @examples
-#' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plotD3_rec(lm_au)
-#'
-#' library(randomForest)
-#' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plotD3_rec(lm_au, rf_au)
-#'
 #' @export
 #' @rdname plotD3_rec
 
