@@ -253,31 +253,31 @@ get_tsecdf_df <- function(object, scale_error, outliers, reverse_y) {
 
 scaleModelRankingDF <- function(df) {
   df_new <- data.frame()
-  scores <- unique(df$name)
+  scores <- unique(df[,"_name_"])
   for(i in scores){
-    scoresDF <- df[which(df$name == i),]
+    scoresDF <- df[which(df[,"_name_"] == i),]
     if (!(i %in% c("auc"))) {
-      scoresDF$score <- as.numeric(scoresDF$score)
-      minScore <- min(scoresDF$score)
-      scoresDF$score <- 1 / scoresDF$score
-      scoresDF$score <- scoresDF$score * minScore
+      scoresDF[,"_score_"] <- as.numeric(scoresDF[,"_score_"])
+      minScore <- min(scoresDF[,"_score_"])
+      scoresDF[,"_score_"] <- 1 / scoresDF[,"_score_"]
+      scoresDF[,"_score_"] <- scoresDF[,"_score_"] * minScore
     }
     df_new <- rbind(df_new, scoresDF)
   }
-  names(df)[names(df) == "score"] <- "value"
-  df_new <- merge(df_new, df, by = c("label", "name"))
+  names(df)[names(df) == "_score_"] <- "_value_"
+  df_new <- merge(df_new, df, by = c("_label_", "_name_"))
 
   # preparation of data for the table
-  df_new <- df_new[order(df_new$name, df_new$label), ]
-  df_new$scaled <- unlist(by(df_new$score, df_new$name, function(x) { x[1] / x }))
+  df_new <- df_new[order(df_new[,"_name_"], df_new[,"_label_"]), ]
+  df_new$scaled <- unlist(by(df_new[,"_score_"], df_new[,"_name_"], function(x) { x[1] / x }))
   df_new$scaled <- format(as.numeric(df_new$scaled), scientific = FALSE, digits = 3)
-  df_new$name <- as.character(df_new$name)
-  df_new$value <- format(df_new$value, scientific = TRUE, digits = 3)
+  df_new[,"_name_"] <- as.character(df_new[,"_name_"])
+  df_new[,"_value_"] <- format(df_new[,"_value_"], scientific = TRUE, digits = 3)
 
   # set order of scores (levels in factor)
   default_scores <- c("MAE", "MSE", "REC", "RROC")
-  all_scores <- unique(df_new$name)
-  df_new$name <- factor(paste0("inv\n", df_new$name),
+  all_scores <- unique(df_new[,"_name_"])
+  df_new[,"_name_"] <- factor(paste0("inv\n", df_new[,"_name_"]),
                         levels = paste0("inv\n", c(default_scores, all_scores[all_scores != default_scores])))
   rownames(df_new) <- NULL
 

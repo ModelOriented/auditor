@@ -75,7 +75,8 @@ calculate_classif_evaluation <- function(predictions, y, label){
              fpr = fpr,
              rpp = rpp,
              tp = tp)
-  res$label <- label
+  colnames(res) <- c("_y_hat_", "_y_", "_cutoffs_", "_tpr_", "_fpr_", "_rpp_", "_tp_")
+  res$`_label_` <- label
   res
 }
 

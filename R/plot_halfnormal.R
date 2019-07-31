@@ -40,13 +40,12 @@ plot_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99) {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., quant = quantiles, type = "fit")
-
   # main chart
-  p <- ggplot(data = df, aes(x)) +
-    geom_point(aes(y = residuals), colour = "#371ea3") +
-    geom_line(aes(y = upper)) +
-    geom_line(aes(y = lower)) +
-    geom_line(aes(y = median), linetype = 2, colour = "darkgrey")
+  p <- ggplot(data = df, aes(`_x_`)) +
+    geom_point(aes(y = `_residuals_`), colour = "#371ea3") +
+    geom_line(aes(y = `_upper_`)) +
+    geom_line(aes(y = `_lower_`)) +
+    geom_line(aes(y = `_median_`), linetype = 2, colour = "darkgrey")
 
   # theme, colours, titles, axes, scales, etc.
   p <- p + theme_drwhy() +

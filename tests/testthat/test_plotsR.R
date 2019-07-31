@@ -136,3 +136,4 @@ test_that("theme drwhy colors generates rigth length vectors", {
   z <- 1:9
   expect_equal(unlist(lapply(z, function(x) length(theme_drwhy_colors(x)))), z)
 })
+

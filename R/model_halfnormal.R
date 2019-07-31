@@ -38,7 +38,7 @@ model_halfnormal <- function(object, quant = FALSE, ...){
 
   class(result) <- c("auditor_model_halfnormal", "data.frame")
 
-  result$label <- object$label
+  result$`_label_` <- object$`_label_`
 
   return(result)
 }
@@ -85,6 +85,7 @@ dataset_halfnormal_plot <- function(hnpObject, quant, ...){
                            residuals = quantilesResiduals,
                            all.sim = all.sim)
   }
+  colnames(dataPlot)[1:5] <- c( "_x_", "_lower_", "_median_", "_upper_",  "_residuals_")
   return(dataPlot)
 }
 

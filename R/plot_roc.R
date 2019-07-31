@@ -19,9 +19,9 @@
 #' titanic <- na.omit(titanic)
 #' titanic$survived <- titanic$survived == "yes"
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm, y = titanic$survived)
-#'
-#' plot_roc(audit_glm)
+#' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
+#' ev_glm <- model_evaluation(exp_glm)
+#' plot_roc(ev_glm)
 #'
 #' @export
 
@@ -35,9 +35,8 @@ plot_roc <- function(object, ..., nlabels = NULL) {
 
   # prepare data frame for the ggplot object
   df <- make_dataframe(object, ..., type = "eva")
-
   # if cutoff points should be placed on the chart
-  n_models  <- length(unique(df$label))
+  n_models  <- length(unique(df$`_label_`))
   len_model <- nrow(df) / n_models
   inds <- c()
   if (!is.null(nlabels)) {
@@ -46,12 +45,12 @@ plot_roc <- function(object, ..., nlabels = NULL) {
   }
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  df$ord <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(n_models))
 
-  p <- ggplot(data = df, aes(x = fpr, y = tpr, color = label, group = ord)) +
+  p <- ggplot(data = df, aes(x = `_fpr_`, y = `_tpr_`, color = `_label_`, group = ord)) +
     geom_step() +
     geom_point(data = df[inds,], show.legend = FALSE) +
     geom_text_repel(data = df[inds,], aes(label = format(round(cutoffs, 2), nsmall = 2)), show.legend = FALSE, size = 3.5)
@@ -59,7 +58,7 @@ plot_roc <- function(object, ..., nlabels = NULL) {
   # theme, colours, titles, axes, scales, etc.
   p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
     xlab("False positive fraction") +
     ylab("True positive fraction") +
     ggtitle("ROC curve")

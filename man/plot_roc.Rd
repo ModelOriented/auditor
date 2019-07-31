@@ -29,9 +29,9 @@ data(titanic)
 titanic <- na.omit(titanic)
 titanic$survived <- titanic$survived == "yes"
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm, y = titanic$survived)
-
-plot_roc(audit_glm)
+exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
+ev_glm <- model_evaluation(exp_glm)
+plot_roc(ev_glm)
 
 }
 \seealso{

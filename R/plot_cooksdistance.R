@@ -44,27 +44,27 @@ plot_cooksdistance <- function(object, ..., nlabel = 3) {
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
-
   # main chart
-  p <- ggplot(data = df, aes(index, cooks.dist))
+  p <- ggplot(data = df, aes(`_index_`, `_cooks_dist_`))
 
   # points
   p <- p + drwhy_geom_point(df, alpha_val = 0.95)
-  p <- p + geom_point(data = subset(df, big == TRUE), aes(colour = label), size = 1.5)
+  p <- p + geom_point(data = subset(df, big == TRUE), aes(colour = `_label_`), size = 1.5)
 
   # text labels for extreme observations
-  p <- p + geom_text_repel(data = subset(df, big == TRUE), aes(label = as.character(index)),
+  p <- p + geom_text_repel(data = subset(df, big == TRUE), aes(label = as.character(`_index_`)),
                            color = "#f05a71", size = 3)
 
   # theme, colours, titles, axes, scales, etc.
   p <- p +
     theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1))
 
   p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
 
   p + xlab("Observation index") + ylab("Cook's distance") + ggtitle("Influence of observations")
+
 
 }
 

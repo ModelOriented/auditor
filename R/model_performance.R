@@ -45,7 +45,7 @@ model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), ne
         }
       }
     }
-
+  colnames(df) <- c("_score_", "_label_", "_name_")
   class(df) <- c("auditor_model_performance", "data.frame")
   return(df)
 }

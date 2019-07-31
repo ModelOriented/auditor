@@ -38,33 +38,32 @@ plot_lift <- function(object, ...) {
   df1 <- make_dataframe(object, ..., type = "eva")
 
   # take only columns required to plot LIFT curve
-  df1 <- df1[, c("rpp", "tp", "label")]
+  df1 <- df1[, c("_rpp_", "_tp_", "_label_")]
   df1$line <- "1"
-
   # prepare data frame for ideal and dummy model
-  pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
+  pr <- sum(object$`_y_` == levels(factor(object$`_y_`))[2]) / length(object$`_y_`)
+
   ideal_df <- data.frame(rpp = c(0, pr, 1),
-                         tp = c(0, max(df1$tp), max(df1$tp)),
+                         tp = c(0, max(df1$`_tp_`), max(df1$`_tp_`)),
                          label = c("ideal", "ideal", "ideal"))
 
   random_df <- data.frame(rpp = c(0, 1),
-                          tp =  c(0, max(df1$tp)),
+                          tp =  c(0, max(df1$`_tp_`)),
                           label = c("random", "random"))
-
   df2 <- rbind(ideal_df, random_df)
   df2$line <- "2"
+  colnames(df2)[1:3] <- c("_rpp_", "_tp_", "_label_")
 
   df <- rbind(df1, df2)
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  df$ord <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(unique(df1$label))))
-
+  colours <- rev(theme_drwhy_colors(length(unique(df1$`_label_`))))
   # main plot
-  p <- ggplot(df, aes(x = rpp, y = tp)) +
-    geom_line(aes(color = label, group = ord, linetype = line)) +
+  p <- ggplot(df, aes(x = `_rpp_`, y = `_tp_`)) +
+    geom_line(aes(color = `_label_`, group = ord, linetype = line)) +
     xlab("Rate of positive prediction") +
     ylab("True positive") +
     ggtitle("LIFT Chart") +
@@ -78,14 +77,14 @@ plot_lift <- function(object, ...) {
   # theme and colours
   p <- p + theme_drwhy() +
     scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"),
-                       breaks = levels(df1$label),
+                       breaks = levels(df1$`_label_`),
                        guide = guide_legend(nrow = 1)) +
     theme(plot.margin = unit(c(0, 0.5, 0, 0), "cm"),
           plot.title = element_text(margin = margin(b = 10)),
           legend.margin = margin(b = 15),
           axis.line.x = element_line(color = "#371ea3"))
 
-  p + annotate("text", x = max(df$rpp) * 0.6, y = max(df$tp) * 0.1, size = 3.3, hjust = 0,
+  p + annotate("text", x = max(df$`_rpp_`) * 0.6, y = max(df$`_tp_`) * 0.1, size = 3.3, hjust = 0,
                label = "Upper dashed line: ideal model\nLower dashed line: random model")
 }
 

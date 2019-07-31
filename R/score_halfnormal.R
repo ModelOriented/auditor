@@ -45,7 +45,7 @@ calculate_kde <- function(res, simres){
 
 # Calculating PDF score
 calculate_score_pdf <- function(hnpObject){
-  res <- hnpObject$residuals
+  res <- hnpObject$`_residuals_`
   simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
   n <- length(res)
   PDFs <- mapply(calculate_kde, res, simres)
