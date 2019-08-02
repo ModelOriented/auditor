@@ -2,15 +2,21 @@
 #'
 #' @description  Creates 'auditor_model_halfnormal' object that can be used for plotting halfnormal plot.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param quant if TRUE values on axis are on quantile scale.
 #' @param ... other parameters passed do \code{\link[hnp]{hnp}} function.
 #'
 #' @examples
 #' titanic <- na.omit(DALEX::titanic[1:100,])
+#'
+#' # fit a model
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' exp_glm <- DALEX::explain(model_glm)
-#' library(audit)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' model_halfnormal(exp_glm)
 #'
 #' @references Moral, R., Hinde, J., & Demétrio, C. (2017). Half-Normal Plots and Overdispersed Models in R: The hnp Package.doi:http://dx.doi.org/10.18637/jss.v081.i10
@@ -105,28 +111,11 @@ phalfnorm <- function(residuals)
 
 
 
-#' @title Create Model Fit explainer
-#'
-#' @description  Creates modelFit object to be plotted.
-#'
-#' @param object An object of class ModelAudit.
-#' @param quant.scale if TRUE values on axis are on quantile scale.
-#' @param ... other parameters passed do \code{\link[hnp]{hnp}} function.
-#'
-#' @examples
-#' library(DALEX)
-#' data(titanic)
-#' titanic <- na.omit(titanic[1:100,])
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm)
-#'
-#' modelFit(audit_glm)
-#'
-#' @importFrom stats pnorm
-#'
+
+#' @rdname model_halfnormal
 #' @export
-modelFit <- function(object, quant.scale = FALSE, ...){
+modelFit <- function(object, quant = FALSE, ...){
   message("Please note that 'modelfit()' is now deprecated, it is better to use 'model_halfnormal()' instead.")
-  model_halfnormal(object, quant.scale)
+  model_halfnormal(object, quant)
 }
 

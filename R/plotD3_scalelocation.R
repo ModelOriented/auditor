@@ -11,8 +11,7 @@
 #' @param object An object of class model_audit or model_residuals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+#' If value is NULL the data is ordered by a vector of actual response. One can also pass any name of any other variable
 #' in the data set. If \code{variable = ""} is set, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param peaks Logical, indicates whenever peak observations should be highlighted. By defaul it's FALSE.

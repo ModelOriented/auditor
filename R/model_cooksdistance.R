@@ -2,7 +2,7 @@
 #'
 #' @description  Calculates Cook's distances for each observation.
 #'
-#' @param object An object of class 'explain' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object An object of class 'explain' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #'
 #' @references Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
 #'
@@ -17,7 +17,7 @@
 #' # use DALEX package to wrap up a model into explainer
 #' exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
 #'
-#' # explain model with auditor
+#' # validate a model with auditor
 #' library(auditor)
 #' model_cooksdistance(exp_glm)
 #'
@@ -39,7 +39,7 @@ model_cooksdistance <- function(object){
 
 #' @rdname model_cooksdistance
 #' @export
-observationInfluence <- function(object, ...){
+observationInfluence <- function(object){
   message("Please note that 'observationInfluence()' is now deprecated, it is better to use 'model_cooksdistance()' instead.")
-  model_cooksdistance(object, ...)
+  model_cooksdistance(object)
 }

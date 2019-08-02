@@ -10,7 +10,7 @@ model_evaluation(object)
 modelEvaluation(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \value{
 An object of class 'auditor_model_evaluation'.
@@ -34,7 +34,7 @@ model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 # use DALEX package to wrap up a model into explainer
 exp_glm <- DALEX::explain(model_glm, data= titanic, y = titanic$survived)
 
-# explain model with auditor
+# validate a model with auditor
 library(auditor)
 model_evaluation(exp_glm)
 

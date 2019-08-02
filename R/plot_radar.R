@@ -2,27 +2,36 @@
 #'
 #' @description Radar plot with model score. score are scaled to [0,1], each score is inversed and divided by maximum score value.
 #'
-#' @param object An object of class ModelAudit.
-#' @param ... Other model_audit objects to be plotted together.
+#' @param object An object of class 'auditor_model_performance' created with \code{\link{model_performance}} function.
+#' @param ... Other auditor_model_performance' objects to be plotted together.
 #' @param score Vector of score names to be plotted.
 #' @param new_score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
-#' @param print logical, should values of scores be printed?
+#' @param print Logical, indicates whether values of scores should be printed.
 #'
 #' @return ggplot object
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mp <- model_performance(lm_exp)
+#'
+#'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 #' rf_mp <- model_performance(rf_exp)
 #'
+#' # plot results
 #' plot_radar(lm_mp, rf_mp)
 #'
-#' @seealso \code{\link{plot.model_audit}}
 #'
 #' @import ggplot2
 #' @import gridExtra

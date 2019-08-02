@@ -2,7 +2,7 @@
 #'
 #' @description Cook’s distance are used for estimate of the influence of an single observation.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param print If TRUE progress is printed.
 #'
 #' @details Cook’s distance is a tool for identifying observations that may negatively affect the model.
@@ -18,8 +18,8 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' score_cooksdistance(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' score_cooksdistance(lm_exp)
 #'
 #'
 #' @importFrom stats cooks.distance update

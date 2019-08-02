@@ -3,25 +3,36 @@
 #' @description Plot of predicted response vs observed or variable Values.
 #'
 #'
-#' @param object An object of class 'model_audit' or 'model_residual.
+#' @param object An object of class 'auditor_model_residual.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{explain}} function).
+#' passed to the \code{\link[DALEX]{explain}} function).
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smooth line should be added.
 #' @param abline Logical, indicates whenever function y = x shoul be added. Works only
 #' with \code{variable = NULL} which is a default option.
 #'
+#' @return A ggplot2 object.
+#'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#'  # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
 #'
+#' # validate a model with auditor
 #' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
+#' plot_prediction(lm_mr)
 #' plot_prediction(lm_mr, variable = "height", abline = TRUE)
+#' plot(lm_mr, type = "prediction", abline = TRUE)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)

@@ -15,7 +15,7 @@ plotLIFT(object, ...)
 \item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
 }
 \value{
-A ggplot object.docum
+A ggplot object.
 }
 \description{
 LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
@@ -24,17 +24,27 @@ It is useful for measuring and comparing the accuracy of the classificators.
 \examples{
 titanic <- na.omit(DALEX::titanic)
 titanic$survived <- titanic$survived == "yes"
+
+# fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+# use DALEX package to wrap up a model into explainer
 exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+
+# validate a model with auditor
 library(auditor)
 eva_glm <- model_evaluation(exp_glm)
+
+# plot results
 plot_lift(eva_glm)
+plot(eva_glm, type ="lift")
 
 model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
 exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
 eva_glm_2 <- model_evaluation(exp_glm_2)
 
 plot_lift(eva_glm, eva_glm_2)
+plot(eva_glm, eva_glm_2, type = "lift")
 
 
 }

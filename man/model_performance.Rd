@@ -2,13 +2,17 @@
 % Please edit documentation in R/model_performance.R
 \name{model_performance}
 \alias{model_performance}
+\alias{modelPerformance}
 \title{Create Model Performance Explaination}
 \usage{
 model_performance(object, score = c("mae", "mse", "rec", "rroc"),
   new_score = NULL)
+
+modelPerformance(object, score = c("mae", "mse", "rec", "rroc"),
+  new_score = NULL)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{score}{Vector of score names to be plotted. Possible values are 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 (for detailed description see functions in see also section).}
@@ -31,7 +35,7 @@ model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 # use DALEX package to wrap up a model into explainer
 exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
 
-# explain model with auditor
+# validate a model with auditor
 library(auditor)
 model_performance(exp_glm)
 

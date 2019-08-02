@@ -7,7 +7,7 @@
 check_residuals(object, ...)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{...}{other parameters that will be passed to further functions.}
 }

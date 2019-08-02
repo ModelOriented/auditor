@@ -2,11 +2,11 @@
 #'
 #' @description A plot of residuals against fitted values, observed values or any variable.
 #'
-#' @param object An object of class 'model_audit' or 'model_residual'.
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{explain}} function).
+#' passed to the \code{\link[DALEX]{explain}} function).
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
@@ -15,17 +15,28 @@
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
 #' plot_residual(lm_mr)
+#' plot(lm_mr, type = "residual")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plot_residual(lm_au, rf_au)
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' rf_mr <- model_residual(rf_exp)
+#' plot_residual(lm_mr, rf_mr)
+#' plot(lm_mr, rf_mr, type = "residual")
 #'
-#' @seealso \code{\link{plot.model_audit}}
 #'
 #' @import ggplot2
 #' @importFrom ggrepel geom_text_repel

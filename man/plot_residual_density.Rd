@@ -2,18 +2,21 @@
 % Please edit documentation in R/plot_residual_density.R
 \name{plot_residual_density}
 \alias{plot_residual_density}
+\alias{plotResidualDensity}
 \title{Residual Density Plot}
 \usage{
 plot_residual_density(object, ..., split = FALSE, variable = NULL)
+
+plotResidualDensity(object, ..., split = FALSE, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class 'model_audit'.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
 \item{split}{Logical. Indicates whenever plot should be splitted by variable.}
 
-\item{variable}{variable name o split. Optional. Should be provided  only for modelAudit object.}
+\item{variable}{Variable name o split. Optional.}
 }
 \value{
 ggplot object
@@ -23,16 +26,27 @@ Density of model residuals.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
 lm_model <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
 lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
 lm_mr <- model_residual(lm_exp)
+
+# plot results
 plot_residual_density(lm_mr)
+plot(lm_mr, type = "residual_density")
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
 rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 rf_mr <- model_residual(rf_exp)
 plot_residual_density(lm_mr, rf_mr)
+plot(lm_mr, rf_mr, type = "residual_density")
 
 }
 \seealso{

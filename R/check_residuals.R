@@ -5,7 +5,7 @@
 #'  - for autocorrelation in target variable or in residuals
 #'  - for trend in residuals as a function of target variable (detection of bias)
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param ... other parameters that will be passed to further functions.
 #'
 #' @return list with statistics for particualar checks
@@ -42,7 +42,7 @@ check_residuals <- function(object, ...) {
 
 #' Checks for outliers
 #'
-#' @param object  An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param n number of lowest and highest standardized  residuals to be presented
 #'
 #' @return indexes of lowest and highest standardized  residuals
@@ -90,7 +90,7 @@ check_residuals_outliers <- function(object, n = 5) {
 
 #' Checks for autocorrelation in target variable or in residuals
 #'
-#' @param object  An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param method will be passed to the cor.test functions
 #'
 #' @return autocorrelation between target variable and between residuals
@@ -130,7 +130,7 @@ check_residuals_autocorrelation <- function(object, method = "pearson") {
 #'
 #' Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend
 #'
-#' @param object  An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param B number fo samplings
 #'
 #' @return standardized   loess fit for residuals
@@ -142,7 +142,7 @@ check_residuals_autocorrelation <- function(object, method = "pearson") {
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
 #' library(auditor)
-#' check_residuals_trend(exp_au)
+#' check_residuals_trend(lm_exp)
 check_residuals_trend <- function(object, B = 20) {
   model_name <- object$label
 

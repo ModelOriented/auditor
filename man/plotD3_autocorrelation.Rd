@@ -19,21 +19,22 @@ plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
 \item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+If value is NULL the data is ordered by a vector of actual response . One can also pass any name of any other variable
 in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
-\item{point_count}{Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.}
+\item{point_count}{Number of points to be plotted per model. Points will be chosen randomly.
+By default plot all of them.}
 
 \item{single_plot}{Logical, indicates whenever single or facets should be plotted. By default it's TRUE.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 
-\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
+\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
+By default it's FALSE.}
 }
 \value{
 a `r2d3` object.

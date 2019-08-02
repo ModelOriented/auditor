@@ -1,24 +1,37 @@
 #' @title Plot Boxplots of Residuals
 #'
-#' @description A plot of residuals.
+#' @description A boxplot of residuals.
 #'
-#' @param object An object of class 'model_audit'.
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
 #' plot_residual_boxplot(lm_mr)
+#' plot(lm_mr, type = "residual_boxplot")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 #' rf_mr <- model_residual(rf_exp)
 #' plot_residual_boxplot(lm_mr, rf_mr)
+#' plot(lm_mr, rf_mr)
 #'
 #' @seealso \code{\link{plot.model_audit}}
+#'
+#' @rdname plot_residual_boxplot
 #'
 #' @import ggplot2
 #' @importFrom stats aggregate

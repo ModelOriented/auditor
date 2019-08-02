@@ -9,15 +9,15 @@
 #' @param object An object of class 'model_audit' or 'model_residual'.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+#' If value is NULL the data is ordered by a vector of actual response. One can also pass any name of any other variable
 #' in the data set. If \code{variable = ""} is set, unordered observations are presented.
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
-#' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.
+#' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
+#' By default it's FALSE.
 #'
 #' @return a `r2d3` object.
 #'

@@ -10,30 +10,48 @@ plot_roc(object, ..., nlabels = NULL)
 plotROC(object, ..., nlabels = NULL)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_evaluation'.}
+\item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
 
 \item{nlabels}{Number of cutoff points to show on the plot. Default is `NULL`.}
 }
 \value{
 ggplot object
+
+A ggplot object.
 }
 \description{
 Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
-library(DALEX)
-data(titanic)
-titanic <- na.omit(titanic)
-titanic$survived <- titanic$survived == "yes"
+titanic <- na.omit(DALEX::titanic)
+titanic$survived <- as.numeric(titanic$survived == "yes")
+
+# fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+# use DALEX package to wrap up a model into explainer
 exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
-ev_glm <- model_evaluation(exp_glm)
-plot_roc(ev_glm)
+
+# validate a model with auditor
+library(auditor)
+eva_glm <- model_evaluation(exp_glm)
+
+# plot results
+plot_roc(eva_glm)
+plot(eva_glm)
+
+#add second model
+model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
+exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+eva_glm_2 <- model_evaluation(exp_glm_2)
+
+plot_roc(eva_glm, eva_glm_2)
+plot(eva_glm, eva_glm_2)
 
 }
 \seealso{
-\code{\link{plot.model_audit}, \link{plotRROC}, \link{plotREC}}
+\code{\link{plot_rroc}, \link{plot_rec}}
 }

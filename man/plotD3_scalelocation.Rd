@@ -19,8 +19,7 @@ plotD3ScaleLocation(object, ..., variable = NULL, smooth = FALSE,
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
 \item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{audit}} function). One can also pass any name of any other variable
+If value is NULL the data is ordered by a vector of actual response. One can also pass any name of any other variable
 in the data set. If \code{variable = ""} is set, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}

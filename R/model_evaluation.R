@@ -8,7 +8,7 @@
 #' Created object of class 'auditor_model_evaluation' can be used to plot
 #' Receiver Operating Characteristic (ROC) curve (plot \code{\link{plot_roc}}) and LIFT curve (plot \code{\link{plot_lift}}).
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #'
 #' @return An object of class 'auditor_model_evaluation'.
 #'
@@ -22,7 +22,7 @@
 #' # use DALEX package to wrap up a model into explainer
 #' exp_glm <- DALEX::explain(model_glm, data= titanic, y = titanic$survived)
 #'
-#' # explain model with auditor
+#' # validate a model with auditor
 #' library(auditor)
 #' model_evaluation(exp_glm)
 #'

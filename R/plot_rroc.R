@@ -4,10 +4,10 @@
 #' The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 #' under-estimation.
 #'
-#' @param object An object of class 'model_audit' or 'model_residual'.
-#' @param ... Other modelAudit or model Residuals objects to be plotted together.
+#' @param object AAn object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #'
-#' @return ggplot object
+#' @return A ggplot object.
 #'
 #' @details For RROC curves we use a shift, which is an equivalent to the threshold for ROC curves.
 #' For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift.
@@ -25,19 +25,31 @@
 #'
 #' @seealso \code{ \link{plot_roc}, \link{plot_rec}}
 #'
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
 #' plot_rroc(lm_mr)
+#' plot(lm_mr, type = "rroc")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 #' rf_mr <- model_residual(rf_exp)
 #' plot_rroc(lm_mr, rf_mr)
+#' plot(lm_mr, rf_mr, type="rroc")
 #'
 #' @import ggplot2
 #'

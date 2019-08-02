@@ -10,7 +10,7 @@ score_auc(object)
 scoreROC(object)
 }
 \arguments{
-\item{object}{An object of class 'model_audit'.}
+\item{object}{An object of class 'explainer'.}
 }
 \value{
 an object of class scoreAudit
@@ -24,9 +24,9 @@ data(titanic)
 titanic <- na.omit(titanic)
 titanic$survived <- titanic$survived == "yes"
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-audit_glm <- audit(model_glm, y = titanic$survived)
+exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 
-score_auc(audit_glm)
+score_auc(exp_glm)
 
 }
 \seealso{

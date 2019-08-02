@@ -1,7 +1,7 @@
 #' @title Area Under ROC Curve (AUC)
 #'
 #' @description Area Under Curve (AUC) for Receiver Operating Characteristic.
-#' @param object An object of class 'model_audit'.
+#' @param object An object of class 'explainer'.
 #'
 #' @return an object of class scoreAudit
 #'
@@ -11,9 +11,9 @@
 #' titanic <- na.omit(titanic)
 #' titanic$survived <- titanic$survived == "yes"
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-#' audit_glm <- audit(model_glm, y = titanic$survived)
+#' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 #'
-#' score_auc(audit_glm)
+#' score_auc(exp_glm)
 #'
 #' @seealso \code{\link{plot_roc}}
 #'

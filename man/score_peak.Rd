@@ -10,9 +10,9 @@ score_peak(object, variable = NULL)
 scorePeak(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{variable}{Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).}
+\item{variable}{Name of model variable to order residuals.}
 }
 \value{
 an object of class 'auditor_score'
@@ -23,7 +23,7 @@ This score is calculated on the basis of Peak test, which is used for checking f
 \examples{
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-score_peak(lm_au)
+lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+score_peak(lm_exp)
 
 }

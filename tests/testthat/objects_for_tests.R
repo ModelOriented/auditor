@@ -42,11 +42,11 @@ model_class_rf <- randomForest(Species ~ ., data=iris, importance=TRUE, proximit
 model_class_glm2 <- glm(factor(y) ~ x3, family=binomial,	data=artifficial_classif)
 
 
-exp_class_glm2 <- explain(model_class_glm2, data = artifficial_classif, y = artifficial_classif$y)
-exp_lm <- explain(model_lm, label = "lm", data = artifficial_regr, y = artifficial_regr$y)
-exp_glm <- explain(model_glm, label = "glm", data = artifficial_classif_2, y = artifficial_classif_2$y)
-exp_rf <- explain(model_rf, label="rf", data =artifficial_classif_2, y = artifficial_classif_2$y)
-exp_class_glm <- explain(model_class_glm, label="class glm", data = artifficial_classif, y = artifficial_classif$y)
+exp_class_glm2 <- explain(model_class_glm2, data = artifficial_classif, y = artifficial_classif$y, verbose = FALSE)
+exp_lm <- explain(model_lm, label = "lm", data = artifficial_regr, y = artifficial_regr$y, verbose = FALSE)
+exp_glm <- explain(model_glm, label = "glm", data = artifficial_classif_2, y = artifficial_classif_2$y, verbose = FALSE)
+exp_rf <- explain(model_rf, label="rf", data =artifficial_classif_2, y = artifficial_classif_2$y, verbose = FALSE)
+exp_class_glm <- explain(model_class_glm, label="class glm", data = artifficial_classif, y = artifficial_classif$y, verbose = FALSE)
 
 mr_rf <- model_residual(exp_rf)
 mr_glm <- model_residual(exp_glm)

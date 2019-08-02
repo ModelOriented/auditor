@@ -17,11 +17,20 @@
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
 #' library(auditor)
 #' lm_hn <- model_halfnormal(lm_exp)
+#'
+#' # plot results
 #' plot_halfnormal(lm_hn)
+#' plot(lm_hn)
 #'
 #' @import ggplot2
 #' @importFrom hnp hnp

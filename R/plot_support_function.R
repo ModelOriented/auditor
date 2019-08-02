@@ -93,7 +93,7 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, scale_
   }
 
   #sorting
-  if(type == "res"){
+  if(type  %in% c("res", "scal")){
     if (!is.null(variable)){
       object <- object[order(object[,variable]),]
       object$`_val_` <- object[,variable]

@@ -12,8 +12,14 @@
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
 #' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
 #'
@@ -21,7 +27,10 @@
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 #' rf_mr <- model_residual(rf_exp)
+#'
+#' # plot results
 #' plot_correlation(lm_mr, rf_mr)
+#' plot(lm_mr, rf_mr, type = "correlation")
 #'
 #'
 #' @import grid
@@ -38,13 +47,13 @@ plot_correlation <- function(object, ..., values = "fit") {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., values = values, type = "corr")
+  colnames(df)[colnames(df)=="_y_"] <- "y"
   # plots of density
   vars <- names(df)
 
   lab_x <- vars %in% vars[length(vars)]
   lab_y <- vars %in% vars[1]
   lim_y <- max(sapply(vars, function(x) max(density(df[, x])[["y"]])))
-  vars[[1]] <- paste0("`",vars[[1]],"`")
   args <- mapply(c, vars, lab_x, lab_y, lim_y, SIMPLIFY = FALSE, USE.NAMES = FALSE)
   plots_dens <- lapply(args, corr_density, df)
 
@@ -54,7 +63,6 @@ plot_correlation <- function(object, ..., values = "fit") {
   lab_x <- slots %in% lay_matrix[nrow(lay_matrix), ]
   lab_y <- slots %in% lay_matrix[, 1]
   vars <- names(df)
-  vars[[1]] <- paste0("`",vars[[1]],"`")
   vars <- combn(vars, 2, simplify = FALSE)
 
   args <- mapply(c, vars, lab_x, lab_y, SIMPLIFY = FALSE, USE.NAMES = FALSE)

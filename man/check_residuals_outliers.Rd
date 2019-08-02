@@ -7,7 +7,7 @@
 check_residuals_outliers(object, n = 5)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{n}{number of lowest and highest standardized  residuals to be presented}
 }

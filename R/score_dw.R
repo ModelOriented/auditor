@@ -4,17 +4,19 @@
 #' The score value is helpful in comparing models. It is worth pointing out that results of tests like p-value makes sense only
 #' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.
-#' @param variable Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param variable Name of model variable to order residuals.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' score_dw(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' score_dw(lm_exp)
 #'
 #'
 #' @return an object of class 'scoreAudit'auditor_score'
+#'
+#' @rdname score_dw
 #'
 #' @export
 
@@ -44,7 +46,7 @@ score_dw <- function(object, variable = NULL){
 }
 
 
-#' @rdname score_cooksdistance
+#' @rdname score_dw
 #' @export
 scoreDW <- function(object, variable = NULL) {
   message("Please note that 'scoreDW()' is now deprecated, it is better to use 'score_dw()' instead.")

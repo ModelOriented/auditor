@@ -18,15 +18,24 @@
 #'
 #' @references Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
 #'
-#' @return A ggplot opbject.
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
 #' library(auditor)
 #' lm_cd <- model_cooksdistance(lm_exp)
+#'
+#' # plot results
 #' plot_cooksdistance(lm_cd)
+#' plot(lm_cd, type = "cooksdistance")
 #'
 #' @import ggplot2
 #'

@@ -2,29 +2,42 @@
 #'
 #' @description Density of model residuals.
 #'
-#' @param object An object of class 'model_audit'.
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param split Logical. Indicates whenever plot should be splitted by variable.
-#' @param variable variable name o split. Optional. Should be provided  only for modelAudit object.
+#' @param variable Variable name o split. Optional.
 #'
 #' @return ggplot object
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
 #' plot_residual_density(lm_mr)
+#' plot(lm_mr, type = "residual_density")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 #' rf_mr <- model_residual(rf_exp)
 #' plot_residual_density(lm_mr, rf_mr)
+#' plot(lm_mr, rf_mr, type = "residual_density")
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
 #' @import ggplot2
+#'
+#' @rdname plot_residual_density
 #'
 #' @export
 plot_residual_density <- function(object, ..., split = FALSE, variable = NULL) {
@@ -90,7 +103,7 @@ plot_residual_density <- function(object, ..., split = FALSE, variable = NULL) {
 }
 
 
-#' @rdname plot_residual_boxplot
+#' @rdname plot_residual_density
 #' @export
 plotResidualDensity <- function(object, ..., split = FALSE, variable = NULL) {
   message("Please note that 'plotResidualDensity()' is now deprecated, it is better to use 'plot_residual_density()' instead.")

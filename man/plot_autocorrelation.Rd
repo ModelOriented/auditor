@@ -16,7 +16,7 @@ plotAutocorrelation(object, ..., variable, smooth = FALSE)
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
-passed to the \code{\link{explain}} function).}
+passed to the \code{\link[DALEX]{explain}} function).}
 
 \item{smooth}{Logical, if TRUE smooth line will be added.}
 }
@@ -28,12 +28,21 @@ Plot of i-th residual vs i+1-th residual.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
 lm_model <- lm(life_length ~ ., data = dragons)
+
+# use DALEX paclage to wrap up a model into explainer
 lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
 
+# validate a model with auditor
 library(auditor)
 lm_mr <- model_residual(lm_exp)
+
+# plot results
 plot_autocorrelation(lm_mr)
+plot(lm_mr, type = "autocorrelation")
 plot_autocorrelation(lm_mr, score = TRUE, smooth = TRUE)
+plot(lm_mr, type = "autocorrelation", score = TRUE, smooth = TRUE)
 
 }

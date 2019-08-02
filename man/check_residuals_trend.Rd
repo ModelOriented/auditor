@@ -7,7 +7,7 @@
 check_residuals_trend(object, B = 20)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{B}{number fo samplings}
 }
@@ -23,5 +23,5 @@ dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
 lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
 library(auditor)
-check_residuals_trend(exp_au)
+check_residuals_trend(lm_exp)
 }

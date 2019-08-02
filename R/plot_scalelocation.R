@@ -4,24 +4,34 @@
 #' A vertical line corresponds to median.
 #'
 #'
-#' @param object An object of class 'model_audit' or 'model_residual'.
-#' @param ... Other modelAudit objects to be plotted together.
-#'@param variable Name of variable to order residuals on a plot.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{explain}} function).
+#' passed to the \code{\link[DALEX]{explain}} function).
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param peaks A logical value. If TRUE peaks are marked on plot by black dots.
 #'
+#' @return A ggplot object.
+#'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
 #' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
-#' plot_scalelocation(lm_mr)
 #'
+#' # plot results
+#' plot_scalelocation(lm_mr)
+#' plot(lm_mr, type = "scalelocation")
 #'
 #' @import ggplot2
 #' @importFrom stats median
@@ -33,7 +43,7 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
   values <- sqrt_std_residuals <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
 
   # check if passed object is of class "model_residuals" or "model_audit"
-  check_object(object, type = "res")
+  check_object(object, type = "res" )
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "scal")
@@ -78,8 +88,6 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
     scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
 
   chart_title <- "Scale location"
-
-  if ("model_audit" %in% class(object)) object <- model_residual(object, variable = variable)
 
   if (x_lab != "Observations") {
     p <- p + scale_x_continuous(breaks = scales::pretty_breaks())

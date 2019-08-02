@@ -6,20 +6,29 @@
 #' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
-#' passed to the \code{\link{explain}} function).
+#' passed to the \code{\link[DALEX]{explain}} function).
 #' @param smooth Logical, if TRUE smooth line will be added.
 #'
 #' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX paclage to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
 #'
+#' # validate a model with auditor
 #' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
 #' plot_autocorrelation(lm_mr)
+#' plot(lm_mr, type = "autocorrelation")
 #' plot_autocorrelation(lm_mr, score = TRUE, smooth = TRUE)
+#' plot(lm_mr, type = "autocorrelation", score = TRUE, smooth = TRUE)
 #'
 #' @import ggplot2
 #'
@@ -109,5 +118,5 @@ return(p)
 #' @export
 plotAutocorrelation <- function(object, ..., variable, smooth = FALSE) {
   message("Please note that 'plotAutocorrelation()' is now deprecated, it is better to use 'plot_autocorrelation()' instead.")
-  plot_autocorrelation(object, ..., smooth = FALSE)
+  plot_autocorrelation(object, ..., smooth)
 }

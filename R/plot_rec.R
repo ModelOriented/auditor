@@ -4,10 +4,10 @@
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage
 #' of observations predicted within the given tolerance.
 #'
-#' @param object An object of class 'model_audit' or 'model_residual'.
-#' @param ... Other modelAudit or model Residuals objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #'
-#' @return ggplot object
+#' @return A ggplot object.
 #'
 #' @details REC curve estimates the Cumulative Distribution Function (CDF) of the error
 #'
@@ -18,20 +18,29 @@
 #'
 #' @import ggplot2
 #'
-#' @seealso \code{\link{plot.model_audit}, \link{plotROC}, \link{plotRROC}}
+#' @seealso \code{\link{plotROC}, \link{plotRROC}}
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
 #' plot_rec(lm_mr)
+#' plot(lm_mr, type = "rec")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
 #' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 #' rf_mr <- model_residual(rf_exp)
 #' plot_rec(lm_mr, rf_mr)
+#' plot(lm_mr, rf_mr, type = "rec")
 #'
 #'
 #' @export

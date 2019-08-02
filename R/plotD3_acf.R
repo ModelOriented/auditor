@@ -4,7 +4,10 @@
 #'
 #' @param object An object of class 'model_audit' or 'model_residuals'.
 #' @param ... Other 'model_audit' or modelResiduals objects to be plotted together.
-#' @param variable Only for 'model_audit' object. Name of model variable to order residuals. If value is NULL data order is taken. If value is "Predicted response" or "Fitted values" then data is ordered by fitted values. If value is "Observed response" the data is ordered by a vector of actual response (\code{y} parameter passed to the \code{\link{audit}} function).
+#' @param variable Only for 'model_audit' object. Name of model variable to order residuals.
+#' If value is NULL data order is taken.
+#' If value is "Predicted response" or "Fitted values" then data is ordered by fitted values.
+#' If value is "Observed response" the data is ordered by a vector of actual response
 #' @param alpha Confidence level of the interval.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'

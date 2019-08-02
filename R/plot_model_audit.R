@@ -1,13 +1,20 @@
-#' @title Model diagnostic plots
+#' @title Model Diagnostic Plots
 #'
 #' @description This function provides several diagnostic plots for regression and classification models.
+#' Provide object created with one of aduditor's computational functions, \code{\link{model_residual}},
+#' \code{\link{model_cooksdistance}}, \code{\link{model_evaluation}}, \code{\link{model_performance}},
+#' \code{\link{model_evaluation}}.
 #'
-#' @param x object of class 'model_audit', 'model_residual', 'auditor_model_performance', 'model_evaluation',
-#' 'model_cooksdistance', or 'model_halfnormal'.
-#' @param ... other arguments dependent on the type of plot or additionl objects of class modelAudit
-#' @param type the type of plot. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residuals',
+#' @param x object of class 'auditor_model_residual' (created with \code{\link{model_residual}} function),
+#' 'auditor_model_performance' (created with \code{\link{model_performance}} function),
+#' 'auditor_model_evaluation' (created with \code{\link{model_evaluation}} function),
+#' 'auditor_model_cooksdistance' (created with \code{\link{model_cooksdistance}} function),
+#' or 'auditor_model_halfnormal' (created with \code{\link{model_halfnormal}} function).
+#' @param ... other arguments dependent on the type of plot or additionl objects of classes 'auditor_model_residual',
+#' 'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'.
+#' @param type the type of plot. Character or vector of characters. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residuals',
 #' 'lift', 'pca', 'radar', 'correlation', 'prediction', 'rec', 'resiual', 'residual_boxplot','residual_density',
-#' 'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see functions in see also section).
+#' 'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see corresponding functions in see also section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #' @param grid logical; if TRUE plots will be plotted on the grid.
 #'
@@ -19,14 +26,31 @@
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' plot(lm_au)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' lm_mr <- model_residual(lm_exp)
+#'
+#' # plot results
+#' plot(lm_mr)
+#' plot(lm_mr, type = "prediction")
+#'
+#' lm_hn <- model_halfnormal(lm_exp)
+#' plot(lm_hn)
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_au <- audit(rf_model, data = dragons, y = dragons$life_length)
-#' plot(lm_au, rf_au, type = "radar")
+#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#'
+#' rf_mp <- model_performance(rf_exp)
+#' lm_mp <- model_performance(lm_exp)
+#' plot(lm_mp, rf_mp)
 #'
 #'
 #' @importFrom grDevices devAskNewPage
@@ -80,10 +104,10 @@ plot.model_audit <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
 
 
 plot_selected_type <- function(x, ..., type){
-
   if("auditor_model_cooksdistance" %in% class(x)) type <- "cooksdistance"
   if("auditor_model_performance" %in% class(x)) type <- "radar"
   if("auditor_model_halfnormal" %in% class(x)) type <- "halfnormal"
+  if("auditor_model_evaluation" %in% class(x) & type != "lift") type <- "roc"
 
 
   switch(type,

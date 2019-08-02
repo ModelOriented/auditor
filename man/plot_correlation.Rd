@@ -26,8 +26,14 @@ there are correlations between fitte dvalues (alternatively residuals).
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
 lm_model <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
 lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
 library(auditor)
 lm_mr <- model_residual(lm_exp)
 
@@ -35,7 +41,10 @@ library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
 rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
 rf_mr <- model_residual(rf_exp)
+
+# plot results
 plot_correlation(lm_mr, rf_mr)
+plot(lm_mr, rf_mr, type = "correlation")
 
 
 }

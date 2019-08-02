@@ -3,7 +3,7 @@
 #' @description This function provides several scores for model validation and performance assessment.
 #' Scores can be also used to compare models.
 #'
-#' @param object Object An object of class 'model_audit'.
+#' @param object Object An object of class 'explainer' created with function....
 #' @param score The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 #' (for detailed description see functions in see also section).
 #' @param ... Other arguments dependent on the type of score.
@@ -16,8 +16,8 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' score(lm_au, type = 'mae')
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' score(lm_exp, score = 'mae')
 #'
 #' @export
 

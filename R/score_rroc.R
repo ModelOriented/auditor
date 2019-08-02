@@ -9,13 +9,15 @@
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' score_rroc(lm_au)
+#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' score_rroc(lm_exp)
 #'
 #'
 #' @seealso \code{\link{plot_rroc}}
 #'
 #' @references Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
+#'
+#' @rdname score_rroc
 #'
 #' @export
 
@@ -46,7 +48,7 @@ score_rroc <- function(object) {
 }
 
 
-#' @rdname score_roc
+#' @rdname score_rroc
 #' @export
 scoreRROC<- function(object) {
   message("Please note that 'scoreRROC()' is now deprecated, it is better to use 'score_rroc()' instead.")

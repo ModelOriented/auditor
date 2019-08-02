@@ -2,21 +2,29 @@
 #'
 #' @description Cumulative Distribution Function for positive and negative residuals.
 #'
-#' @param object An object of class 'model_audit'.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
 #' @param ... Other modelAudit objects to be plotted together.
 #' @param scale_error  A logical value indicating whether ECDF should be scaled by proportions of positive and negative proportions.
 #' @param outliers Number of outliers to be marked.
 #' @param residuals A logical value indicating whether residuals should be marked.
 #' @param reverse_y A logical value indicating whether values on y axis should be reversed.
 #'
-#' @return ggplot object
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
 #' lm_mr <- model_residual(lm_exp)
 #' plot_tsecdf(lm_mr)
+#' plot(lm_mr, type="tsecdf")
 #'
 #' library(randomForest)
 #' rf_model <- randomForest(life_length~., data = dragons)

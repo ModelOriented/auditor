@@ -7,22 +7,26 @@
 \usage{
 model_residual(object)
 
-modelResiduals(x)
+modelResiduals(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[explain]{DALEX}} from the DALEX package.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \description{
-Creates 'auditor_model_residual' that contains sorted residuals. An object can be further used to generate plots.
+Creates 'auditor_model_residual' that contains sorted residuals.
+ An object can be further used to generate plots.
 For the list of possible plots see see also section.
 }
 \examples{
-library(DALEX)
-data(DALEX::titanic)
-titanic <- na.omit(titanic)
-model_glm <- glm(survived ~ ., family = binomial, data = titanic)
-exp_glm <- explain(model_glm, data = titanic, y = titanic$survived)
+titanic <- na.omit(DALEX::titanic)
 
+# fit a model
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+# use DALEX package to wrap up a model into explainer
+exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+
+# validate a model with auditor
 library(auditor)
 model_residual(exp_glm)
 

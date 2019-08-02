@@ -12,7 +12,7 @@ plotTwoSidedECDF(object, ..., scale_error = TRUE, outliers = NA,
   residuals = TRUE, reverse_y = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit'.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
 \item{...}{Other modelAudit objects to be plotted together.}
 
@@ -25,17 +25,25 @@ plotTwoSidedECDF(object, ..., scale_error = TRUE, outliers = NA,
 \item{reverse_y}{A logical value indicating whether values on y axis should be reversed.}
 }
 \value{
-ggplot object
+A ggplot object.
 }
 \description{
 Cumulative Distribution Function for positive and negative residuals.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
 lm_model <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
 lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
 lm_mr <- model_residual(lm_exp)
 plot_tsecdf(lm_mr)
+plot(lm_mr, type="tsecdf")
 
 library(randomForest)
 rf_model <- randomForest(life_length~., data = dragons)
