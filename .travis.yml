@@ -12,7 +12,7 @@ notifications:
 r_packages:
   - covr
 
-r_github_packages
+r_github_packages:
   - pbiecek/DALEX
 
 after_success:
