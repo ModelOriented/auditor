@@ -17,7 +17,7 @@
 #' # fit a model
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #'
-#' # use DALEX paclage to wrap up a model into explainer
+#' # use DALEX package to wrap up a model into explainer
 #' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor

@@ -18,9 +18,9 @@ plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response . One can also pass any name of any other variable
-in the data set. If \code{variable = ""} is set, unordered observations are presented.}
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link[DALEX]{explain}} function).}
 
 \item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
 

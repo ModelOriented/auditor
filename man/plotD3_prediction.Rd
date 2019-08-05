@@ -5,7 +5,7 @@
 \alias{plotD3Prediction}
 \title{Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.}
 \usage{
-plotD3_prediction(object, ..., variable = NULL, points = TRUE,
+plotD3_prediction(object, ..., variable = "_y_", points = TRUE,
   smooth = FALSE, point_count = NULL, single_plot = TRUE,
   scale_plot = FALSE, background = FALSE)
 
@@ -18,9 +18,11 @@ plotD3Prediction(object, ..., variable = NULL, points = TRUE,
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
-\item{variable}{Only for modelAudit objects. Name of model variable to order residuals.
-If value is NULL the data is ordered by a vector of actual response. One can also pass any name of any other variable
-in the data set. If \code{variable = ""} is set, unordered observations are presented.}
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link[DALEX]{explain}} function).
+If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+If \code{variable = NULL}, unordered observations are presented.}
 
 \item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
 

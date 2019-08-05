@@ -23,50 +23,39 @@ plotD3_cooksdistance <- function(object, ..., nlabel = 3,
 
   n <- length(list(...)) + 1
 
-  aul <- list(object, ...)
+  x_title <- "Observation index"
+  y_title <- "Cook's distance"
+  chart_title <- "Influence of observations"
 
-  xTitle <- "Observations"
-  yTitle <- "Cook's distance"
-  chartTitle <- "Influence of observations"
+  check_object(object, type = "infl")
 
-  # make every input modelResiduals, check `variable`
-  oil <- list()
+  df <- make_dataframe(object, ..., variable = NULL, type = "infl", nlabel = nlabel)
+  colnames(df) <- c("y", "label", "x", "big")
 
-  for (i in 1:n) {
-    object <- aul[[i]]
+  oil <- split(df, f = df$label)
 
-    check_object(object, type = "infl")
-
-    oi <- object
-
-    oi$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(oi)-nlabel))
-    colnames(oi) <- c("y", "label", "x", "big")
-
-    oil[[i]] <- oi
-  }
-
-  modelNames <- unlist(lapply(oil, function(x) unique(x$label)))
-  pointMax <- pointMin <- NULL
+  model_names <- unlist(lapply(oil, function(x) unique(x$label)))
+  ymax <- ymin <- NULL
 
   # prepare points data
-  pointData <- oil
+  point_data <- oil
 
-  names(pointData) <- modelNames
-  pointMax <- max(sapply(oil, function(x) max(x$y)))
-  pointMin <- min(sapply(oil, function(x) min(x$y)))
+  names(point_data) <- model_names
+  ymax <- max(sapply(oil, function(x) max(x$y)))
+  ymin <- min(sapply(oil, function(x) min(x$y)))
 
   # find x and y scale
   xmax <- max(oil[[1]]$x)
   xmin <- min(oil[[1]]$x)
 
-  ticksMargin <- abs(pointMin-pointMax)*0.15;
+  ticks_margin <- abs(ymin-ymax)*0.15;
 
-  temp <- jsonlite::toJSON(list(pointData))
+  temp <- jsonlite::toJSON(list(point_data))
 
   options <- list(xmax = xmax, xmin = xmin,
-                  ymax = pointMax + ticksMargin, ymin = pointMin - ticksMargin,
-                  xTitle = xTitle, yTitle = yTitle, nlabel = nlabel, n = n,
-                  scalePlot = scale_plot, chartTitle = chartTitle)
+                  ymax = ymax + ticks_margin, ymin = ymin - ticks_margin,
+                  xTitle = x_title, yTitle = y_title, n = n,
+                  scalePlot = scale_plot, chartTitle = chart_title)
 
   if (n==1) single_plot = TRUE
 

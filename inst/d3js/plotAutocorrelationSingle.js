@@ -1,7 +1,7 @@
 var points = options.points, smooth = options.smooth,
     xmin = options.xmin, xmax = options.xmax,
     ymin = options.ymin, ymax = options.ymax,
-    variableName = options.variable, n = options.n,
+    n = options.n,
     yTitle = options.yTitle,
     xTitle = options.xTitle,
     chartTitle = options.chartTitle;

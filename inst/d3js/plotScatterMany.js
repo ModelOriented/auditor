@@ -2,7 +2,7 @@ var points = options.points, smooth = options.smooth,
     peaks = options.peaks,
     minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax,
-    n = options.n,
+    xTitle = options.xTitle, n = options.n,
     yTitle = options.yTitle, chartTitle = options.chartTitle,
     background = options.background;
 
@@ -188,6 +188,13 @@ function singlePlot(modelName, pointData, smoothData, i) {
           .attr("x", -(margin.top + plotTop + plotHeight)/2)
           .attr("text-anchor", "middle")
           .text(yTitle);
+
+      svg.append("text")
+          .attr("class", "axisTitle")
+          .attr("y", (plotTop + plotHeight + margin.bottom - 15))
+          .attr("x", (margin.left + plotWidth + 25/2))
+          .attr("text-anchor", "middle")
+          .text(xTitle);
  	  }
 
     if (i%2 === 1){

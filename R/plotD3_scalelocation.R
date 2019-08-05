@@ -10,9 +10,11 @@
 #'
 #' @param object An object of class model_audit or model_residuals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response. One can also pass any name of any other variable
-#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
+#' @param variable Name of variable to order residuals on a plot.
+#' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link[DALEX]{explain}} function).
+#' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+#' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param peaks Logical, indicates whenever peak observations should be highlighted. By defaul it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
@@ -33,62 +35,57 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
 
   n <- length(list(...)) + 1
 
-  aul <- list(object, ...)
+  check_object(object, type = "res")
 
-  yTitle <- "\u221A|Standarized residuals|"
-  chartTitle <- "Scale Location"
+  df <- make_dataframe(object, ..., variable = variable, type = "scal")
 
-  # make every input modelResiduals, check `variable`
-  mrl <- list()
-  varl <- c()
+  chart_title <- "Scale location"
+  y_title <- "\u221A|Standarized residuals|"
 
-  for (i in 1:n) {
-    object <- aul[[i]]
-
-    check_object(object, type = "res")
-
-    mr <- object
-
-    varl <- c(varl, as.character(mr$variable[1]))
-
-    df <- make_scale_loc_df(mr)[, c("sqrt_std_residuals", "values", "label", "peak")]
-
-    colnames(df) <- c("y", "x", "label", "peak")
-    mrl[[i]] <- df
-  }
-
-  if (length(unique(varl)) > 1) {
-    stop("Objects have more than one variable name.")
+  # set value for label of the X axis
+  if (is.null(variable)) {
+    x_title <- "Observations"
+  } else if (variable == "_y_")  {
+    x_title <- "Target variable"
+  } else if (variable == "_y_hat_") {
+    x_title <- "Actual response"
+    chart_title <- paste0(chart_title, " vs ", x_title)
   } else {
-    variable <- varl[1]
-    chartTitle <- paste0(chartTitle, " vs ", variable)
+    x_title <- as.character(df$`_variable_`[1])
+    chart_title <- paste0(chart_title, " vs ", x_title)
   }
 
-  modelNames <- unlist(lapply(mrl, function(x) unique(x$label)))
-  pointMax <- pointMin <- smoothMax <- smoothMin <- NULL
-  pointData <- smoothData <- NA
+  # take only columns needed
+  df <- df[, c("_sqrt_std_residuals_","_val_","_peak_","_label_")]
+  colnames(df) <- c("y","x","peak","label")
+
+  mrl <- split(df, f = df$label)
+
+  model_names <- unlist(lapply(mrl, function(x) unique(x$label)))
+  point_max <- point_min <- smooth_max <- smooth_min <- NULL
+  point_data <- smooth_data <- NA
 
   # prepare points data
 
   # find instance count and adjust point_count
   m <- dim(mrl[[1]])[1]
   if (is.null(point_count) || point_count > m) {
-    pointData <- mrl
+    point_data <- mrl
   } else {
-    pointData <- lapply(mrl, function(mr) {
-      mr <- mr[sample(m,point_count),]
+    point_data <- lapply(mrl, function(mr) {
+      mr <- mr[sample(m, point_count),]
       mr
     })
   }
 
-  names(pointData) <- modelNames
-  pointMax <- max(sapply(mrl, function(x) max(x$y)))
-  pointMin <- min(sapply(mrl, function(x) min(x$y)))
+  names(point_data) <- model_names
+  point_max <- max(sapply(mrl, function(x) max(x$y)))
+  point_min <- min(sapply(mrl, function(x) min(x$y)))
 
   # prepare smooth data
   if (smooth == TRUE) {
 
-    smoothData <- lapply(mrl, function(mr) {
+    smooth_data <- lapply(mrl, function(mr) {
       model <- mgcv::gam(y ~ s(x, bs = "cs"), data = mr)
       vec <- data.frame(x = seq(min(mr$x), max(mr$x), length.out = 100))
       p <- predict(model, vec)
@@ -97,26 +94,27 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
       df
     })
 
-    names(smoothData) <- modelNames
-    smoothMax <- max(sapply(smoothData, function(x) max(x$smooth)))
-    smoothMin <- min(sapply(smoothData, function(x) min(x$smooth)))
+    names(smooth_data) <- model_names
+    smooth_max <- max(sapply(smooth_data, function(x) max(x$smooth)))
+    smooth_min <- min(sapply(smooth_data, function(x) min(x$smooth)))
   }
 
   # find x and y scale
   xmax <- max(mrl[[1]]$x)
   xmin <- min(mrl[[1]]$x)
-  ymax <- max(pointMax, smoothMax)
-  ymin <- min(pointMin, smoothMin)
+  ymax <- max(point_max, smooth_max)
+  ymin <- min(point_min, smooth_min)
 
-  ticksMargin <- abs(ymin-ymax)*0.15;
+  ticks_margin <- abs(ymin-ymax)*0.15;
 
-  temp <- jsonlite::toJSON(list(pointData, smoothData))
+  temp <- jsonlite::toJSON(list(point_data, smooth_data))
 
   options <- list(xmax = xmax, xmin = xmin,
-                  ymax = ymax + ticksMargin, ymin = ymin - ticksMargin,
-                  variable = variable, n = n,
+                  ymax = ymax + ticks_margin, ymin = ymin - ticks_margin,
+                  xTitle = x_title, n = n,
                   points = TRUE, smooth = smooth, peaks = peaks,
-                  scalePlot = scale_plot, yTitle = yTitle, chartTitle = chartTitle)
+                  scalePlot = scale_plot,
+                  yTitle = y_title, chartTitle = chart_title)
 
   if (single_plot == TRUE) {
 

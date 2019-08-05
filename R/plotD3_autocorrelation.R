@@ -4,9 +4,9 @@
 #'
 #' @param object An object of class modelAudit or modelResiduals.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
-#' @param variable Only for modelAudit objects. Name of model variable to order residuals.
-#' If value is NULL the data is ordered by a vector of actual response . One can also pass any name of any other variable
-#' in the data set. If \code{variable = ""} is set, unordered observations are presented.
+#' @param variable Name of variable to order residuals on a plot.
+#' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+#' passed to the \code{\link[DALEX]{explain}} function).
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly.
@@ -29,39 +29,37 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
 
   n <- length(list(...)) + 1
 
-  aul <- list(object, ...)
+  check_object(object, type = "res")
 
-  # make every input modelResiduals, check `variable`
-  mrl <- list()
-  varl <- c()
+  df_temp <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  for (i in 1:n) {
-    object <- aul[[i]]
-
-    check_object(object, type = "res")
-
-    mr <- object
-
-    varl <- c(varl, as.character(mr$variable[1]))
-
-    ind <- dim(mr)[1]
-
-    mrl[[i]] <- data.frame(x = mr$res[-ind], y = mr$res[-1], label = mr$label[-1])
+  df <- data.frame(x_val = numeric(), y_val = numeric(), label = character())
+  for (label in levels(df_temp$`_label_`)) {
+    ord_res <- df_temp[which(df_temp$`_label_` == label), "_residuals_"]
+    df <- rbind(df, data.frame(x = ord_res[-length(ord_res)],
+                               y = ord_res[-1],
+                               label = label))
   }
 
-  if (length(unique(varl)) > 1) {
-    stop("Objects have more than one variable name.")
+  chart_title <- "Autocorrelation"
+  x_title <- "Residual i"
+  y_title <- "Residual i+1"
+
+  if (is.null(variable)) {
+    chart_title <- "Autocorrelation of unordered residuals"
+  } else if (variable == "_y_")  {
+    chart_title <- "Autocorrelation of residuals ordered by predicted values"
+  } else if (variable == "_y_hat_") {
+    chart_title <- "Autocorrelation of residuals ordered by model response"
   } else {
-    variable <- varl[1]
-    chartTitle <- paste("Autocorrelation plot by", variable)
+    chart_title <- paste0("Autocorrelation of residuals ordered by ",variable)
   }
 
-  xTitle <- "residual i"
-  yTitle <- "residual i+1"
+  mrl <- split(df, f = df$label)
 
-  modelNames <- unlist(lapply(mrl, function(x) unique(x$label)))
-  xMin <- xMax <- yMin <- yMax <- NULL
-  pointData <- smoothData <- NA
+  model_names <- unlist(lapply(mrl, function(x) unique(x$label)))
+  x_min <- x_max <- y_min <- y_max <- NULL
+  point_data <- smooth_data <- NA
 
   # prepare points data
   if (points == TRUE) {
@@ -69,21 +67,21 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
     # find instance count and adjust point_count
     m <- dim(mrl[[1]])[1]
     if (is.null(point_count) || point_count > m) {
-      pointData <- mrl
+      point_data <- mrl
     } else {
-      pointData <- lapply(mrl, function(mr) {
+      point_data <- lapply(mrl, function(mr) {
         mr <- mr[sample(m,point_count),]
         mr
       })
     }
 
-    names(pointData) <- modelNames
+    names(point_data) <- model_names
   }
 
   # prepare smooth data
   if (smooth == TRUE) {
 
-    smoothData <- lapply(mrl, function(mr) {
+    smooth_data <- lapply(mrl, function(mr) {
       model <- mgcv::gam(y ~ s(x, bs = "cs"), data = mr)
       vec <- data.frame(x = seq(min(mr$x), max(mr$x), length.out = 100))
       p <- predict(model, vec)
@@ -92,22 +90,24 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
       df
     })
 
-    names(smoothData) <- modelNames
+    names(smooth_data) <- model_names
   }
 
   xmax <- max(sapply(mrl, function(x) max(x$x, x$y)))
   xmin <- min(sapply(mrl, function(x) min(x$x, x$y)))
-  ymax <- ifelse(all(is.na(smoothData)), xmax, max(sapply(smoothData, function(x) max(x$smooth)), xmax))
-  ymin <- ifelse(all(is.na(smoothData)), xmin, min(sapply(smoothData, function(x) min(x$smooth)), xmin))
+  ymax <- ifelse(all(is.na(smooth_data)), xmax,
+                 max(sapply(smooth_data, function(x) max(x$smooth)), xmax))
+  ymin <- ifelse(all(is.na(smooth_data)), xmin,
+                 min(sapply(smooth_data, function(x) min(x$smooth)), xmin))
 
-  temp <- jsonlite::toJSON(list(pointData, smoothData))
+  temp <- jsonlite::toJSON(list(point_data, smooth_data))
 
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax, ymin = ymin,
-                  variable = variable, n = n,
+                  xTitle = x_title, n = n,
                   points = points, smooth = smooth,
-                  scalePlot = scale_plot, yTitle = yTitle, xTitle = xTitle,
-                  chartTitle = chartTitle)
+                  scalePlot = scale_plot, yTitle = y_title,
+                  chartTitle = chart_title)
 
   if (single_plot == TRUE) {
 

@@ -58,10 +58,10 @@ plot_cooksdistance <- function(object, ..., nlabel = 3) {
 
   # points
   p <- p + drwhy_geom_point(df, alpha_val = 0.95)
-  p <- p + geom_point(data = subset(df, big == TRUE), aes(colour = `_label_`), size = 1.5)
+  p <- p + geom_point(data = subset(df, `_big_` == TRUE), aes(colour = `_label_`), size = 1.5)
 
   # text labels for extreme observations
-  p <- p + geom_text_repel(data = subset(df, big == TRUE), aes(label = as.character(`_index_`)),
+  p <- p + geom_text_repel(data = subset(df, `_big_` == TRUE), aes(label = as.character(`_index_`)),
                            color = "#f05a71", size = 3)
 
   # theme, colours, titles, axes, scales, etc.

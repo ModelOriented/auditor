@@ -112,7 +112,8 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, scale_
          "dens" = { object <- get_division(object, variable) },
          "pca"  = { object <- make_pca_df(object) },
          "corr" = { object <- make_corr_df(object, values) },
-         "ecdf" = { object <- get_tsecdf_df(object, scale_error, outliers, reverse_y) })
+         "ecdf" = { object <- get_tsecdf_df(object, scale_error, outliers, reverse_y) },
+         "infl" = { object <- obs_influence_add(object, nlabel) })
   return(object)
 }
 
@@ -173,9 +174,9 @@ make_rroc_df <- function(object) {
 
 obs_influence_add <- function(object, nlabel) {
 
-  df <- model_cooksdistance(object)
-  df$big <- c(rep(TRUE, nlabel), rep(FALSE, nrow(df) - nlabel))
-  return(df)
+  object$`_big_` <- c(rep(TRUE, nlabel), rep(FALSE, nrow(object) - nlabel))
+
+  return(object)
 }
 
 get_division <- function(modelData, variable) {

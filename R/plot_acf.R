@@ -61,7 +61,7 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
     resultDF <- rbind(resultDF, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
   }
 
-  conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(df))
+  conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(object))
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))
 

@@ -20,9 +20,9 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE) {
   # some safeguard
   rpp <- tp <- label <- NULL
 
-  xTitle <- "Rate of positive prediction"
-  yTitle <- "True positive"
-  chartTitle <- "LIFT Chart"
+  x_title <- "Rate of positive prediction"
+  y_title <- "True positive"
+  chart_title <- "LIFT Chart"
 
   n <- length(list(object, ...))
 
@@ -32,7 +32,9 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE) {
   df1 <- make_dataframe(object, ..., type = "eva")
 
   # take only columns required to plot LIFT curve
-  df1 <- df1[ ,c("rpp", "tp","cutoffs", "label")]
+  df1 <- df1[, c("_rpp_", "_tp_","_cutoffs_", "_label_")]
+  colnames(df1) <- c("rpp","tp","cutoffs","label")
+
   # prepare data frame for ideal and dummy model
 
   pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
@@ -54,14 +56,14 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE) {
   ymax <- max(df$tp)
   ymin <- min(df$tp)
 
-  lineData <- split(df, f = df$label)
+  line_data <- split(df, f = df$label)
 
-  temp <- jsonlite::toJSON(list(lineData[c("ideal","random")],
-                                lineData[setdiff(names(lineData), c("ideal","random"))]))
+  temp <- jsonlite::toJSON(list(line_data[c("ideal","random")],
+                                line_data[setdiff(names(line_data), c("ideal","random"))]))
 
   options <- list(ymax = ymax, ymin = ymin,
                   scalePlot = scale_plot, n = n,
-                  xTitle = xTitle, yTitle = yTitle, chartTitle = chartTitle)
+                  xTitle = x_title, yTitle = y_title, chartTitle = chart_title)
 
   r2d3::r2d3(data = temp, script = system.file("d3js/plotLIFT.js", package = "auditor"),
              dependencies = list(

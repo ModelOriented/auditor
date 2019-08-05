@@ -98,8 +98,8 @@ test_that("plotModelCorrelation", {
 test_that("plot", {
   expect_is(plot(mr_rf, type="acf"), "gg")
   expect_is(plot(mr_rf, type="autocorrelation", score = TRUE), "gg")
-  expect_is(plot(cd_lm, type="cooksdistance", print=FALSE), "gg")
-  expect_is(plot(mp_lm, mp_lm, print = FALSE, type="radar"), "gg")
+  expect_is(plot(cd_lm, type="cooksdistance"), "gg")
+  expect_is(plot(mp_lm, mp_lm, print = FALSE, type = "radar"), "gg")
   expect_is(plot(mr_rf, type="tsecdf"), "gg")
   expect_is(plot(mr_rf, mr_glm, type="pca"), "gg")
   expect_is(plot(mr_rf, type="residual_density"), "gg")

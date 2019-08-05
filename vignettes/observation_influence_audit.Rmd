@@ -32,6 +32,7 @@ head(dragons)
 
 
 ## Linear model
+
 ```{r}
 lm_model <- lm(life_length ~ ., data = dragons)
 ```
@@ -39,6 +40,7 @@ lm_model <- lm(life_length ~ ., data = dragons)
 
 
 ## Random forest
+
 ```{r}
 library("randomForest")
 set.seed(59)
@@ -81,6 +83,7 @@ library(auditor)
 lm_cd <- model_cooksdistance(lm_exp)
 
 ```
+
 Some plots may require specified variable or fitted values for `modelResidual` object. 
 
 ### Cook's distances
@@ -98,8 +101,6 @@ In this example we will compute them for a linear model.
 ```{r}
 plot(lm_cd)
 ```
-
-
 
 
 # Other methods

@@ -25,8 +25,8 @@ plotD3_rec <- function(object, ..., scale_plot = FALSE) {
   # some safeguard
   rec_x <- rec_y <- label <- NULL
 
-  xTitle <- "Error tolerance"
-  chartTitle <- "REC Curve"
+  x_title <- "Error tolerance"
+  chart_title <- "REC Curve"
 
   n <- length(list(object, ...))
 
@@ -39,17 +39,17 @@ plotD3_rec <- function(object, ..., scale_plot = FALSE) {
   #:#
   xmax <- max(df$rec_x)
   xmin <- min(df$rec_x)
-  modelNames <- unique(df$label)
+  model_names <- unique(df$label)
 
   colnames(df) <- c("x", "y", "label")
 
-  lineData <- split(df, f = df$label)
+  line_data <- split(df, f = df$label)
 
-  temp <- jsonlite::toJSON(list(lineData))
+  temp <- jsonlite::toJSON(list(line_data))
 
   options <- list(xmax = xmax, xmin = xmin,
                   scalePlot = scale_plot, n = n,
-                  xTitle = xTitle, chartTitle = chartTitle)
+                  xTitle = x_title, chartTitle = chart_title)
 
   r2d3::r2d3(data = temp, script = system.file("d3js/plotREC.js", package = "auditor"),
              dependencies = list(

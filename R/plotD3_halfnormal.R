@@ -28,34 +28,35 @@ plotD3_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_pl
   # some safeguard
   x <- residuals <- upper <- lower <- NULL
 
-  xTitle <- "Half-normal Quantiles"
-  chartTitle <- "Half-normal plot"
-  yTitle <- ifelse(quantiles==TRUE, "Quantiles of |residuals|", "|Residuals|")
+  x_title <- "Half-normal Quantiles"
+  chart_title <- "Half-normal plot"
+  y_title <- ifelse(quantiles==TRUE, "Quantiles of |residuals|", "|Residuals|")
 
   n <- length(list(object, ...))
 
-  # check if passed object is of class "modelFit" or "modelAudit"
+  # check if passed object is of class "modelFit"
   check_object(object, type = "fit")
 
-  # data frame for ggplot object
   df <- make_dataframe(object, ..., quant = quantiles, type = "fit")
 
-  df <- df[,c("x","lower","median","upper","residuals","label")]
+  df <- df[,c("_x_","_lower_","_median_","_upper_","_residuals_","_label_")]
+  colnames(df) <- c("x","lower","median","upper","residuals","label")
 
-  plotData <- split(df, f = df$label)
+  plot_data <- split(df, f = df$label)
 
-  xMinMax <- lapply(plotData, function(x){
+  x_min_max <- lapply(plot_data, function(x){
     range(x$x)
   })
-  yMinMax <- lapply(plotData, function(x){
-    range(x[,setdiff(colnames(x), c("x","label"))])
+
+  y_min_max <- lapply(plot_data, function(x){
+    range(x[, setdiff(colnames(x), c("x","label"))])
   })
 
-  temp <- jsonlite::toJSON(list(plotData, xMinMax, yMinMax))
+  temp <- jsonlite::toJSON(list(plot_data, x_min_max, y_min_max))
 
   options <- list(scalePlot = scale_plot, n = n,
-                  xTitle = xTitle, yTitle = yTitle,
-                  chartTitle = chartTitle)
+                  xTitle = x_title, yTitle = y_title,
+                  chartTitle = chart_title)
 
   r2d3::r2d3(data = temp, script = system.file("d3js/plotHalfNormalMany.js", package = "auditor"),
              dependencies = list(

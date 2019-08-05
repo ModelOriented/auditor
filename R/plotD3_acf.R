@@ -22,10 +22,10 @@
 plotD3_acf <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE) {
 
   # some safeguard
-  lag <- acf <- ymin <- NULL
+  lag <- acf_df <- ymin <- NULL
 
-  xTitle <- ifelse(!is.null(variable) && nchar(variable) > 1, paste0("Lag of ", variable), "")
-  chartTitle <- "ACF plot"
+  x_title <- ifelse(!is.null(variable) && nchar(variable) > 1, paste0("Lag of ", variable), "")
+  chart_title <- "ACF plot"
 
   n <- length(list(object, ...))
 
@@ -35,31 +35,33 @@ plotD3_acf <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  resultDF <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
-  for (label in unique(df$label)) {
-    orderedResiduals <- df[which(df$label == label), "res"]
-    acf <- acf(orderedResiduals, plot = FALSE)
-    resultDF <- rbind(resultDF, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
+  result_df <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
+  for (label in unique(df$`_label_`)) {
+    ordered_residuals <- df[which(df$`_label_` == label), "_residuals_"]
+    acf_df <- acf(ordered_residuals, plot = FALSE)
+    result_df <- rbind(result_df, data.frame(acf = acf_df$acf[-1],
+                                             label = label,
+                                             lag = acf_df$lag[-1],
+                                             ymin = 0))
   }
 
-  conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(df))
+  conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(object))
 
-  #:#
-  xmax <- max(resultDF$lag)+1
-  xmin <- min(resultDF$lag)-1
-  ymax <- max(resultDF$acf, conf_lims,resultDF$ymin)
-  ymin <- min(resultDF$acf, conf_lims,resultDF$ymin)
+  xmax <- max(result_df$lag)+1
+  xmin <- min(result_df$lag)-1
+  ymax <- max(result_df$acf, conf_lims, result_df$ymin)
+  ymin <- min(result_df$acf, conf_lims, result_df$ymin)
 
-  yMargin <- (abs(ymax-ymin))*0.05
+  y_margin <- (abs(ymax-ymin))*0.05
 
-  lineData <- split(resultDF, f = resultDF$label)
+  line_data <- split(result_df, f = result_df$label)
 
-  temp <- jsonlite::toJSON(list(lineData, conf_lims))
+  temp <- jsonlite::toJSON(list(line_data, conf_lims))
 
   options <- list(xmax = xmax, xmin = xmin,
-                  ymax = ymax + yMargin, ymin = ymin - yMargin,
+                  ymax = ymax + y_margin, ymin = ymin - y_margin,
                   scalePlot = scale_plot, n = n,
-                  xTitle = xTitle, chartTitle = chartTitle)
+                  xTitle = x_title, chartTitle = chart_title)
 
   r2d3::r2d3(data = temp, script = system.file("d3js/plotACFMany.js", package = "auditor"),
              dependencies = list(
