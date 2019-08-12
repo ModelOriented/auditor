@@ -42,7 +42,7 @@ lm_mr <- model_residual(lm_exp)
 # plot results
 plot_autocorrelation(lm_mr)
 plot(lm_mr, type = "autocorrelation")
-plot_autocorrelation(lm_mr, score = TRUE, smooth = TRUE)
-plot(lm_mr, type = "autocorrelation", score = TRUE, smooth = TRUE)
+plot_autocorrelation(lm_mr, smooth = TRUE)
+plot(lm_mr, type = "autocorrelation", smooth = TRUE)
 
 }

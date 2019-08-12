@@ -24,7 +24,7 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
-\item{abline}{Logical, indicates whenever function y = x shoul be added. Works only
+\item{abline}{Logical, indicates whenever function y = x should be added. Works only
 with \code{variable = NULL} which is a default option.}
 }
 \value{
@@ -47,8 +47,8 @@ library(auditor)
 lm_mr <- model_residual(lm_exp)
 
 # plot results
-plot_prediction(lm_mr)
-plot_prediction(lm_mr, variable = "height", abline = TRUE)
+plot_prediction(lm_mr, abline = TRUE)
+plot_prediction(lm_mr, variable = "height", smooth = TRUE)
 plot(lm_mr, type = "prediction", abline = TRUE)
 
 library(randomForest)

@@ -128,20 +128,20 @@ function singlePlot(modelName, pointData, i) {
         .attr("id", modelName)
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
-        .attr("r", 1)
+        .attr("r", 1.5)
         .style("fill", pointColor);
 
     svg.selectAll()
-        .data(pointData[modelName].filter(function(d){return d.big === true;}))
+        .data(pointData[modelName].filter(d => d.big === true))
         .enter()
         .append("text")
         .attr("class", "legendLabel")
-        .text(function(d){ return d.x;})
+        .text(d => d.x)
         .attr("x", d => x(d.x))
         .attr("y", d => y(d.y)-2)
         .attr("text-anchor", "middle");
 
-    if (i==n){
+    if (i == n){
     	svg.append("text")
           .attr("class", "axisTitle")
           .attr("transform", "rotate(-90)")

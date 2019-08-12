@@ -12,13 +12,13 @@ plotD3HalfNormal(object, ..., quantiles = FALSE, sim = 99,
   scale_plot = FALSE)
 }
 \arguments{
-\item{object}{'model_audit' object, 'model_halfnormal' object.}
+\item{object}{An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.}
 
-\item{...}{extra arguments passed to \link[hnp]{hnp}.}
+\item{...}{Other 'auditor_model_halfnormal' objects.}
 
-\item{quantiles}{if TRUE values on axis are on quantile scale.}
+\item{quantiles}{If TRUE values on axis are on quantile scale.}
 
-\item{sim}{number of residuals to simulate}
+\item{sim}{Number of residuals to simulate.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 }
@@ -32,6 +32,25 @@ their quantiles against each other.
 Points on the plot correspond to ordered absolute values of model diagnostic
 (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 }
+\examples{
+dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
+hn_lm <- model_halfnormal(exp_lm)
+
+# plot results
+plotD3_halfnormal(hn_lm)
+
+}
 \seealso{
+\code{\link{model_halfnormal}}
+
 \code{\link{score_halfnormal}, \link{plot_halfnormal}}
 }

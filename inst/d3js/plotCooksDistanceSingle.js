@@ -123,7 +123,7 @@ function singlePlot(modelName, pData, i) {
         legend.append("text")
               .attr("dy", ".6em")
               .attr("class", "legendLabel")
-              .text(function(d) { return d;})
+              .text(d => d)
               .attr("x", 14);
 
         var activeLink = modelNames[1].replace(/\s/g, '');
@@ -202,16 +202,16 @@ function singlePlot(modelName, pData, i) {
         .attr("id", tModelName)
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
-        .attr("r", 1)
+        .attr("r", 1.5)
         .style("fill", dPointColor)
         .style("opacity", dOpacity);
 
     svg.selectAll()
-        .data(pData.filter(function(d){return d.big === true;}))
+        .data(pData.filter(d => d.big === true))
         .enter()
         .append("text")
         .attr("class", "point" + tModelName)
-        .text(function(d){ return d.x;})
+        .text(d => d.x)
         .attr("x", d => x(d.x))
         .attr("y", d => y(d.y)-2)
         .attr("text-anchor", "middle")

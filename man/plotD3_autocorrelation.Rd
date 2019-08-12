@@ -14,9 +14,9 @@ plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
   scale_plot = FALSE, background = FALSE)
 }
 \arguments{
-\item{object}{An object of class modelAudit or modelResiduals.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
@@ -41,4 +41,23 @@ a `r2d3` object.
 }
 \description{
 Plot of i-th residual vs i+1-th residual.
+}
+\examples{
+
+dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
+mr_lm <- model_residual(exp_lm)
+
+# plot results
+plotD3_autocorrelation(mr_lm)
+plotD3_autocorrelation(mr_lm, smooth = TRUE)
+
 }

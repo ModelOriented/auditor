@@ -3,20 +3,21 @@
 \name{plotD3_residual}
 \alias{plotD3_residual}
 \alias{plotD3Residual}
-\title{Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 package.}
+\title{Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 package.}
 \usage{
 plotD3_residual(object, ..., variable = "_y_", points = TRUE,
-  smooth = FALSE, std_residuals = FALSE, point_count = NULL,
-  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
+  smooth = FALSE, std_residuals = FALSE, nlabel = 0,
+  point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
+  background = FALSE)
 
 plotD3Residual(object, ..., variable = NULL, points = TRUE,
   smooth = FALSE, std_residuals = FALSE, point_count = NULL,
   single_plot = TRUE, scale_plot = FALSE, background = FALSE)
 }
 \arguments{
-\item{object}{An object of class modelAudit or modelResiduals.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
@@ -29,6 +30,8 @@ If \code{variable = NULL}, unordered observations are presented.}
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
 \item{std_residuals}{Logical, indicates whenever standardized residuals should be used. By default it's FALSE.}
+
+\item{nlabel}{Number of observations with the biggest residuals to be labeled.}
 
 \item{point_count}{Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.}
 
@@ -43,11 +46,31 @@ By default it's FALSE.}
 a `r2d3` object.
 }
 \description{
-Function \code{plotD3_residual} plots resudial values vs target, observed or variable values in the model.
-It uses output from \code{model_audit} or \code{model_residual} function.
+Function \code{plotD3_residual} plots resudial values vs fitted, observed or variable values in the model.
+}
+\examples{
+dragons <- DALEX::dragons[1:100, ]
 
-If the picture is not displayed in the viewer, please update your RStudio.
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
+mr_lm <- model_residual(exp_lm)
+
+# plot results
+plotD3_residual(mr_lm)
+
+library(randomForest)
+model_rf <- randomForest(life_length~., data = dragons)
+exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(exp_rf)
+plotD3_residual(mr_lm, mr_rf)
+
 }
 \seealso{
-\code{\link{plotResidual}}
+\code{\link{plot_residual}}
 }

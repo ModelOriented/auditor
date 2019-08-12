@@ -6,15 +6,15 @@
 \title{Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.}
 \usage{
 plotD3_prediction(object, ..., variable = "_y_", points = TRUE,
-  smooth = FALSE, point_count = NULL, single_plot = TRUE,
-  scale_plot = FALSE, background = FALSE)
+  smooth = FALSE, abline = FALSE, point_count = NULL,
+  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
 
 plotD3Prediction(object, ..., variable = NULL, points = TRUE,
-  smooth = FALSE, point_count = NULL, single_plot = TRUE,
-  scale_plot = FALSE, background = FALSE)
+  smooth = FALSE, abline = FALSE, point_count = NULL,
+  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_residual'.}
+\item{object}{An object of class 'auditor_model_residual.}
 
 \item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
 
@@ -27,6 +27,9 @@ If \code{variable = NULL}, unordered observations are presented.}
 \item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
+
+\item{abline}{Logical, indicates whenever function y = x should be added. Works only
+with \code{variable = NULL} which is a default option.}
 
 \item{point_count}{Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.}
 
@@ -41,10 +44,32 @@ By default it's FALSE.}
 a `r2d3` object.
 }
 \description{
-Function \code{plotD3_prediction} plots predicted values vs target, observed or variable values in the model.
-It uses output from \code{model_audit} or \code{model_residual} function.
+Function \code{plotD3_prediction} plots predicted values observed or variable values in the model.
+}
+\examples{
 
-If the picture is not displayed in the viewer, please update your RStudio.
+dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
+mr_lm <- model_residual(exp_lm)
+
+# plot results
+plotD3_prediction(mr_lm, abline = TRUE)
+plotD3_prediction(mr_lm, variable = "height", smooth = TRUE)
+
+library(randomForest)
+model_rf <- randomForest(life_length~., data = dragons)
+exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(exp_rf)
+plotD3_prediction(mr_lm, mr_rf, variable = "weight", smooth = TRUE)
+
 }
 \seealso{
 \code{\link{plot_prediction}}

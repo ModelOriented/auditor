@@ -12,14 +12,15 @@ plotD3ACF(object, ..., variable = NULL, alpha = 0.95,
   scale_plot = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_residuals'.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other 'model_audit' or modelResiduals objects to be plotted together.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
-\item{variable}{Only for 'model_audit' object. Name of model variable to order residuals.
-If value is NULL data order is taken.
-If value is "Predicted response" or "Fitted values" then data is ordered by fitted values.
-If value is "Observed response" the data is ordered by a vector of actual response}
+\item{variable}{Name of variable to order residuals on a plot.
+If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
+passed to the \code{\link[DALEX]{explain}} function).
+If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
+If \code{variable = NULL}, unordered observations are presented.}
 
 \item{alpha}{Confidence level of the interval.}
 
@@ -29,5 +30,29 @@ If value is "Observed response" the data is ordered by a vector of actual respon
 a `r2d3` object.
 }
 \description{
-Plot Autocorrelation Function of models residuals.
+Plot Autocorrelation Function of models' residuals.
+}
+\examples{
+
+dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
+mr_lm <- model_residual(exp_lm)
+
+# plot results
+plotD3_acf(mr_lm)
+
+library(randomForest)
+model_rf <- randomForest(life_length~., data = dragons)
+exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(exp_rf)
+plotD3_acf(mr_lm, mr_rf)
+
 }

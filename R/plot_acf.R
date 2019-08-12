@@ -2,7 +2,6 @@
 #'
 #' @description Plot Autocorrelation Function of models' residuals.
 #'
-#'
 #' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
 #' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.

@@ -11,7 +11,7 @@
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smooth line should be added.
-#' @param abline Logical, indicates whenever function y = x shoul be added. Works only
+#' @param abline Logical, indicates whenever function y = x should be added. Works only
 #' with \code{variable = NULL} which is a default option.
 #'
 #' @return A ggplot2 object.
@@ -30,8 +30,8 @@
 #' lm_mr <- model_residual(lm_exp)
 #'
 #' # plot results
-#' plot_prediction(lm_mr)
-#' plot_prediction(lm_mr, variable = "height", abline = TRUE)
+#' plot_prediction(lm_mr, abline = TRUE)
+#' plot_prediction(lm_mr, variable = "height", smooth = TRUE)
 #' plot(lm_mr, type = "prediction", abline = TRUE)
 #'
 #' library(randomForest)

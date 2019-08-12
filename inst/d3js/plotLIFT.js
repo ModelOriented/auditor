@@ -168,7 +168,7 @@ modelNames.forEach(function(key, i) {
         .attr("d", line)
         .style("fill", "none")
         .style("stroke", colors[i])
-        .style("opacity", 1)
+        .style("opacity", 2)
         .style("stroke-width", size)
         .on('mouseover', function(d){
 

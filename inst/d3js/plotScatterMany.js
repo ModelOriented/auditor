@@ -1,5 +1,6 @@
 var points = options.points, smooth = options.smooth,
-    peaks = options.peaks,
+    abline = options.abline,
+    peaks = options.peaks, nlabel = options.nlabel,
     minVariable = options.xmin, maxVariable = options.xmax,
     minResidual = options.ymin, maxResidual = options.ymax,
     xTitle = options.xTitle, n = options.n,
@@ -158,13 +159,28 @@ function singlePlot(modelName, pointData, smoothData, i) {
                   .attr("id", modelName)
                   .attr("cx", d => x(d.x))
                   .attr("cy", d => y(d.y))
-                  .attr("r", 1)
+                  .attr("r", 1.5)
                   .style("fill", pointColor);
 
       if (peaks === true) {
         p.style("stroke-width", 1.5)
          .style("stroke", d => d.peak === true ? "red" : "transparent")
          .style("stroke-opacity", 1);
+      }
+
+      if (nlabel === true) {
+        svg.selectAll()
+            .data(pData.filter(d => d.big === true))
+            .enter()
+            .append("text")
+            .attr("class", "dot " + modelName)
+            .text(d => d.index)
+            .attr("x", d => x(d.x))
+            .attr("y", d => y(d.y)-2)
+            .attr("text-anchor", "middle")
+            .style("font-weight", 400)
+            .style("font-size", "11px")
+            .style("text-align", "left");
       }
     }
 
@@ -178,6 +194,20 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .style("fill", "none")
         .style("stroke", smoothColor)
         .style("stroke-width", 2);
+    }
+
+    if (abline === true) {
+      let ta = [{x: minVariable, smooth: minVariable},
+                {x: maxVariable, smooth: maxVariable}];
+
+      svg.append("path")
+        .data([ta])
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke", "#ae2c87")
+        .style("opacity", 0.65)
+        .style("stroke-width", 2)
+        .style("stroke-dasharray", ("1, 2"));
     }
 
     if (i==n){

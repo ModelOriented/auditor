@@ -1,13 +1,10 @@
-#' @title Plot Residuals vs Target, Observed or Variable Values in D3 with r2d3 package.
+#' @title Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 package.
 #'
 #' @description
-#' Function \code{plotD3_residual} plots resudial values vs target, observed or variable values in the model.
-#' It uses output from \code{model_audit} or \code{model_residual} function.
+#' Function \code{plotD3_residual} plots resudial values vs fitted, observed or variable values in the model.
 #'
-#' If the picture is not displayed in the viewer, please update your RStudio.
-#'
-#' @param object An object of class modelAudit or modelResiduals.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link[DALEX]{explain}} function).
@@ -16,6 +13,7 @@
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std_residuals Logical, indicates whenever standardized residuals should be used. By default it's FALSE.
+#' @param nlabel Number of observations with the biggest residuals to be labeled.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
@@ -24,14 +22,36 @@
 #'
 #' @return a `r2d3` object.
 #'
+#' @examples
+#' dragons <- DALEX::dragons[1:100, ]
 #'
-#' @seealso \code{\link{plotResidual}}
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' mr_lm <- model_residual(exp_lm)
+#'
+#' # plot results
+#' plotD3_residual(mr_lm)
+#'
+#' library(randomForest)
+#' model_rf <- randomForest(life_length~., data = dragons)
+#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+#' mr_rf <- model_residual(exp_rf)
+#' plotD3_residual(mr_lm, mr_rf)
+#'
+#' @seealso \code{\link{plot_residual}}
 #'
 #' @export
 #' @rdname plotD3_residual
 
 plotD3_residual <- function(object, ..., variable = '_y_', points = TRUE, smooth = FALSE,
-                           std_residuals = FALSE, point_count = NULL, single_plot = TRUE,
+                           std_residuals = FALSE, nlabel = 0,
+                           point_count = NULL, single_plot = TRUE,
                            scale_plot = FALSE, background = FALSE){
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
@@ -67,8 +87,8 @@ plotD3_residual <- function(object, ..., variable = '_y_', points = TRUE, smooth
   }
 
   # take only columns needed
-  df <- df[, c(y,"_val_","_label_")]
-  colnames(df) <- c("y","x","label")
+  df <- df[, c(y,"_val_","_label_","_index_")]
+  colnames(df) <- c("y","x","label", "index")
 
   mrl <- split(df, f = df$label)
 
@@ -93,6 +113,14 @@ plotD3_residual <- function(object, ..., variable = '_y_', points = TRUE, smooth
     names(point_data) <- model_names
     point_max <- max(sapply(mrl, function(x) max(x$y)))
     point_min <- min(sapply(mrl, function(x) min(x$y)))
+
+    if (nlabel > 0) {
+      point_data <- lapply(point_data, function(x) {
+        x <- x[order(abs(x$y), decreasing = TRUE), ]
+        x$big <- c(rep(TRUE, nlabel), rep(FALSE, dim(x)[1] - nlabel))
+        x
+      })
+    }
   }
 
   # prepare smooth data
@@ -125,27 +153,28 @@ plotD3_residual <- function(object, ..., variable = '_y_', points = TRUE, smooth
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax + ticks_margin, ymin = ymin - ticks_margin,
                   xTitle = x_title, n = n,
-                  points = points, smooth = smooth, peaks = FALSE,
+                  points = points, smooth = smooth, abline = FALSE,
+                  peaks = FALSE, nlabel = ifelse(nlabel>0, TRUE, FALSE),
                   scalePlot = scale_plot,
                   yTitle = y_title, chartTitle = chart_title)
 
   if (single_plot == TRUE) {
 
     r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterSingle.js", package = "auditor"),
-           dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
-           css = system.file("d3js/themeDrWhy.css", package = "auditor"),
-           d3_version = 4,
-           options = options)
+               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               css = system.file("d3js/themeDrWhy.css", package = "auditor"),
+               d3_version = 4,
+               options = options)
 
   } else {
     if (n == 1) stop("Use single_plot instead.")
     options['background'] <- background
 
     r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterMany.js", package = "auditor"),
-           dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
-           css = system.file("d3js/themeDrWhy.css", package = "auditor"),
-           d3_version = 4,
-           options = options)
+               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               css = system.file("d3js/themeDrWhy.css", package = "auditor"),
+               d3_version = 4,
+               options = options)
   }
 }
 

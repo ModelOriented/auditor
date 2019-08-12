@@ -114,20 +114,22 @@ function singlePlot(modelName, lineData, i) {
                   {"x": x(maxVariable), "y": y(dotLineData[1])}];
 
   var lineFunction = d3.line()
-                         .x(function(d) { return d.x; })
-                         .y(function(d) { return d.y; });
+                       .x(function(d) { return d.x; })
+                       .y(function(d) { return d.y; });
+
   svg.append("path")
         .data([dotLine1])
         .attr("class", "dotLine")
         .attr("d", lineFunction)
         .style("stroke-dasharray", ("1, 2"));
+
   svg.append("path")
         .data([dotLine2])
         .attr("class", "dotLine")
         .attr("d", lineFunction)
         .style("stroke-dasharray", ("1, 2"));
 
-  if (i==n){
+  if (i == n) {
       svg.append("text")
           .attr("class", "axisTitle")
           .attr("y", (plotTop + plotHeight + margin.bottom - 15))

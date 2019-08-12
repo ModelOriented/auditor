@@ -10,9 +10,9 @@ plotD3_rec(object, ..., scale_plot = FALSE)
 plotD3REC(object, ..., scale_plot = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_residual'.}
+\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
 
-\item{...}{Other modelAudit or model Residuals objects to be plotted together.}
+\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 }
@@ -29,7 +29,31 @@ REC curve estimates the Cumulative Distribution Function (CDF) of the error
 
 Area Over the REC Curve (REC) is a biased estimate of the expected error
 }
+\examples{
+dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# validate a model with auditor
+library(auditor)
+mr_lm <- model_residual(exp_lm)
+plotD3_rec(mr_lm)
+
+library(randomForest)
+model_rf <- randomForest(life_length~., data = dragons)
+exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(exp_rf)
+plotD3_rec(mr_lm, mr_rf)
+
+}
 \references{
 Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth
 International Conference on Machine Learning (ICML-2003), Washington, DC.
+}
+\seealso{
+\code{\link{plot_rec}}
 }

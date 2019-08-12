@@ -2,14 +2,10 @@
 #'
 #' @description
 #' Function \code{plotD3_scalelocation} plots square root of the absolute value of the residuals vs target,
-#' observed or variable values in the model.
-#' It uses output from \code{model_audit} or \code{model_residual} function.
+#' observed or variable values in the model. #' A vertical line corresponds to median.
 #'
-#'
-#' If the picture is not displayed in the viewer, please update your RStudio.
-#'
-#' @param object An object of class model_audit or model_residuals.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link[DALEX]{explain}} function).
@@ -25,6 +21,22 @@
 #' @return a `r2d3` object.
 #'
 #' @seealso \code{\link{plot_scalelocation}}
+#'
+#' @examples
+#' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' mr_lm <- model_residual(exp_lm)
+#'
+#' # plot results
+#' plotD3_scalelocation(mr_lm, peaks = TRUE)
 #'
 #' @export
 #' @rdname plotD3_scalelocation
@@ -112,7 +124,8 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax + ticks_margin, ymin = ymin - ticks_margin,
                   xTitle = x_title, n = n,
-                  points = TRUE, smooth = smooth, peaks = peaks,
+                  points = TRUE, smooth = smooth, abline = FALSE,
+                  peaks = peaks, nlabel = FALSE,
                   scalePlot = scale_plot,
                   yTitle = y_title, chartTitle = chart_title)
 

@@ -3,14 +3,35 @@
 #' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class 'model_audit' or 'model_evaluation'.
-#' @param ... Other modelAudit objects to be plotted together.
+#' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
+#' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
 #' @return a `r2d3` object
 #'
 #' @seealso \code{\link{plot_lift}}
 #'
+#' titanic <- na.omit(DALEX::titanic)
+#' titanic$survived <- titanic$survived == "yes"
+#'
+#' # fit a model
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' eva_glm <- model_evaluation(exp_glm)
+#'
+#' # plot results
+#' plotD3_lift(eva_glm)
+#'
+#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
+#' exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+#' eva_glm_2 <- model_evaluation(exp_glm_2)
+#'
+#' plotD3_lift(eva_glm, eva_glm_2)
 #'
 #' @export
 #' @rdname plotD3_lift
@@ -37,7 +58,7 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE) {
 
   # prepare data frame for ideal and dummy model
 
-  pr <- sum(object$y == levels(factor(object$y))[2]) / length(object$y)
+  pr <- sum(object$`_y_` == levels(factor(object$`_y_`))[2]) / length(object$`_y_`)
   ideal_df <- data.frame(rpp = c(0, pr, 1),
                          tp = c(0, max(df1$tp), max(df1$tp)),
                          cutoffs = c(0,0,0),

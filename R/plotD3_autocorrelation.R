@@ -2,8 +2,8 @@
 #'
 #' @description Plot of i-th residual vs i+1-th residual.
 #'
-#' @param object An object of class modelAudit or modelResiduals.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link[DALEX]{explain}} function).
@@ -18,6 +18,23 @@
 #'
 #' @return a `r2d3` object.
 #'
+#' @examples
+#'
+#' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' mr_lm <- model_residual(exp_lm)
+#'
+#' # plot results
+#' plotD3_autocorrelation(mr_lm)
+#' plotD3_autocorrelation(mr_lm, smooth = TRUE)
 #'
 #' @export
 #' @rdname plotD3_autocorrelation

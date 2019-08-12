@@ -11,7 +11,7 @@
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std_residuals Logical, indicates whenever standardized residuals should be used.
-#' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
+#' @param nlabel Number of observations with the biggest residuals to be labeled.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]

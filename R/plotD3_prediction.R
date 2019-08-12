@@ -1,12 +1,9 @@
 #' @title Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.
 #'
 #' @description
-#' Function \code{plotD3_prediction} plots predicted values vs target, observed or variable values in the model.
-#' It uses output from \code{model_audit} or \code{model_residual} function.
+#' Function \code{plotD3_prediction} plots predicted values observed or variable values in the model.
 #'
-#' If the picture is not displayed in the viewer, please update your RStudio.
-#'
-#' @param object An object of class 'model_audit' or 'model_residual'.
+#' @param object An object of class 'auditor_model_residual.
 #' @param ... Other modelAudit or modelResiduals objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
@@ -15,6 +12,8 @@
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
+#' @param abline Logical, indicates whenever function y = x should be added. Works only
+#' with \code{variable = NULL} which is a default option.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
@@ -25,12 +24,35 @@
 #'
 #' @seealso \code{\link{plot_prediction}}
 #'
+#' @examples
+#'
+#' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' mr_lm <- model_residual(exp_lm)
+#'
+#' # plot results
+#' plotD3_prediction(mr_lm, abline = TRUE)
+#' plotD3_prediction(mr_lm, variable = "height", smooth = TRUE)
+#'
+#' library(randomForest)
+#' model_rf <- randomForest(life_length~., data = dragons)
+#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+#' mr_rf <- model_residual(exp_rf)
+#' plotD3_prediction(mr_lm, mr_rf, variable = "weight", smooth = TRUE)
+#'
 #' @export
 #' @rdname plotD3_prediction
-
 plotD3_prediction <- function(object, ..., variable = '_y_', points = TRUE, smooth = FALSE,
-                             point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
-                             background = FALSE){
+                              abline = FALSE, point_count = NULL, single_plot = TRUE,
+                              scale_plot = FALSE, background = FALSE){
 
   if (points == FALSE & smooth == FALSE) stop("Plot points or smooth.")
 
@@ -115,7 +137,8 @@ plotD3_prediction <- function(object, ..., variable = '_y_', points = TRUE, smoo
   options <- list(xmax = xmax, xmin = xmin,
                   ymax = ymax + ticks_margin, ymin = ymin - ticks_margin,
                   xTitle = x_title, n = n,
-                  points = points, smooth = smooth, peaks = FALSE,
+                  points = points, smooth = smooth, abline = abline,
+                  peaks = FALSE, nlabel = FALSE,
                   scalePlot = scale_plot,
                   yTitle = y_title, chartTitle = chart_title)
 
@@ -142,8 +165,9 @@ plotD3_prediction <- function(object, ..., variable = '_y_', points = TRUE, smoo
 #' @rdname plotD3_prediction
 #' @export
 plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
-                              point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
-                              background = FALSE) {
+                             abline = FALSE,
+                             point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
+                             background = FALSE) {
   message("Please note that 'plotD3Prediction()' is now deprecated, it is better to use 'plotD3_prediction()' instead.")
   plotD3_prediction(object, ..., variable, points, smooth,
            point_count, single_plot, scale_plot,

@@ -2,7 +2,6 @@
 #'
 #' @description Plot of Cook’s distances used for estimate the influence of an single observation.
 #'
-#'
 #' @param object An object of class 'auditor_model_cooksdistance' created with \code{\link{model_cooksdistance}} function.
 #' @param ... Other objects of class 'auditor_model_cooksdistance'.
 #' @param nlabel Number of observations with the biggest Cook's distances to be labeled.

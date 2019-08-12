@@ -10,9 +10,9 @@ plotD3_lift(object, ..., scale_plot = FALSE)
 plotD3LIFT(object, ..., scale_plot = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'model_audit' or 'model_evaluation'.}
+\item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}
 
-\item{...}{Other modelAudit objects to be plotted together.}
+\item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 }
@@ -25,4 +25,26 @@ It is useful for measuring and comparing the accuracy of the classificators.
 }
 \seealso{
 \code{\link{plot_lift}}
+
+titanic <- na.omit(DALEX::titanic)
+titanic$survived <- titanic$survived == "yes"
+
+# fit a model
+model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+# use DALEX package to wrap up a model into explainer
+exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+
+# validate a model with auditor
+library(auditor)
+eva_glm <- model_evaluation(exp_glm)
+
+# plot results
+plotD3_lift(eva_glm)
+
+model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
+exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+eva_glm_2 <- model_evaluation(exp_glm_2)
+
+plotD3_lift(eva_glm, eva_glm_2)
 }

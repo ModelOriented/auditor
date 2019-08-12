@@ -6,14 +6,31 @@
 #' Points on the plot correspond to ordered absolute values of model diagnostic
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
-#' @param object 'model_audit' object, 'model_halfnormal' object.
-#' @param quantiles if TRUE values on axis are on quantile scale.
-#' @param ... extra arguments passed to \link[hnp]{hnp}.
-#' @param sim number of residuals to simulate
+#' @param object An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.
+#' @param ... Other 'auditor_model_halfnormal' objects.
+#' @param quantiles If TRUE values on axis are on quantile scale.
+#' @param sim Number of residuals to simulate.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
 #' @return a `r2d3` object.
 #'
+#' @seealso \code{\link{model_halfnormal}}
+#'
+#' @examples
+#' dragons <- DALEX::dragons[1:100, ]
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # use DALEX package to wrap up a model into explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # validate a model with auditor
+#' library(auditor)
+#' hn_lm <- model_halfnormal(exp_lm)
+#'
+#' # plot results
+#' plotD3_halfnormal(hn_lm)
 #'
 #' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density

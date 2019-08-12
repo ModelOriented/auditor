@@ -26,7 +26,7 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{std_residuals}{Logical, indicates whenever standardized residuals should be used.}
 
-\item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
+\item{nlabel}{Number of observations with the biggest residuals to be labeled.}
 }
 \description{
 A plot of residuals against fitted values, observed values or any variable.
