@@ -19,6 +19,7 @@ For the list of possible plots see see also section.
 }
 \examples{
 titanic <- na.omit(DALEX::titanic)
+titanic$survived <- titanic$survived == "yes"
 
 # fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
