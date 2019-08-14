@@ -10,7 +10,7 @@ score_halfnormal(object, ...)
 scoreHalfNormal(object, ...)
 }
 \arguments{
-\item{object}{modelAudit or modelFit object.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{...}{Extra arguments passed to \link[hnp]{hnp}.}
 }
@@ -27,8 +27,14 @@ Scores are calculated on the basis of simulated data, so they may differ between
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score_halfnormal(lm_exp)
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score_halfnormal(exp_lm)
 
 }

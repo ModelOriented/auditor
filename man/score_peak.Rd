@@ -22,8 +22,14 @@ This score is calculated on the basis of Peak test, which is used for checking f
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score_peak(lm_exp)
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score_peak(exp_lm)
 
 }

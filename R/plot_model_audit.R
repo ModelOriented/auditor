@@ -28,29 +28,29 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #'
 #' # fit a model
-#' lm_model <- lm(life_length ~ ., data = dragons)
+#' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' lm_mr <- model_residual(lm_exp)
+#' mr_lm <- model_residual(exp_lm)
 #'
 #' # plot results
-#' plot(lm_mr)
-#' plot(lm_mr, type = "prediction")
+#' plot(mr_lm)
+#' plot(mr_lm, type = "prediction")
 #'
-#' lm_hn <- model_halfnormal(lm_exp)
-#' plot(lm_hn)
+#' hn_lm <- model_halfnormal(exp_lm)
+#' plot(hn_lm)
 #'
 #' library(randomForest)
-#' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
+#' model_rf <- randomForest(life_length~., data = dragons)
+#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
 #'
-#' rf_mp <- model_performance(rf_exp)
-#' lm_mp <- model_performance(lm_exp)
-#' plot(lm_mp, rf_mp)
+#' mp_rf <- model_performance(exp_rf)
+#' mp_lm <- model_performance(exp_lm)
+#' plot(mp_lm, mp_rf)
 #'
 #'
 #' @importFrom grDevices devAskNewPage

@@ -13,25 +13,25 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #'
 #' # fit a model
-#' lm_model <- lm(life_length ~ ., data = dragons)
+#' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' lm_mr <- model_residual(lm_exp)
+#' mr_lm <- model_residual(exp_lm)
 #'
 #' # plot results
-#' plot_residual_density(lm_mr)
-#' plot(lm_mr, type = "residual_density")
+#' plot_residual_density(mr_lm)
+#' plot(mr_lm, type = "residual_density")
 #'
 #' library(randomForest)
-#' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
-#' rf_mr <- model_residual(rf_exp)
-#' plot_residual_density(lm_mr, rf_mr)
-#' plot(lm_mr, rf_mr, type = "residual_density")
+#' model_rf <- randomForest(life_length~., data = dragons)
+#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+#' mr_rf <- model_residual(exp_rf)
+#' plot_residual_density(mr_lm, mr_rf)
+#' plot(mr_lm, mr_rf, type = "residual_density")
 #'
 #' @seealso \code{\link{plot.model_audit}}
 #'
@@ -46,7 +46,7 @@ plot_residual_density <- function(object, ..., split = FALSE, variable = NULL) {
     stop("Please change argument `split` to `TRUE` if you want to plot residual density of a specific variable")
 
   # some safeguard
-  res <- label <- div <- NULL
+  `_residuals_` <- label <- div <- NULL
   # check if passed object is of class "auditor_model_residuals"
   check_object(object, type = "res")
 

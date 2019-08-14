@@ -23,18 +23,18 @@
 #' dragons <- DALEX::dragons[1:100, ]
 #'
 #' # fit a model
-#' lm_model <- lm(life_length ~ ., data = dragons)
+#' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' lm_cd <- model_cooksdistance(lm_exp)
+#' cd_lm <- model_cooksdistance(exp_lm)
 #'
 #' # plot results
-#' plot_cooksdistance(lm_cd)
-#' plot(lm_cd, type = "cooksdistance")
+#' plot_cooksdistance(cd_lm)
+#' plot(cd_lm, type = "cooksdistance")
 #'
 #' @import ggplot2
 #'
@@ -42,13 +42,13 @@
 plot_cooksdistance <- function(object, ..., nlabel = 3) {
 
   # some safeguard
-  index <- cooks.dist <- big <- nameIndex <- variable <- label <- NULL
+  '_index_' <- '_cooks_dist_' <- '_big_' <- '_label_' <- NULL
 
   # check if passed object is of class "observationInfluence" or "modelAudit"
   check_object(object, type = "infl")
 
   # data frame for ggplot object
-  df <- make_dataframe(object, ..., variable = variable, type = "infl", nlabel = nlabel)
+  df <- make_dataframe(object, ..., type = "infl", nlabel = nlabel)
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(length(levels(df$label))))

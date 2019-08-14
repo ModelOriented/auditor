@@ -204,6 +204,8 @@ make_pca_df <- function(object) {
 }
 
 make_corr_df <- function(object, values) {
+  '_y_' <- '_y_hat_' <- NULL
+
   if (values == "fit") {
     df <- subset(object, select = c(`_y_`, `_y_hat_`))
     names(df)[names(df) == "_y_hat_"] <- as.character(object$`_label_`[1])
@@ -297,6 +299,7 @@ scaleModelRankingDF <- function(df) {
 #' argument).  Default is \code{FALSE}
 #' @param alpha_val Numeric, level of alpha of points when smooth is drawn
 drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
+  `_label_` <- NULL
   # ordering data to get right order of points on the plot
   df <- df[order(-as.numeric(factor(df$`_label_`))), ]
 
@@ -313,6 +316,8 @@ drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
 #'
 #' @param df Data frame prepared by (\code{make_dataframe}) function
 drwhy_geom_smooth <- function(df) {
+  'ord' <- '_label_' <- NULL
+
   df$ord <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
   geom_smooth(data = df,

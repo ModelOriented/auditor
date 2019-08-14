@@ -10,19 +10,25 @@ score_rmse(object)
 scoreRMSE(object)
 }
 \arguments{
-\item{object}{An object of class ModelAudit.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \value{
-an object of class scoreAudit
+An object of class 'score_audit'.
 }
 \description{
 Root Mean Square Error.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score_rmse(lm_exp)
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score_rmse(exp_lm)
 
 
 }

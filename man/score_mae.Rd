@@ -10,7 +10,7 @@ score_mae(object)
 scoreMAE(object)
 }
 \arguments{
-\item{object}{An object of class 'Model_audit' or 'model_residual'.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \value{
 an object of class 'score_audit'
@@ -20,9 +20,15 @@ Mean Absolute Error.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score_mae(lm_exp)
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score_mae(exp_lm)
 
 
 }

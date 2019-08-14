@@ -44,7 +44,7 @@
 
 plot_roc <- function(object, ..., nlabels = NULL) {
 
-  label <- fpr <- tpr <- ord <- cutoffs <- NULL
+  `_label_` <- `_fpr_` <- `_tpr_` <- ord <- `_cutoffs_` <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")

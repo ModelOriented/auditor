@@ -9,12 +9,18 @@
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-#' score_dw(lm_exp)
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # create an explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # calculate score
+#' score_dw(exp_lm)
 #'
 #'
-#' @return an object of class 'scoreAudit'auditor_score'
+#' @return An object of class 'auditor_score'.
 #'
 #' @rdname score_dw
 #'

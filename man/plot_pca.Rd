@@ -27,21 +27,21 @@ PCA can be used to assess the similarity of the models.
 dragons <- DALEX::dragons[1:100, ]
 
 # fit a model
-lm_model <- lm(life_length ~ ., data = dragons)
+model_lm <- lm(life_length ~ ., data = dragons)
 
 # use DALEX package to wrap up a model into explainer
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 
 # validate a model with auditor
 library(auditor)
-lm_mr <- model_residual(lm_exp)
+mr_lm <- model_residual(exp_lm)
 
 library(randomForest)
-rf_model <- randomForest(life_length~., data = dragons)
-rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
-rf_mr <- model_residual(rf_exp)
+model_rf <- randomForest(life_length~., data = dragons)
+exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(exp_rf)
 
 # plot results
-plot_pca(lm_mr, rf_mr)
+plot_pca(mr_lm, mr_rf)
 
 }

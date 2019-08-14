@@ -15,6 +15,8 @@ scoreCooksDistance(object, print = TRUE)
 \item{print}{If TRUE progress is printed.}
 }
 \value{
+A vector of Cook's distances for each observation.
+
 numeric vector
 }
 \description{
@@ -33,9 +35,15 @@ so this may take a while.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score_cooksdistance(lm_exp)
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score_cooksdistance(exp_lm)
 
 
 }

@@ -2,15 +2,21 @@
 #'
 #' @description The area over the Regression Receiver Operating Characteristic.
 #'
-#' @param object An object of class 'model_audit'.
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #'
 #' @return an object of class 'score_audit'.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-#' score_rroc(lm_exp)
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # create an explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # calculate score
+#' score_rroc(exp_lm)
 #'
 #'
 #' @seealso \code{\link{plot_rroc}}

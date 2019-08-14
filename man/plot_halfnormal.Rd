@@ -32,18 +32,18 @@ Points on the plot correspond to ordered absolute values of model diagnostic
 dragons <- DALEX::dragons[1:100, ]
 
 # fit a model
-lm_model <- lm(life_length ~ ., data = dragons)
+model_lm <- lm(life_length ~ ., data = dragons)
 
 # use DALEX package to wrap up a model into explainer
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 
 # validate a model with auditor
 library(auditor)
-lm_hn <- model_halfnormal(lm_exp)
+hn_lm <- model_halfnormal(exp_lm)
 
 # plot results
-plot_halfnormal(lm_hn)
-plot(lm_hn)
+plot_halfnormal(hn_lm)
+plot(hn_lm)
 
 }
 \seealso{

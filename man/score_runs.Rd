@@ -14,6 +14,9 @@ scoreRuns(object, variable = NULL)
 
 \item{variable}{name of model variable to order residuals.}
 }
+\value{
+An object of class 'auditor_score'.
+}
 \description{
 Score based on Runs test statistic. Note that this test is not very strong. It utilizes only signs of the residuals.
 The score value is helpful in comparing models. It is worth pointing out that results of tests like p-value makes sense only
@@ -21,8 +24,14 @@ when the test assumptions are satisfied. Otherwise test statistic may be conside
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score_runs(lm_exp)
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# caluclate score
+score_runs(exp_lm)
 
 }

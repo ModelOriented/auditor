@@ -36,18 +36,18 @@ For model classes other than lm and glm the distances are computed directly from
 dragons <- DALEX::dragons[1:100, ]
 
 # fit a model
-lm_model <- lm(life_length ~ ., data = dragons)
+model_lm <- lm(life_length ~ ., data = dragons)
 
 # use DALEX package to wrap up a model into explainer
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 
 # validate a model with auditor
 library(auditor)
-lm_cd <- model_cooksdistance(lm_exp)
+cd_lm <- model_cooksdistance(exp_lm)
 
 # plot results
-plot_cooksdistance(lm_cd)
-plot(lm_cd, type = "cooksdistance")
+plot_cooksdistance(cd_lm)
+plot(cd_lm, type = "cooksdistance")
 
 }
 \references{

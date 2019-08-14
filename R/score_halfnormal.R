@@ -7,14 +7,21 @@
 #' \eqn{res_i} is a residual for i-th observation, \eqn{simres_{i,j}} is the residual of j-th simulation for i-th observation, and \eqn{n} is the number of simulations for each observation.
 #' Scores are calculated on the basis of simulated data, so they may differ between function calls.
 #'
-#' @param object modelAudit or modelFit object.
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param ... Extra arguments passed to \link[hnp]{hnp}.
+#'
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-#' score_halfnormal(lm_exp)
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # create an explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # calculate score
+#' score_halfnormal(exp_lm)
 #'
 #' @return An object of class 'score_audit'.
 #'

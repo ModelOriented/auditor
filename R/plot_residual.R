@@ -11,31 +11,31 @@
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param std_residuals Logical, indicates whenever standardized residuals should be used.
-#' @param nlabel Number of observations with the biggest residuals to be labeled.
+#' @param nlabel Number of observations with the biggest absolute values of residuals to be labeled.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #'
 #' # fit a model
-#' lm_model <- lm(life_length ~ ., data = dragons)
+#' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' lm_mr <- model_residual(lm_exp)
+#' mr_lm <- model_residual(exp_lm)
 #'
 #' # plot results
-#' plot_residual(lm_mr)
-#' plot(lm_mr, type = "residual")
+#' plot_residual(mr_lm)
+#' plot(mr_lm, type = "residual")
 #'
 #' library(randomForest)
-#' rf_model <- randomForest(life_length~., data = dragons)
-#' rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
-#' rf_mr <- model_residual(rf_exp)
-#' plot_residual(lm_mr, rf_mr)
-#' plot(lm_mr, rf_mr, type = "residual")
+#' model_rf <- randomForest(life_length~., data = dragons)
+#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+#' mr_rf <- model_residual(exp_rf)
+#' plot_residual(mr_lm, mr_rf)
+#' plot(mr_rf, mr_rf, type = "residual")
 #'
 #'
 #' @import ggplot2
@@ -46,7 +46,7 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
                          std_residuals = FALSE, nlabel = 0) {
 
   # some safeguard
-  res <- std_res <- val <- label <- index <- maybe_smooth <- maybe_labels <- NULL
+  `_residuals_` <- std_res <- `_val_` <- label <- `_index_` <- maybe_smooth <- maybe_labels <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "res")
@@ -95,7 +95,7 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
 
   if (nlabel > 0)
     p <- p + geom_text_repel(data = maybe_labels,
-                             aes(label = as.character(index)),
+                             aes(label = as.character(`_index_`)),
                              hjust = -0.2,
                              vjust = -0.2,
                              color = theme_drwhy_colors(1),
@@ -127,5 +127,5 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
 plotResidual <-  function(object, ..., variable = NULL, smooth = FALSE,
                            std_residuals = FALSE, nlabel = 0) {
   message("Please note that 'plotACF()' is now deprecated, it is better to use 'plot_acf()' instead.")
-  plot_residuals(object, ..., variable, smooth, std_residuals, nlabel)
+  plot_residual(object, ..., variable, smooth, std_residuals, nlabel)
 }

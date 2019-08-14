@@ -26,7 +26,7 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{std_residuals}{Logical, indicates whenever standardized residuals should be used.}
 
-\item{nlabel}{Number of observations with the biggest residuals to be labeled.}
+\item{nlabel}{Number of observations with the biggest absolute values of residuals to be labeled.}
 }
 \description{
 A plot of residuals against fitted values, observed values or any variable.
@@ -35,25 +35,25 @@ A plot of residuals against fitted values, observed values or any variable.
 dragons <- DALEX::dragons[1:100, ]
 
 # fit a model
-lm_model <- lm(life_length ~ ., data = dragons)
+model_lm <- lm(life_length ~ ., data = dragons)
 
 # use DALEX package to wrap up a model into explainer
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 
 # validate a model with auditor
 library(auditor)
-lm_mr <- model_residual(lm_exp)
+mr_lm <- model_residual(exp_lm)
 
 # plot results
-plot_residual(lm_mr)
-plot(lm_mr, type = "residual")
+plot_residual(mr_lm)
+plot(mr_lm, type = "residual")
 
 library(randomForest)
-rf_model <- randomForest(life_length~., data = dragons)
-rf_exp <- DALEX::explain(rf_model, data = dragons, y = dragons$life_length)
-rf_mr <- model_residual(rf_exp)
-plot_residual(lm_mr, rf_mr)
-plot(lm_mr, rf_mr, type = "residual")
+model_rf <- randomForest(life_length~., data = dragons)
+exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(exp_rf)
+plot_residual(mr_lm, mr_rf)
+plot(mr_rf, mr_rf, type = "residual")
 
 
 }

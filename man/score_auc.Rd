@@ -10,22 +10,25 @@ score_auc(object)
 scoreROC(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer'.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \value{
-an object of class scoreAudit
+An object of class 'auditor_score'.
 }
 \description{
 Area Under Curve (AUC) for Receiver Operating Characteristic.
 }
 \examples{
-library(DALEX)
-data(titanic)
-titanic <- na.omit(titanic)
+titanic <- na.omit(DALEX::titanic)
 titanic$survived <- titanic$survived == "yes"
+
+# fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+
+#create an explainer
 exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 
+# calculate score
 score_auc(exp_glm)
 
 }

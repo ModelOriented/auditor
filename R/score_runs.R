@@ -7,11 +7,19 @@
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param variable name of model variable to order residuals.
 #'
+#' @return An object of class 'auditor_score'.
+#'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
-#' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-#' score_runs(lm_exp)
+#'
+#' # fit a model
+#' model_lm <- lm(life_length ~ ., data = dragons)
+#'
+#' # create an explainer
+#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#'
+#' # caluclate score
+#' score_runs(exp_lm)
 #'
 #' @export
 

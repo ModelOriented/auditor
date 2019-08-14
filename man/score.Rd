@@ -7,7 +7,7 @@
 score(object, score = "mse", ...)
 }
 \arguments{
-\item{object}{Object An object of class 'explainer' created with function....}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{score}{The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 (for detailed description see functions in see also section).}
@@ -15,7 +15,7 @@ score(object, score = "mse", ...)
 \item{...}{Other arguments dependent on the type of score.}
 }
 \value{
-an object of class scoreAudit, except Cooks distance, where numeric vector is returned
+An object of class 'auditor_score', except Cooks distance, where numeric vector is returned.
 }
 \description{
 This function provides several scores for model validation and performance assessment.
@@ -23,9 +23,15 @@ Scores can be also used to compare models.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
-score(lm_exp, score = 'mae')
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score(exp_lm, score = 'mae')
 
 }
 \seealso{

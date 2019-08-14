@@ -10,7 +10,7 @@ score_rec(object)
 scoreREC(object)
 }
 \arguments{
-\item{object}{An object of class 'model_audit'.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \value{
 an object of class 'score_audit'.
@@ -21,8 +21,14 @@ for the regression model.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
+
+# fit a model
 lm_model <- lm(life_length ~ ., data = dragons)
+
+# create an explainer
 lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+
+# calculate score
 score_rec(lm_exp)
 
 
