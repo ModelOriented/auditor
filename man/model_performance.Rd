@@ -15,7 +15,7 @@ modelPerformance(object, score = c("mae", "mse", "rec", "rroc"),
 \item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{score}{Vector of score names to be plotted. Possible values are 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
-(for detailed description see functions in see also section).}
+(for detailed description see functions in see also section). Pass NULL if you want to use only custom scores by 'new_score' parameter.}
 
 \item{new_score}{A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
 }

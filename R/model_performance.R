@@ -4,7 +4,7 @@
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param score Vector of score names to be plotted. Possible values are 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
-#' (for detailed description see functions in see also section).
+#' (for detailed description see functions in see also section). Pass NULL if you want to use only custom scores by 'new_score' parameter.
 #' @param new_score A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #'
 #' @seealso \code{\link{score_auc}}, \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
@@ -29,11 +29,15 @@
 #' @export
 model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL) {
   check_object(object, type = "exp")
-    score <- sapply(score, function(x) score(object, score = x)$score)
-    df <- data.frame(score = score[1], label = object$label, name = names(score[1]))
 
+    if(!is.null(score)){
+      score <- sapply(score, function(x) score(object, score = x)$score)
+      df <- data.frame(score = score[1], label = object$label, name = names(score[1]))
+      if (length(score) > 1) df <- rbind(df, data.frame(score = score[-1], label = object$label, name = names(score[-1])))
+    } else {
+      df <- data.frame(score = numeric(), label = factor(), name = character())
+    }
 
-    if (length(score) > 1) df <- rbind(df, data.frame(score = score[-1], label = object$label, name = names(score[-1])))
 
     if (!is.null(new_score)) {
       if (class(new_score) == "function") {
