@@ -55,13 +55,13 @@ compute_cooksdistances <- function(object, print){
   predict_function <- object$predict_function
   n <- nrow(model_data)
   D <- numeric(n)
-  y1 <- predict_function(original_model)
+  y1 <- predict_function(original_model, model_data)
   mse <- mean( (as.numeric(model_data[,1]) - y1)^2 )
   p <- ncol(model_data)
   pmse <- p*mse
   for(i in 1:n){
     new_model <- update(original_model, data = model_data[-i,])
-    y2 <- predict_function(new_model, newdata = model_data)
+    y2 <- predict_function(new_model, model_data)
     D[i] <- sum( (y1 - y2)^2 ) / (pmse)
     if(print==TRUE) cat(i, "out of", n, "\r")
     utils::flush.console()
