@@ -121,7 +121,15 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other modelAudit objects to be plotted together.</p></td>
+      <td><p>Other modelAudit objects to be plotted together.</p>
+<p>dragons &lt;- DALEX::dragons[1:100, ]
+lm_model &lt;- lm(life_length ~ ., data = dragons)
+lm_au &lt;- audit(lm_model, data = dragons, y = dragons$life_length)
+plotResidual(lm_au)</p>
+<p>library(randomForest)
+rf_model &lt;- randomForest(life_length~., data = dragons)
+rf_au &lt;- audit(rf_model, data = dragons, y = dragons$life_length)
+plotResidualBoxplot(lm_au, rf_au)</p></td>
     </tr>
     </table>
     
@@ -130,16 +138,6 @@
     <div class='dont-index'><p><code><a href='plot.modelAudit.html'>plot.modelAudit</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'><a href='plotResidual.html'>plotResidual</a></span>(<span class='no'>lm_au</span>)</div><div class='img'><img src='plotResidualBoxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>randomForest</span>)
-<span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>plotResidualBoxplot</span>(<span class='no'>lm_au</span>, <span class='no'>rf_au</span>)</div><div class='img'><img src='plotResidualBoxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -147,9 +145,7 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

@@ -110,14 +110,14 @@
     <p>Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend</p>
     
 
-    <pre class="usage"><span class='fu'>check_residuals_trend</span>(<span class='no'>model</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
+    <pre class="usage"><span class='fu'>check_residuals_trend</span>(<span class='no'>object</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>model</th>
-      <td><p>an object of the class `modelAudit`</p></td>
+      <th>object</th>
+      <td><p>An object of class 'explainer' created with function <code><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>B</th>
@@ -131,14 +131,23 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>check_residuals_trend</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>DALEX</span>)
+<span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX/topics/dragons'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+<span class='no'>lm_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+#&gt;   -&gt; model label       :  lm  (<span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; data              :  100  rows  8  cols 
+#&gt;   -&gt; target variable   :  100  values 
+#&gt;   -&gt; predict function  :  yhat.lm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
+#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
+#&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>auditor</span>)
+<span class='fu'>check_residuals_trend</span>(<span class='no'>lm_exp</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
 #&gt;    Checks for trend in residuals
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  lm 
-#&gt;     Standardised loess fit:  +9.70     . </div></pre>
+#&gt;     Standardised loess fit:  +0.20      </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

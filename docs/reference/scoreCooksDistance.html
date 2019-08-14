@@ -145,77 +145,43 @@ so this may take a while.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>scoreCooksDistance</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;        gov.administrators          general.managers               accountants 
-#&gt;              2.428267e-03              2.832697e-01              1.626121e-03 
-#&gt;       purchasing.officers                  chemists                physicists 
-#&gt;              1.082658e-03              1.377992e-02              4.882702e-03 
-#&gt;                biologists                architects           civil.engineers 
-#&gt;              6.387086e-03              6.269429e-04              2.971297e-03 
-#&gt;          mining.engineers                 surveyors               draughtsmen 
-#&gt;              5.231977e-06              1.622283e-02              4.172801e-03 
-#&gt;       computer.programers                economists             psychologists 
-#&gt;              9.065386e-03              3.516136e-04              2.169004e-02 
-#&gt;            social.workers                   lawyers                librarians 
-#&gt;              4.736014e-03              2.362512e-03              5.954443e-04 
-#&gt;    vocational.counsellors                 ministers       university.teachers 
-#&gt;              1.987192e-02              8.388665e-02              1.484911e-02 
-#&gt;   primary.school.teachers secondary.school.teachers                physicians 
-#&gt;              1.584048e-03              2.548978e-05              6.166504e-02 
-#&gt;             veterinarians  osteopaths.chiropractors                    nurses 
-#&gt;              3.858089e-02              3.102104e-02              5.185906e-02 
-#&gt;             nursing.aides          physio.therapsts               pharmacists 
-#&gt;              4.911175e-04              5.498177e-02              1.893992e-04 
-#&gt;       medical.technicians        commercial.artists       radio.tv.announcers 
-#&gt;              3.391784e-02              5.101554e-03              1.935625e-04 
-#&gt;                  athletes               secretaries                   typists 
-#&gt;              3.390048e-04              6.852068e-06              1.779877e-03 
-#&gt;               bookkeepers          tellers.cashiers        computer.operators 
-#&gt;              1.487824e-03              1.014634e-03              5.068692e-04 
-#&gt;           shipping.clerks               file.clerks              receptionsts 
-#&gt;              3.824718e-03              3.959903e-02              3.093447e-03 
-#&gt;             mail.carriers             postal.clerks       telephone.operators 
-#&gt;              6.563431e-04              4.892611e-04              1.462173e-03 
-#&gt;                collectors           claim.adjustors             travel.clerks 
-#&gt;              1.760987e-02              1.937443e-03              8.541219e-03 
-#&gt;             office.clerks         sales.supervisors     commercial.travellers 
-#&gt;              6.700605e-03              3.567173e-04              8.673946e-03 
-#&gt;              sales.clerks                  newsboys service.station.attendant 
-#&gt;              1.562527e-02              1.177427e-01              4.948243e-02 
-#&gt;          insurance.agents      real.estate.salesmen                    buyers 
-#&gt;              1.459960e-03              9.756845e-05              9.584963e-05 
-#&gt;              firefighters                 policemen                     cooks 
-#&gt;              1.019968e-04              6.862129e-05              2.592845e-05 
-#&gt;                bartenders         funeral.directors               babysitters 
-#&gt;              1.659973e-02              3.232608e-03              1.266394e-02 
-#&gt;                launderers                  janitors        elevator.operators 
-#&gt;              8.930962e-03              1.188528e-02              8.503645e-03 
-#&gt;                   farmers              farm.workers      rotary.well.drillers 
-#&gt;              4.899856e-02              1.148605e-02              1.561217e-03 
-#&gt;                    bakers            slaughterers.1            slaughterers.2 
-#&gt;              8.279081e-03              4.390716e-03              9.233956e-04 
-#&gt;                   canners           textile.weavers         textile.labourers 
-#&gt;              1.749033e-03              6.540165e-03              1.489118e-03 
-#&gt;           tool.die.makers                machinists       sheet.metal.workers 
-#&gt;              9.062896e-04              2.451712e-03              1.151053e-04 
-#&gt;                   welders              auto.workers          aircraft.workers 
-#&gt;              5.388366e-03              9.738267e-07              2.200670e-03 
-#&gt;        electronic.workers        radio.tv.repairmen     sewing.mach.operators 
-#&gt;              4.934191e-02              4.137224e-03              1.397534e-02 
-#&gt;            auto.repairmen        aircraft.repairmen        railway.sectionmen 
-#&gt;              1.269647e-03              1.665114e-03              1.638252e-10 
-#&gt;        electrical.linemen              electricians      construction.foremen 
-#&gt;              1.183954e-04              2.873767e-03              2.019788e-02 
-#&gt;                carpenters                    masons            house.painters 
-#&gt;              1.491918e-02              1.027504e-02              4.754342e-04 
-#&gt;                  plumbers    construction.labourers                    pilots 
-#&gt;              3.493312e-03              1.594688e-03              1.748322e-03 
-#&gt;           train.engineers               bus.drivers              taxi.drivers 
-#&gt;              9.635459e-03              1.574710e-03              5.745797e-03 
-#&gt;              longshoremen               typesetters               bookbinders 
-#&gt;              8.498365e-03              8.455003e-05              7.186315e-04 </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX/topics/dragons'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)
+<span class='fu'>scoreCooksDistance</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;            1            2            3            4            5            6 
+#&gt; 1.002101e-04 3.242611e-02 1.890841e-02 5.501554e-03 6.016306e-04 2.355311e-02 
+#&gt;            7            8            9           10           11           12 
+#&gt; 2.544244e-01 2.244365e-02 9.949426e-03 1.355185e-04 4.031547e-02 1.108980e-03 
+#&gt;           13           14           15           16           17           18 
+#&gt; 3.980142e-05 1.072810e-03 2.072410e-02 7.774523e-03 1.499741e-02 1.079816e-02 
+#&gt;           19           20           21           22           23           24 
+#&gt; 3.721060e-04 9.496610e-03 2.568844e-03 8.295470e-03 3.258827e-04 8.065736e-03 
+#&gt;           25           26           27           28           29           30 
+#&gt; 3.595406e-02 1.368116e-02 2.308784e-03 1.540685e-02 2.544244e-01 1.235508e-02 
+#&gt;           31           32           33           34           35           36 
+#&gt; 7.682785e-03 7.881792e-03 3.943694e-03 2.008135e-02 2.207892e-03 4.927128e-03 
+#&gt;           37           38           39           40           41           42 
+#&gt; 5.281046e-04 8.068385e-04 5.720329e-05 2.629196e-05 1.681928e-03 3.542272e-02 
+#&gt;           43           44           45           46           47           48 
+#&gt; 2.176019e-03 1.554140e-03 1.760357e-02 4.797761e-03 1.212860e-03 1.888598e-02 
+#&gt;           49           50           51           52           53           54 
+#&gt; 3.822542e-03 1.853168e-03 5.748063e-03 2.091746e-03 1.863908e-03 6.694238e-03 
+#&gt;           55           56           57           58           59           60 
+#&gt; 3.503988e-02 1.055101e-03 2.668863e-03 1.496564e-03 4.308740e-04 3.997185e-03 
+#&gt;           61           62           63           64           65           66 
+#&gt; 1.011832e-02 1.433621e-04 3.410505e-02 2.952540e-03 1.936214e-03 5.560783e-03 
+#&gt;           67           68           69           70           71           72 
+#&gt; 2.522497e-02 1.145939e-03 9.089199e-04 1.669481e-04 5.150935e-03 4.677569e-03 
+#&gt;           73           74           75           76           77           78 
+#&gt; 1.291100e-03 1.336545e-02 8.068197e-03 1.066489e-04 4.562679e-03 3.224655e-02 
+#&gt;           79           80           81           82           83           84 
+#&gt; 9.624479e-03 2.080309e-03 2.207012e-02 2.222930e-02 2.143174e-03 1.402131e-06 
+#&gt;           85           86           87           88           89           90 
+#&gt; 4.699707e-05 7.158544e-04 1.064152e-03 3.228444e-03 2.406698e-02 5.931045e-02 
+#&gt;           91           92           93           94           95           96 
+#&gt; 3.000449e-04 1.630513e-02 6.890545e-03 1.010056e-02 8.270442e-03 6.660468e-02 
+#&gt;           97           98           99          100 
+#&gt; 9.628741e-03 3.302315e-04 1.046263e-03 3.460410e-03 </div><div class='input'>
 
 </div></pre>
   </div>

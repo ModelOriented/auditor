@@ -47,12 +47,16 @@ model_lm <- lm(mpg ~ ., data = mtcars)
 set.seed(123)
 model_rf <- randomForest(mpg ~ ., data = mtcars)
 
-# creating a modelAudit object which contains all necessary components required for further processing
-au_lm <- audit(model_lm)
-au_rf <- audit(model_rf, label = "rf")
+# creating objects which 'explain' function form the pacage ['DALEX'](https://github.com/pbiecek/DALEX) that contains all necessary components required for further processing
+exp_lm <- DALEX::explain(model_lm, data = mtcars, y = mtcars$mpg)
+exp_rf <- DALEX::explain(model_rf, data = mtcars, y = mtcars$mpg, label = "rf")
+
+# create explanation  objects
+mr_lm <- model_residual(exp_lm)
+mr_rf <- model_residual(exp_rf)
 
 # generating plots
-plotResidual(au_lm, au_rf, variable = "wt", smooth = TRUE)
+plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
 ```
 
 ## More

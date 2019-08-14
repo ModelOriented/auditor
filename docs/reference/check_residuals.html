@@ -113,35 +113,48 @@
  - for trend in residuals as a function of target variable (detection of bias)</p>
     
 
-    <pre class="usage"><span class='fu'>check_residuals</span>(<span class='no'>model</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>check_residuals</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>model</th>
-      <td><p>An object of class `modelAudit`</p></td>
+      <th>object</th>
+      <td><p>An object of class 'explainer' created with function <code><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other parameters that will be passed to further functions</p></td>
+      <td><p>other parameters that will be passed to further functions.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list with statistics for particualr checks</p>
+    <p>list with statistics for particualar checks</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: carData</span></div><div class='input'><span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span> ~ <span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>check_residuals</span>(<span class='no'>lm_au</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>DALEX</span>)</div><div class='output co'>#&gt; <span class='message'>Welcome to DALEX (version: 0.4.6).</span>
+#&gt; <span class='message'>Find examples and detailed introduction at: https://pbiecek.github.io/PM_VEE/</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Dołączanie pakietu: 'DALEX'</span></div><div class='output co'>#&gt; <span class='message'>Następujące obiekty zostały zakryte z 'package:auditor':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    model_performance, theme_drwhy</span></div><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX/topics/dragons'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+<span class='no'>lm_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+#&gt;   -&gt; model label       :  lm  (<span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; data              :  100  rows  8  cols 
+#&gt;   -&gt; target variable   :  100  values 
+#&gt;   -&gt; predict function  :  yhat.lm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
+#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
+#&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>auditor</span>)
+<span class='fu'>check_residuals</span>(<span class='no'>lm_exp</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
 #&gt;    Checks for autocorrelation
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  lm 
-#&gt;     Autocorrelation in target:     +0.69     *** 
-#&gt;     Autocorrelation in residuals:  +0.15     . 
+#&gt;     Autocorrelation in target:     -0.08      
+#&gt;     Autocorrelation in residuals:  +0.06      
 #&gt;   -----------------------------------------------
 #&gt;    Checks for outliers
 #&gt;   -----------------------------------------------
@@ -149,42 +162,48 @@
 #&gt;     Shift &gt; 1:  0 ( 0 %) 
 #&gt;     Shift &gt; 2:  0 ( 0 %) 
 #&gt;     Top lowest standardised residuals: 
-#&gt;      -2.5649 (53), -2.1354 (46), -1.8837 (54), -1.8557 (41), -1.7617 (61) 
+#&gt;      -2.2738 (48), -2.2542 (90), -2.0906 (63), -2.0201 (45), -1.8596 (67) 
 #&gt;     Top highest standardised residuals: 
-#&gt;      2.2648 (67), 2.1225 (82), 2.0597 (29), 1.8916 (31), 1.8274 (27) 
+#&gt;      2.004 (96), 1.9057 (2), 1.6531 (11), 1.4571 (3), 1.4286 (42) 
 #&gt;   -----------------------------------------------
 #&gt;    Checks for trend in residuals
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  lm 
-#&gt;     Standardised loess fit:  +7.32     . </div><div class='input'> </div><div class='input'> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"DALEX2"</span>)</div><div class='output co'>#&gt; <span class='message'>Welcome to DALEX2 (version: 0.9).</span></div><div class='input'> <span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX2</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX2/topics/dragons'>dragons</a></span>
- <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"ranger"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘ranger’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:randomForest’:</span>
+#&gt;     Standardised loess fit:  +0.54      </div><div class='input'> </div></span><div class='input'> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"ranger"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Dołączanie pakietu: 'ranger'</span></div><div class='output co'>#&gt; <span class='message'>Następujący obiekt został zakryty z 'package:randomForest':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    importance</span></div><div class='input'> <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ranger/topics/ranger'>ranger</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
  <span class='no'>predict_function</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>m</span>,<span class='no'>x</span>,<span class='no'>...</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>m</span>, <span class='no'>x</span>, <span class='no'>...</span>)$<span class='no'>predictions</span>
- <span class='no'>rf_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>,
-           <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='no'>predict_function</span>)
- <span class='fu'>check_residuals</span>(<span class='no'>rf_au</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
+ <span class='no'>rf_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>,
+           <span class='kw'>predict_function</span> <span class='kw'>=</span> <span class='no'>predict_function</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+#&gt;   -&gt; model label       :  ranger  (<span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; data              :  100  rows  8  cols 
+#&gt;   -&gt; target variable   :  100  values 
+#&gt;   -&gt; predict function  :  predict_function 
+#&gt;   -&gt; predicted values  :  numerical, min =  756.5293 , mean =  1341.695 , max =  2471.066  
+#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; residuals         :  numerical, min =  -182.0128 , mean =  6.092016 , max =  427.355  
+#&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'> <span class='fu'>check_residuals</span>(<span class='no'>rf_exp</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
 #&gt;    Checks for autocorrelation
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  ranger 
-#&gt;     Autocorrelation in target:     +0.01      
-#&gt;     Autocorrelation in residuals:  +0.01      
+#&gt;     Autocorrelation in target:     -0.08      
+#&gt;     Autocorrelation in residuals:  -0.03      
 #&gt;   -----------------------------------------------
 #&gt;    Checks for outliers
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  ranger 
-#&gt;     Shift &gt; 1:  21 ( 1.1 %) 
-#&gt;     Shift &gt; 2:  15 ( 0.8 %) 
+#&gt;     Shift &gt; 1:  2 ( 2 %) 
+#&gt;     Shift &gt; 2:  0 ( 0 %) 
 #&gt;     Top lowest standardised residuals: 
-#&gt;      -2.7543 (1829), -2.4407 (920), -2.4364 (1180), -2.3054 (267), -2.2904 (395) 
+#&gt;      -1.8651 (93), -1.8295 (95), -1.7291 (85), -1.4367 (12), -1.2446 (67) 
 #&gt;     Top highest standardised residuals: 
-#&gt;      14.944 (1914), 10.77 (1745), 9.664 (1111), 9.154 (1532), 8.1756 (1737) 
+#&gt;      4.177 (55), 3.7552 (26), 3.0359 (99), 2.3009 (75), 2.1753 (66) 
 #&gt;   -----------------------------------------------
 #&gt;    Checks for trend in residuals
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  ranger 
-#&gt;     Standardised loess fit:  +58.71     *** </div></pre>
+#&gt;     Standardised loess fit:  +13.71     * </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

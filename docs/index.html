@@ -93,29 +93,50 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Stable version from CRAN:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"auditor"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"auditor"</span>)</a></code></pre></div>
 <p>Developer version from GitHub:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/agosiewska/auditor"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/agosiewska/auditor"</span>)</a></code></pre></div>
 </div>
 <div id="demo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#demo" class="anchor"></a>Demo</h2>
 <p>Run the code below or try the auditor.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(randomForest)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(mtcars)
-
-<span class="co"># fitting models</span>
-model_lm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)
-model_rf &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)
-
-<span class="co"># creating a modelAudit object which contains all necessary components required for further processing</span>
-au_lm &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_lm)
-au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.html">audit</a></span>(model_rf, <span class="dt">label =</span> <span class="st">"rf"</span>)
-
-<span class="co"># generating plots</span>
-<span class="kw"><a href="reference/plotResidual.html">plotResidual</a></span>(au_lm, au_rf, <span class="dt">variable =</span> <span class="st">"wt"</span>, <span class="dt">smooth =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(randomForest)</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(mtcars)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co"># fitting models</span></a>
+<a class="sourceLine" id="cb3-6" title="6">model_lm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co"># creating objects which 'explain' function form the pacage ['DALEX'](https://github.com/pbiecek/DALEX) that contains all necessary components required for further processing</span></a>
+<a class="sourceLine" id="cb3-11" title="11">exp_lm &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DALEX/topics/explain">explain</a></span>(model_lm, <span class="dt">data =</span> mtcars, <span class="dt">y =</span> mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<pre><code>## Preparation of a new explainer is initiated
+##   -&gt; model label       :  lm  ([33mdefault[39m)
+##   -&gt; data              :  32  rows  11  cols 
+##   -&gt; target variable   :  32  values 
+##   -&gt; predict function  :  yhat.lm  will be used ([33mdefault[39m)
+##   -&gt; predicted values  :  numerical, min =  10.49363 , mean =  20.09062 , max =  29.89674  
+##   -&gt; residual function :  difference between y and yhat ([33mdefault[39m)
+##   -&gt; residuals         :  numerical, min =  -3.450644 , mean =  9.880985e-15 , max =  4.627094  
+## [32mA new explainer has been created![39m</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">exp_rf &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DALEX/topics/explain">explain</a></span>(model_rf, <span class="dt">data =</span> mtcars, <span class="dt">y =</span> mtcars<span class="op">$</span>mpg, <span class="dt">label =</span> <span class="st">"rf"</span>)</a></code></pre></div>
+<pre><code>## Preparation of a new explainer is initiated
+##   -&gt; model label       :  rf 
+##   -&gt; data              :  32  rows  11  cols 
+##   -&gt; target variable   :  32  values 
+##   -&gt; predict function  :  yhat.randomForest  will be used ([33mdefault[39m)
+##   -&gt; predicted values  :  numerical, min =  11.4397 , mean =  20.07871 , max =  31.0465  
+##   -&gt; residual function :  difference between y and yhat ([33mdefault[39m)
+##   -&gt; residuals         :  numerical, min =  -2.218113 , mean =  0.01191491 , max =  2.853503  
+## [32mA new explainer has been created![39m</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># create explanation  objects</span></a>
+<a class="sourceLine" id="cb7-2" title="2">mr_lm &lt;-<span class="st"> </span><span class="kw"><a href="reference/model_residual.html">model_residual</a></span>(exp_lm)</a>
+<a class="sourceLine" id="cb7-3" title="3">mr_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/model_residual.html">model_residual</a></span>(exp_rf)</a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co"># generating plots</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="kw"><a href="reference/plot_residual.html">plot_residual</a></span>(mr_lm, mr_rf, <span class="dt">variable =</span> <span class="st">"wt"</span>, <span class="dt">smooth =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
 <div id="more" class="section level2">
@@ -124,9 +145,13 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <ul>
 <li><p><a href="NEWS.html">News</a></p></li>
 <li><p><a href="https://mi2datalab.github.io/auditor/">Reference Manual</a></p></li>
-<li><p>Cheatsheets</p></li>
+<li>
+<p>Cheatsheets</p>
+<ul>
 <li><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png">Error analysis with auditor</a></li>
-<li><p><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png">ROC plots with auditor</a></p></li>
+<li><a href="https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png">ROC plots with auditor</a></li>
+</ul>
+</li>
 <li><p>A <a href="https://arxiv.org/abs/1809.07763">preprint of the article about auditor</a> is available on arxiv.</p></li>
 <li><p>Acknowledgments: Work on this package was financially supported by the ‘NCN Opus grant 2016/21/B/ST6/02176’.</p></li>
 </ul>
@@ -137,9 +162,9 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <colgroup>
 <col width="17%">
 <col width="22%">
-<col width="4%">
+<col width="3%">
 <col width="5%">
-<col width="50%">
+<col width="51%">
 </colgroup>
 <thead><tr class="header">
 <th>Plot name</th>
@@ -152,7 +177,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Autocorrelation Function</td>
 <td>
-<code><a href="reference/plotACF.html">plotACF()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ACF")</a></code>
+<code><a href="reference/plot_acf.html">plotACF()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ACF")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -161,7 +186,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Autocorrelation</td>
 <td>
-<code><a href="reference/plotAutocorrelation.html">plotAutocorrelation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Autocorrelation")</a></code>
+<code><a href="reference/plot_autocorrelation.html">plotAutocorrelation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Autocorrelation")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -170,7 +195,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Influence of observations</td>
 <td>
-<code><a href="reference/plotCooksDistance.html">plotCooksDistance()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "CooksDistance")</a></code>
+<code><a href="reference/plot_cooksdistance.html">plotCooksDistance()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "CooksDistance")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -179,7 +204,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Half-Normal</td>
 <td>
-<code><a href="reference/plotHalfNormal.html">plotHalfNormal()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "HalfNormal")</a></code>
+<code><a href="reference/plot_halfnormal.html">plotHalfNormal()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "HalfNormal")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -188,7 +213,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>LIFT Chart</td>
 <td>
-<code><a href="reference/plotLIFT.html">plotLIFT()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "LIFT")</a></code>
+<code><a href="reference/plot_lift.html">plotLIFT()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "LIFT")</a></code>
 </td>
 <td>no</td>
 <td>yes</td>
@@ -197,7 +222,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Model Correlation</td>
 <td>
-<code><a href="reference/plotModelCorrelation.html">plotModelCorrelation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelCorrelation")</a></code>
+<code><a href="reference/plot_correlation.html">plotModelCorrelation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelCorrelation")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -206,7 +231,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Principal Component Analysis of models</td>
 <td>
-<code><a href="reference/plotModelPCA.html">plotModelPCA()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelPCA")</a></code>
+<code><a href="reference/plot_pca.html">plotModelPCA()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelPCA")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -215,7 +240,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Model Ranking Plot</td>
 <td>
-<code><a href="reference/plotModelRanking.html">plotModelRanking()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelRanking")</a></code>
+<code><a href="reference/plot_radar.html">plotModelRanking()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ModelRanking")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -224,7 +249,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Predicted Response vs Observed or Variable Values</td>
 <td>
-<code><a href="reference/plotPrediction.html">plotPrediction()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Prediction")</a></code>
+<code><a href="reference/plot_prediction.html">plotPrediction()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Prediction")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -233,7 +258,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Regression Error Characteristic Curves (REC)</td>
 <td>
-<code><a href="reference/plotREC.html">plotREC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "REC")</a></code>
+<code><a href="reference/plot_rec.html">plotREC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "REC")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -242,7 +267,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Plot Residuals vs Observed, Fitted or Variable Values</td>
 <td>
-<code><a href="reference/plotResidual.html">plotResidual()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Residual")</a></code>
+<code><a href="reference/plot_residual.html">plotResidual()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "Residual")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -251,7 +276,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Residual Boxplot</td>
 <td>
-<code><a href="reference/plotResidualBoxplot.html">plotResidualBoxplot()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ResidualBoxplot")</a></code>
+<code><a href="reference/plot_residual_boxplot.html">plotResidualBoxplot()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ResidualBoxplot")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -260,7 +285,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Residual Density</td>
 <td>
-<code><a href="reference/plotResidualDensity.html">plotResidualDensity()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ResidualDensity")</a></code>
+<code><a href="reference/plot_residual_density.html">plotResidualDensity()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ResidualDensity")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -269,7 +294,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Receiver Operating Characteristic (ROC)</td>
 <td>
-<code><a href="reference/plotROC.html">plotROC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ROC")</a></code>
+<code><a href="reference/plot_roc.html">plotROC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ROC")</a></code>
 </td>
 <td>no</td>
 <td>yes</td>
@@ -278,7 +303,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Regression Receiver Operating Characteristic (RROC)</td>
 <td>
-<code><a href="reference/plotRROC.html">plotRROC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "RROC")</a></code>
+<code><a href="reference/plot_rroc.html">plotRROC()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "RROC")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -287,7 +312,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="even">
 <td>Scale-Location plot</td>
 <td>
-<code><a href="reference/plotScaleLocation.html">plotScaleLocation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ScaleLocation")</a></code>
+<code><a href="reference/plot_scalelocation.html">plotScaleLocation()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "ScaleLocation")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>
@@ -296,7 +321,7 @@ au_rf &lt;-<span class="st"> </span><span class="kw"><a href="reference/audit.ht
 <tr class="odd">
 <td>Two-sided Cumulative Distribution Function</td>
 <td>
-<code><a href="reference/plotTwoSidedECDF.html">plotTwoSidedECDF()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "TwoSidedECDF")</a></code>
+<code><a href="reference/plot_tsecdf.html">plotTwoSidedECDF()</a></code>  <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(..., type = "TwoSidedECDF")</a></code>
 </td>
 <td>yes</td>
 <td>yes</td>

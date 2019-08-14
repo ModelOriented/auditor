@@ -111,18 +111,18 @@
 Scores can be also used to compare models.</p>
     
 
-    <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"MSE"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"mse"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object An object of class modelAudit.</p></td>
+      <td><p>An object of class 'explainer' created with function <code><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>The type of score to  be calculated. Possible values: 'Cook', 'DW', 'Peak', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
+      <th>score</th>
+      <td><p>The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 (for detailed description see functions in see also section).</p></td>
     </tr>
     <tr>
@@ -133,29 +133,40 @@ Scores can be also used to compare models.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an object of class scoreAudit, except Cooks distance, where numeric vector is returned</p>
+    <p>An object of class 'auditor_score', except Cooks distance, where numeric vector is returned.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='scoreCooksDistance.html'>scoreCooksDistance</a>, <a href='scoreDW.html'>scoreDW</a>, <a href='scorePeak.html'>scorePeak</a>, <a href='scoreHalfNormal.html'>scoreHalfNormal</a>, <a href='scoreMAE.html'>scoreMAE</a>, <a href='scoreMSE.html'>scoreMSE</a>, <a href='scoreREC.html'>scoreREC</a>, <a href='scoreROC.html'>scoreROC</a>, <a href='scoreRROC.html'>scoreRROC</a>, <a href='scoreRuns.html'>scoreRuns</a></code></p></div>
+    <div class='dont-index'><p><code><a href='score_auc.html'>score_auc</a></code>, <code><a href='score_cooksdistance.html'>score_cooksdistance</a>, <a href='score_dw.html'>score_dw</a>, <a href='score_peak.html'>score_peak</a>, <a href='score_halfnormal.html'>score_halfnormal</a>, <a href='score_mae.html'>score_mae</a>,
+<a href='score_mse.html'>score_mse</a>, <a href='score_rec.html'>score_rec</a>, <a href='score_rroc.html'>score_rroc</a>, <a href='score_runs.html'>score_runs</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
-<span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span>~<span class='no'>education</span> + <span class='no'>women</span> + <span class='no'>income</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>)
-<span class='no'>lm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Prestige</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Prestige</span>$<span class='no'>prestige</span>)
-<span class='fu'>score</span>(<span class='no'>lm_au</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'Runs'</span>)</div><div class='output co'>#&gt; $name
-#&gt; [1] "Runs"
+    <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX/topics/dragons'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+
+<span class='co'># fit a model</span>
+<span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+
+<span class='co'># use DALEX package to wrap up a model into explainer</span>
+<span class='no'>exp_lm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+#&gt;   -&gt; model label       :  lm  (<span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; data              :  100  rows  8  cols 
+#&gt;   -&gt; target variable   :  100  values 
+#&gt;   -&gt; predict function  :  yhat.lm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
+#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
+#&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'>
+<span class='co'># calculate score</span>
+<span class='fu'>score</span>(<span class='no'>exp_lm</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>'mae'</span>)</div><div class='output co'>#&gt; $name
+#&gt; [1] "mae"
 #&gt; 
 #&gt; $score
-#&gt; [1] -1.389758
-#&gt; 
-#&gt; $pValue
-#&gt; [1] 0.1646025
+#&gt; [1] 31.81926
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "scoreAudit"</div><div class='input'>
-</div></pre>
+#&gt; [1] "score_audit"</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

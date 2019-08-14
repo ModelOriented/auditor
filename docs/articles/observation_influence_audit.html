@@ -82,7 +82,7 @@
       <h1>Observation Influence Audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-06-21</h4>
+            <h4 class="date">2019-08-14</h4>
       
       
       <div class="hidden name"><code>observation_influence_audit.Rmd</code></div>
@@ -98,10 +98,10 @@
 <div id="regression-use-case---dragons-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression-use-case---dragons-data" class="anchor"></a>Regression use case - dragons data</h1>
-<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset dragons available in the <a href="https://github.com/ModelOriented/DALEX2"><em>DALEX2</em></a> package. Our goal is to predict the length of life of dragons.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(DALEX2)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"dragons"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(dragons)</code></pre></div>
+<p>To illustrate applications of <em>auditor</em> to regression problems we will use an artificial dataset dragons available in the <a href="https://github.com/pbiecek/DALEX"><em>DALEX</em></a> package. Our goal is to predict the length of life of dragons.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(DALEX)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"dragons"</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(dragons)</a></code></pre></div>
 <pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
 ## 1         -1291 59.40365 15.32391     7    red              1700
 ## 2          1589 46.21374 11.80819     5    red              1700
@@ -123,24 +123,40 @@
 <div id="linear-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-model" class="anchor"></a>Linear model</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
 </div>
 <div id="random-forest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#random-forest" class="anchor"></a>Random forest</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">59</span>)
-rf_model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">59</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3">rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
 </div>
 </div>
 <div id="preparation-for-error-analysis" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preparation-for-error-analysis" class="anchor"></a>Preparation for error analysis</h1>
-<p>The beginning of each analysis is creation of a <code>modelAudit</code> object. It’s an object that can be used to audit a model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"auditor"</span>)
-
-lm_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)
-rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/audit.html">audit</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</code></pre></div>
+<p>The beginning of each analysis is creation of an <code>explainer</code> object with DALEX package. It’s an object that can be used to audit a model.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">lm_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DALEX/topics/explain">explain</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
+<pre><code>## Preparation of a new explainer is initiated
+##   -&gt; model label       :  lm 
+##   -&gt; data              :  2000  rows  8  cols 
+##   -&gt; target variable   :  2000  values 
+##   -&gt; predict function  :  yhat.lm  will be used ([33mdefault[39m)
+##   -&gt; predicted values  :  numerical, min =  540.9447 , mean =  1370.986 , max =  3925.691  
+##   -&gt; residual function :  difference between y and yhat ([33mdefault[39m)
+##   -&gt; residuals         :  numerical, min =  -108.2062 , mean =  -3.701928e-12 , max =  113.8603  
+## [32mA new explainer has been created![39m</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DALEX/topics/explain">explain</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
+<pre><code>## Preparation of a new explainer is initiated
+##   -&gt; model label       :  rf 
+##   -&gt; data              :  2000  rows  8  cols 
+##   -&gt; target variable   :  2000  values 
+##   -&gt; predict function  :  yhat.randomForest  will be used ([33mdefault[39m)
+##   -&gt; predicted values  :  numerical, min =  610.9752 , mean =  1370.181 , max =  3292.296  
+##   -&gt; residual function :  difference between y and yhat ([33mdefault[39m)
+##   -&gt; residuals         :  numerical, min =  -135.4756 , mean =  0.8047108 , max =  720.0888  
+## [32mA new explainer has been created![39m</code></pre>
 </div>
 <div id="audit-of-observations" class="section level1">
 <h1 class="hasAnchor">
@@ -152,31 +168,12 @@ rf_audit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/au
 <li><p>How similar models are?</p></li>
 </ul>
 <p>In further sections, we overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.</p>
-<div id="audit-pipelines" class="section level2">
-<h2 class="hasAnchor">
-<a href="#audit-pipelines" class="anchor"></a>Audit pipelines</h2>
-<p>The auditor provides 2 pipelines of observation influence audit.</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plot(type=…)</strong> This pipeline is recommended. Function <code><a href="../reference/observationInfluence.html">observationInfluence()</a></code> creates a <code>observationInfluence</code> object. Such object may be passed to a <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> function with defined type of plot. This approach requires one additional function within the pipeline. However, once created <code>observationInfluence</code> contains all nessesary calculations that all plots require. Therefore, generating multiple plots is fast. It is usefull as caluclating Coook’s distances for models gifferent than liner may take a lot of time. Alternative: <strong>model %&gt;% audit() %&gt;% observationInfluence() %&gt;% plotType()</strong></p></li>
-<li><p><strong>model %&gt;% audit() %&gt;% plot(type=…)</strong> This pipeline is shorter than previous one. Calculations are carried out every time a function is called. However, it is faster to use.<br>
-Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
-</ol>
-<p>Help of functions <code>plot[Type]()</code> contains additional information about plots.</p>
-</div>
 <div id="observationinfluence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#observationinfluence" class="anchor"></a>observationInfluence()</h2>
-<p>In this vignette we use first pipeline. First, we need to create a <code>modelResiduals</code> objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_oi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/observationInfluence.html">observationInfluence</a></span>(lm_audit)
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(lm_oi)</code></pre></div>
-<pre><code>##       cooks.dist label index
-## 1744 0.016856928    lm  1744
-## 1100 0.010160460    lm  1100
-## 29   0.009422205    lm    29
-## 1908 0.008938871    lm  1908
-## 7    0.006788849    lm     7
-## 826  0.006061949    lm   826</code></pre>
+<p>First, we need to create a <code>auditor_model_residual</code> objects.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb9-2" title="2">lm_cd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_cooksdistance.html">model_cooksdistance</a></span>(lm_exp)</a></code></pre></div>
 <p>Some plots may require specified variable or fitted values for <code>modelResidual</code> object.</p>
 <div id="cooks-distances" class="section level3">
 <h3 class="hasAnchor">
@@ -185,7 +182,7 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
 <p>Data points indicated by Cook’s distances are worth checking for validity. Cook’s distances may be also used for indicating regions of the design space where it would be good to obtain more observations.</p>
 <p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
 <p>In the case of models of classes other than <code>lm</code> and <code>glm</code> the distances are computed directly from the definition, so this may take a while. In this example we will compute them for a linear model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lm_oi)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lm_cd)</a></code></pre></div>
 <p><img src="observation_influence_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 </div>
@@ -219,8 +216,7 @@ Alternative <strong>model %&gt;% audit() %&gt;% plotType()</strong></p></li>
       <li><a href="#preparation-for-error-analysis">Preparation for error analysis</a></li>
       <li>
 <a href="#audit-of-observations">Audit of observations</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#audit-pipelines">Audit pipelines</a></li>
-      <li><a href="#observationinfluence">observationInfluence()</a></li>
+<li><a href="#observationinfluence">observationInfluence()</a></li>
       </ul>
 </li>
       <li><a href="#other-methods">Other methods</a></li>

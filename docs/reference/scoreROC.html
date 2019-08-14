@@ -131,19 +131,18 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>mlbench</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"PimaIndiansDiabetes"</span>)
-<span class='no'>Pima</span> <span class='kw'>&lt;-</span> <span class='no'>PimaIndiansDiabetes</span>
-<span class='no'>Pima</span>$<span class='no'>diabetes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='no'>Pima</span>$<span class='no'>diabetes</span> <span class='kw'>==</span> <span class='st'>"pos"</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)
-<span class='no'>glm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></span>(<span class='no'>diabetes</span>~<span class='no'>.</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>,   <span class='kw'>data</span><span class='kw'>=</span><span class='no'>Pima</span>)
-<span class='no'>glm_au</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>glm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Pima</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Pima</span>$<span class='no'>diabetes</span>)
-<span class='fu'>scoreROC</span>(<span class='no'>glm_au</span>)</div><div class='output co'>#&gt; $name
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>DALEX</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>titanic</span>)
+<span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/na.fail'>na.omit</a></span>(<span class='no'>titanic</span>)
+<span class='no'>titanic</span>$<span class='no'>survived</span> <span class='kw'>&lt;-</span> <span class='no'>titanic</span>$<span class='no'>survived</span> <span class='kw'>==</span> <span class='st'>"yes"</span>
+<span class='no'>model_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic</span>)
+<span class='no'>audit_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_glm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic</span>$<span class='no'>survived</span>)
+
+<span class='fu'>scoreROC</span>(<span class='no'>audit_glm</span>)</div><div class='output co'>#&gt; $name
 #&gt; [1] "ROC"
 #&gt; 
 #&gt; $score
-#&gt; $score[[1]]
-#&gt; [1] 0.8394254
-#&gt; 
+#&gt; [1] 0.8293568
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "scoreAudit"</div><div class='input'>
