@@ -4,10 +4,10 @@
 \alias{check_residuals_autocorrelation}
 \title{Checks for autocorrelation in target variable or in residuals}
 \usage{
-check_residuals_autocorrelation(model, method = "pearson")
+check_residuals_autocorrelation(object, method = "pearson")
 }
 \arguments{
-\item{model}{an object of the class `modelAudit`}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{method}{will be passed to the cor.test functions}
 }
@@ -18,8 +18,10 @@ autocorrelation between target variable and between residuals
 Checks for autocorrelation in target variable or in residuals
 }
 \examples{
+library(DALEX)
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-check_residuals_autocorrelation(lm_au)
+lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
+library(auditor)
+check_residuals_autocorrelation(lm_exp)
 }

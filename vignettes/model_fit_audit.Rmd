@@ -60,39 +60,37 @@ For a well-fitted model, diagnostic values should lay within the envelope.
 
 ## Binomial model
 
-First step of auditing is fitting a model and creating a `modelAudit` object which wraps up a model with meta-data.
+First step of auditing is fitting a model and creating an `explainer` object with DALEX package which wraps up a model with meta-data.
 
 ```{r binomial2, results='hide', fig.keep='all'}
 model_bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
 
-bin_au <- audit(model_bin, data = corn, y = corn$y)
+bin_exp <- DALEX::explain(model_bin, data = corn, y = corn$y)
 ```
 
-`modelAudit` object may be plotted.
+Second step is creating `auditor_model_halfnormal` object that can be further used for validating a model.
 
 ```{r}
-plotHalfNormal(bin_au, sim=500)
+bin_hnp <- model_halfnormal(bin_exp)
+```
+
+
+`auditor_model_halfnormal` object may be plotted.
+
+```{r}
+plot(bin_hnp, sim=500)
+# or
+# plot_halfnormal(bin_hnp, sim = 500)
 ```
 
 It doesn't fit because of the overdispersion in data.
-
-An alternative way for generating plots is creating a modelFit object and then plotting it. This require additional line of code. However, once created `modelFit` contains all nessesary calculations that Half-Normal plot require. Among others simulated model residuals.
-
-```{r, results='hide', fig.keep='all'}
-model.bin <- glm(cbind(y, m - y) ~ extract, family = binomial, data = corn)
-bin_au <- audit(model.bin, data = corn, y = corn$y)
-
-bin_mf <- modelFit(bin_au)
-
-plot(bin_mf, sim=500)
-```
 
 
 
 ## Quantile scale
 In function `plotHalfNormal` there is also a posibility to draw half-normal plot on a quantile scale.
 ```{r, results='hide', fig.keep='all'}
-plotHalfNormal(bin_mf, quantiles = TRUE)
+plot(bin_hnp, quantiles = TRUE)
 ```
 
 # Classification
@@ -104,8 +102,9 @@ In this case we consider the differences between observed class and predicted pr
 ```{r}
 library(randomForest)
 iris_rf <- randomForest(Species ~ ., data=iris)
-iris_rf_au <- audit(iris_rf, data = iris, y = iris$Species)
-plotHalfNormal(iris_rf_au)
+iris_rf_exp <- DALEX::explain(iris_rf, data = iris, y = as.numeric(iris$Species)-1)
+iris_rf_hnp <- model_halfnormal(iris_rf_exp)
+plot_halfnormal(iris_rf_hnp)
 ```
 
 

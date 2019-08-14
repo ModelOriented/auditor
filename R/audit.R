@@ -4,6 +4,9 @@
 #' Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 #' which can be further processed by various error analysis functions.
 #'
+#' Function 'audit()' is deprecated, please, use an object of class 'explainer' created with function
+#' \code{\link[DALEX]{explain}} from the DALEX package.
+#'
 #' @param object An object containing a model or object of class explainer (see \code{\link[DALEX]{explain}}).
 #' @param data Data.frame or matrix - data that will be used by further validation functions. If not provided, will be extracted from the model.
 #' @param y Response vector that will be used by further validation functions. Some functions may require an integer vector containing binary labels with values 0,1.  If not provided, will be extracted from the model.
@@ -29,9 +32,7 @@
 #' @importFrom stats model.frame sd
 #'
 #' @examples
-#' library(DALEX)
-#' data(titanic)
-#' titanic <- na.omit(titanic)
+#' titanic <- na.omit(DALEX::titanic)
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 #' audit_glm <- audit(model_glm)
 #'
@@ -43,73 +44,25 @@
 #' model_rf <- randomForest(Species ~ ., data=iris)
 #' audit_rf <- audit(model_rf)
 #'
+#' @importFrom DALEX explain
+#'
 #' @export
 
-audit <- function(object, data=NULL, y = NULL, predict.function = yhat, residual.function = NULL, label=NULL){
-  if(!is.null(data)) checkDataConsistency(data, y)
+audit <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
   UseMethod("audit")
 }
 
 #' @export
-audit.default <- function(object, data=NULL, y = NULL, predict.function = yhat, residual.function = NULL, label=NULL){
-  model <- object
-  dataModel <- auditError(model, data, y)
-  residual.function <- getResidualFunction(residual.function)
+audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
 
-  residuals <- residual.function(model = model, data =  dataModel$data, y = dataModel$y, predict.function = predict.function)
+  result <- explain(object, data = data, y = y, predict_function = predict.function,
+                    label = label, residual_function = residual.function)
 
-  result <- list(
-    model.class = class(model),
-    label = ifelse(is.null(label), class(model)[1], label),
-    model = model,
-    fitted.values = predict.function(model, dataModel$data),
-    data = dataModel$data,
-    y = dataModel$y,
-    predict.function = predict.function,
-    residual.function = residual.function,
-    residuals = residuals,
-    std.residuals = residuals / sd(residuals)
-  )
-  class(result) <- "modelAudit"
   return(result)
 }
 
 #' @export
-audit.explainer <- function(object, data=NULL, y = NULL, predict.function = yhat, residual.function = NULL, label=NULL){
-  explainer <- object
-  if (is.null(data)) data <- explainer$data
-  if (is.null(y)) y <- explainer$y
-  if (is.null(label)) label <- explainer$label
-
-  audit.default(
-    object = explainer$model,
-    data = data,
-    y = y,
-    predict.function = explainer$predict_function,
-    residual.function = residual.function,
-    label = label
-    )
+audit.explainer <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+  message("Please note that 'audit()' is now deprecated, it is better to use 'explain()' form the 'DALEX' instead.")
+  return(object)
 }
-
-
-
-
-
-
-auditError <- function(model, data, y){
-  if (is.null(data)) {
-    possibleData <- try(model.frame(model), silent = TRUE)
-    if (class(possibleData) != "try-error") {
-      data <- possibleData
-      if(is.null(y)) y <- data[, 1]
-    } else { stop("data cannot be extracted from the model. The audit() function requires specified 'data' parameter.")
-    }
-  }
-  if (is.null(y)) {stop("Original response cannot be extracted from the model. The audit() function requires specified 'y' parameter.") }
-  return(list(data = data, y = y))
-}
-
-
-
-
-

@@ -4,7 +4,7 @@
 \alias{audit}
 \title{Create modelAudit object}
 \usage{
-audit(object, data = NULL, y = NULL, predict.function = yhat,
+audit(object, data = NULL, y = NULL, predict.function = NULL,
   residual.function = NULL, label = NULL)
 }
 \arguments{
@@ -39,11 +39,12 @@ An object of class ModelAudit, which contains:
 Function \code{audit} create modelAudit object for further validation of a model.
 Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 which can be further processed by various error analysis functions.
+
+Function 'audit()' is deprecated, please, use an object of class 'explainer' created with function
+\code{\link[DALEX]{explain}} from the DALEX package.
 }
 \examples{
-library(DALEX)
-data(titanic)
-titanic <- na.omit(titanic)
+titanic <- na.omit(DALEX::titanic)
 model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 audit_glm <- audit(model_glm)
 

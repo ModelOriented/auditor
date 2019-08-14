@@ -168,7 +168,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
         .attr("id", modelName)
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
-        .attr("r", 1)
+        .attr("r", 1.5)
         .style("fill", pointColor);
     }
 

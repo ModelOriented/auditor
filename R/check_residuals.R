@@ -5,31 +5,35 @@
 #'  - for autocorrelation in target variable or in residuals
 #'  - for trend in residuals as a function of target variable (detection of bias)
 #'
-#' @param model An object of class `modelAudit`
-#' @param ... other parameters that will be passed to further functions
+#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param ... other parameters that will be passed to further functions.
 #'
-#' @return list with statistics for particualr checks
+#' @return list with statistics for particualar checks
 #' @export
 #' @importFrom  stats cor.test loess
 #' @importFrom  utils head tail
 #'
 #' @examples
+#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' check_residuals(lm_au)
+#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' check_residuals(lm_exp)
 #'  \dontrun{
 #'  library("ranger")
 #'  rf_model <- ranger(life_length ~ ., data = dragons)
 #'  predict_function <- function(m,x,...) predict(m, x, ...)$predictions
-#'  rf_au <- audit(rf_model, data = dragons, y = dragons$life_length,
-#'            predict.function = predict_function)
-#'  check_residuals(rf_au)
+#'  rf_exp <- explain(rf_model, data = dragons, y = dragons$life_length,
+#'            predict_function = predict_function)
+#'  check_residuals(rf_exp)
 #' }
-check_residuals <- function(model, ...) {
-  autocorrelation <- check_residuals_autocorrelation(model, ...)
-  outliers <- check_residuals_outliers(model, ...)
-  trend <- check_residuals_trend(model, ...)
+check_residuals <- function(object, ...) {
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+
+  autocorrelation <- check_residuals_autocorrelation(object, ...)
+  outliers <- check_residuals_outliers(object, ...)
+  trend <- check_residuals_trend(object, ...)
 
   return(invisible(list(autocorrelation = autocorrelation,
                         outliers = outliers,
@@ -38,21 +42,26 @@ check_residuals <- function(model, ...) {
 
 #' Checks for outliers
 #'
-#' @param model an object of the class `modelAudit`
+#' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param n number of lowest and highest standardized  residuals to be presented
 #'
 #' @return indexes of lowest and highest standardized  residuals
 #' @export
 #'
 #' @examples
+#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' check_residuals_outliers(lm_au)
-check_residuals_outliers <- function(model, n = 5) {
-  model_name <- model$label
+#' library(auditor)
+#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
+#' check_residuals_outliers(lm_exp)
+check_residuals_outliers <- function(object, n = 5) {
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  residuals <- model$residuals
+
+  model_name <- object$label
+
+  residuals <- object$residuals
   # standarisation
   stdresiduals <- (residuals - mean(residuals, na.rm = TRUE))/sd(residuals, na.rm = TRUE)
   sresiduals <- sort(abs(stdresiduals))
@@ -81,25 +90,29 @@ check_residuals_outliers <- function(model, n = 5) {
 
 #' Checks for autocorrelation in target variable or in residuals
 #'
-#' @param model an object of the class `modelAudit`
+#' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param method will be passed to the cor.test functions
 #'
 #' @return autocorrelation between target variable and between residuals
 #' @export
 #'
 #' @examples
+#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' check_residuals_autocorrelation(lm_au)
-check_residuals_autocorrelation <- function(model, method = "pearson") {
-  model_name <- model$label
+#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' check_residuals_autocorrelation(lm_exp)
+check_residuals_autocorrelation <- function(object, method = "pearson") {
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  y       <- model$y
+  model_name <- object$label
+
+  y       <- object$y
   ctest_y <- cor.test(y[-1], y[-length(y)], method = method)
   y_autocorrelation <- ctest_y$estimate
 
-  residuals <- model$residuals
+  residuals <- object$residuals
   ctest_r   <- cor.test(residuals[-1], residuals[-length(residuals)], method = method)
   residual_autocorrelation <- ctest_r$estimate
 
@@ -117,28 +130,30 @@ check_residuals_autocorrelation <- function(model, method = "pearson") {
 #'
 #' Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend
 #'
-#' @param model an object of the class `modelAudit`
+#' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param B number fo samplings
 #'
 #' @return standardized   loess fit for residuals
 #' @export
 #'
 #' @examples
+#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-#' check_residuals_trend(lm_au)
-check_residuals_trend <- function(model, B = 20) {
-  model_name <- model$label
+#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
+#' library(auditor)
+#' check_residuals_trend(lm_exp)
+check_residuals_trend <- function(object, B = 20) {
+  model_name <- object$label
 
   # calculates  smooth trend for fit
-  df <- data.frame(residuals = model$residuals, y = model$y)
+  df <- data.frame(residuals = object$residuals, y = object$y)
   fit <- loess(residuals ~ y, data = df)
   score0 <- sd(predict(fit))
 
   # sampling wise normalization per expected loess fit
   scores <- replicate(B, {
-    df_random <- data.frame(residuals = sample(model$residuals), y = model$y)
+    df_random <- data.frame(residuals = sample(object$residuals), y = object$y)
     fit <- loess(residuals~y, data = df_random)
     sd(predict(fit))
   })

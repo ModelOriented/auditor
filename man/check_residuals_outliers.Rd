@@ -4,10 +4,10 @@
 \alias{check_residuals_outliers}
 \title{Checks for outliers}
 \usage{
-check_residuals_outliers(model, n = 5)
+check_residuals_outliers(object, n = 5)
 }
 \arguments{
-\item{model}{an object of the class `modelAudit`}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{n}{number of lowest and highest standardized  residuals to be presented}
 }
@@ -18,8 +18,10 @@ indexes of lowest and highest standardized  residuals
 Checks for outliers
 }
 \examples{
+library(DALEX)
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-check_residuals_outliers(lm_au)
+library(auditor)
+lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
+check_residuals_outliers(lm_exp)
 }
