@@ -61,7 +61,7 @@ plot_roc <- function(object, ..., nlabels = NULL) {
   }
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
+  df$ord <- paste(rev(as.numeric(factor(df$`_label_`))), df$`_label_`)
   df$`_label_` <- factor(df$`_label_`)
 
   # colors for model(s)
