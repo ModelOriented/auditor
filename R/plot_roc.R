@@ -83,5 +83,5 @@ plot_roc <- function(object, ..., nlabel = NULL) {
 #' @export
 plotROC <- function(object, ..., nlabel = NULL) {
   message("Please note that 'plotROC()' is now deprecated, it is better to use 'plot_roc()' instead.")
-  plot_roc(object, ..., nlabels)
+  plot_roc(object, ..., nlabel)
 }

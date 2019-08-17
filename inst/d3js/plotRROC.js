@@ -3,8 +3,8 @@ var n = options.n,
     yTitle = options.yTitle,
     chartTitle = options.chartTitle;
 
-var xmin = 0, xmax = 1,
-    ymin = 0, ymax = 1,
+var xmin = options.xmin, xmax = options.xmax,
+    ymin = options.ymin, ymax = options.ymax,
     lineSize = 2, pointSize = 4;
 
 var plotHeight, plotWidth,
@@ -98,8 +98,8 @@ yAxis = svg.append("g")
 
 // line
 var line = d3.line()
-      .x(d => x(d.fpr))
-      .y(d => y(d.tpr))
+      .x(d => x(d.rroc_x))
+      .y(d => y(d.rroc_y))
       .curve(d3.curveCardinal.tension(1));
 
 // make tooltip
@@ -111,7 +111,7 @@ var tool_tip = d3.tip()
 svg.call(tool_tip);
 
 // function to find nearest point on the line
-var bisectXhat = d3.bisector(d => d.fpr).right;
+var bisectXhat = d3.bisector(d => d.rroc_x).right;
 
 // tooltip appear with info nearest to mouseover
 function appear(data){
@@ -119,7 +119,7 @@ function appear(data){
       i = bisectXhat(data, x0),
       d0 = data[i - 1],
       d1 = data[i],
-      d = x0 - d0.fpr > d1.fpr - x0 ? d1 : d0;
+      d = x0 - d0.rroc_x > d1.rroc_x - x0 ? d1 : d0;
 
   tool_tip.show(d);
 }
@@ -130,7 +130,7 @@ var modelNames = Object.keys(modelData);
 
 modelNames.forEach(function(key, i) {
       svg.append("path")
-        .data([modelData[key]])
+        .data([modelData[key].filter(d => d.curve === true)])
         .attr("class", "line" + key.replace(/\s/g, ''))
         .attr("id",key.replace(/\s/g, ''))
         .attr("d", line)
@@ -146,7 +146,7 @@ modelNames.forEach(function(key, i) {
           // make line appear on top
           //this.parentNode.appendChild(this);
           svg.selectAll("#" + key.replace(/\s/g, '')).raise();
-
+          
           // show changed tooltip
           appear(d);
         })
@@ -158,15 +158,15 @@ modelNames.forEach(function(key, i) {
           // hide changed tooltip
           tool_tip.hide(d);
         });
-
+        
       svg.selectAll()
-         .data(modelData[key].filter(d => d.big === true))
+         .data(modelData[key].filter(d => d.curve === false))
          .enter()
          .append("circle")
          .attr("class", "dot " + key.replace(/\s/g, ''))
          .attr("id",key.replace(/\s/g, ''))
-         .attr("cx", d => x(d.fpr))
-         .attr("cy", d => y(d.tpr))
+         .attr("cx", d => x(d.rroc_x))
+         .attr("cy", d => y(d.rroc_y))
          .attr("r", pointSize)
          .style("fill", colors[i])
          .on('mouseover', function(d){
@@ -176,12 +176,12 @@ modelNames.forEach(function(key, i) {
            // make line appear on top
            this.parentNode.appendChild(this);
 
-           tool_tip.show(d);
+           tool_tip.show(d); 
          })
          .on('mouseout', function(d){
            d3.select(this)
              .style("r", pointSize);
-
+ 
            tool_tip.hide(d);
          });
   });
@@ -229,17 +229,12 @@ function staticTooltipHtml(d) {
   var temp = "";
   for (var [k, v] of Object.entries(d)) {
     switch(k) {
-      case "cutoffs":
-        k = "Cutoffs";
-        temp += "<center>" +  k + ": " + v + "</br>";
-        temp += "</br>";
-        break;
-      case "fpr":
-        k = "FPR";
+      case "rroc_x":
+        k = "x";
         temp += "<center>" +  k + ": " + v + "</br>";
         break;
-      case "tpr":
-        k = "TPR";
+      case "rroc_y":
+        k = "y";
         temp += "<center>" +  k + ": " + v + "</br>";
         break;
       case "label":
