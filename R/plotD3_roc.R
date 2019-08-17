@@ -1,4 +1,4 @@
-#' @title Receiver Operating Characteristic (ROC)
+#' @title Receiver Operating Characteristic (ROC) in D3 with r2d3 package.
 #'
 #' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
@@ -6,10 +6,11 @@
 #' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
 #' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
 #' @param nlabel Number of cutoff points to show on the plot. Default is `NULL`.
+#' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
-#' @seealso \code{\link{plot_rroc}, \link{plot_rec}}
+#' @return a `r2d3` object
 #'
-#' @return A ggplot object.
+#' @seealso \code{\link{plot_roc}}
 #'
 #' @examples
 #' titanic <- na.omit(DALEX::titanic)
@@ -26,23 +27,22 @@
 #' eva_glm <- model_evaluation(exp_glm)
 #'
 #' # plot results
-#' plot_roc(eva_glm)
-#' plot(eva_glm)
+#' plotD3_roc(eva_glm)
 #'
 #' #add second model
 #' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
 #' exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
 #' eva_glm_2 <- model_evaluation(exp_glm_2)
 #'
-#' plot_roc(eva_glm, eva_glm_2)
-#' plot(eva_glm, eva_glm_2)
+#' plotD3_roc(eva_glm, eva_glm_2)
 #'
 #' @export
+#' @rdname plotD3_roc
+plotD3_roc <- function(object, ..., nlabel = NULL, scale_plot = FALSE) {
 
-
-plot_roc <- function(object, ..., nlabel = NULL) {
-
-  `_label_` <- `_fpr_` <- `_tpr_` <- ord <- `_cutoffs_` <- NULL
+  x_title <- "False positive fraction"
+  y_title <- "True positive franction"
+  chart_title <- "ROC Curve"
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")
@@ -59,29 +59,27 @@ plot_roc <- function(object, ..., nlabel = NULL) {
   }
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(factor(df$`_label_`))), df$`_label_`)
   df$`_label_` <- factor(df$`_label_`)
 
-  # colors for model(s)
-  colours <- rev(theme_drwhy_colors(n_models))
+  df <- as.data.frame(df[,c('_fpr_','_tpr_','_cutoffs_','_label_')])
+  colnames(df) <- c("fpr","tpr","curoffs","label")
+  df$big <- FALSE
+  df$big[inds] <- TRUE
 
-  p <- ggplot(data = df, aes(x = `_fpr_`, y = `_tpr_`, color = `_label_`, group = ord)) +
-    geom_step() +
-    geom_point(data = df[inds,], show.legend = FALSE) +
-    geom_text_repel(data = df[inds,], aes(label = format(round(`_cutoffs_`, 2), nsmall = 2)), show.legend = FALSE, size = 3.5)
+  line_data <- split(df, f = df$label)
 
-  # theme, colours, titles, axes, scales, etc.
-  p + theme_drwhy() +
-    theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
-    xlab("False positive fraction") +
-    ylab("True positive fraction") +
-    ggtitle("ROC curve")
-}
+  temp <- jsonlite::toJSON(list(line_data))
 
-#' @rdname plot_roc
-#' @export
-plotROC <- function(object, ..., nlabel = NULL) {
-  message("Please note that 'plotROC()' is now deprecated, it is better to use 'plot_roc()' instead.")
-  plot_roc(object, ..., nlabels)
+  options <- list(scalePlot = scale_plot, n = n_models,
+                  xTitle = x_title, yTitle = y_title,
+                  chartTitle = chart_title)
+
+  r2d3::r2d3(data = temp, script = system.file("d3js/plotROC.js", package = "auditor"),
+             dependencies = list(
+               system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               system.file("d3js/tooltipD3.js", package = "auditor")
+             ),
+             css = system.file("d3js/themeDrWhy.css", package = "auditor"),
+             d3_version = 4,
+             options = options)
 }

@@ -152,7 +152,7 @@ function singlePlot(modelName, plotData, i) {
         .style("stroke-width", 2)
         .style("stroke-dasharray", ("3, 2"));
 
-  if (i==n){
+  if (i==n) {
   	svg.append("text")
         .attr("class", "axisTitle")
         .attr("transform", "rotate(-90)")
