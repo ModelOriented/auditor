@@ -278,7 +278,7 @@ scaleModelRankingDF <- function(df) {
   df_new[,"_value_"] <- format(df_new[,"_value_"], scientific = TRUE, digits = 3)
 
   # set order of scores (levels in factor)
-  default_scores <- c("MAE", "MSE", "REC", "RROC")
+  default_scores <- c("mae", "mse", "rec", "rroc")
   all_scores <- unique(df_new[,"_name_"])
   df_new[,"_name_"] <- factor(paste0("inv\n", df_new[,"_name_"]),
                         levels = paste0("inv\n", c(default_scores, all_scores[all_scores != default_scores])))
