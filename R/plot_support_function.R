@@ -146,8 +146,8 @@ make_rec_df <- function(object) {
 make_rroc_df <- function(object) {
   err <- sort(object$`_y_hat_` - object$`_y_`)
   n <- length(err)
-  rroc_x <- numeric(n + 2)
-  rroc_y <- numeric(n + 2)
+  rroc_x <- numeric(n + 1)
+  rroc_y <- numeric(n + 1)
   rroc_x[1] <- 0
   rroc_y[1] <- -Inf
 
@@ -158,8 +158,8 @@ make_rroc_df <- function(object) {
     rroc_y[i+1] <- sum(tErr[which(tErr < 0)], na.rm = TRUE )
   }
 
-  rroc_x[n + 2] <- Inf
-  rroc_y[n + 2] <- 0
+  rroc_x <- rroc_x[-1]
+  rroc_y <- rroc_y[-1]
 
   df <- data.frame(rroc_x = rroc_x, rroc_y = rroc_y, label = object$`_label_`[1], curve = TRUE)
 
