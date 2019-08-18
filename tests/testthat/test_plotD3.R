@@ -67,3 +67,12 @@ test_that("plotD3_halfnormal", {
   expect_is(plotD3_halfnormal(hn_glm, hn_rf, scale_plot = TRUE), "r2d3")
 })
 
+test_that("plotD3_roc", {
+  expect_is(plotD3_roc(ev_glm), "r2d3")
+  expect_is(plotD3_roc(ev_glm, ev_rf, scale_plot = TRUE), "r2d3")
+})
+
+test_that("plotD3_rroc", {
+  expect_is(plotD3_rroc(mr_glm), "r2d3")
+  expect_is(plotD3_rroc(mr_glm, mr_rf, scale_plot = TRUE), "r2d3")
+})
