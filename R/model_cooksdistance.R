@@ -1,6 +1,7 @@
 #' @title Cook's distances
 #'
 #' @description  Calculates Cook's distances for each observation.
+#' Please, note that it will work only for functions with specified 'update' method.
 #'
 #' @param object An object of class 'explain' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #'

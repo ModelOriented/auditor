@@ -17,6 +17,7 @@ An object of class 'auditor_model_cooksdistance'.
 }
 \description{
 Calculates Cook's distances for each observation.
+Please, note that it will work only for functions with specified 'update' method.
 }
 \examples{
 titanic <- na.omit(DALEX::titanic)
