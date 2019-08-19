@@ -74,6 +74,8 @@ plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
   - [News](NEWS.md)
 
   - The [website about auditor](https://mi2datalab.github.io/auditor/)
+  
+  - A [cheatsheet](https://github.com/MI2DataLab/auditor/blob/master/materials/auditor_cheatsheet.pdf)
 
   - A [preprint of the article about
     auditor](https://arxiv.org/abs/1809.07763) is available on arxiv.
