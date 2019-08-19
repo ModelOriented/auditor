@@ -54,7 +54,8 @@ model_lm <- lm(mpg ~ ., data = mtcars)
 set.seed(123)
 model_rf <- randomForest(mpg ~ ., data = mtcars)
 
-# creating objects which 'explain' function form the pacage ['DALEX'](https://github.com/pbiecek/DALEX) that contains all necessary components required for further processing
+# creating objects with 'explain' function from the package DALEX
+# that contains all necessary components required for further processing
 exp_lm <- DALEX::explain(model_lm, data = mtcars, y = mtcars$mpg,  verbose = FALSE)
 exp_rf <- DALEX::explain(model_rf, data = mtcars, y = mtcars$mpg, label = "rf", verbose = FALSE)
 
