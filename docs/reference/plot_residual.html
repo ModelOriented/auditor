@@ -222,9 +222,9 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  768.7053 , mean =  1342.366 , max =  2461.581  
+#&gt;   -&gt; predicted values  :  numerical, min =  762.7052 , mean =  1342.216 , max =  2453.76  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -180.4701 , mean =  5.420884 , max =  436.8392  
+#&gt;   -&gt; residuals         :  numerical, min =  -175.7866 , mean =  5.570594 , max =  444.6607  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_residual</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_residual-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>mr_rf</span>, <span class='no'>mr_rf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"residual"</span>)</div><div class='img'><img src='plot_residual-4.png' alt='' width='700' height='433' /></div><div class='input'>
 
@@ -244,7 +244,7 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
       <footer>
       <div class="author">
   <p>
-    Developed by Alicja Gosiewska, Przemyslaw Biecek.
+    Developed by Alicja Gosiewska, Przemyslaw Biecek, Hubert Baniecki, Tomasz Mikołajczyk.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
