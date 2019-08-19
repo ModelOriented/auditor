@@ -73,7 +73,7 @@ plot_autocorrelation <- function(object, ..., variable = "_y_hat_", smooth = FAL
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
 
   # main chart
   p <- ggplot(df, aes(x_val, y_val))

@@ -48,7 +48,7 @@ plot_residual_boxplot <- function(object, ...) {
   # data frame for ggplot object
   df <- make_dataframe(object, ..., type = "res")
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
 
   # additional values
   df_points <- aggregate(list(res = df$`_residuals_`), list(label = df$`_label_`), FUN = function(x) { sqrt(mean(x^2)) })

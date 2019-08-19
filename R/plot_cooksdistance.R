@@ -49,9 +49,8 @@ plot_cooksdistance <- function(object, ..., nlabel = 3) {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., type = "infl", nlabel = nlabel)
-
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
   # main chart
   p <- ggplot(data = df, aes(`_index_`, `_cooks_dist_`))
 

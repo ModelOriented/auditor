@@ -62,7 +62,7 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
 
   conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(object))
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(nlevels(df$label)))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
 
   p <- ggplot(resultDF, aes(x = lag)) +
     geom_segment(aes(x = lag, xend = lag, y = ymin, yend = acf, colour = label), size = 1, alpha = 0.65) +

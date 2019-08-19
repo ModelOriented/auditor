@@ -67,7 +67,7 @@ plot_rroc <- function(object, ...) {
   df$ord <- paste(rev(as.numeric(df$label)), df$`_label_`)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
   # main chart
   p <- ggplot(data = df, aes(x = rroc_x, y = rroc_y, colour = label)) +
     geom_line(data = subset(df, curve == TRUE), aes(group = ord)) +

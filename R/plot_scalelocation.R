@@ -67,7 +67,7 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
   maybe_peaks  <- if (peaks == TRUE) subset(df, peak == TRUE) else df[0, ]
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
 
   # main chart
   p <- ggplot(data = df, aes(`_val_`, `_sqrt_std_residuals_`))

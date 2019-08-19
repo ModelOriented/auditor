@@ -56,7 +56,7 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
   df_text <- data.frame(x = df[,"_name_"][1], y = c(0.01, 0.25, 0.50, 0.75, 1), label = seq(0, 1, 0.25))
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(unique(df$label))))
+  colours <- rev(theme_drwhy_colors(length(unique(df$`_label_`))))
 
   # plot
   p <- ggplot(data = df, aes(x = `_name_`, y = `_score_`)) +

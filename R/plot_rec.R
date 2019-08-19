@@ -59,7 +59,7 @@ plot_rec <- function(object, ...) {
   df$ord <- paste(rev(as.numeric(df$label)), df$label)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
 
   # main chart
   p <- ggplot(data = df, aes(x = rec_x, y = rec_y)) +
