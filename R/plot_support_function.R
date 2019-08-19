@@ -281,7 +281,7 @@ scaleModelRankingDF <- function(df) {
   default_scores <- c("mae", "mse", "rec", "rroc")
   all_scores <- unique(df_new[,"_name_"])
   df_new[,"_name_"] <- factor(paste0("inv\n", df_new[,"_name_"]),
-                        levels = paste0("inv\n", c(default_scores, all_scores[all_scores != default_scores])))
+                        levels = paste0("inv\n", c(all_scores)))
   rownames(df_new) <- NULL
 
   # export
