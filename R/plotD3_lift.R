@@ -11,6 +11,7 @@
 #'
 #' @seealso \code{\link{plot_lift}}
 #'
+#' @examples
 #' titanic <- na.omit(DALEX::titanic)
 #' titanic$survived <- titanic$survived == "yes"
 #'

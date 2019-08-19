@@ -23,9 +23,7 @@ a `r2d3` object
 LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.
 }
-\seealso{
-\code{\link{plot_lift}}
-
+\examples{
 titanic <- na.omit(DALEX::titanic)
 titanic$survived <- titanic$survived == "yes"
 
@@ -47,4 +45,8 @@ exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, l
 eva_glm_2 <- model_evaluation(exp_glm_2)
 
 plotD3_lift(eva_glm, eva_glm_2)
+
+}
+\seealso{
+\code{\link{plot_lift}}
 }

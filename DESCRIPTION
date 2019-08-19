@@ -36,5 +36,5 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-URL: https://mi2datalab.github.io/auditor/
+URL: https://github.com/MI2DataLab/auditor
 BugReports: https://github.com/MI2DataLab/auditor/issues
