@@ -1,11 +1,11 @@
-function getColors(n, type){
+function getColors(n, type) {
   // get drWhy palette
 
   var temp = ["#8bdcbe", "#f05a71", "#371ea3", "#46bac2", "#ae2c87", "#ffa58c", "#4378bf"];
   var ret = [];
 
   if (type == "bar") {
-    switch(n){
+    switch (n) {
       case 1:
         return ["#46bac2"];
       case 2:
@@ -27,7 +27,7 @@ function getColors(n, type){
         return ret;
     }
   } else if (type == "line") {
-    switch(n){
+    switch (n) {
       case 1:
         return ["#46bac2"];
       case 2:
@@ -49,7 +49,7 @@ function getColors(n, type){
         return ret;
     }
   } else if (type == "point") {
-    switch(n){
+    switch (n) {
       default:
         return ["#371ea3", "#46bac2", "#ceced9"];
     }
@@ -61,7 +61,7 @@ function getTickValues(domain) {
 
   var tickValues = d3.ticks(domain[0], domain[1],5);
 
-  switch (tickValues.length){
+  switch (tickValues.length) {
     case 3:
       tickValues.unshift(domain[0]);
       tickValues.push(domain[1]);

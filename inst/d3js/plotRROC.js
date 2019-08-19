@@ -146,7 +146,7 @@ modelNames.forEach(function(key, i) {
           // make line appear on top
           //this.parentNode.appendChild(this);
           svg.selectAll("#" + key.replace(/\s/g, '')).raise();
-          
+
           // show changed tooltip
           appear(d);
         })
@@ -158,30 +158,30 @@ modelNames.forEach(function(key, i) {
           // hide changed tooltip
           tool_tip.hide(d);
         });
-        
+
       svg.selectAll()
          .data(modelData[key].filter(d => d.curve === false))
          .enter()
          .append("circle")
-         .attr("class", "dot " + key.replace(/\s/g, ''))
+         .attr("class", "point" + key.replace(/\s/g, ''))
          .attr("id",key.replace(/\s/g, ''))
          .attr("cx", d => x(d.rroc_x))
          .attr("cy", d => y(d.rroc_y))
          .attr("r", pointSize)
          .style("fill", colors[i])
-         .on('mouseover', function(d){
+         .on('mouseover', function(d) {
            d3.select(this)
              .style("r", pointSize*1.5);
 
            // make line appear on top
            this.parentNode.appendChild(this);
 
-           tool_tip.show(d); 
+           tool_tip.show(d);
          })
-         .on('mouseout', function(d){
+         .on('mouseout', function(d) {
            d3.select(this)
              .style("r", pointSize);
- 
+
            tool_tip.hide(d);
          });
   });
@@ -212,12 +212,62 @@ legend.append("rect")
         .attr("height", 8)
         .attr("class", "legendBox");
 
+var greyColor = getColors(3, "point")[2];
+var is_clicked = {};
+
+for(var i = 0; i < modelNames.length; i++) {
+  let key = modelNames[i];
+  is_clicked[key.replace(/\s/g, '')] = true;
+}
+
 legend.append("circle")
         .attr("class", "legendDot")
         .attr("cx", 4)
         .attr("cy", 4)
         .attr("r", 2.5)
-        .style("fill", (d,i) => colors[i]);
+        .style("fill", (d,i) => colors[i])
+        .style("stroke-width", 15)
+        .style("stroke", "red")
+        .style("stroke-opacity", 0)
+        .attr("id", d => d.replace(/\s/g, ''))
+        .on("mouseover", function() {
+          // change cursor
+          d3.select(this).style("cursor", "pointer");
+        })
+        .on("click", function(d,i) {
+
+          let clicked = this.id;
+
+          if (is_clicked[clicked]) {
+            d3.select(this)
+                .style("fill", greyColor)
+                .style("opacity", 0.5);
+
+            svg.selectAll(".line" + clicked)
+                  .style("stroke", greyColor)
+                  .style("opacity", 0.5);
+
+            svg.selectAll(".point" + clicked)
+                .style("fill", greyColor)
+                .style("opacity", 0.5);
+
+            is_clicked[clicked] = false;
+          } else {
+            d3.select(this)
+                .style("fill", colors[i])
+                .style("opacity", 1);
+
+            svg.selectAll(".line" + clicked)
+                  .style("stroke", colors[i])
+                  .style("opacity", 1);
+
+            svg.selectAll(".point" + clicked)
+                .style("fill", colors[i])
+                .style("opacity", 1);
+
+            is_clicked[clicked] = true;
+          }
+        });
 
 // change font
 svg.selectAll("text")
@@ -228,7 +278,7 @@ function staticTooltipHtml(d) {
   // function formats tooltip text
   var temp = "";
   for (var [k, v] of Object.entries(d)) {
-    switch(k) {
+    switch (k) {
       case "rroc_x":
         k = "x";
         temp += "<center>" +  k + ": " + v + "</br>";
