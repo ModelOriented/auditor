@@ -18,7 +18,10 @@ influential observations. The examination is carried out by diagnostic
 scores and visual verification. Due to the flexible and consistent
 grammar, it is simple to validate models of any classes.
 
-auditor’s pipeline: *model %\>% audit() %\>% plot(type=…)*
+`auditor` is a part of [DrWhy](drwhy.ai) collection of tools for Visual
+Exploration, Explanation and Debugging of Predictive Models.
+
+auditor’s pipeline: *model %\>% DALEX::explain() %\>% plot(type=…)*
 
 ## Installation
 
@@ -31,7 +34,10 @@ install.packages("auditor")
 Developer version from GitHub:
 
 ``` r
-source("https://install-github.me/MI2DataLab/auditor")
+source("https://install-github.me/agosiewska/auditor")
+
+# or with the devtools package
+devtools::install_github("MI2DataLab/auditor")
 ```
 
 ## Demo
@@ -48,12 +54,17 @@ model_lm <- lm(mpg ~ ., data = mtcars)
 set.seed(123)
 model_rf <- randomForest(mpg ~ ., data = mtcars)
 
-# creating a modelAudit object which contains all necessary components required for further processing
-au_lm <- audit(model_lm)
-au_rf <- audit(model_rf, label = "rf")
+# creating objects with 'explain' function from the package DALEX
+# that contains all necessary components required for further processing
+exp_lm <- DALEX::explain(model_lm, data = mtcars, y = mtcars$mpg,  verbose = FALSE)
+exp_rf <- DALEX::explain(model_rf, data = mtcars, y = mtcars$mpg, label = "rf", verbose = FALSE)
+
+# create explanation  objects
+mr_lm <- model_residual(exp_lm)
+mr_rf <- model_residual(exp_rf)
 
 # generating plots
-plotResidual(au_lm, au_rf, variable = "wt", smooth = TRUE)
+plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
@@ -62,40 +73,39 @@ plotResidual(au_lm, au_rf, variable = "wt", smooth = TRUE)
 
   - [News](NEWS.md)
 
-  - [Reference Manual](https://mi2datalab.github.io/auditor/)
-
-  - Cheatsheets
-    
-      - [Error analysis with
-        auditor](https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet.png)
-      - [ROC plots with
-        auditor](https://raw.githubusercontent.com/mi2datalab/auditor/master/materials/auditor_cheatsheet_ROC.png)
+  - The [website about auditor](https://mi2datalab.github.io/auditor/)
+  
+  - A [cheatsheet](https://github.com/MI2DataLab/auditor/blob/master/materials/auditor_cheatsheet.pdf)
 
   - A [preprint of the article about
     auditor](https://arxiv.org/abs/1809.07763) is available on arxiv.
 
   - Acknowledgments: Work on this package was financially supported by
-    the ‘NCN Opus grant
-2016/21/B/ST6/02176’.
+    the ‘NCN Opus grant 2016/21/B/ST6/02176’.
 
 ### A short overview of plots
 
-| Plot name                                             | Function                                                              | Regression | Classification | Examples                                                                                                                                                          |
-| ----------------------------------------------------- | --------------------------------------------------------------------- | ---------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Autocorrelation Function                              | `plotACF()` </br> `plot(..., type = "ACF")`                           | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotacf---autocorrelation-function-of-residuals)                              |
-| Autocorrelation                                       | `plotAutocorrelation()` </br> `plot(..., type = "Autocorrelation")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotautocorrelation---autocorrelation-of-residuals)                           |
-| Influence of observations                             | `plotCooksDistance()` </br> `plot(..., type = "CooksDistance")`       | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/observation_influence_audit.html#which-observations-are-outlyers)                                        |
-| Half-Normal                                           | `plotHalfNormal()` </br> `plot(..., type = "HalfNormal")`             | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_fit_audit.html)                                                                                    |
-| LIFT Chart                                            | `plotLIFT()` </br> `plot(..., type = "LIFT")`                         | no         | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html#lift-chart)                                                                  |
-| Model Correlation                                     | `plotModelCorrelation()` </br> `plot(..., type = "ModelCorrelation")` | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotmodelcorrelation---correlation-of-models)                                 |
-| Principal Component Analysis of models                | `plotModelPCA()` </br> `plot(..., type = "ModelPCA")`                 | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotmodelpca---model-pca)                                                     |
-| Model Ranking Plot                                    | `plotModelRanking()` </br> `plot(..., type = "ModelRanking")`         | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html)                                                                            |
-| Predicted Response vs Observed or Variable Values     | `plotPrediction()` </br> `plot(..., type = "Prediction")`             | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotpredition---observed-vs-predicted)                                        |
-| Regression Error Characteristic Curves (REC)          | `plotREC()` </br> `plot(..., type = "REC")`                           | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrec---regression-error-characteristic-rec-curve)                          |
-| Plot Residuals vs Observed, Fitted or Variable Values | `plotResidual()` </br> `plot(..., type = "Residual")`                 | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidual---plot-residuals-vs-observed-fitted-or-variable-values)          |
-| Residual Boxplot                                      | `plotResidualBoxplot()` </br> `plot(..., type = "ResidualBoxplot")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualboxplot---boxplot-of-residuals)                                   |
-| Residual Density                                      | `plotResidualDensity()` </br> `plot(..., type = "ResidualDensity")`   | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotresidualdensity---density-of-residuals)                                   |
-| Receiver Operating Characteristic (ROC)               | `plotROC()` </br> `plot(..., type = "ROC")`                           | no         | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html#receiver-operating-characteristic-roc)                                       |
-| Regression Receiver Operating Characteristic (RROC)   | `plotRROC()` </br> `plot(..., type = "RROC")`                         | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotrroc---regression-receiver-operating-characteristic-rroc)                 |
-| Scale-Location plot                                   | `plotScaleLocation()` </br> `plot(..., type = "ScaleLocation")`       | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plotscalelocation---scale-location-plot)                                      |
-| Two-sided Cumulative Distribution Function            | `plotTwoSidedECDF()` </br> `plot(..., type = "TwoSidedECDF")`         | yes        | yes            | [Examples](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html#plottwosidedecdf---two-sided-empirical-cumulative-distribution-function-ecdf) |
+Column type contains character that should be passed to parameter
+`type=` when using `plot()` function. `Regr` and `Class` columns
+indicate whether plot can be used for regression and classification
+models.
+
+| Name of a plot                                      | Function                                                                                               | Interactive version                                                                                     | Type                | Regr | Class |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------- | ---- | ----- |
+| Autocorrelation Function                            | [plot\_acf()](https://mi2datalab.github.io/auditor/reference/plot_acf.html)                            | [plotD3\_acf()](https://mi2datalab.github.io/auditor/reference/plotD3_acf.html)                         | “acf”               | yes  | yes   |
+| Autocorrelation                                     | [plot\_autocorrelation()](https://mi2datalab.github.io/auditor/reference/plot_autocorrelation.html)    | [plotD3\_autocorrelation()](https://mi2datalab.github.io/auditor/reference/plotD3_autocorrelation.html) | “autocorrelation”   | yes  | yes   |
+| Influence of Observations                           | [plot\_cooksdistance()](https://mi2datalab.github.io/auditor/reference/plot_cooksdistance.html)        | [plotD3\_cooksdistance()](https://mi2datalab.github.io/auditor/reference/plotD3_cooksdistance.html)     | “cooksdistance”     | yes  | yes   |
+| Half-Normal                                         | [plot\_halfnormal()](https://mi2datalab.github.io/auditor/reference/plot_halfnormal.html)              | [plotD3\_halfnormal()](https://mi2datalab.github.io/auditor/reference/plotD3_halfnormal.html)           | “halfnormal”        | yes  | yes   |
+| LIFT Chart                                          | [plot\_lift()](https://mi2datalab.github.io/auditor/reference/plot_lift.html)                          | [plotD3\_lift()](https://mi2datalab.github.io/auditor/reference/plotD3_lift.html)                       | “lift”              | no   | yes   |
+| Model Correlation                                   | [plot\_correlation()](https://mi2datalab.github.io/auditor/reference/plot_correlation.html)            | \-                                                                                                      | “correlation”       | yes  | yes   |
+| Principal Component Analysis of Models              | [plot\_pca()](https://mi2datalab.github.io/auditor/reference/plot_pca.html)                            | \-                                                                                                      | “pca”               | yes  | yes   |
+| Model Ranking Radar Plot                            | [plot\_radar()](https://mi2datalab.github.io/auditor/reference/plot_radar.html)                        | \-                                                                                                      | “radar”             | yes  | yes   |
+| Predicted Response vs Actual or Variable Values     | [plot\_prediction()](https://mi2datalab.github.io/auditor/reference/plot_prediction.html)              | [plotD3\_prediction()](https://mi2datalab.github.io/auditor/reference/plotD3_prediction.html)           | “prediction”        | yes  | yes   |
+| Regression Error Characteristic Curve (REC)         | [plot\_rec()](https://mi2datalab.github.io/auditor/reference/plot_rec.html)                            | [plotD3\_rec()](https://mi2datalab.github.io/auditor/reference/plotD3_rec.html)                         | “rec”               | yes  | yes   |
+| Plot Residuals vs Actual, Fitted or Variable Values | [plot\_residual()](https://mi2datalab.github.io/auditor/reference/plot_residual.html)                  | [plotD3\_residual()](https://mi2datalab.github.io/auditor/reference/plotD3_residual.html)               | “residual”          | yes  | yes   |
+| Residual Boxplot                                    | [plot\_residual\_boxplot()](https://mi2datalab.github.io/auditor/reference/plot_residual_boxplot.html) | \-                                                                                                      | “residual\_boxplot” | yes  | yes   |
+| Residual Density                                    | [plot\_residual\_density()](https://mi2datalab.github.io/auditor/reference/plot_residual_density.html) | \-                                                                                                      | “residual\_density” | yes  | yes   |
+| Receiver Operating Characteristic (ROC) Curve       | [plot\_roc()](https://mi2datalab.github.io/auditor/reference/plot_roc.html)                            | \-                                                                                                      | “roc”               | no   | yes   |
+| Regression Receiver Operating Characteristic (RROC) | [plot\_rroc()](https://mi2datalab.github.io/auditor/reference/plot_rroc.html)                          | \-                                                                                                      | “rroc”              | yes  | yes   |
+| Scale-Location Plot                                 | [plot\_scalelocation()](https://mi2datalab.github.io/auditor/reference/plot_scalelocation.html)        | [plotD3\_scalelocation()](https://mi2datalab.github.io/auditor/reference/plotD3_scalelocation.html)     | “scalelocation”     | yes  | yes   |
+| Two-sided Cumulative Distribution Function          | [plot\_tsecdf()](https://mi2datalab.github.io/auditor/reference/plot_tsecdf.html)                      | \-                                                                                                      | “tsecdf”            | yes  | yes   |

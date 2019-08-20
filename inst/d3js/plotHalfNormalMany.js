@@ -124,7 +124,7 @@ function singlePlot(modelName, plotData, i) {
         .style("fill", "none")
         .style("stroke", "160e3b")
         .style("opacity", 1)
-        .style("stroke-width", 1);
+        .style("stroke-width", 2);
 
   var lineL = d3.line()
       .x(function(d) { return x(d.x); })
@@ -137,22 +137,22 @@ function singlePlot(modelName, plotData, i) {
         .style("fill", "none")
         .style("stroke", "160e3b")
         .style("opacity", 1)
-        .style("stroke-width", 1);
+        .style("stroke-width", 2);
 
 
   var lineM = d3.line()
-       .x(function(d) { return x(d.x); })
-       .y(function(d) { return y(d.median); });
+               .x(function(d) { return x(d.x); })
+               .y(function(d) { return y(d.median); });
 
   svg.append("path")
         .data([plotData])
         .attr("d", lineM)
         .style("stroke", "ceced9")
         .style("fill", "none")
-        .style("stroke-width", 1)
+        .style("stroke-width", 2)
         .style("stroke-dasharray", ("3, 2"));
 
-  if (i==n){
+  if (i==n) {
   	svg.append("text")
         .attr("class", "axisTitle")
         .attr("transform", "rotate(-90)")

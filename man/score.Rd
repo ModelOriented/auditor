@@ -4,18 +4,18 @@
 \alias{score}
 \title{Model Scores computations}
 \usage{
-score(object, type = "MSE", ...)
+score(object, score = "mse", ...)
 }
 \arguments{
-\item{object}{Object An object of class modelAudit.}
+\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{type}{The type of score to  be calculated. Possible values: 'Cook', 'DW', 'Peak', 'HalfNormal', 'MAE', 'MSE', 'REC', 'RMSE', 'ROC', 'RROC', 'Runs'
+\item{score}{The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
 (for detailed description see functions in see also section).}
 
 \item{...}{Other arguments dependent on the type of score.}
 }
 \value{
-an object of class scoreAudit, except Cooks distance, where numeric vector is returned
+An object of class 'auditor_score', except Cooks distance, where numeric vector is returned.
 }
 \description{
 This function provides several scores for model validation and performance assessment.
@@ -23,11 +23,18 @@ Scores can be also used to compare models.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]
-lm_model <- lm(life_length ~ ., data = dragons)
-lm_au <- audit(lm_model, data = dragons, y = dragons$life_length)
-score(lm_au, type = 'Runs')
+
+# fit a model
+model_lm <- lm(life_length ~ ., data = dragons)
+
+# use DALEX package to wrap up a model into explainer
+exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+
+# calculate score
+score(exp_lm, score = 'mae')
 
 }
 \seealso{
-\code{\link{scoreCooksDistance}, \link{scoreDW}, \link{scorePeak}, \link{scoreHalfNormal}, \link{scoreMAE}, \link{scoreMSE}, \link{scoreREC}, \link{scoreROC}, \link{scoreRROC}, \link{scoreRuns}}
+\code{\link{score_auc}}, \code{\link{score_cooksdistance}, \link{score_dw}, \link{score_peak}, \link{score_halfnormal}, \link{score_mae},
+\link{score_mse}, \link{score_rec}, \link{score_rroc}, \link{score_runs}}
 }

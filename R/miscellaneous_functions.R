@@ -1,30 +1,16 @@
-orderResidualsDF <- function(object, variable, is.df = FALSE, std.residuals = FALSE, type = "residuals"){
-  if (std.residuals == TRUE)  type = "std.residuals"
+order_residuals <- function(object, variable){
 
-
-  tmpDF <- data.frame(residuals = switch(type,
-                                         residuals = {object$residuals},
-                                         std.residuals = {object$std.residuals},
-                                         y = {object$y},
-                                         fitted.values = {object$fitted.values}
-                                        )
-                      )
+  ordered_df <- object
 
   if (is.null(variable)) {
-    values <- object$y
+    ordered_df$`_values_` <- object$y
   } else if (variable == "") {
-    values <- 1:nrow(object$data)
+    ordered_df$`_values_` <- 1:nrow(object$data)
   } else {
-    values <- object$data[,variable]
+    ordered_df$`_values_` <- object$data[ ,variable]
   }
 
-  tmpDF$values <- values
-  tmpDF$index <- rownames(object$data)
-  tmpDF <- tmpDF[order(values), ]
-  if(is.df == FALSE){
-    return(tmpDF$residuals)
-  } else {
-    return(tmpDF)
-  }
+  ordered_df <- ordered_df[order(ordered_df$`_values_`), ]
 
+  ordered_df
 }

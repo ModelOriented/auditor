@@ -1,7 +1,7 @@
 var points = options.points, smooth = options.smooth,
     xmin = options.xmin, xmax = options.xmax,
     ymin = options.ymin, ymax = options.ymax,
-    variableName = options.variable, n = options.n,
+    n = options.n,
     yTitle = options.yTitle,
     xTitle = options.xTitle,
     chartTitle = options.chartTitle;
@@ -144,7 +144,7 @@ function singlePlot(modelName, pData, sData, i) {
         legend.append("text")
               .attr("dy", ".6em")
               .attr("class", "legendLabel")
-              .text(function(d) { return d;})
+              .text(d => d)
               .attr("x", 14);
 
         var activeLink = modelName.replace(/\s/g, '');
@@ -235,7 +235,7 @@ function singlePlot(modelName, pData, sData, i) {
         .attr("id", tModelName)
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
-        .attr("r", 1)
+        .attr("r", 1.5)
         .style("fill", dPointColor)
         .style("opacity", dOpacity);
     }

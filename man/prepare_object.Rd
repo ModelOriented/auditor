@@ -4,8 +4,8 @@
 \alias{prepare_object}
 \title{Prepare object for `make_dataframe`` function}
 \usage{
-prepare_object(object, variable, nlabel, type, quant, values, error.scaled,
-  outliers, y.reversed, scores, new.score)
+prepare_object(object, variable, nlabel, type, quant, values, scale_error,
+  outliers, reverse_y, score, new.score)
 }
 \arguments{
 \item{object}{An audited model}
@@ -20,13 +20,13 @@ prepare_object(object, variable, nlabel, type, quant, values, error.scaled,
 
 \item{values}{Values}
 
-\item{error.scaled}{Error scaled}
+\item{scale_error}{Error scaled}
 
 \item{outliers}{Outliers}
 
-\item{y.reversed}{y reversed}
+\item{reverse_y}{y reversed}
 
-\item{scores}{Scores}
+\item{score}{Scores}
 
 \item{new.score}{New scores}
 }
