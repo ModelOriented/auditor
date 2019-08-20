@@ -8,8 +8,8 @@ output: github_document
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" />
-[![Build Status](https://travis-ci.org/MI2DataLab/auditor.svg?branch=master)](https://travis-ci.org/MI2DataLab/auditor)
-[![Coverage Status](https://img.shields.io/codecov/c/github/mi2datalab/auditor/master.svg)](https://codecov.io/github/mi2datalab/auditor?branch=master)
+[![Build Status](https://travis-ci.org/ModelOriented/auditor.svg?branch=master)](https://travis-ci.org/ModelOriented/auditor)
+[![Coverage Status](https://img.shields.io/codecov/c/github/modeloriented/auditor/master.svg)](https://codecov.io/github/modeloriented/auditor?branch=master)
 
 Package `auditor` is a tool for model-agnostic validation. 
 Implemented techniques facilitate assessing and comparing the goodness of fit and performance of models. In addition, they may be used for the analysis of the similarity of residuals and for the identification of outliers and influential observations. The examination is carried out by diagnostic scores and visual verification. 
@@ -32,10 +32,10 @@ install.packages("auditor")
 Developer version from GitHub:
 
 ```{r, eval=FALSE}
-source("https://install-github.me/agosiewska/auditor")
+source("https://install-github.me/ModelOriented/auditor")
 
 # or with the devtools package
-devtools::install_github("MI2DataLab/auditor")
+devtools::install_github("ModelOriented/auditor")
 
 ```
 
@@ -70,7 +70,7 @@ plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
 
 - [News](NEWS.md)
 
-- The [website about auditor](https://mi2datalab.github.io/auditor/)
+- The [website about auditor](https://modeloriented.github.io/auditor/)
 
 - A [preprint of the article about auditor](https://arxiv.org/abs/1809.07763) is available on arxiv.
 
@@ -84,20 +84,20 @@ Column type contains character that should be passed to parameter `type=` when u
 
 | Name of a plot                                      | Function                                                                                             | Interactive version                                                                                    | Type               | Regr | Class |
 |-----------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|--------------------|------|-------|
-| Autocorrelation Function                            | [plot_acf()](https://mi2datalab.github.io/auditor/reference/plot_acf.html)                           | [plotD3_acf()](https://mi2datalab.github.io/auditor/reference/plotD3_acf.html)                         | "acf"              | yes  | yes   |
-| Autocorrelation                                     | [plot_autocorrelation()](https://mi2datalab.github.io/auditor/reference/plot_autocorrelation.html)   | [plotD3_autocorrelation()](https://mi2datalab.github.io/auditor/reference/plotD3_autocorrelation.html) | "autocorrelation"  | yes  | yes   |
-| Influence of Observations                           | [plot_cooksdistance()](https://mi2datalab.github.io/auditor/reference/plot_cooksdistance.html)       | [plotD3_cooksdistance()](https://mi2datalab.github.io/auditor/reference/plotD3_cooksdistance.html)     | "cooksdistance"    | yes  | yes   |
-| Half-Normal                                         | [plot_halfnormal()](https://mi2datalab.github.io/auditor/reference/plot_halfnormal.html)             | [plotD3_halfnormal()](https://mi2datalab.github.io/auditor/reference/plotD3_halfnormal.html)           | "halfnormal"       | yes  | yes   |
-| LIFT Chart                                          | [plot_lift()](https://mi2datalab.github.io/auditor/reference/plot_lift.html)                         | [plotD3_lift()](https://mi2datalab.github.io/auditor/reference/plotD3_lift.html)                       | "lift"             | no   | yes   |
-| Model Correlation                                   | [plot_correlation()](https://mi2datalab.github.io/auditor/reference/plot_correlation.html)           | -                                                                                                      | "correlation"      | yes  | yes   |
-| Principal Component Analysis of Models              | [plot_pca()](https://mi2datalab.github.io/auditor/reference/plot_pca.html)                           | -                                                                                                      | "pca"              | yes  | yes   |
-| Model Ranking Radar Plot                            | [plot_radar()](https://mi2datalab.github.io/auditor/reference/plot_radar.html)                       | -                                                                                                      | "radar"            | yes  | yes   |
-| Predicted Response vs Actual or Variable Values     | [plot_prediction()](https://mi2datalab.github.io/auditor/reference/plot_prediction.html)             | [plotD3_prediction()](https://mi2datalab.github.io/auditor/reference/plotD3_prediction.html)           | "prediction"       | yes  | yes   |
-| Regression Error Characteristic Curve (REC)         | [plot_rec()](https://mi2datalab.github.io/auditor/reference/plot_rec.html)                           | [plotD3_rec()](https://mi2datalab.github.io/auditor/reference/plotD3_rec.html)                         | "rec"              | yes  | yes   |
-| Plot Residuals vs Actual, Fitted or Variable Values | [plot_residual()](https://mi2datalab.github.io/auditor/reference/plot_residual.html)                 | [plotD3_residual()](https://mi2datalab.github.io/auditor/reference/plotD3_residual.html)               | "residual"         | yes  | yes   |
-| Residual Boxplot                                    | [plot_residual_boxplot()](https://mi2datalab.github.io/auditor/reference/plot_residual_boxplot.html) | -                                                                                                      | "residual_boxplot" | yes  | yes   |
-| Residual Density                                    | [plot_residual_density()](https://mi2datalab.github.io/auditor/reference/plot_residual_density.html) | -                                                                                                      | "residual_density" | yes  | yes   |
-| Receiver Operating Characteristic (ROC) Curve       | [plot_roc()](https://mi2datalab.github.io/auditor/reference/plot_roc.html)                           | -                                                                                                      | "roc"              | no   | yes   |
-| Regression Receiver Operating Characteristic (RROC) | [plot_rroc()](https://mi2datalab.github.io/auditor/reference/plot_rroc.html)                         | -                                                                                                      | "rroc"             | yes  | yes   |
-| Scale-Location Plot                                 | [plot_scalelocation()](https://mi2datalab.github.io/auditor/reference/plot_scalelocation.html)       | [plotD3_scalelocation()](https://mi2datalab.github.io/auditor/reference/plotD3_scalelocation.html)     | "scalelocation"    | yes  | yes   |
-| Two-sided Cumulative Distribution Function          | [plot_tsecdf()](https://mi2datalab.github.io/auditor/reference/plot_tsecdf.html)                     | -                                                                                                      | "tsecdf"           | yes  | yes   |
+| Autocorrelation Function                            | [plot_acf()](https://modeloriented.github.io/auditor/reference/plot_acf.html)                           | [plotD3_acf()](https://modeloriented.github.io/auditor/reference/plotD3_acf.html)                         | "acf"              | yes  | yes   |
+| Autocorrelation                                     | [plot_autocorrelation()](https://modeloriented.github.io/auditor/reference/plot_autocorrelation.html)   | [plotD3_autocorrelation()](https://modeloriented.github.io/auditor/reference/plotD3_autocorrelation.html) | "autocorrelation"  | yes  | yes   |
+| Influence of Observations                           | [plot_cooksdistance()](https://modeloriented.github.io/auditor/reference/plot_cooksdistance.html)       | [plotD3_cooksdistance()](https://modeloriented.github.io/auditor/reference/plotD3_cooksdistance.html)     | "cooksdistance"    | yes  | yes   |
+| Half-Normal                                         | [plot_halfnormal()](https://modeloriented.github.io/auditor/reference/plot_halfnormal.html)             | [plotD3_halfnormal()](https://modeloriented.github.io/auditor/reference/plotD3_halfnormal.html)           | "halfnormal"       | yes  | yes   |
+| LIFT Chart                                          | [plot_lift()](https://modeloriented.github.io/auditor/reference/plot_lift.html)                         | [plotD3_lift()](https://modeloriented.github.io/auditor/reference/plotD3_lift.html)                       | "lift"             | no   | yes   |
+| Model Correlation                                   | [plot_correlation()](https://modeloriented.github.io/auditor/reference/plot_correlation.html)           | -                                                                                                      | "correlation"      | yes  | yes   |
+| Principal Component Analysis of Models              | [plot_pca()](https://modeloriented.github.io/auditor/reference/plot_pca.html)                           | -                                                                                                      | "pca"              | yes  | yes   |
+| Model Ranking Radar Plot                            | [plot_radar()](https://modeloriented.github.io/auditor/reference/plot_radar.html)                       | -                                                                                                      | "radar"            | yes  | yes   |
+| Predicted Response vs Actual or Variable Values     | [plot_prediction()](https://modeloriented.github.io/auditor/reference/plot_prediction.html)             | [plotD3_prediction()](https://modeloriented.github.io/auditor/reference/plotD3_prediction.html)           | "prediction"       | yes  | yes   |
+| Regression Error Characteristic Curve (REC)         | [plot_rec()](https://modeloriented.github.io/auditor/reference/plot_rec.html)                           | [plotD3_rec()](https://modeloriented.github.io/auditor/reference/plotD3_rec.html)                         | "rec"              | yes  | yes   |
+| Plot Residuals vs Actual, Fitted or Variable Values | [plot_residual()](https://modeloriented.github.io/auditor/reference/plot_residual.html)                 | [plotD3_residual()](https://modeloriented.github.io/auditor/reference/plotD3_residual.html)               | "residual"         | yes  | yes   |
+| Residual Boxplot                                    | [plot_residual_boxplot()](https://modeloriented.github.io/auditor/reference/plot_residual_boxplot.html) | -                                                                                                      | "residual_boxplot" | yes  | yes   |
+| Residual Density                                    | [plot_residual_density()](https://modeloriented.github.io/auditor/reference/plot_residual_density.html) | -                                                                                                      | "residual_density" | yes  | yes   |
+| Receiver Operating Characteristic (ROC) Curve       | [plot_roc()](https://modeloriented.github.io/auditor/reference/plot_roc.html)                           | -                                                                                                      | "roc"              | no   | yes   |
+| Regression Receiver Operating Characteristic (RROC) | [plot_rroc()](https://modeloriented.github.io/auditor/reference/plot_rroc.html)                         | -                                                                                                      | "rroc"             | yes  | yes   |
+| Scale-Location Plot                                 | [plot_scalelocation()](https://modeloriented.github.io/auditor/reference/plot_scalelocation.html)       | [plotD3_scalelocation()](https://modeloriented.github.io/auditor/reference/plotD3_scalelocation.html)     | "scalelocation"    | yes  | yes   |
+| Two-sided Cumulative Distribution Function          | [plot_tsecdf()](https://modeloriented.github.io/auditor/reference/plot_tsecdf.html)                     | -                                                                                                      | "tsecdf"           | yes  | yes   |
