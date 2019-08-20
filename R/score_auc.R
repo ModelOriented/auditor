@@ -27,10 +27,10 @@
 score_auc <- function(object){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
   object <- model_evaluation(object)
-
-  pred <- calculate_classif_evaluation(object$`_y_hat_`, object$`_y_`, object$`_label_`)
-  pred_sorted <- pred[order(pred$`_y_hat_`, decreasing = TRUE), ]
-  roc_y <- factor(pred_sorted$`_y_`)
+  pred <- data.frame(y_hat = object$`_y_hat_`,
+                     y = object$`_y_`)
+  pred_sorted <- pred[order(pred$y_hat, decreasing = TRUE), ]
+  roc_y <- factor(pred_sorted$y)
   levels <- levels(roc_y)
   x = cumsum(roc_y == levels[1])/sum(roc_y == levels[1])
   y = cumsum(roc_y == levels[2])/sum(roc_y == levels[2])
