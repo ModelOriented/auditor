@@ -6,7 +6,7 @@
 \title{Model Ranking Plot}
 \usage{
 plot_radar(object, ..., score = c("mae", "mse", "rec", "rroc"),
-  new_score = NULL, print = TRUE)
+  new_score = NULL, verbose = TRUE)
 
 plotModelRanking(object, ..., score = c("MAE", "MSE", "REC", "RROC"),
   new_score = NULL)
@@ -20,7 +20,7 @@ plotModelRanking(object, ..., score = c("MAE", "MSE", "REC", "RROC"),
 
 \item{new_score}{A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
 
-\item{print}{Logical, indicates whether values of scores should be printed.}
+\item{verbose}{Logical, indicates whether values of scores should be printed.}
 }
 \value{
 ggplot object

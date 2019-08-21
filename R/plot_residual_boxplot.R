@@ -29,7 +29,7 @@
 #' plot_residual_boxplot(mr_lm, mr_rf)
 #' plot(mr_lm, mr_rf)
 #'
-#' @seealso \code{\link{plot.model_audit}}
+#' @seealso \code{\link{plot_residual}}
 #'
 #' @rdname plot_residual_boxplot
 #'

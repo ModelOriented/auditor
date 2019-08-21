@@ -32,7 +32,6 @@
 #' mr_rf <- model_residual(exp_rf)
 #' plot_tsecdf(mr_lm, mr_rf, reverse_y = TRUE)
 #'
-#' @seealso \code{\link{plot.model_audit}}
 #'
 #' @import ggplot2
 #' @importFrom ggrepel geom_text_repel
