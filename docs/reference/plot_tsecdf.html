@@ -51,13 +51,13 @@
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -192,10 +192,6 @@
 
     <p>A ggplot object.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='plot.model_audit.html'>plot.model_audit</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/DALEX/topics/dragons'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -224,11 +220,12 @@
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  761.1137 , mean =  1341.155 , max =  2472.702  
+#&gt;   -&gt; predicted values  :  numerical, min =  753.3201 , mean =  1340.75 , max =  2464.544  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -184.3527 , mean =  6.632384 , max =  425.7191  
+#&gt;   -&gt; residuals         :  numerical, min =  -183.1276 , mean =  7.037095 , max =  433.8764  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_tsecdf</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>, <span class='kw'>reverse_y</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_tsecdf-3.png' alt='' width='700' height='433' /></div><div class='input'>
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -237,8 +234,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

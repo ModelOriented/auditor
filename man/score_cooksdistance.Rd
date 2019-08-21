@@ -5,14 +5,14 @@
 \alias{scoreCooksDistance}
 \title{Score based on Cooks Distance}
 \usage{
-score_cooksdistance(object, print = TRUE)
+score_cooksdistance(object, verbose = TRUE)
 
-scoreCooksDistance(object, print = TRUE)
+scoreCooksDistance(object, verbose = TRUE)
 }
 \arguments{
 \item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{print}{If TRUE progress is printed.}
+\item{verbose}{If TRUE progress is printed.}
 }
 \value{
 A vector of Cook's distances for each observation.

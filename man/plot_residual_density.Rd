@@ -50,5 +50,5 @@ plot(mr_lm, mr_rf, type = "residual_density")
 
 }
 \seealso{
-\code{\link{plot.model_audit}}
+\code{\link{plot_residual}}
 }
