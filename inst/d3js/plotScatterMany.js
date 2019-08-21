@@ -8,7 +8,7 @@ var points = options.points, smooth = options.smooth,
     background = options.background;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 70},
+    margin = {top: 78, right: 30, bottom: 50, left: 60, inner: 70},
     h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
@@ -66,7 +66,7 @@ function singlePlot(modelName, pointData, smoothData, i) {
       svg.append("text")
           .attr("class", "bigTitle")
           .attr("x", plotLeft)
-          .attr("y", plotTop - 60)
+          .attr("y", plotTop - 40)
           .text(chartTitle);
     }
 
