@@ -4,7 +4,6 @@
 \alias{plotD3}
 \alias{plotD3_auditor}
 \alias{plotD3.auditor_model_residual}
-\alias{plotD3.auditor_model_performance}
 \alias{plotD3.auditor_model_halfnormal}
 \alias{plotD3.auditor_model_evaluation}
 \alias{plotD3.auditor_model_cooksdistance}
@@ -15,8 +14,6 @@ plotD3(x, ...)
 plotD3_auditor(x, ..., type = "residual")
 
 \method{plotD3}{auditor_model_residual}(x, ..., type = "residual")
-
-\method{plotD3}{auditor_model_performance}(x, ..., type = "residual")
 
 \method{plotD3}{auditor_model_halfnormal}(x, ..., type = "residual")
 
@@ -63,14 +60,6 @@ plotD3(mr_lm, type = "prediction")
 
 hn_lm <- model_halfnormal(exp_lm)
 plotD3(hn_lm)
-
-library(randomForest)
-model_rf <- randomForest(life_length~., data = dragons)
-exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
-
-mp_rf <- model_performance(exp_rf)
-mp_lm <- model_performance(exp_lm)
-plotD3(mp_lm, mp_rf)
 
 
 }

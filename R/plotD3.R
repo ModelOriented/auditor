@@ -41,14 +41,6 @@
 #' hn_lm <- model_halfnormal(exp_lm)
 #' plotD3(hn_lm)
 #'
-#' library(randomForest)
-#' model_rf <- randomForest(life_length~., data = dragons)
-#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
-#'
-#' mp_rf <- model_performance(exp_rf)
-#' mp_lm <- model_performance(exp_lm)
-#' plotD3(mp_lm, mp_rf)
-#'
 #'
 #' @importFrom grDevices devAskNewPage
 #' @importFrom graphics plot
@@ -71,13 +63,13 @@ plotD3_auditor <- function(x, ..., type="residual"){
     stop(paste0("Invalid plot type. Possible values are: ", paste(plotNames, collapse = ", "),"."))
   }
 
-  plot_selected_type(object, ..., type = type)
+  plotD3_selected_type(object, ..., type = type)
 }
 
 
 plotD3_selected_type <- function(x, ..., type){
   if("auditor_model_cooksdistance" %in% class(x)) type <- "cooksdistance"
-  if("auditor_model_performance" %in% class(x)) type <- "radar"
+  #if("auditor_model_performance" %in% class(x)) type <- "radar"
   if("auditor_model_halfnormal" %in% class(x)) type <- "halfnormal"
   if("auditor_model_evaluation" %in% class(x) & type != "lift") type <- "roc"
 
@@ -101,11 +93,6 @@ plotD3_selected_type <- function(x, ..., type){
 #' @export
 plotD3.auditor_model_residual <- plotD3_auditor
 
-
-#' @rdname plotD3
-#' @export
-plotD3.auditor_model_performance <- plotD3_auditor
-
 #' @rdname plotD3
 #' @export
 plotD3.auditor_model_halfnormal <- plotD3_auditor
@@ -117,6 +104,4 @@ plotD3.auditor_model_evaluation <- plotD3_auditor
 #' @rdname plotD3
 #' @export
 plotD3.auditor_model_cooksdistance <- plotD3_auditor
-
-
 
