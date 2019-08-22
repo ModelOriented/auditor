@@ -155,7 +155,10 @@ plotD3_prediction <- function(object, ..., variable = '_y_', points = TRUE, smoo
     options['background'] <- background
 
     r2d3::r2d3(data = temp, script = system.file("d3js/plotScatterMany.js", package = "auditor"),
-               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               dependencies = list(
+                 system.file("d3js/colorsDrWhy.js", package = "auditor"),
+                 system.file("d3js/hackHead.js", package = "auditor")
+               ),
                css = system.file("d3js/themeDrWhy.css", package = "auditor"),
                d3_version = 4,
                options = options)

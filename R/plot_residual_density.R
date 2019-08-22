@@ -32,7 +32,7 @@
 #' plot_residual_density(mr_lm, mr_rf)
 #' plot(mr_lm, mr_rf, type = "residual_density")
 #'
-#' @seealso \code{\link{plot.model_audit}}
+#' @seealso \code{\link{plot_residual}}
 #'
 #' @import ggplot2
 #'

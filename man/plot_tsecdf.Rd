@@ -51,7 +51,5 @@ exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
 mr_rf <- model_residual(exp_rf)
 plot_tsecdf(mr_lm, mr_rf, reverse_y = TRUE)
 
-}
-\seealso{
-\code{\link{plot.model_audit}}
+
 }

@@ -12,14 +12,14 @@
 #' or 'auditor_model_halfnormal' (created with \code{\link{model_halfnormal}} function).
 #' @param ... other arguments dependent on the type of plot or additionl objects of classes 'auditor_model_residual',
 #' 'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'.
-#' @param type the type of plot. Character or vector of characters. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residuals',
+#' @param type the type of plot. Character or vector of characters. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
 #' 'lift', 'pca', 'radar', 'correlation', 'prediction', 'rec', 'resiual', 'residual_boxplot','residual_density',
 #' 'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see corresponding functions in see also section).
 #' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
 #' @param grid logical; if TRUE plots will be plotted on the grid.
 #'
 #' @seealso \code{\link{plot_acf}, \link{plot_autocorrelation}, \link{plot_cooksdistance},
-#' \link{plot_halfnormal}, \link{plot_residual}, \link{plot_residual_boxplot}, \link{plot_lift}, \link{plot_pca},
+#' \link{plot_halfnormal}, \link{plot_residual_boxplot}, \link{plot_lift}, \link{plot_pca},
 #' \link{plot_radar}, \link{plot_correlation},
 #' \link{plot_prediction}, \link{plot_rec}, \link{plot_residual_density}, \link{plot_residual}, \link{plot_roc},
 #' \link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
@@ -57,18 +57,14 @@
 #' @importFrom graphics plot
 #' @importFrom gridExtra grid.arrange
 #'
-#' @method plot model_audit
 #'
-#' @rdname plot.model_audit
-#'
-#' @export
-
-plot.model_audit <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
+#' @rdname plot
+plot_auditor <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
 
   object <- x
 
   plotNames <- c('acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residual', 'lift',
-                 'pca', 'radar', 'correlation', 'prediction', 'rec', 'residual_boxplot', 'residual_density', 'residual',
+                 'pca', 'radar', 'correlation', 'prediction', 'rec', 'residual_boxplot', 'residual_density',
                  'roc', 'rroc', 'scalelocation', 'tsecdf')
   if(!all(type %in% plotNames)){
     stop(paste0("Invalid plot type. Possible values are: ", paste(plotNames, collapse = ", "),"."))
@@ -130,5 +126,28 @@ plot_selected_type <- function(x, ..., type){
          tsecdf = { return(plot_tsecdf(x, ...)) }
   )
 }
+
+#' @rdname plot
+#' @export
+plot.auditor_model_residual <- plot_auditor
+
+#' @rdname plot
+#' @export
+plot.auditor_model_performance <- plot_auditor
+
+#' @rdname plot
+#' @export
+plot.auditor_model_halfnormal <- plot_auditor
+
+#' @rdname plot
+#' @export
+plot.auditor_model_evaluation <- plot_auditor
+
+#' @rdname plot
+#' @export
+plot.auditor_model_cooksdistance <- plot_auditor
+
+
+
 
 

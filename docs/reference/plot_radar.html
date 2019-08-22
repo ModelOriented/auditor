@@ -51,13 +51,13 @@
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -154,7 +154,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_radar</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"mae"</span>, <span class='st'>"mse"</span>, <span class='st'>"rec"</span>, <span class='st'>"rroc"</span>),
-  <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>plotModelRanking</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"MAE"</span>, <span class='st'>"MSE"</span>, <span class='st'>"REC"</span>, <span class='st'>"RROC"</span>),
   <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -179,7 +179,7 @@
       <td><p>A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.</p></td>
     </tr>
     <tr>
-      <th>print</th>
+      <th>verbose</th>
       <td><p>Logical, indicates whether values of scores should be printed.</p></td>
     </tr>
     </table>
@@ -217,9 +217,9 @@
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  767.6671 , mean =  1344.276 , max =  2494.033  
+#&gt;   -&gt; predicted values  :  numerical, min =  767.3327 , mean =  1342.506 , max =  2473.528  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -187.9356 , mean =  3.511072 , max =  404.3873  
+#&gt;   -&gt; residuals         :  numerical, min =  -185.8861 , mean =  5.281181 , max =  424.8924  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_rf</span>)
 
 <span class='co'># plot results</span>
