@@ -45,6 +45,7 @@ plot_pca <- function(object, ..., scale = TRUE) {
   # PCA object for ggplot object
   df <- make_dataframe(object, ..., type = "pca")
   pca_object <- prcomp(df, scale = scale)
+
   # colours for the model(s)
   colours <- rev(theme_drwhy_colors(length(names(df))))
 
@@ -59,8 +60,6 @@ plot_pca <- function(object, ..., scale = TRUE) {
   arrows2 <- arrows
   arrows2$PC1 <- arrows2$PC2 <- 0
   arrows2 <- rbind(arrows, arrows2)
-
-  # length of arrows
 
 
   # plot
@@ -81,5 +80,5 @@ plot_pca <- function(object, ..., scale = TRUE) {
 #' @export
 plotModelPCA <- function(object, ..., scale = TRUE) {
   message("Please note that 'plotModelPCA()' is now deprecated, it is better to use 'plot_pca()' instead.")
-  plot_pca(object, ..., scale)
+  plot_pca(object, ..., scale = scale)
 }

@@ -33,8 +33,8 @@ score_rec <- function(object) {
   object <- model_residual(object)
 
   rec_df <- make_rec_df(object)
-  x <- rec_df$rec_x
-  y <- rec_df$rec_y
+  x <- rec_df$`_rec_x_`
+  y <- rec_df$`_rec_y_`
 
   aoc <- max(x) * max(y)
   for (i in 2:length(x)) {

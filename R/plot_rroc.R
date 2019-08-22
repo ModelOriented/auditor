@@ -67,20 +67,20 @@ plot_rroc <- function(object, ...) {
   df$ord <- paste(rev(as.numeric(df$label)), df$`_label_`)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$label))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
   # main chart
-  p <- ggplot(data = df, aes(x = rroc_x, y = rroc_y, colour = label)) +
-    geom_line(data = subset(df, curve == TRUE), aes(group = ord)) +
-    geom_point(data = subset(df, curve == FALSE), aes(colour = label), size = 2, show.legend = FALSE)
+  p <- ggplot(data = df, aes(x = `_rroc_x_`, y = `_rroc_y_`, colour = `_label_`)) +
+    geom_line(data = subset(df, `_curve_` == TRUE), aes(group = ord)) +
+    geom_point(data = subset(df, `_curve_` == FALSE), aes(colour = `_label_`), size = 2, show.legend = FALSE)
 
   # theme, colours, titles, axes, scales, etc.
   p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3"),
           plot.title = element_text(margin = margin(b = 10)),
           legend.margin = margin(b = 15)) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
-    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df[df$rroc_x !=  Inf, ]$rroc_x) * 1.1), breaks = scales::pretty_breaks()) +
-    scale_y_continuous(expand = c(0, 0), limits = c(min(df[df$rroc_y != -Inf, ]$rroc_y) * 1.1, 0), breaks = scales::pretty_breaks()) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df[df$`_rroc_x_` !=  Inf, ]$`_rroc_x_`) * 1.1), breaks = scales::pretty_breaks()) +
+    scale_y_continuous(expand = c(0, 0), limits = c(min(df[df$`_rroc_y_` != -Inf, ]$`_rroc_y_`) * 1.1, 0), breaks = scales::pretty_breaks()) +
     ylab("Under-estimation") +
     xlab("Over-estimation") +
     ggtitle("RROC Curve")

@@ -65,11 +65,13 @@ plot_lift <- function(object, ...) {
   colnames(df2)[1:3] <- c("_rpp_", "_tp_", "_label_")
 
   df <- rbind(df1, df2)
+
   # new varibale to set an order o curves
   df$ord <- paste(rev(as.numeric(factor(df$`_label_`))), df$`_label_`)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(unique(df1$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df1$`_label_`)))
+
   # main plot
   p <- ggplot(df, aes(x = `_rpp_`, y = `_tp_`)) +
     geom_line(aes(color = `_label_`, group = ord, linetype = line)) +
