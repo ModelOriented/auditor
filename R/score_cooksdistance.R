@@ -3,7 +3,7 @@
 #' @description Cook’s distance are used for estimate of the influence of an single observation.
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param print If TRUE progress is printed.
+#' @param verbose If TRUE progress is printed.
 #'
 #' @details Cook’s distance is a tool for identifying observations that may negatively affect the model.
 #' They may be also used for indicating regions of the design space where it would be good to obtain more observations.
@@ -39,17 +39,17 @@
 #' @export
 #'
 
-score_cooksdistance <- function(object, print=TRUE){
+score_cooksdistance <- function(object, verbose = TRUE){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   if(any(object$class=="lm") || any(object$class == "glm")) {
     return(  cooks.distance(object$model) )
   } else {
-    return( compute_cooksdistances(object, print))
+    return( compute_cooksdistances(object, verbose))
   }
 }
 
-compute_cooksdistances <- function(object, print){
+compute_cooksdistances <- function(object, verbose){
   original_model <- object$model
   model_data <- object$data
   predict_function <- object$predict_function
@@ -63,7 +63,7 @@ compute_cooksdistances <- function(object, print){
     new_model <- update(original_model, data = model_data[-i,])
     y2 <- predict_function(new_model, model_data)
     D[i] <- sum( (y1 - y2)^2 ) / (pmse)
-    if(print==TRUE) cat(i, "out of", n, "\r")
+    if(verbose==TRUE) cat(i, "out of", n, "\r")
     utils::flush.console()
   }
 
@@ -73,7 +73,7 @@ compute_cooksdistances <- function(object, print){
 
 #' @rdname score_cooksdistance
 #' @export
-scoreCooksDistance <- function(object, print=TRUE) {
+scoreCooksDistance <- function(object, verbose=TRUE) {
   message("Please note that 'scoreCooksDistance()' is now deprecated, it is better to use 'score_cooksdistance()' instead.")
-  score_cooksdistance(object, print)
+  score_cooksdistance(object, verbose)
 }

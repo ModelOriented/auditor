@@ -78,7 +78,7 @@ plotD3_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99, scale_pl
   r2d3::r2d3(data = temp, script = system.file("d3js/plotHalfNormalMany.js", package = "auditor"),
              dependencies = list(
                system.file("d3js/colorsDrWhy.js", package = "auditor"),
-               system.file("d3js/tooltipD3.js", package = "auditor")
+               system.file("d3js/hackHead.js", package = "auditor")
              ),
              css = system.file("d3js/themeDrWhy.css", package = "auditor"),
              d3_version = 4,

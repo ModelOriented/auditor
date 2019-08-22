@@ -6,7 +6,7 @@
 #' @param ... Other auditor_model_performance' objects to be plotted together.
 #' @param score Vector of score names to be plotted.
 #' @param new_score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
-#' @param print Logical, indicates whether values of scores should be printed.
+#' @param verbose Logical, indicates whether values of scores should be printed.
 #'
 #' @return ggplot object
 #'
@@ -40,7 +40,7 @@
 #' @import scales
 #'
 #' @export
-plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_score = NULL, print = TRUE) {
+plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_score = NULL, verbose = TRUE) {
 
   # safeguard
   x <- y <- `_value_` <- scaled <- `_name_` <- `_label_` <- `_score_` <- label <- NULL
@@ -76,7 +76,7 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
 
   df$name <- gsub("inv\n", "", df$`_name_`)
 
-  if(print == TRUE) print(subset(df, select = c(`_name_`, `_label_`, `_value_`, scaled)))
+  if(verbose == TRUE) print(subset(df, select = c(`_name_`, `_label_`, `_value_`, scaled)))
 
    p
 }

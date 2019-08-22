@@ -4,7 +4,7 @@ var minVariable = options.xmin, maxVariable = options.xmax,
     xTitle = options.xTitle, chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 50, left: 60, inner: 42},
+    margin = {top: 78, right: 30, bottom: 50, left: 60, inner: 42},
     h = height - margin.top - margin.bottom,
     plotTop = margin.top;
 
@@ -46,11 +46,11 @@ function singlePlot(modelName, lineData, i) {
         .domain([minValue, maxValue]);
 
   // add plot things only once
-  if (i==1) {
+  if (i == 1) {
     svg.append("text")
         .attr("class", "bigTitle")
         .attr("x", margin.left)
-        .attr("y", plotTop - 60)
+        .attr("y", plotTop - 40)
         .text(chartTitle);
   }
 

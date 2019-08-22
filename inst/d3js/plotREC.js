@@ -6,7 +6,7 @@ var minValue = options.xmin, maxValue = options.xmax,
 var ymin = 0, ymax = 1, size = 2;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
+    margin = {top: 78, right: 30, bottom: 71, left: 60, inner: 42},
     h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
@@ -32,7 +32,7 @@ var y = d3.scaleLinear()
 svg.append("text")
     .attr("class", "bigTitle")
     .attr("x", margin.left)
-    .attr("y", margin.top - 60)
+    .attr("y", margin.top - 40)
     .text(chartTitle);
 
 svg.append("text")
@@ -93,11 +93,8 @@ var line = d3.line()
 
 // make tooltip
 var tool_tip = d3.tip()
-            .attr("class", "tooltip")
-            .offset([-8, 0])
-            .html(function(d) {
-                return staticTooltipHtml(d);
-              });
+            .attr("class", "d3-tip")
+            .html(d => staticTooltipHtml(d));
 
 svg.call(tool_tip);
 
@@ -105,7 +102,7 @@ svg.call(tool_tip);
 var bisectXhat = d3.bisector(d => d.x).right;
 
 // tooltip appear with info nearest to mouseover
-function appear(data){
+function appear(data) {
   var x0 = x.invert(d3.mouse(d3.event.currentTarget)[0]),
       i = bisectXhat(data, x0),
       d0 = data[i - 1],

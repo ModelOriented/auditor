@@ -2,7 +2,7 @@ var xTitle = options.xTitle, n = options.n,
     yTitle = options.yTitle, chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 70},
+    margin = {top: 78, right: 30, bottom: 71, left: 60, inner: 70},
     h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
@@ -56,7 +56,7 @@ function singlePlot(modelName, plotData, i) {
     svg.append("text")
         .attr("class", "bigTitle")
         .attr("x", plotLeft)
-        .attr("y", plotTop - 60)
+        .attr("y", plotTop - 40)
         .text(chartTitle);
   }
 
@@ -180,4 +180,3 @@ function singlePlot(modelName, plotData, i) {
     plotTop += (margin.inner + plotHeight);
   }
 }
-

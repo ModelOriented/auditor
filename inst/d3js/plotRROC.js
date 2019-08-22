@@ -8,7 +8,7 @@ var xmin = options.xmin, xmax = options.xmax,
     lineSize = 2, pointSize = 4;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60+8, inner: 42},
+    margin = {top: 78, right: 30, bottom: 71, left: 60+8, inner: 42},
     h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
@@ -35,7 +35,7 @@ var y = d3.scaleLinear()
 svg.append("text")
     .attr("class", "bigTitle")
     .attr("x", margin.left)
-    .attr("y", margin.top - 60)
+    .attr("y", margin.top - 40)
     .text(chartTitle);
 
 svg.append("text")
@@ -104,8 +104,7 @@ var line = d3.line()
 
 // make tooltip
 var tool_tip = d3.tip()
-            .attr("class", "tooltip")
-            .offset([-8, 0])
+            .attr("class", "d3-tip")
             .html(d => staticTooltipHtml(d));
 
 svg.call(tool_tip);
