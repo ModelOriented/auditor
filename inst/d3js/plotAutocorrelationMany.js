@@ -8,7 +8,7 @@ var points = options.points, smooth = options.smooth,
     background = options.background;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60+8, inner: 70},
+    margin = {top: 78, right: 30, bottom: 71, left: 60+8, inner: 70},
     h = height - margin.top - margin.bottom,
     plotTop = margin.top, plotLeft = margin.left;
 
@@ -62,11 +62,11 @@ function singlePlot(modelName, pointData, smoothData, i) {
           .curve(d3.curveMonotoneX);
 
     // add plot things only once
-    if (i==1) {
+    if (i == 1) {
       svg.append("text")
           .attr("class", "bigTitle")
           .attr("x", plotLeft)
-          .attr("y", plotTop - 60)
+          .attr("y", plotTop - 40)
           .text(chartTitle);
     }
 
