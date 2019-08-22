@@ -40,7 +40,7 @@
 plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, peaks = FALSE) {
 
   # some safeguard
-  `_val_` <- `_sqrt_std_residuals_` <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
+  `_val_` <- `_sqrt_std_residuals_` <- `_peak_` <- label <- maybe_peaks <- maybe_smooth <- NULL
 
   # check if passed object is of class "model_residuals" or "model_audit"
   check_object(object, type = "res" )

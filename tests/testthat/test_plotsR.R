@@ -40,8 +40,8 @@ test_that("plot_residual_boxplot", {
 
 test_that("plot_residual_density", {
   expect_is(plot_residual_density(mr_rf), "gg")
-  expect_is(plot_residual_density(mr_rf, split = TRUE), "gg")
-  expect_is(plot_residual_density(mr_rf, variable = "x2", split = TRUE), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = "x2"), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = ""), "gg")
   expect_is(plot_residual_density(mr_rf, variable = "_y_hat_"), "gg")
   expect_is(plot_residual_density(mr_rf, mr_glm, variable = "_y_hat_"), "gg")
 })

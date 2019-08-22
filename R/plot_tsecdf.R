@@ -40,7 +40,7 @@
 plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
                              residuals = TRUE, reverse_y = FALSE) {
   # some safeguard
-  res <- ecd <- `_label_` <- big <- no.obs <- NULL
+  res <- ecd <- `_label_` <- big <- no.obs <- ord <- NULL
 
   # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")

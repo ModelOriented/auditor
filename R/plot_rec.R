@@ -47,7 +47,7 @@
 plot_rec <- function(object, ...) {
 
   # some safeguard
-  rec_x <- rec_y <- label <- ord <- NULL
+  `_rec_x_` <- `_rec_y_` <- `_label_` <- ord <- NULL
 
   # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
