@@ -49,8 +49,9 @@ plot_roc <- function(object, ..., nlabel = NULL) {
 
   # prepare data frame for the ggplot object
   df <- make_dataframe(object, ..., type = "eva")
+
   # if cutoff points should be placed on the chart
-  n_models  <- length(unique(df$`_label_`))
+  n_models <- nlevels(df$`_label_`)
   len_model <- nrow(df) / n_models
   inds <- c()
   if (!is.null(nlabel)) {
@@ -60,7 +61,6 @@ plot_roc <- function(object, ..., nlabel = NULL) {
 
   # new varibale to set an order o curves
   df$ord <- paste(rev(as.numeric(factor(df$`_label_`))), df$`_label_`)
-  df$`_label_` <- factor(df$`_label_`)
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(n_models))
@@ -83,5 +83,5 @@ plot_roc <- function(object, ..., nlabel = NULL) {
 #' @export
 plotROC <- function(object, ..., nlabel = NULL) {
   message("Please note that 'plotROC()' is now deprecated, it is better to use 'plot_roc()' instead.")
-  plot_roc(object, ..., nlabel)
+  plot_roc(object, ..., nlabel = nlabel)
 }

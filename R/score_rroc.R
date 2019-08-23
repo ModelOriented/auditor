@@ -34,9 +34,9 @@ score_rroc <- function(object) {
   object <- model_residual(object)
 
   RROCF <- make_rroc_df(object)
-  RROCF <- RROCF[RROCF$curve == TRUE,]
-  x <- RROCF$rroc_x
-  y <- RROCF$rroc_y
+  RROCF <- RROCF[RROCF$`_curve_` == TRUE,]
+  x <- RROCF$`_rroc_x_`
+  y <- RROCF$`_rroc_y_`
 
   aoc <- 0
   for (i in 2:(length(x) - 2)) {

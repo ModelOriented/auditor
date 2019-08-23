@@ -51,16 +51,11 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
   # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
 
-
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  if (is.null(variable)) {
-    variable <- "Observations"
-  }
-
   # set value for label of the X axis
-  if (variable == "Observations") {
+  if (is.null(variable)) {
     x_lab <- "Observations"
   } else if (variable == "_y_")  {
     x_lab <- "Target variable"
@@ -73,15 +68,14 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
   # data frame for extra geoms
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
 
-
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
+
   # main chart
   p <- ggplot(data = df, aes(`_val_`, `_y_hat_`))
 
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)
-
 
   p# smoot curve for the main model
   if (smooth == TRUE)
@@ -114,5 +108,5 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
 #' @export
 plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = FALSE) {
   message("Please note that 'plotPrediction()' is now deprecated, it is better to use 'plot_prediction()' instead.")
-  plot_prediction(object, ..., variable, smooth, abline)
+  plot_prediction(object, ..., variable = variable, smooth = smooth, abline = abline)
 }

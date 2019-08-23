@@ -28,18 +28,18 @@
 #'
 #'
 #' @export
-model_evaluation <- function(object){
+model_evaluation <- function(object) {
   check_object(object, type = "exp")
 
   result <- calculate_classif_evaluation(object$y_hat, object$y, object$label)
 
-    class(result) <- c("auditor_model_evaluation", "data.frame")
+  class(result) <- c("auditor_model_evaluation", "data.frame")
   return(result)
 }
 
 
 
-calculate_classif_evaluation <- function(predictions, y, label){
+calculate_classif_evaluation <- function(predictions, y, label) {
 
   y <- factor(y)
   levels <- levels(y)
@@ -76,7 +76,7 @@ calculate_classif_evaluation <- function(predictions, y, label){
              rpp = rpp,
              tp = tp)
   colnames(res) <- c("_y_hat_", "_y_", "_cutoffs_", "_tpr_", "_fpr_", "_rpp_", "_tp_")
-  res$`_label_` <- label
+  res$`_label_` <- factor(label)
   res
 }
 

@@ -4,13 +4,16 @@ source("objects_for_tests.R")
 
 test_that("plot_acf", {
   expect_is(plot_acf(mr_rf, variable = "x2"), "gg")
+  expect_is(plot_acf(mr_rf, variable = "_y_"), "gg")
+  expect_is(plot_acf(mr_rf, variable = "_y_hat_"), "gg")
   expect_is(plot_acf(mr_rf), "gg")
 })
 
 test_that("plot_autocorrelation", {
   expect_is(plot_autocorrelation(mr_rf), "gg")
-  expect_is(plot_autocorrelation(mr_rf), "gg")
-  expect_is(plot_autocorrelation(mr_rf), "gg")
+  expect_is(plot_autocorrelation(mr_rf, variable = "_y_"), "gg")
+  expect_is(plot_autocorrelation(mr_rf, variable = "_y_hat_"), "gg")
+  expect_is(plot_autocorrelation(mr_rf, variable = "x1"), "gg")
   expect_is(plot_autocorrelation(mr_rf, smooth = TRUE), "gg")
   expect_is(plot_autocorrelation(mr_rf, mr_glm), "gg")
 })
@@ -29,6 +32,7 @@ test_that("plot_prediction", {
 
 test_that("plot_residual", {
   expect_is(plot_residual(mr_glm), "gg")
+  expect_is(plot_residual(mr_glm, variable = NULL), "gg")
   expect_is(plot_residual(mr_glm, variable = "_y_hat_"), "gg")
   expect_is(plot_residual(mr_glm, variable = "x2"), "gg")
   expect_is(plot_residual(mr_glm, std_residuals = TRUE, smooth = TRUE, nlabel = 5), "gg")
@@ -40,16 +44,19 @@ test_that("plot_residual_boxplot", {
 
 test_that("plot_residual_density", {
   expect_is(plot_residual_density(mr_rf), "gg")
-  expect_is(plot_residual_density(mr_rf, split = TRUE), "gg")
-  expect_is(plot_residual_density(mr_rf, variable = "x2", split = TRUE), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = NULL), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = "x2"), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = ""), "gg")
+  expect_is(plot_residual_density(mr_rf, variable = "_y_"), "gg")
   expect_is(plot_residual_density(mr_rf, variable = "_y_hat_"), "gg")
   expect_is(plot_residual_density(mr_rf, mr_glm, variable = "_y_hat_"), "gg")
 })
 
 test_that("plot_scalelocation", {
   expect_is(plot_scalelocation(mr_rf), "gg")
-  expect_is(plot_scalelocation(mr_rf, mr_glm), "gg")
+  expect_is(plot_scalelocation(mr_rf, mr_glm, variable = NULL), "gg")
   expect_is(plot_scalelocation(mr_rf, variable = "_y_hat_"), "gg")
+  expect_is(plot_scalelocation(mr_rf, variable = "x2"), "gg")
   expect_is(plot_scalelocation(mr_rf, smooth = TRUE), "gg")
   expect_is(plot_scalelocation(mr_rf, peaks = TRUE), "gg")
 })

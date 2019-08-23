@@ -87,7 +87,7 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, scale_
 
   # check if variable is in data frame
   if (!is.null(variable)) {
-    if (!variable %in% colnames(object)) {
+    if (!variable %in% colnames(object) && variable != "") {
       stop("The model_residual() function requires `variable = '_y_'`,  `variable = _y_hat_`, `variable = NULL`,  or the name of variable from model data frame.")
     }
   }
@@ -140,7 +140,8 @@ make_rec_df <- function(object) {
   }
 
   df <- data.frame(rec_x = rec_x, rec_y = rec_y, label = object$`_label_`[1])
-  return(df)
+  colnames(df) <- paste0("_", colnames(df), sep = "_")
+  df
 }
 
 make_rroc_df <- function(object) {
@@ -169,7 +170,8 @@ make_rroc_df <- function(object) {
                              rroc_y = sum(err[which(err < 0)], na.rm = TRUE),
                              label = object$`_label_`[1],
                              curve = FALSE))
-  return(df)
+  colnames(df) <- paste0("_", colnames(df), sep = "_")
+  df
 }
 
 obs_influence_add <- function(object, nlabel) {
@@ -181,10 +183,15 @@ obs_influence_add <- function(object, nlabel) {
 
 get_division <- function(modelData, variable) {
   df <- modelData
-  if(is.null(variable)){
+
+  if (!is.null(variable)) {
+    if (variable == "") variable <- NULL
+  }
+
+  if (is.null(variable)) {
     modelData$`_val_`<- 1:nrow(modelData)
   } else {
-    modelData$`_val_`<-modelData[,variable]
+    modelData$`_val_`<- modelData[, variable]
   }
 
   if (any(class(modelData$`_val_`) %in% c("numeric", "integer"))) {
@@ -193,6 +200,7 @@ get_division <- function(modelData, variable) {
   } else {
     df$`_div_` <- unlist(modelData$`_val_`, use.names = FALSE)
   }
+  df$`_div_` <- factor(df$`_div_`)
   rownames(df) <- NULL
   return(df)
 }
@@ -306,6 +314,7 @@ drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
   geom_point(data = df,
              aes(colour = `_label_`),
              alpha = ifelse(smooth == TRUE, alpha_val, 1),
+             show.legend = ifelse(smooth == TRUE, FALSE, TRUE),
              stroke = 0)
 }
 

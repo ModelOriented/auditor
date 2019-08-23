@@ -1,7 +1,6 @@
 #' @title  DrWhy Theme for ggplot objects
 #'
 #' @return theme for ggplot2 objects
-#' @export
 #' @rdname theme_drwhy
 theme_drwhy <- function() {
   theme_bw(base_line_size = 0) %+replace%

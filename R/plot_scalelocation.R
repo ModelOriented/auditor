@@ -40,7 +40,7 @@
 plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, peaks = FALSE) {
 
   # some safeguard
-  `_val_` <- `_sqrt_std_residuals_` <- peak <- label <- maybe_peaks <- maybe_smooth <- NULL
+  `_val_` <- `_sqrt_std_residuals_` <- `_peak_` <- label <- maybe_peaks <- maybe_smooth <- NULL
 
   # check if passed object is of class "model_residuals" or "model_audit"
   check_object(object, type = "res" )
@@ -64,7 +64,7 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
   }
 
   # data frame for extra geoms
-  maybe_peaks  <- if (peaks == TRUE) subset(df, peak == TRUE) else df[0, ]
+  maybe_peaks  <- if (peaks == TRUE) subset(df, `_peak_` == TRUE) else df[0, ]
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
@@ -85,7 +85,7 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
   # theme, colours, titles, axes, scales, etc.
   p <- p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1))
 
   chart_title <- "Scale location"
 
@@ -106,5 +106,5 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
 #' @export
 plotScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
   message("Please note that 'plotScaleLocation()' is now deprecated, it is better to use 'plot_scalelocation()' instead.")
-  plot_scalelocation(object, ..., variable, smooth, peaks)
+  plot_scalelocation(object, ..., variable = variable, smooth = smooth, peaks = peaks)
 }

@@ -49,6 +49,7 @@ plot_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99) {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., quant = quantiles, type = "fit")
+
   # main chart
   p <- ggplot(data = df, aes(`_x_`)) +
     geom_point(aes(y = `_residuals_`), colour = "#371ea3") +
@@ -65,7 +66,6 @@ plot_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99) {
   if (quantiles == TRUE) {
     p + scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
       scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
-      coord_fixed(ratio = 1) +
       ylab("Quantiles of |residuals|")
   } else {
     p + scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks()) +
@@ -78,5 +78,5 @@ plot_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99) {
 #' @export
 plotHalfNormal <- function(object, ..., quantiles = FALSE, sim = 99) {
   message("Please note that 'plotHalfNormal()' is now deprecated, it is better to use 'plot_halfnormal()' instead.")
-  plot_halfnormal(object, ..., quantiles, sim)
+  plot_halfnormal(object, ..., quantiles = quantiles, sim = sim)
 }
