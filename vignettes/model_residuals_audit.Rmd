@@ -294,10 +294,10 @@ plot(rf_mr, lm_mr, type = "tsecdf")
 
 Other methods and plots are described in vignettes: 
 
-* [Model Evaluation audit](https://mi2datalab.github.io/auditor/articles/model_fit_audit.html)
+* [Model Evaluation audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
 
-* [Model Fit audit](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html)
+* [Model Fit audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
 
-* [Model Performance audit](https://mi2datalab.github.io/auditor/articles/model_performance_audit.html)
+* [Model Performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
 
-* [Observation Influence audit](https://mi2datalab.github.io/auditor/articles/observation_influence_audit.html)
+* [Observation Influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)

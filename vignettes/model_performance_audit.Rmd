@@ -100,12 +100,12 @@ plot(lm_mp, rf_mp)
 
 Other methods and plots are described in vignettes: 
 
-* [Model Residuals audit](https://mi2datalab.github.io/auditor/articles/model_residuals_audit.html)
+* [Model Residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
 
-* [Model Evaluation audit](https://mi2datalab.github.io/auditor/articles/model_evaluation_audit.html)
+* [Model Evaluation audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
 
-* [Model Fit audit](https://mi2datalab.github.io/auditor/articles/model_fit_audit.html)
+* [Model Fit audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
 
-* [Observation Influence audit](https://mi2datalab.github.io/auditor/articles/observation_influence_audit.html)
+* [Observation Influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)
 
 

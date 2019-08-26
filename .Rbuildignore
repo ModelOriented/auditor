@@ -15,3 +15,4 @@ binder
 ^_pkgdown\.yml$
 README.Rmd
 README_files
+README.md
