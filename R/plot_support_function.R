@@ -184,12 +184,18 @@ obs_influence_add <- function(object, nlabel) {
 get_division <- function(modelData, variable) {
   df <- modelData
 
-  if (!is.null(variable)) {
-    if (variable == "") variable <- NULL
-  }
-
   if (is.null(variable)) {
+    variable <- "observation index"
     modelData$`_val_`<- 1:nrow(modelData)
+  } else if (variable == "") {
+    variable <- "observation index"
+    modelData$`_val_`<- 1:nrow(modelData)
+  } else if (variable == "_y_") {
+    modelData$`_val_`<- modelData[, variable]
+    variable <- "target variable"
+  } else if (variable == "_y_hat_") {
+    modelData$`_val_`<- modelData[, variable]
+    variable <- "actual response"
   } else {
     modelData$`_val_`<- modelData[, variable]
   }
@@ -200,7 +206,9 @@ get_division <- function(modelData, variable) {
   } else {
     df$`_div_` <- unlist(modelData$`_val_`, use.names = FALSE)
   }
+
   df$`_div_` <- factor(df$`_div_`)
+
   rownames(df) <- NULL
   return(df)
 }

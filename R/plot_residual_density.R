@@ -58,40 +58,23 @@ plot_residual_density <- function(object, ..., variable = "") {
   model_count <- nlevels(df$`_label_`)
   df$`_ord_` <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
+  split <- TRUE
+
   if (!is.null(variable)) {
-    split <- FALSE
-    if (variable != "") split <- TRUE
+    if (variable == "") split <- FALSE
   }
 
-  # set value for label of the X axis
-  if (is.null(variable)) {
-    lab <- "observations"
-    split <- TRUE
-  } else if (variable == "_y_")  {
-    lab <- "target variable"
-  } else if (variable == "_y_hat_") {
-    lab <- "actual response"
-  } else {
-    lab <- as.character(df$`_variable_`[1])
-  }
-
-  levels(df$`_div_`) <- gsub("\\s.+\\s|\\s\\s", paste0(" ", lab, " "), levels(df$`_div_`))
+  var_split <- "`_label_`"
 
   # arguments differ depending on splitting or not
   if (split == TRUE) {
-    var_split <- "`_label_`"
     colours <- theme_drwhy_colors(nlevels(df$`_div_`))
     legend_pos <- "bottom"
-    # if (model_count == 1) legend_pos <- "none"
     legend_just <- "center"
-    split_by <- unique(df$`_label_`)
-  } else if (split == FALSE) {
-    var_split <- "`_label_`"
+  } else {
     colours <- theme_drwhy_colors(model_count)
     legend_pos <- "top"
     legend_just <- c(1, 0)
-    # if (model_count == 1) legend_pos <- "none"
-    split_by <- unique(df$`_label_`)
   }
 
   if (model_count == 1) legend_pos <- "none"
@@ -102,7 +85,7 @@ plot_residual_density <- function(object, ..., variable = "") {
     geom_vline(xintercept = 0, colour = "darkgrey") +
     annotate("segment", x = -Inf, xend = Inf,  y = -Inf, yend = -Inf, colour = "#371ea3") +
     scale_color_manual(values = colours) +
-    scale_fill_manual(values = colours, breaks = split_by) +
+    scale_fill_manual(values = colours, breaks = unique(df$`_label_`)) +
     guides(fill = guide_legend(override.aes = list(alpha = 0.5))) +
     theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3"),
