@@ -153,6 +153,7 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
 }
 
 #' @rdname plotD3_autocorrelation
+#' @noRd
 #' @export
 plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                                   point_count = NULL, single_plot = TRUE, scale_plot = FALSE,

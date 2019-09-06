@@ -100,6 +100,7 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE) {
 
 
 #' @rdname plotD3_lift
+#' @noRd
 #' @export
 plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
   message("Please note that 'plotD3LIFT()' is now deprecated, it is better to use 'plotD3_lift()' instead.")

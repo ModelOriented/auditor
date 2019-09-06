@@ -1,7 +1,60 @@
 template:
   package: DrWhyTemplate
   default_assets: false
-home:
-  links:
-  - text: Source code
-    href: https://github.com/MI2DataLab/auditor
+reference:
+  - title: Computational functions
+    desc: functions creating tidy data frames from DALEX explainers according to specific objectives
+    contents:
+    - model_cooksdistance
+    - model_evaluation
+    - model_halfnormal
+    - model_performance
+    - model_residual
+  - title: Plots
+    desc: ploting functions
+    contents:
+    - plot_acf
+    - plot_autocorrelation
+    - plot_cooksdistance
+    - plot_correlation
+    - plot_halfnormal
+    - plot_lift
+    - plot_pca
+    - plot_prediction
+    - plot_radar
+    - plot_rec
+    - plot_residual
+    - plot_residual_boxplot
+    - plot_residual_density
+    - plot_roc
+    - plot_rroc
+    - plot_scalelocation
+    - plot_tsecdf
+    - plotD3_acf
+    - plotD3_autocorrelation
+    - plotD3_cooksdistance
+    - plotD3_halfnormal
+    - plotD3_lift
+    - plotD3_prediction
+    - plotD3_rec
+    - plotD3_residual
+    - plotD3_roc
+    - plotD3_rroc
+    - plotD3_scalelocation
+  - title: Scores
+    desc: Specfic versions of the generic yhat function
+    contents:
+    - score_auc
+    - score_cooksdistance
+    - score_dw
+    - score_halfnormal
+    - score_mae
+    - score_mse
+    - score_peak
+    - score_rec
+    - score_rmse
+    - score_rroc
+    - score_runs
+  - title: Misc
+    contents:
+    - audit

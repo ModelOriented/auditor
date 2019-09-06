@@ -85,6 +85,7 @@ plotD3_rec <- function(object, ..., scale_plot = FALSE) {
 
 
 #' @rdname plotD3_rec
+#' @noRd
 #' @export
 plotD3REC <- function(object, ..., scale_plot = FALSE) {
   message("Please note that 'plotD3REC()' is now deprecated, it is better to use 'plotD3_rec()' instead.")

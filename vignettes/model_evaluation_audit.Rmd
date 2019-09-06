@@ -1,5 +1,5 @@
 ---
-title: "Model Evaluation Audit"
+title: "Model evaluation audit"
 author: "Alicja Gosiewska"
 date: "`r Sys.Date()`"
 output: html_document

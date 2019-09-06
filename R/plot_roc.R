@@ -80,6 +80,7 @@ plot_roc <- function(object, ..., nlabel = NULL) {
 }
 
 #' @rdname plot_roc
+#' @noRd
 #' @export
 plotROC <- function(object, ..., nlabel = NULL) {
   message("Please note that 'plotROC()' is now deprecated, it is better to use 'plot_roc()' instead.")

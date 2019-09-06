@@ -67,6 +67,7 @@ plot_residual_boxplot <- function(object, ...) {
 }
 
 #' @rdname plot_residual_boxplot
+#' @noRd
 #' @export
 plotResidualBoxplot <- function(object, ...) {
   message("Please note that 'plotResidualBoxplot()' is now deprecated, it is better to use 'plot_residual_boxplot()' instead.")

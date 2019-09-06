@@ -166,6 +166,7 @@ plotD3_prediction <- function(object, ..., variable = '_y_', points = TRUE, smoo
 }
 
 #' @rdname plotD3_prediction
+#' @noRd
 #' @export
 plotD3Prediction <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                              abline = FALSE,

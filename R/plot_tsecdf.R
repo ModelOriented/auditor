@@ -86,6 +86,7 @@ plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
 
 
 #' @rdname plot_tsecdf
+#' @noRd
 #' @export
 plotTwoSidedECDF <- function(object, ..., scale_error = TRUE, outliers = NA,
                              residuals = TRUE, reverse_y = FALSE) {

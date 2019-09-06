@@ -5,7 +5,7 @@
 #'
 #' @param object Object passed to the function
 #' @param type Type of check; default is \code{res} which stands for "model residuals".
-#' Other possible values: \code{eva} - model evaluation
+#' @noRd
 check_object <- function(object, type = "res") {
   model_type <- switch(type,
                        "res" = "auditor_model_residual",
@@ -45,7 +45,7 @@ check_object <- function(object, type = "res") {
 #' @param reverse_y A logical value indicating whether values on y axis should be reversed on `plotECDF`
 #' @param score Vector of standard scores for modelRankingPlot
 #' @param new.score Function for custom score for modelRankingPlot
-#' Other possible values: \code{eva} - model evaluation
+#' @noRd
 make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "res",
                            quant = NULL, values = NULL, scale_error = TRUE, outliers = NA,
                            residuals = TRUE, reverse_y = FALSE, score = NULL, new.score = NULL) {
@@ -82,6 +82,7 @@ make_dataframe <- function(object, ..., variable = NULL, nlabel = NULL, type = "
 #' @param score Scores
 #' @param new.score New scores
 #' @param type Type of model passed
+#' @noRd
 prepare_object <- function(object, variable, nlabel, type, quant, values, scale_error, outliers, reverse_y,
                            score, new.score) {
 
@@ -125,6 +126,7 @@ make_scale_loc_df <- function(object) {
   return(result_df)
 }
 
+
 make_rec_df <- function(object) {
   err <- sort(abs(object$`_residuals_`))
   err <- c(0, err)
@@ -143,6 +145,7 @@ make_rec_df <- function(object) {
   colnames(df) <- paste0("_", colnames(df), sep = "_")
   df
 }
+
 
 make_rroc_df <- function(object) {
   err <- sort(object$`_y_hat_` - object$`_y_`)
@@ -174,12 +177,14 @@ make_rroc_df <- function(object) {
   df
 }
 
+
 obs_influence_add <- function(object, nlabel) {
 
   object$`_big_` <- c(rep(TRUE, nlabel), rep(FALSE, nrow(object) - nlabel))
 
   return(object)
 }
+
 
 get_division <- function(modelData, variable) {
   df <- modelData
@@ -213,11 +218,13 @@ get_division <- function(modelData, variable) {
   return(df)
 }
 
+
 make_pca_df <- function(object) {
   df <- data.frame(y = object$`_residuals_`)
   colnames(df) <- as.character(object$`_label_`[1])
   object <- df
 }
+
 
 make_corr_df <- function(object, values) {
   '_y_' <- '_y_hat_' <- NULL
@@ -233,6 +240,7 @@ make_corr_df <- function(object, values) {
   }
   return(df)
 }
+
 
 get_tsecdf_df <- function(object, scale_error, outliers, reverse_y) {
   res <- object$`_residuals_`
@@ -270,6 +278,7 @@ get_tsecdf_df <- function(object, scale_error, outliers, reverse_y) {
   return(df)
 }
 
+
 scaleModelRankingDF <- function(df) {
   df_new <- data.frame()
   scores <- unique(df[,"_name_"])
@@ -305,7 +314,6 @@ scaleModelRankingDF <- function(df) {
 }
 
 
-
 #' @title DrWhy's wrapper for geom_point function
 #'
 #' @description Function which draws point layers in desired order
@@ -314,6 +322,7 @@ scaleModelRankingDF <- function(df) {
 #' @param smooth Logical, if set to \code{TRUE} point are drawn with alpha (set in \code{alpha_val}
 #' argument).  Default is \code{FALSE}
 #' @param alpha_val Numeric, level of alpha of points when smooth is drawn
+#' @noRd
 drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
   `_label_` <- NULL
   # ordering data to get right order of points on the plot
@@ -332,6 +341,7 @@ drwhy_geom_point <- function(df, smooth = FALSE, alpha_val) {
 #' @description Function which draws smooth layers in desired order
 #'
 #' @param df Data frame prepared by (\code{make_dataframe}) function
+#' @noRd
 drwhy_geom_smooth <- function(df) {
   'ord' <- '_label_' <- NULL
 
@@ -456,4 +466,3 @@ corr_points <- function(args, data) {
     xlab(ifelse(args[3], args[1], "")) +
     ylab(ifelse(args[4], args[2], ""))
 }
-

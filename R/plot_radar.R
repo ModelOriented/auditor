@@ -81,6 +81,7 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
 }
 
 #' @rdname plot_radar
+#' @noRd
 #' @export
 plotModelRanking <- function(object, ..., score = c("MAE", "MSE", "REC", "RROC"), new_score = NULL) {
   message("Please note that 'plotModelRanking()' is now deprecated, it is better to use 'plot_radar()' instead.")
