@@ -1,7 +1,4 @@
-
-# The auditor package - model verification, validation, and error analysis
-
-<img src="materials/auditor2.png" width="20%" align="right" />
+# Model verification, validation, and error analysis <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" />
@@ -9,6 +6,8 @@
 Status](https://travis-ci.org/ModelOriented/auditor.svg?branch=master)](https://travis-ci.org/ModelOriented/auditor)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/modeloriented/auditor/master.svg)](https://codecov.io/github/modeloriented/auditor?branch=master)
+
+## Overview
 
 Package `auditor` is a tool for model-agnostic validation. Implemented
 techniques facilitate assessing and comparing the goodness of fit and

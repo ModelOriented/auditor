@@ -3,7 +3,7 @@ output: github_document
 ---
 
 # The auditor package - model verification, validation, and error analysis   
-<img src="materials/auditor2.png" width="20%" align="right" />
+<img src="man/figures/logo.png" width="150" align="right" />
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
