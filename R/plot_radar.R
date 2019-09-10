@@ -73,11 +73,13 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
           axis.text.x = element_text(size = 10),
           plot.title = element_text(color = "#371ea3", face = "bold", hjust = 0.5))
 
-  df$name <- gsub("inv\n", "", df$`_name_`)
-
-  if(verbose == TRUE) print(subset(df, select = c(`_name_`, `_label_`, `_value_`, scaled)))
-
-   p
+  if (verbose == TRUE) {
+    df$`_name_` <- gsub("inv\n", "", df$`_name_`)
+    colnames(df) <- gsub("_", "", colnames(df))
+    df <- subset(df, select = -score)
+    print(subset(df, select = c(name, label, value, scaled)))
+  }
+  p
 }
 
 #' @rdname plot_radar
