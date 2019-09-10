@@ -18,7 +18,7 @@ knitr::opts_chunk$set(message = FALSE)
 
 In this vignette we present plots for evaluation of classification models.
 
-# Data
+## Data
 
 We work on `titanic` dataset form the `DALEX` package.
 
@@ -29,7 +29,7 @@ head(titanic)
 ```
 
 
-# Models
+## Models
 
 We fit 2 models: glm and svm.
 
@@ -85,7 +85,7 @@ plot(eva_glm, eva_svm, type = "lift")
 ```
 
 
-# Other methods
+## Other methods
 
 Other methods and plots are described in vignettes: 
 

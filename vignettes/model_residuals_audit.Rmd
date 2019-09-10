@@ -28,9 +28,7 @@ Many algorithms, such as random forests and neutral networks are sometimes treat
 Most methods provided in auditor package are model-agnostic, what means that they can be used regardless of expected distribution of residuals.
 
 
-# Data
-
-Use case - predicting a length of life
+## Data
 
 To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem). 
 
@@ -59,6 +57,7 @@ rf_model <- randomForest(life_length ~ ., data = dragons)
 
 Analysis begins with creation of an explainer object with `explain` function from `DALEX` package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.
 
+
 ```{r results = 'hide'}
 lm_exp <- DALEX::explain(lm_model, label = "lm", data = dragons, y = dragons$life_length)
 rf_exp <- DALEX::explain(rf_model, label = "rf", data = dragons, y = dragons$life_length)
@@ -66,7 +65,6 @@ rf_exp <- DALEX::explain(rf_model, label = "rf", data = dragons, y = dragons$lif
 
 
 Next step requires creation of `model_residual` objects of each explained model. From this step on, only `auditor` functions will be used.
-
 
 ```{r}
 library(auditor)
@@ -290,9 +288,6 @@ plot(rf_mr, lm_mr, type = "tsecdf")
 Other methods and plots are described in following vignettes: 
 
 * [Model evaluation audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
-
 * [Model fit audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
-
 * [Model performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
-
 * [Observation influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)
