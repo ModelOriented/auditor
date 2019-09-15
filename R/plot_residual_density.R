@@ -46,7 +46,7 @@
 #' @export
 plot_residual_density <- function(object, ..., variable = "") {
   # some safeguard
-  `_residuals_` <- label <- div <- NULL
+  `_residuals_` <- `_label_` <- label <- div <- NULL
 
   # check if passed object is of class "auditor_model_residuals"
   check_object(object, type = "res")

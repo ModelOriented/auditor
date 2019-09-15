@@ -37,7 +37,7 @@
 plot_radar <- function(object, ..., verbose = TRUE) {
 
   # safeguard
-  x <- y <- `_value_` <- scaled <- `_name_` <- `_label_` <- `_score_` <- label <- NULL
+  x <- y <- `_value_` <- scaled <- `_name_` <- `_label_` <- `_score_` <- label <- name <- value <- NULL
 
   # check if passed object is of class "model_performance"
   check_object(object, type = "prfm")
