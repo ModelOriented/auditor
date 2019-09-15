@@ -42,7 +42,7 @@ reference:
     - plotD3_rroc
     - plotD3_scalelocation
   - title: Scores
-    desc: Specfic versions of the generic yhat function
+    desc: Scores for model and plot functions
     contents:
     - score_auc
     - score_cooksdistance

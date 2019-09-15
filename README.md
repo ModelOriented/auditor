@@ -1,7 +1,4 @@
-
-# The auditor package - model verification, validation, and error analysis
-
-<img src="materials/auditor2.png" width="20%" align="right" />
+# Model verification, validation, and error analysis <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" />
@@ -9,6 +6,8 @@
 Status](https://travis-ci.org/ModelOriented/auditor.svg?branch=master)](https://travis-ci.org/ModelOriented/auditor)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/modeloriented/auditor/master.svg)](https://codecov.io/github/modeloriented/auditor?branch=master)
+
+## Overview
 
 Package `auditor` is a tool for model-agnostic validation. Implemented
 techniques facilitate assessing and comparing the goodness of fit and
@@ -79,8 +78,6 @@ plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
   - A [preprint of the article about
     auditor](https://arxiv.org/abs/1809.07763) is available on arxiv.
 
-  - Acknowledgments: Work on this package was financially supported by
-    the ‘NCN Opus grant 2016/21/B/ST6/02176’.
 
 ### A short overview of plots
 
@@ -108,3 +105,8 @@ models.
 | Regression Receiver Operating Characteristic (RROC) | [plot\_rroc()](https://modeloriented.github.io/auditor/reference/plot_rroc.html)                          | \-                                                                                                         | “rroc”              | yes  | yes   |
 | Scale-Location Plot                                 | [plot\_scalelocation()](https://modeloriented.github.io/auditor/reference/plot_scalelocation.html)        | [plotD3\_scalelocation()](https://modeloriented.github.io/auditor/reference/plotD3_scalelocation.html)     | “scalelocation”     | yes  | yes   |
 | Two-sided Cumulative Distribution Function          | [plot\_tsecdf()](https://modeloriented.github.io/auditor/reference/plot_tsecdf.html)                      | \-                                                                                                         | “tsecdf”            | yes  | yes   |
+
+
+###  Acknowledgments
+Work on this package was financially supported by
+    the ‘NCN Opus grant 2016/21/B/ST6/02176’.
