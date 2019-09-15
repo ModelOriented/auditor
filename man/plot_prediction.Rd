@@ -2,13 +2,9 @@
 % Please edit documentation in R/plot_prediction.R
 \name{plot_prediction}
 \alias{plot_prediction}
-\alias{plotPrediction}
 \title{Predicted response vs Observed or Variable Values}
 \usage{
 plot_prediction(object, ..., variable = "_y_", smooth = FALSE,
-  abline = FALSE)
-
-plotPrediction(object, ..., variable = NULL, smooth = FALSE,
   abline = FALSE)
 }
 \arguments{
@@ -24,8 +20,8 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
-\item{abline}{Logical, indicates whenever function y = x should be added. Works only
-with \code{variable = NULL} which is a default option.}
+\item{abline}{Logical, indicates whenever function `y = x` should be added. Works only
+with \code{variable = "_y_"} (which is a default option) or when `variable` equals actual response variable.}
 }
 \value{
 A ggplot2 object.

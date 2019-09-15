@@ -2,12 +2,9 @@
 % Please edit documentation in R/plot_rroc.R
 \name{plot_rroc}
 \alias{plot_rroc}
-\alias{plotRROC}
 \title{Regression Receiver Operating Characteristic (RROC)}
 \usage{
 plot_rroc(object, ...)
-
-plotRROC(object, ...)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

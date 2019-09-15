@@ -2,12 +2,9 @@
 % Please edit documentation in R/plot_cooksdistance.R
 \name{plot_cooksdistance}
 \alias{plot_cooksdistance}
-\alias{plotCooksDistance}
 \title{Influence of Observations Plot}
 \usage{
 plot_cooksdistance(object, ..., nlabel = 3)
-
-plotCooksDistance(object, ..., nlabel = 3)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_cooksdistance' created with \code{\link{model_cooksdistance}} function.}

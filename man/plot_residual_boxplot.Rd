@@ -2,12 +2,9 @@
 % Please edit documentation in R/plot_residual_boxplot.R
 \name{plot_residual_boxplot}
 \alias{plot_residual_boxplot}
-\alias{plotResidualBoxplot}
 \title{Plot Boxplots of Residuals}
 \usage{
 plot_residual_boxplot(object, ...)
-
-plotResidualBoxplot(object, ...)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

@@ -2,13 +2,9 @@
 % Please edit documentation in R/plot_residual.R
 \name{plot_residual}
 \alias{plot_residual}
-\alias{plotResidual}
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
 plot_residual(object, ..., variable = "_y_", smooth = FALSE,
-  std_residuals = FALSE, nlabel = 0)
-
-plotResidual(object, ..., variable = NULL, smooth = FALSE,
   std_residuals = FALSE, nlabel = 0)
 }
 \arguments{

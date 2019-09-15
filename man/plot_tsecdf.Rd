@@ -2,13 +2,9 @@
 % Please edit documentation in R/plot_tsecdf.R
 \name{plot_tsecdf}
 \alias{plot_tsecdf}
-\alias{plotTwoSidedECDF}
 \title{Two-sided Cumulative Distribution Function}
 \usage{
 plot_tsecdf(object, ..., scale_error = TRUE, outliers = NA,
-  residuals = TRUE, reverse_y = FALSE)
-
-plotTwoSidedECDF(object, ..., scale_error = TRUE, outliers = NA,
   residuals = TRUE, reverse_y = FALSE)
 }
 \arguments{

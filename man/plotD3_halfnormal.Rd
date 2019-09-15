@@ -2,13 +2,9 @@
 % Please edit documentation in R/plotD3_halfnormal.R
 \name{plotD3_halfnormal}
 \alias{plotD3_halfnormal}
-\alias{plotD3HalfNormal}
 \title{Plot Half-Normal in D3 with r2d3 package.}
 \usage{
 plotD3_halfnormal(object, ..., quantiles = FALSE, sim = 99,
-  scale_plot = FALSE)
-
-plotD3HalfNormal(object, ..., quantiles = FALSE, sim = 99,
   scale_plot = FALSE)
 }
 \arguments{

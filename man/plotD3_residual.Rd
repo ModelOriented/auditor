@@ -2,17 +2,12 @@
 % Please edit documentation in R/plotD3_residual.R
 \name{plotD3_residual}
 \alias{plotD3_residual}
-\alias{plotD3Residual}
 \title{Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 package.}
 \usage{
 plotD3_residual(object, ..., variable = "_y_", points = TRUE,
   smooth = FALSE, std_residuals = FALSE, nlabel = 0,
   point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
   background = FALSE)
-
-plotD3Residual(object, ..., variable = NULL, points = TRUE,
-  smooth = FALSE, std_residuals = FALSE, point_count = NULL,
-  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

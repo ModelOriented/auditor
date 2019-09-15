@@ -2,12 +2,9 @@
 % Please edit documentation in R/plot_residual_density.R
 \name{plot_residual_density}
 \alias{plot_residual_density}
-\alias{plotResidualDensity}
 \title{Residual Density Plot}
 \usage{
 plot_residual_density(object, ..., variable = "")
-
-plotResidualDensity(object, ..., variable = NULL)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

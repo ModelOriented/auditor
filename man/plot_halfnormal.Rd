@@ -2,12 +2,9 @@
 % Please edit documentation in R/plot_halfnormal.R
 \name{plot_halfnormal}
 \alias{plot_halfnormal}
-\alias{plotHalfNormal}
 \title{Half-Normal plot}
 \usage{
 plot_halfnormal(object, ..., quantiles = FALSE, sim = 99)
-
-plotHalfNormal(object, ..., quantiles = FALSE, sim = 99)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.}
