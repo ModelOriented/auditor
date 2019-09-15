@@ -114,7 +114,8 @@ prepare_object <- function(object, variable, nlabel, type, quant, values, scale_
          "pca"  = { object <- make_pca_df(object) },
          "corr" = { object <- make_corr_df(object, values) },
          "ecdf" = { object <- get_tsecdf_df(object, scale_error, outliers, reverse_y) },
-         "infl" = { object <- obs_influence_add(object, nlabel) })
+         "infl" = { object <- obs_influence_add(object, nlabel) },
+         "prfm" = { object <- as.data.frame(object) })
   return(object)
 }
 

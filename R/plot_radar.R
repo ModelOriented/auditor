@@ -4,8 +4,6 @@
 #'
 #' @param object An object of class 'auditor_model_performance' created with \code{\link{model_performance}} function.
 #' @param ... Other auditor_model_performance' objects to be plotted together.
-#' @param score Vector of score names to be plotted.
-#' @param new_score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param verbose Logical, indicates whether values of scores should be printed.
 #'
 #' @return ggplot object
@@ -32,15 +30,11 @@
 #' # plot results
 #' plot_radar(mp_lm, mp_rf)
 #'
-#'
 #' @import ggplot2
-#' @import gridExtra
-#' @importFrom grDevices blues9
-#' @importFrom grid grobTree
 #' @import scales
 #'
 #' @export
-plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_score = NULL, verbose = TRUE) {
+plot_radar <- function(object, ..., verbose = TRUE) {
 
   # safeguard
   x <- y <- `_value_` <- scaled <- `_name_` <- `_label_` <- `_score_` <- label <- NULL
@@ -49,7 +43,7 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
   check_object(object, type = "prfm")
   # data frame for ggplot object
 
-  df <- make_dataframe(object, ..., score = score, new_score = new_score, type = "prfm")
+  df <- make_dataframe(object, ..., type = "prfm")
 
   # data frame for extra geoms
   df_text <- data.frame(x = df[,"_name_"][1], y = c(0.01, 0.25, 0.50, 0.75, 1), label = seq(0, 1, 0.25))
