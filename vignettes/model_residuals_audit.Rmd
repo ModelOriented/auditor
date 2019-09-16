@@ -30,7 +30,9 @@ Most methods provided in auditor package are model-agnostic, what means that the
 
 ## Data
 
-To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem). 
+Use case - predicting a length of life
+
+To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).
 
 
 ```{r}
@@ -40,7 +42,7 @@ head(dragons)
 ```
 
 ## Models
-First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables. While random forest should be able to capture also non-linear relationships between variables.
+First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables, while random forest should be able to capture also non-linear relationships between variables.
 
 ```{r}
 # Linear regression
@@ -64,7 +66,7 @@ rf_exp <- DALEX::explain(rf_model, label = "rf", data = dragons, y = dragons$lif
 ```
 
 
-Next step requires creation of `model_residual` objects of each explained model. From this step on, only `auditor` functions will be used.
+Next step requires creation of `model_residual` objects of each explainer. From this step on, only `auditor` functions will be used.
 
 ```{r}
 library(auditor)
@@ -75,12 +77,12 @@ rf_mr <- model_residual(rf_exp)
 
 ## Plots
 
-In the following section, we show individual plotting functions which demonstrate different aspects of residual analysis. We devote more attention to selected functions, but usage of each function is more or less similar.
+In the following section, we show individual plotting functions which demonstrate different aspects of residual analysis. We devote more attention to selected functions, but usage of each function is more or less similar. 
 
 
 ### Observed vs predicted
 
-First plot is a basic plot comparising predicted versus observed values. The red line corresponds to the `y = x` function. The patterns for both models are non-random around the diagonal line. The points corresponding to a random forest (darker dots) show the tendency to underprediction for large values of observed response. Points for linear model (lighter dots) are located more or less around diagonal line which means that this model predicted quite well.
+First plot is a basic plot comparising predicted versus observed values. The red line corresponds to the `y = x` function. The patterns for both models are non-random around the diagonal line. The points corresponding to a random forest (darker dots) show the tendency to underprediction for large values of observed response. Points for linear model (lighter dots) are located more or less around diagonal line which means that this model predicts quite well.
 
 ```{r}
 plot(rf_mr, lm_mr, type = "prediction", abline = TRUE)
@@ -89,18 +91,18 @@ plot(rf_mr, lm_mr, type = "prediction", abline = TRUE)
 # plot_prediction(rf_mr, lm_mr, variable = "life_length")
 ```
 
-Function `plot_prediction` presents observed values on the x-axis. However, on the x-axis there may be values of any model variable or by index of observations (`variable = NULL`). 
+Function `plot_prediction` presents observed values on the x-axis. However, on the x-axis there may be values of any model variable or observations ordered by index (`variable = NULL`).
 
 ```{r dodge-st, fig.show = "hold", out.width = "50%"}
 plot(rf_mr, lm_mr, variable = "scars", type = "prediction")
 plot(rf_mr, lm_mr, variable = "height", type = "prediction")
 ```
 
-As you can notice, on above plots, there is no relationship for variable `height` and predicted values while for increasing number of `scars`, model predictions also increase. This means that that model captured monotonic relationship between number of scars and length of life of dragon.
+As you can notice, on above plots, there is no relationship for variable `height` and predicted values while for increasing number of `scars` model predictions also increase of life length. This means that that model captured monotonic relationship between number of scars and length of life of dragon.
 
 ### Residuals vs observed, fitted or variable values
 
-Next function (`plot_residual()`) shows residuals versus observed values. This plot is used to detect dependence of errors, unequal error variances, and outliers. For appropriate model, residuals should not show any functional dependency. Expected mean value should be equal to 0, regardless of $\hat{y}$ values. Structured arrangement of points suggests a problem with the model. It is worth looking at the observations that clearly differ from the others. If points on the plot are not randomly dispersed around the horizontal axis, it may be presumed that model is not appropriate for the data. 
+Next function (`plot_residual()`) shows residuals versus observed values. This plot is used to detect dependence of errors, unequal error variances, and outliers. For appropriate model, residuals should not show any functional dependency. Expected mean value should be equal to 0, regardless of $\hat{y}$ values, so any structured arrangement of points suggests a problem with the model. It is worth looking at the observations that clearly differ from the others. If points on the plot are not randomly dispersed around the horizontal axis, it may be presumed that model is not appropriate for the data. 
 
 ```{r}
 plot(lm_mr, rf_mr, type = "residual")
@@ -109,7 +111,7 @@ plot(lm_mr, rf_mr, type = "residual")
 # plot_residual(lm_mr, rf_mr)
 ```
 
-Here also values (residuals) may be ordered by target variable, fitted values, any other variable or may be presented unordered.
+Values (residuals) may also be ordered by target variable, fitted values, any other variable or may be presented unordered.
 
 ```{r fig.show = "hold", out.width = "50%"}
 plot(rf_mr, lm_mr, type = "residual", variable = "_y_hat_")
@@ -120,7 +122,7 @@ plot(rf_mr, lm_mr, type = "residual", variable = "scars")
 # plot_residual(rf_mr, lm_mr, variable = "scars")
 ```
 
-In all examples above, we can see that linear model is better fitted for the data than random forest, because for greater values of selected variables residuals are larger Additionaly, we can identify most outlying observations:
+In all examples above, we can see that linear model is better fitted for the data than random forest, because for the latter one greater values of selected variables residuals are also geater. Additionaly, we can identify most outlying observations:
 
 ``` {r echo = FALSE}
 plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)
@@ -133,7 +135,7 @@ plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)
 
 ### Density of residuals
 
-Residual density plot (`plot_residual_density()`) detects the incorrect behavior of residuals. On the plot, there are estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density derives from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals, such a plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.
+Residual density plot (`plot_residual_density()`) detects the incorrect behavior of residuals. The funcion returns plot with estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density could be derived from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals residual density plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.
 
 
 ```{r}
@@ -143,7 +145,7 @@ plot(rf_mr, lm_mr, type = "residual_density")
 # plot_residual_density(rf_mr, lm_mr)
 ```
 
-Resuduals may be also divided by values of a choosen variable (median of a numeric variable or levels of a factor).
+Residuals may be also divided by values of a choosen variable (median of a numeric variable or levels of a factor).
 
 ```{r}
 plot_residual_density(rf_mr, lm_mr, variable = "colour")
@@ -158,7 +160,7 @@ Residual boxplot (`plotResidualBoxplot()`) shows the distribution of the absolut
 - vertical line which reflects median, 
 - the whiskers which extend to the smallest and largest values, no further than 1.5 of interquartile.
 
-`auditor` adds sixth component to the boxplot which is the root mean square error (RMSE) measure, shown as `✕`. For the appropriate model, most of the residuals should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spreaded (worse) that linear one.
+`auditor` adds another component to the boxplot which is the root mean square error (RMSE) measure, shown as `X`. For the appropriate model, box should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spreaded (worse) than linear one.
 
 
 ```{r}
