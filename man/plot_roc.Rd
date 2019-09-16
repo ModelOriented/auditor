@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_roc.R
 \name{plot_roc}
 \alias{plot_roc}
+\alias{plotROC}
 \title{Receiver Operating Characteristic (ROC)}
 \usage{
 plot_roc(object, ..., nlabel = NULL)
+
+plotROC(object, ..., nlabel = NULL)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}

@@ -2,9 +2,13 @@
 % Please edit documentation in R/plotD3_acf.R
 \name{plotD3_acf}
 \alias{plotD3_acf}
+\alias{plotD3ACF}
 \title{Plot Autocorrelation Function in D3 with r2d3 package.}
 \usage{
 plotD3_acf(object, ..., variable = NULL, alpha = 0.95,
+  scale_plot = FALSE)
+
+plotD3ACF(object, ..., variable = NULL, alpha = 0.95,
   scale_plot = FALSE)
 }
 \arguments{

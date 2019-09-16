@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_radar.R
 \name{plot_radar}
 \alias{plot_radar}
+\alias{plotModelRanking}
 \title{Model Ranking Plot}
 \usage{
 plot_radar(object, ..., verbose = TRUE)
+
+plotModelRanking(object, ..., verbose = TRUE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_performance' created with \code{\link{model_performance}} function.}

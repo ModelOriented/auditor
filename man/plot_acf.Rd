@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_acf.R
 \name{plot_acf}
 \alias{plot_acf}
+\alias{plotACF}
 \title{Autocorrelation Function Plot}
 \usage{
 plot_acf(object, ..., variable = NULL, alpha = 0.95)
+
+plotACF(object, ..., variable = NULL, alpha = 0.95)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

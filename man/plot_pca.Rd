@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_pca.R
 \name{plot_pca}
 \alias{plot_pca}
+\alias{plotModelPCA}
 \title{Principal Component Analysis of models}
 \usage{
 plot_pca(object, ..., scale = TRUE)
+
+plotModelPCA(object, ..., scale = TRUE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

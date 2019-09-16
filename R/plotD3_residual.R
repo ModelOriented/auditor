@@ -182,7 +182,6 @@ plotD3_residual <- function(object, ..., variable = '_y_', points = TRUE, smooth
 }
 
 #' @rdname plotD3_residual
-#' @noRd
 #' @export
 plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                            std_residuals = FALSE,point_count = NULL, single_plot = TRUE,

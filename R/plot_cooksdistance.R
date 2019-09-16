@@ -77,7 +77,6 @@ plot_cooksdistance <- function(object, ..., nlabel = 3) {
 }
 
 #' @rdname plot_cooksdistance
-#' @noRd
 #' @export
 plotCooksDistance <- function(object, ..., nlabel = 3) {
   message("Please note that 'plotCookDistance()' is now deprecated, it is better to use 'plot_cooksdistance()' instead.")

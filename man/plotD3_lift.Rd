@@ -2,9 +2,12 @@
 % Please edit documentation in R/plotD3_lift.R
 \name{plotD3_lift}
 \alias{plotD3_lift}
+\alias{plotD3LIFT}
 \title{Plot LIFT in D3 with r2d3 package.}
 \usage{
 plotD3_lift(object, ..., scale_plot = FALSE)
+
+plotD3LIFT(object, ..., scale_plot = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}

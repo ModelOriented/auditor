@@ -100,7 +100,6 @@ plot_lift <- function(object, ...) {
 }
 
 #' @rdname plot_lift
-#' @noRd
 #' @export
 plotLIFT <- function(object, ...) {
   message("Please note that 'plotLIFT()' is now deprecated, it is better to use 'plot_lift()' instead.")

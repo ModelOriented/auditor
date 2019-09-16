@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_autocorrelation.R
 \name{plot_autocorrelation}
 \alias{plot_autocorrelation}
+\alias{plotAutocorrelation}
 \title{Autocorrelation of Residuals Plot}
 \usage{
 plot_autocorrelation(object, ..., variable = "_y_hat_", smooth = FALSE)
+
+plotAutocorrelation(object, ..., variable, smooth = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

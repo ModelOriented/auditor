@@ -110,7 +110,6 @@ plotD3_cooksdistance <- function(object, ..., nlabel = 3,
 }
 
 #' @rdname plotD3_cooksdistance
-#' @noRd
 #' @export
 plotD3CooksDistance <- function(object, ..., nlabel = 3,
                     single_plot = FALSE, scale_plot = FALSE, background = FALSE){

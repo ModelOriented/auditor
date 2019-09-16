@@ -2,9 +2,12 @@
 % Please edit documentation in R/plotD3_rec.R
 \name{plotD3_rec}
 \alias{plotD3_rec}
+\alias{plotD3REC}
 \title{Regression Error Characteristic Curves (REC) in D3 with r2d3 package.}
 \usage{
 plotD3_rec(object, ..., scale_plot = FALSE)
+
+plotD3REC(object, ..., scale_plot = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

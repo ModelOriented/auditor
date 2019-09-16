@@ -2,9 +2,13 @@
 % Please edit documentation in R/plot_scalelocation.R
 \name{plot_scalelocation}
 \alias{plot_scalelocation}
+\alias{plotScaleLocation}
 \title{Scale location plot}
 \usage{
 plot_scalelocation(object, ..., variable = "_y_", smooth = FALSE,
+  peaks = FALSE)
+
+plotScaleLocation(object, ..., variable = NULL, smooth = FALSE,
   peaks = FALSE)
 }
 \arguments{

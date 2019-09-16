@@ -85,7 +85,6 @@ plot_correlation <- function(object, ..., values = "fit") {
 }
 
 #' @rdname plot_correlation
-#' @noRd
 #' @export
 plotModelCorrelation <- function(object, ..., values = "fit") {
   message("Please note that 'plotModelCorrelation()' is now deprecated, it is better to use 'plot_correlation()' instead.")

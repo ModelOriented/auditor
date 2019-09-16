@@ -2,9 +2,13 @@
 % Please edit documentation in R/plot_prediction.R
 \name{plot_prediction}
 \alias{plot_prediction}
+\alias{plotPrediction}
 \title{Predicted response vs Observed or Variable Values}
 \usage{
 plot_prediction(object, ..., variable = "_y_", smooth = FALSE,
+  abline = FALSE)
+
+plotPrediction(object, ..., variable = NULL, smooth = FALSE,
   abline = FALSE)
 }
 \arguments{

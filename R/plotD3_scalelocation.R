@@ -159,7 +159,6 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
 
 
 #' @rdname plotD3_scalelocation
-#' @noRd
 #' @export
 plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
                                 peaks = FALSE, point_count = NULL, single_plot = TRUE,

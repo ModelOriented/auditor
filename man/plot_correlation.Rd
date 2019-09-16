@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_correlation.R
 \name{plot_correlation}
 \alias{plot_correlation}
+\alias{plotModelCorrelation}
 \title{Correlation of Model's Residuals Plot}
 \usage{
 plot_correlation(object, ..., values = "fit")
+
+plotModelCorrelation(object, ..., values = "fit")
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

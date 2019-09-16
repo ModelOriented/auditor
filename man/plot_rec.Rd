@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_rec.R
 \name{plot_rec}
 \alias{plot_rec}
+\alias{plotREC}
 \title{Regression Error Characteristic Curves (REC)}
 \usage{
 plot_rec(object, ...)
+
+plotREC(object, ...)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

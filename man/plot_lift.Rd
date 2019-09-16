@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_lift.R
 \name{plot_lift}
 \alias{plot_lift}
+\alias{plotLIFT}
 \title{LIFT Chart}
 \usage{
 plot_lift(object, ...)
+
+plotLIFT(object, ...)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}
