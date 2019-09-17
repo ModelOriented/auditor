@@ -1,11 +1,11 @@
 ---
-title: "Observation Influence Audit"
+title: "Observation influence audit"
 author: "Alicja Gosiewska"
 date: "`r Sys.Date()`"
 output: html_document
 vignette: >
   %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Observation Influence Audit}
+  %\VignetteIndexEntry{Observation influence audit}
   %\usepackage[UTF-8]{inputenc}
 ---
 
@@ -16,77 +16,54 @@ knitr::opts_chunk$set(message = FALSE)
 ```
 
 
-# Which observations are outlyers?
+Observation influence audit, i.e. the impact of individual observation on a model.
 
-# Regression use case - dragons data
+## Data
 
-To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX*](https://github.com/pbiecek/DALEX) package. Our goal is to predict the length of life of dragons.
+To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem). 
+
 
 ```{r}
 library(DALEX)
-data("dragons")
+data(dragons)
 head(dragons)
 ```
 
-# Models
-
-
-## Linear model
+## Models
+First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables. While random forest should be able to capture also non-linear relationships between variables.
 
 ```{r}
+# Linear regression
 lm_model <- lm(life_length ~ ., data = dragons)
-```
 
-
-
-## Random forest
-
-```{r}
-library("randomForest")
+# Random forest
+library(randomForest)
 set.seed(59)
 rf_model <- randomForest(life_length ~ ., data = dragons)
 ```
 
 
+## Preparation for analysis of observation influence
 
-# Preparation for error analysis
-The beginning of each analysis is creation of an `explainer` object with DALEX package. It’s an object that can be used to audit a model.
+Analysis begins with creation of an explainer object with `explain` function from `DALEX` package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.
 
 
-```{r}
+```{r results = 'hide'}
 lm_exp <- DALEX::explain(lm_model, label = "lm", data = dragons, y = dragons$life_length)
 rf_exp <- DALEX::explain(rf_model, label = "rf", data = dragons, y = dragons$life_length)
 ```
 
-# Audit of observations
 
-In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.
+Next step requires creation of `model_cooksdistance` objects of each explained model. In the case of models of classes other than `lm` and `glm`, the distances are computed directly from the definition, so this may take a while. In this example we will compute them only for a linear model. 
 
-* Does the model fit data? Is it not missing the information?
-
-* Which model has better performance?
-
-* How similar models are?
-
-In further sections, we overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.
-
-
-
-
-
-## observationInfluence()
-
-First, we need to create a `auditor_model_residual` objects.
 
 ```{r}
 library(auditor)
 lm_cd <- model_cooksdistance(lm_exp)
-
 ```
 
-Some plots may require specified variable or fitted values for `modelResidual` object. 
 
-### Cook's distances
+## Plot of Cook's distances
 
 Cook's distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model. 
 
@@ -94,24 +71,18 @@ Data points indicated by Cook's distances are worth checking for validity. Cook'
 
 Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed. 
 
-In the case of models of classes other than `lm` and `glm` the distances are computed directly from the definition, so this may take a while.
-In this example we will compute them for a linear model. 
-
 
 ```{r}
 plot(lm_cd)
 ```
 
 
-# Other methods
+## Other methods
 
-Other methods and plots are described in vignettes: 
+Other methods and plots are described in following vignettes: 
 
-* [Model Residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
-
-* [Model Evaluation audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
-
-* [Model Fit audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
-
-* [Model Performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
+* [Model residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
+* [Model evaluation audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
+* [Model fit audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
+* [Model performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
 

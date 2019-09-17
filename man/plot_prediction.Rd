@@ -24,8 +24,8 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
-\item{abline}{Logical, indicates whenever function y = x should be added. Works only
-with \code{variable = NULL} which is a default option.}
+\item{abline}{Logical, indicates whenever function `y = x` should be added. Works only
+with \code{variable = "_y_"} (which is a default option) or when `variable` equals actual response variable.}
 }
 \value{
 A ggplot2 object.

@@ -1,11 +1,11 @@
 ---
-title: "Model Performance Audit"
+title: "Model performance audit"
 author: "Alicja Gosiewska"
 date: "`r Sys.Date()`"
 output: html_document
 vignette: >
   %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Model Performance Audit}
+  %\VignetteIndexEntry{Model performance audit}
   %\usepackage[UTF-8]{inputenc}
 ---
 
@@ -16,50 +16,41 @@ knitr::opts_chunk$set(message = FALSE)
 ```
 
 
+## Data
 
-# Regression use case - dragons data
-
-To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX*](https://github.com/pbiecek/DALEX) package. Our goal is to predict the length of life of dragons.
+To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem). 
 
 ```{r}
-dragons <- DALEX::dragons
+library(DALEX)
+data(dragons)
 head(dragons)
 ```
 
-# Models
 
+## Models
+First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables. While random forest should be able to capture also non-linear relationships between variables.
 
-## Linear model
 ```{r}
+# Linear regression
 lm_model <- lm(life_length ~ ., data = dragons)
-```
 
-
-
-## Random forest
-```{r}
-library("randomForest")
+# Random forest
+library(randomForest)
 set.seed(59)
 rf_model <- randomForest(life_length ~ ., data = dragons)
 ```
 
 
-# Preparation for error analysis
-The beginning of each analysis is creation of an `explainer` object with the DALEX package. It’s an object that can be used to audit a model.
+## Preparation for analysis of performance
 
-```{r}
+Analysis begins with creation of an explainer object with `explain` function from `DALEX` package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.
+
+```{r results = 'hide'}
 lm_exp <- DALEX::explain(lm_model, label = "lm", data = dragons, y = dragons$life_length)
 rf_exp <- DALEX::explain(rf_model, label = "rf", data = dragons, y = dragons$life_length)
 ```
 
-
-# Model Performance Audit
-
-## Model Ranking radar plot
-
-Model performance measures may be plotted together to easily compare model performances.
-
-Function `model_performance()` compute chosen model performance measures. A result further from the center means a better model performance.
+Next step requires creation of `model_performance` objects of each explained model. The function computes chosen performance measures for passed model. 
 
 ```{r}
 library(auditor)
@@ -69,13 +60,17 @@ rf_mp <- model_performance(rf_exp)
 lm_mp
 ```
 
-Results of `model_performance()` function for multiple models may be plotted together on one plot.
-Parameter `table` indicates whether the table with scores should be generated.
 
-On the plot scores are inversed and scaled to [0,1].
+
+## Model ranking radar plot
+
+Model performance measures may be plotted together to easily compare model performances. A result further from the center of the plot means a better model performance. Parameter `verbose` indicates whether the table with scores should be generated. On the plot scores are inversed and scaled to [0,1].
 
 ```{r}
 plot(lm_mp, rf_mp)
+# alternative:
+# plot_radar(lm_mp, rf_mp, verbose = FALSE)
+
 ```
 
 There is a possibiliy to define functions with custom model performance measure.
@@ -95,17 +90,11 @@ plot(lm_mp, rf_mp)
 ```
 
 
-
-# Other methods
+## Other methods
 
 Other methods and plots are described in vignettes: 
 
-* [Model Residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
-
-* [Model Evaluation audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
-
-* [Model Fit audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
-
-* [Observation Influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)
-
-
+* [Model residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
+* [Model evaluation audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
+* [Model fit audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
+* [Observation influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)

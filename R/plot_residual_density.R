@@ -46,7 +46,7 @@
 #' @export
 plot_residual_density <- function(object, ..., variable = "") {
   # some safeguard
-  `_residuals_` <- label <- div <- NULL
+  `_residuals_` <- `_label_` <- label <- div <- NULL
 
   # check if passed object is of class "auditor_model_residuals"
   check_object(object, type = "res")
@@ -56,32 +56,42 @@ plot_residual_density <- function(object, ..., variable = "") {
 
   # some helpfull objects
   model_count <- nlevels(df$`_label_`)
+  colours <- theme_drwhy_colors(model_count)
   df$`_ord_` <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
+  # faceting plot
   split <- TRUE
 
   if (!is.null(variable)) {
     if (variable == "") split <- FALSE
   }
 
-  var_split <- "`_label_`"
-
   # arguments differ depending on splitting or not
+  legend_pos <- "top"
+  legend_just <- c(1, 0)
+
   if (split == TRUE) {
-    colours <- theme_drwhy_colors(nlevels(df$`_div_`))
     legend_pos <- "bottom"
     legend_just <- "center"
-  } else {
-    colours <- theme_drwhy_colors(model_count)
-    legend_pos <- "top"
-    legend_just <- c(1, 0)
   }
 
   if (model_count == 1) legend_pos <- "none"
 
+  # set value for title
+  if (is.null(variable)) {
+    lab <- "observations"
+    split <- TRUE
+  } else if (variable == "_y_")  {
+    lab <- "target variable"
+  } else if (variable == "_y_hat_") {
+    lab <- "actual response"
+  } else {
+    lab <- as.character(variable)
+  }
+
   p <- ggplot(data = df, aes(x = `_residuals_`)) +
-    geom_density(alpha = 0.3, aes_string(fill = var_split)) +
-    geom_rug(aes_string(color = var_split), alpha = 0.5, show.legend = FALSE) +
+    geom_density(alpha = 0.3, aes(fill = `_label_`)) +
+    geom_rug(aes(color = `_label_`), alpha = 0.5, show.legend = FALSE) +
     geom_vline(xintercept = 0, colour = "darkgrey") +
     annotate("segment", x = -Inf, xend = Inf,  y = -Inf, yend = -Inf, colour = "#371ea3") +
     scale_color_manual(values = colours) +
@@ -93,7 +103,7 @@ plot_residual_density <- function(object, ..., variable = "") {
           legend.key = element_rect(colour = NA, fill = NA),
           legend.position = legend_pos,
           legend.justification = legend_just) +
-    xlab("") + ylab("") + ggtitle("Residuals density")
+    xlab("") + ylab("") + ggtitle(paste0("Residuals density by ", lab))
 
   if (split == FALSE) {
     p

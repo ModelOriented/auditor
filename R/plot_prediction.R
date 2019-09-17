@@ -11,8 +11,8 @@
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smooth line should be added.
-#' @param abline Logical, indicates whenever function y = x should be added. Works only
-#' with \code{variable = NULL} which is a default option.
+#' @param abline Logical, indicates whenever function `y = x` should be added. Works only
+#' with \code{variable = "_y_"} (which is a default option) or when `variable` equals actual response variable.
 #'
 #' @return A ggplot2 object.
 #'
@@ -77,7 +77,7 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)
 
-  p# smoot curve for the main model
+  # smoot curve for the main model
   if (smooth == TRUE)
     p <- p + drwhy_geom_smooth(maybe_smooth)
 

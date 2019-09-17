@@ -1,13 +1,13 @@
 ---
-title: "Model Residuals Audit"
-author: "Alicja Gosiewska"
+title: "Model residuals audit"
+author: "Alicja Gosiewska, Tomasz Mikołajczyk"
 date: "`r Sys.Date()`"
 output: 
   html_document:
     number_sections: true
 vignette: >
   %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Model Residuals Audit}
+  %\VignetteIndexEntry{Model residuals audit}
   %\usepackage[UTF-8]{inputenc}
 ---
 
@@ -17,89 +17,163 @@ knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
 
-This vignette demonstrates how to use the *auditor* package for auditing residuals of models. 
-The auditor provides methods for model verification and validation by error analysis. 
+This vignette demonstrates how to use the [`auditor`](https://github.com/ModelOriented/auditor) package for auditing **residuals** of machine learning models. The residual is the difference between the observed value and the value predicted by model. 
+The auditor provides methods for model verification and validation by error analysis. It helps in finding answers to questions that may be crucial in deeper analyses.
 
-Many models, such as random forests and neutral networks are nowadays treated as black boxes. Therefore, there is a lack of theory that describes the behavior of errors in those models. 
-Most methods provided in auditor package are model-agnostic, so can be used regardless of knowledge about errors. 
+* Does the model fit the data? Is it not missing any information?
+* Which model has better performance?
+* How similar are models?
 
-Some of the graphical error analysis methods also have corresponding scores, which allow comparison of two models.
+Many algorithms, such as random forests and neutral networks are sometimes treated as black boxes and there is a lack of techniques that help in the analysis of errors in those models. 
+Most methods provided in auditor package are model-agnostic, what means that they can be used regardless of expected distribution of residuals.
 
 
+## Data
 
-# Regression use case - dragons data
+Use case - predicting a length of life
 
-To illustrate applications of *auditor* to regression problems we will use an artificial dataset dragons available in the [*DALEX*](https://github.com/pbiecek/DALEX) package. Our goal is to predict the length of life of dragons.
+To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).
+
 
 ```{r}
 library(DALEX)
-data("dragons")
+data(dragons)
 head(dragons)
 ```
 
-# Models
+## Models
+First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables, while random forest should be able to capture also non-linear relationships between variables.
 
-
-## Linear model
 ```{r}
+# Linear regression
 lm_model <- lm(life_length ~ ., data = dragons)
-```
 
-
-
-## Random forest
-```{r}
-library("randomForest")
+# Random forest
+library(randomForest)
 set.seed(59)
 rf_model <- randomForest(life_length ~ ., data = dragons)
 ```
 
 
-# Preparation for error analysis
-The beginning of each analysis is creation of an `explainer` object with DALEX package. It’s an object that can be used to audit a model.
+## Preparation for residual (error) analysis
 
-```{r}
+Analysis begins with creation of an explainer object with `explain` function from `DALEX` package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.
+
+
+```{r results = 'hide'}
 lm_exp <- DALEX::explain(lm_model, label = "lm", data = dragons, y = dragons$life_length)
 rf_exp <- DALEX::explain(rf_model, label = "rf", data = dragons, y = dragons$life_length)
 ```
 
 
-# Audit of residuals
-
-In this section we give short overview of a visual validation of model errors and show the propositions for the validation scores. Auditor helps to find answers for questions that may be crucial for further analyses.
-
-* Does the model fit data? Is it not missing the information?
-
-* Which model has better performance?
-
-* How similar models are?
-
-In further sections we will overview auditor functions for analysis of model residuals. They are discussed in alphabetical order.
-
-
-
-
-
-## model_residual()
-
-In this vignette we use first pipeline. However, alternative evaluations are showed as comments.
-First, we need to create a `modelResiduals` objects.
+Next step requires creation of `model_residual` objects of each explainer. From this step on, only `auditor` functions will be used.
 
 ```{r}
 library(auditor)
 lm_mr <- model_residual(lm_exp)
 rf_mr <- model_residual(rf_exp)
-
 ```
 
 
 ## Plots
 
-### plot_acf() - Autocorrelation Function of Residuals
+In the following section, we show individual plotting functions which demonstrate different aspects of residual analysis. We devote more attention to selected functions, but usage of each function is more or less similar. 
 
-Autocorrelation Function plot can be used to check randomness of errors. If random, autocorrelations should be near zero for lag separations. If non-random, then autocorrelations will be significantly non-zero. 
 
-Residuals may be ordered by values of any model variable or by fitted values. If variable is not specified, function takes order from the data set.
+### Observed vs predicted
+
+First plot is a basic plot comparising predicted versus observed values. The red line corresponds to the `y = x` function. The patterns for both models are non-random around the diagonal line. The points corresponding to a random forest (darker dots) show the tendency to underprediction for large values of observed response. Points for linear model (lighter dots) are located more or less around diagonal line which means that this model predicts quite well.
+
+```{r}
+plot(rf_mr, lm_mr, type = "prediction", abline = TRUE)
+# alternatives:
+# plot_prediction(rf_mr, lm_mr, abline = TRUE)
+# plot_prediction(rf_mr, lm_mr, variable = "life_length")
+```
+
+Function `plot_prediction` presents observed values on the x-axis. However, on the x-axis there may be values of any model variable or observations ordered by index (`variable = NULL`).
+
+```{r dodge-st, fig.show = "hold", out.width = "50%"}
+plot(rf_mr, lm_mr, variable = "scars", type = "prediction")
+plot(rf_mr, lm_mr, variable = "height", type = "prediction")
+```
+
+As you can notice, on above plots, there is no relationship for variable `height` and predicted values while for increasing number of `scars` model predictions also increase of life length. This means that that model captured monotonic relationship between number of scars and length of life of dragon.
+
+### Residuals vs observed, fitted or variable values
+
+Next function (`plot_residual()`) shows residuals versus observed values. This plot is used to detect dependence of errors, unequal error variances, and outliers. For appropriate model, residuals should not show any functional dependency. Expected mean value should be equal to 0, regardless of $\hat{y}$ values, so any structured arrangement of points suggests a problem with the model. It is worth looking at the observations that clearly differ from the others. If points on the plot are not randomly dispersed around the horizontal axis, it may be presumed that model is not appropriate for the data. 
+
+```{r}
+plot(lm_mr, rf_mr, type = "residual")
+
+# alternative:
+# plot_residual(lm_mr, rf_mr)
+```
+
+Values (residuals) may also be ordered by target variable, fitted values, any other variable or may be presented unordered.
+
+```{r fig.show = "hold", out.width = "50%"}
+plot(rf_mr, lm_mr, type = "residual", variable = "_y_hat_")
+plot(rf_mr, lm_mr, type = "residual", variable = "scars")
+
+# alternative:
+# plot_residual(rf_mr, lm_mr, variable = "_y_hat_")
+# plot_residual(rf_mr, lm_mr, variable = "scars")
+```
+
+In all examples above, we can see that linear model is better fitted for the data than random forest, because for the latter one greater values of selected variables residuals are also geater. Additionaly, we can identify most outlying observations:
+
+``` {r echo = FALSE}
+plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)
+```
+
+``` {r}
+# plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)
+```
+
+
+### Density of residuals
+
+Residual density plot (`plot_residual_density()`) detects the incorrect behavior of residuals. The funcion returns plot with estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density could be derived from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals residual density plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.
+
+
+```{r}
+plot(rf_mr, lm_mr, type = "residual_density")
+
+# alternative
+# plot_residual_density(rf_mr, lm_mr)
+```
+
+Residuals may be also divided by values of a choosen variable (median of a numeric variable or levels of a factor).
+
+```{r}
+plot_residual_density(rf_mr, lm_mr, variable = "colour")
+```
+
+
+### Boxplot of residuals
+
+Residual boxplot (`plotResidualBoxplot()`) shows the distribution of the absolute values of residuals. Boxplot usually presents following values:
+
+- box width which corresponds to the second and third quartile, 
+- vertical line which reflects median, 
+- the whiskers which extend to the smallest and largest values, no further than 1.5 of interquartile.
+
+`auditor` adds another component to the boxplot which is the root mean square error (RMSE) measure, shown as `X`. For the appropriate model, box should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spreaded (worse) than linear one.
+
+
+```{r}
+plot(lm_mr, rf_mr, type = "residual_boxplot")
+
+# alternative
+# plot_residual_boxplot(lm_mr, rf_mr)
+```
+
+
+### Autocorrelation function of residuals
+
+Function `plot_acf()` creates plot which is helpful in checking randomness of errors. If errors are random, autocorrelations should be near zero for lag separations. If they are non random, then autocorrelations will be significantly higher than zero. The vertical dashed lines indicate boundaries, where autocorrelations are significantly different than zero.
 
 ```{r}
 plot(lm_mr, type = "acf", variable = "year_of_discovery")
@@ -109,12 +183,9 @@ plot(lm_mr, type = "acf", variable = "year_of_discovery")
 ```
 
 
+### Autocorrelation of residuals
 
-### plot_autocorrelation() - Autocorrelation of Residuals
-
-On the Autocorrelation plot there are i-th vs i+1-th residuals. This plot may be useful for checking autocorrelation of residuals.
-
-Sometimes it is difficult to compare two models basing only on visualizations. Therefore, we have proposed some scores, which may be useful for choosing a better model.
+Autocorrelation plot (`plot_autocorrelation()`) shows correlation of *i-th* vs *i+1-th* residuals. This plot may be useful for checking autocorrelation of residuals.
 
 ```{r}
 plot(rf_mr, type = "autocorrelation")
@@ -123,70 +194,43 @@ plot(rf_mr, type = "autocorrelation")
 # plot_autocorrelation(rf_mr)
 ```
 
-DW score and Runs score are based on Durbin-Watson and Runs test statistics.
+..... ..... ..... .... ..... 
+Sometimes it migth be difficult to compare two models relying only on visualization. Therefore, two following additional scores may be useful for choosing a better model; scores are based on *Durbin-Watson* and *Runs* test statistics. Scores can be calculated with `score_dw()` and `score_runs()` functions (or the `score()` function with `score = "dw"` or `score = "runs"`).
+..... ..... ..... .... ..... 
 
-Scores can be calculated with the `scoreDW()` and `scoreRuns()` functions or the `score()` function with argument `score` equals to "DW" or "Runs".
 
 ```{r}
-rf_score_dw <- score_dw(rf_exp)
-rf_score_runs <- score_runs(rf_exp)
-
-rf_score_dw$score
-rf_score_runs$score
+score_dw(rf_exp)$score
+score_runs(rf_exp)$score
 ```
 
-### plot_correlation - Correlation of Models
+### Correlation of models
 
-A grid of plots presents correlation of dependennt variable and fitted model values.
+Function `plot_correlation()` returns grid of plots with correlation of dependent variable and fitted values of model(s). In the diagonal, there are estimated densities; in the upper triangle two kind of correlations: (1) between models and (2) between predicted and observed values. In the lower triangle, there are scatter plots of these values.
+
 
 ```{r}
 plot(rf_mr, lm_mr, type = "correlation")
 
 # alternative:
-# plotM_correlation(rf_mr, lm_mr)
+# plot_correlation(rf_mr, lm_mr)
 ```
 
 
-### plot_pca() - Model PCA
+### Principal component analysis (PCA) of models
 
-Principal Component Analysis of models residuals.
-PCA can be used to assess the similarity of the models.
+Function `plot_pca()` can be used to assess the similarity of the models in terms of residuals. The idea of PCA is reducing the dimension of the data set matrix by creating a set of linearly uncorrelated variables called principal components. At the same time, keeping as much variance as possible. Model PCA plot is a biplot. On axis of the plot, there are first two principal components. Grey dots represent observations. Arrows are pointing in the direction of the models projected into a two-dimensional space. The interposition of arrows provides information about the similarity of models in terms of residuals. If they are close to each other, it indicates similar residuals structures.
 
 ```{r}
 plot(rf_mr, lm_mr, type = "pca")
 
 # alternative:
-# plot_pca(rf_audit, lm_audit)
+# plot_pca(rf_mr, lm_mr)
 ```
 
-### plot_predition() - Observed vs Predicted
+### Regression error characteristic curve (REC)
 
-Basic plot of residuals vs observed, fitted or variable values. If variable is not specified, function takes order from the data set.
-
-Black line corresponds to the y=x function.
-
-```{r}
-plot(rf_mr, lm_mr, variable = "life_length", type = "prediction")
-
-# alternative:
-# plot_prediction(rf_audit, lm_audit, variable = "life_length")
-```
-
-Predictions may be ordered by values any model variable or by fitted values. And both models may be plotted together.
-
-```{r}
-plot(rf_mr, lm_mr, type = "prediction")
-
-# alternative:
-# plot_prediction(rf_mr, lm_mr)
-```
-
-
-### plot_rec() - Regression Error Characteristic (REC) Curve
-
-Error Characteristic curves are a generalization of ROC curves. On the x axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance.
-REC curve estimates the Cumulative Distribution Function (CDF) of the error.
-Area Over the REC Curve (REC) is a biased estimate of the expected error.
+Error characteristic curves are a generalization of ROC curves. On the x-axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance. REC curve estimates the cumulative distribution function (CDF) of the error. Area over the REC curve is a biased estimate of the expected error. 
 
 ```{r}
 plot(rf_mr, lm_mr, type = "rec")
@@ -195,68 +239,19 @@ plot(rf_mr, lm_mr, type = "rec")
 # plot_rec(rf_mr, lm_mr)
 ```
 
-### plot_residual() - Plot Residuals vs Observed, Fitted or Variable Values
+### Regression receiver operating characteristic (RROC)
 
-Basic plot of residuals vs observed, fitted or variable values. It provides information about the structure of the model.
+The basic idea of the ROC curve for regression is to show model asymmetry. The RROC is a plot where on x-axis total over-estimation is depicted and on the y-axis total under-estimation. 
 
-```{r}
-plot(rf_mr, type = "residual")
+For RROC curves we use a shift which is an equvalent to the threshold for ROC curves. For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift. Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
 
-# alternative:
-# plot_residual(rf_mr)
-```
+...................
+- over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)} 
+- under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}
+- the shift equals 0 is represented by a dot
+...................
 
-Residuals may be ordered by values any model variable or by fitted values. And both models may be plotted together. If variable is not specified, function takes order from the data set.
-
-```{r}
-plot(rf_mr, lm_mr, type = "residual", variable = "_y_hat_")
-
-# alternative:
-# plot_residual(rf_mr, lm_mr, variable = "_y_hat_")
-```
-
-### plotResidualBoxplot() - Boxplot of residuals
-
-Comparison of the absolute valued of residuals. The red dot stands for the root mean square.
-
-```{r}
-plot(lm_mr, rf_mr, type = "residual_boxplot")
-
-# alternative
-# plot_residual_boxplot(lm_mr, rf_mr)
-```
-
-### plot_residual_density() - Density of Residuals
-
-Density of residuals may be plotted in different ways. Residuals of models may be simply compared.
-
-```{r}
-plot(rf_mr, lm_mr, type = "residual_density")
-
-# alternative
-# plot_residual_density(rf_mr, lm_mr)
-```
-
-Resuduals may be also divided by median of the numeric variable and splitted by a factor variable
-
-```{r}
-plot_residual_density(rf_mr, lm_mr, variable = "life_length")
-```
-
-
-### plot_rroc() -  Regression Receiver Operating Characteristic (RROC)
-
-The basic idea of the ROC curves for regression is to show model asymmetry. The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total under-estimation.
-
-For RROC curves we use a shift, which is an equvalent to the threshold for ROC curves.
-For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift.
-Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
-
-Over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)}.
-Under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}.
-The shift equals 0 is represented by a dot.
-
-The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
+The area over the RROC curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
 
 ```{r}
 plot(rf_mr, lm_mr, type = "rroc")
@@ -265,9 +260,10 @@ plot(rf_mr, lm_mr, type = "rroc")
 # plot_rroc(rf_mr, lm_mr)
 ```
 
-### plot_scalelocation() - Scale Location Plot
 
-This plot shows if residuals are spread equally along the ranges of predictors. 
+### Scale location
+
+This plot shows if residuals are spread equally along the ranges of predictors. The presence of any trend suggests that the variance depends on fitted values, which is against the assumption of homoscedasticity. Not every model has an explicit assumption of homogeneous variance, however, the heteroscedasticity may indicates potential problems with the goodness-of-fit.
 
 ```{r}
 plot(rf_mr, lm_mr, type = "scalelocation")
@@ -276,28 +272,24 @@ plot(rf_mr, lm_mr, type = "scalelocation")
 # plot_scalelocation(rf_mr, lm_mr)
 ```
 
-For comparing 2 models we can use GQ score, which is based on Goldfeld-Quandt test statistic.
-And may be computed also in `score()` function with argument `score` equals "GQ".
 
-### plot_tsecdf() - Two-sided  Empirical Cumulative Distribution Function (ECDF)
 
-Cumulative Distribution Function for positive and negative residuals.
+### Two-sided empirical cumulative distribution function (TSECDF)
+
+Cumulative distribution function for positive and negative residuals. The plot shows the distribution of residuals divided into groups with positive and negative values. It helps to identify the asymmetry of the residuals. Points represent residuals.
 
 ```{r}
 plot(rf_mr, lm_mr, type = "tsecdf")
 
 # alternative
-# plot_tsecdf(rf_audit, lm_audit)
+# plot_tsecdf(rf_mr, lm_mr)
 ```
 
 ## Other methods
 
-Other methods and plots are described in vignettes: 
+Other methods and plots are described in following vignettes: 
 
-* [Model Evaluation audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
-
-* [Model Fit audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
-
-* [Model Performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
-
-* [Observation Influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)
+* [Model evaluation audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
+* [Model fit audit](https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html)
+* [Model performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
+* [Observation influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)

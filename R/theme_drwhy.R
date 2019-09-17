@@ -1,6 +1,7 @@
 #' @title  DrWhy Theme for ggplot objects
 #'
 #' @return theme for ggplot2 objects
+#' @noRd
 #' @rdname theme_drwhy
 theme_drwhy <- function() {
   theme_bw(base_line_size = 0) %+replace%
@@ -45,36 +46,10 @@ theme_drwhy <- function() {
 
 }
 
-# #' @rdname theme_drwhy
-# theme_drwhy_vertical <- function() {
-#   theme_drwhy() %+replace%
-#     theme(
-#       axis.line.x = element_blank(),
-#       axis.ticks.x = element_blank(),
-#       panel.grid.major.y = element_blank(),
-#       panel.grid.minor.y = element_blank(),
-#       panel.grid.major.x = element_line(color = "grey90", size = 0.5, linetype = 1),
-#       panel.grid.minor.x = element_line(color = "grey90", size = 0.5, linetype = 1)
-#     )
-#
-# }
-#
-#
-# theme_drwhy_blank <- function() {
-#   theme_drwhy() %+replace%
-#     theme(
-#       axis.line.x = element_blank(),
-#       axis.ticks.x = element_blank(),
-#       panel.grid.major.x = element_blank(),
-#       panel.grid.minor.x = element_blank(),
-#       panel.grid.major.y = element_blank(),
-#       panel.grid.minor.y = element_blank()
-#     )
-# }
-
 
 #' @param n number of colors to get
 #'
+#' @noRd
 #' @rdname theme_drwhy
 theme_drwhy_colors <- function(n = 2) {
   if (n == 1) return(c("#371ea3"))

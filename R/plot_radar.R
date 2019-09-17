@@ -4,8 +4,6 @@
 #'
 #' @param object An object of class 'auditor_model_performance' created with \code{\link{model_performance}} function.
 #' @param ... Other auditor_model_performance' objects to be plotted together.
-#' @param score Vector of score names to be plotted.
-#' @param new_score A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param verbose Logical, indicates whether values of scores should be printed.
 #'
 #' @return ggplot object
@@ -32,24 +30,20 @@
 #' # plot results
 #' plot_radar(mp_lm, mp_rf)
 #'
-#'
 #' @import ggplot2
-#' @import gridExtra
-#' @importFrom grDevices blues9
-#' @importFrom grid grobTree
 #' @import scales
 #'
 #' @export
-plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_score = NULL, verbose = TRUE) {
+plot_radar <- function(object, ..., verbose = TRUE) {
 
   # safeguard
-  x <- y <- `_value_` <- scaled <- `_name_` <- `_label_` <- `_score_` <- label <- NULL
+  x <- y <- `_value_` <- scaled <- `_name_` <- `_label_` <- `_score_` <- label <- name <- value <- NULL
 
   # check if passed object is of class "model_performance"
   check_object(object, type = "prfm")
   # data frame for ggplot object
 
-  df <- make_dataframe(object, ..., score = score, new_score = new_score, type = "prfm")
+  df <- make_dataframe(object, ..., type = "prfm")
 
   # data frame for extra geoms
   df_text <- data.frame(x = df[,"_name_"][1], y = c(0.01, 0.25, 0.50, 0.75, 1), label = seq(0, 1, 0.25))
@@ -73,17 +67,19 @@ plot_radar <- function(object, ..., score = c("mae", "mse", "rec", "rroc"), new_
           axis.text.x = element_text(size = 10),
           plot.title = element_text(color = "#371ea3", face = "bold", hjust = 0.5))
 
-  df$name <- gsub("inv\n", "", df$`_name_`)
-
-  if(verbose == TRUE) print(subset(df, select = c(`_name_`, `_label_`, `_value_`, scaled)))
-
-   p
+  if (verbose == TRUE) {
+    df$`_name_` <- gsub("inv\n", "", df$`_name_`)
+    colnames(df) <- gsub("_", "", colnames(df))
+    df <- subset(df, select = -score)
+    print(subset(df, select = c(name, label, value, scaled)))
+  }
+  p
 }
 
 #' @rdname plot_radar
 #' @export
-plotModelRanking <- function(object, ..., score = c("MAE", "MSE", "REC", "RROC"), new_score = NULL) {
+plotModelRanking <- function(object, ..., verbose = TRUE) {
   message("Please note that 'plotModelRanking()' is now deprecated, it is better to use 'plot_radar()' instead.")
-  plot_radar(object, ..., score, new_score)
+  plot_radar(object, ..., verbose = verbose)
 }
 

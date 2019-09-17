@@ -1,11 +1,11 @@
 ---
-title: "Model Evaluation Audit"
+title: "Model evaluation audit"
 author: "Alicja Gosiewska"
 date: "`r Sys.Date()`"
 output: html_document
 vignette: >
   %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Model Evaluation Audit}
+  %\VignetteIndexEntry{Model evaluation audit}
   %\usepackage[UTF-8]{inputenc}
 ---
 
@@ -16,14 +16,11 @@ knitr::opts_chunk$set(message = FALSE)
 ```
 
 
-# Model Evaluation Audit for Classification Problem
+In this vignette we present plots for evaluation of classification models.
 
-In this vignette we present plots for classification models evaluation.
+## Data
 
-
-### Dataset
-
-We work on titanic dataset form the `DALEX` package.
+We work on `titanic` dataset form the `DALEX` package.
 
 ```{r}
 titanic <- na.omit(DALEX::titanic)
@@ -32,22 +29,23 @@ head(titanic)
 ```
 
 
-### Models
+## Models
 
 We fit 2 models: glm and svm.
 
 ```{r}
-model_glm <- glm(survived~., data = titanic, family = binomial)
+model_glm <- glm(survived ~ ., data = titanic, family = binomial)
 
 library(e1071)
-model_svm <- svm(survived~., data = titanic)
+model_svm <- svm(survived ~ ., data = titanic)
 ```
 
-### Model Audit
+
+## Preparation for evaluation analysis
 
 The first step is creating `explainer` object with the `DALEX` package. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
 
-```{r}
+```{r results = 'hide'}
 exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
 exp_svm <- DALEX::explain(model_svm, data = titanic, y = titanic$survived, label = "svm")
 ```
@@ -60,10 +58,13 @@ eva_glm <- model_evaluation(exp_glm)
 eva_svm <- model_evaluation(exp_svm)
 ```
 
+## Plots
 
-### Receiver Operating Characteristic (ROC)
+### Receiver operating characteristic (ROC)
 
-`auditor_model_evaluation` object can be used for plotting charts.
+Receiver operating characteristic (ROC) curve is a tool for visualising a classifier’s performance. It answers the question of how well the model discriminates between the two classes. The boundary between classes is determined by a threshold value. ROC illustrates the performance of a classification model at various threshold settings. 
+
+The diagonal line `y = x` corresponds to a classifier that randomly guess the positive class half the time. Any model that appears in the lower right part of plot performs worse than random guessing. The closer the curve is to the the left border and top border of plot, the more accurate the classifier is.
 
 ```{r}
 plot(eva_glm, eva_svm, type = "roc")
@@ -71,7 +72,11 @@ plot(eva_glm, eva_svm, type = "roc")
 # plot_roc(eva_glm, eva_svm)
 ```
 
-### LIFT Chart
+### LIFT chart
+
+The LIFT chart is a rate of positive prediction (*RPP*) plotted against true positive (*TP*) on a threshold *t*.
+
+The chart illustrates varying performance of the model for different thresholds. A random and ideal models are represented by dashed curves (lower and upper respectively). The closer the LIFT curve gets to the upper dashed curve (ideal model), the better a model is.
 
 ```{r}
 plot(eva_glm, eva_svm, type = "lift")
@@ -80,17 +85,11 @@ plot(eva_glm, eva_svm, type = "lift")
 ```
 
 
-
-# Other methods
+## Other methods
 
 Other methods and plots are described in vignettes: 
 
-* [Model Residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
-
-* [Model Fit audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
-
-* [Model Performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
-
-* [Observation Influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)
-
-
+* [Model residuals audit](https://modeloriented.github.io/auditor/articles/model_residuals_audit.html)
+* [Model fit audit](https://modeloriented.github.io/auditor/articles/model_fit_audit.html)
+* [Model performance audit](https://modeloriented.github.io/auditor/articles/model_performance_audit.html)
+* [Observation influence audit](https://modeloriented.github.io/auditor/articles/observation_influence_audit.html)
