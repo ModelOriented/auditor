@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Model Fit Audit • auditor</title>
+<title>Model fit audit • auditor</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../dalexverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../dalexverse-2.css" rel="stylesheet">
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Model Fit Audit">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Model fit audit">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
@@ -38,6 +38,8 @@
       </button>
 
       <div class="navbar-brand-container">
+      <a class="navbar-mi2logo" href="http://DrWhy.AI/">
+    <img src="https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
         <a class="navbar-brand" href="../index.html">auditor</a>
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
@@ -50,7 +52,7 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -65,19 +67,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -86,7 +88,7 @@
 </li>
         <li>
   <a href="https://github.com/ModelOriented/auditor">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -99,14 +101,13 @@
 <!--/.navbar -->
 
       
-
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Model Fit Audit</h1>
+      <h1>Model fit audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-09-10</h4>
+            <h4 class="date">2019-09-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_fit_audit.Rmd"><code>vignettes/model_fit_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_fit_audit.Rmd</code></div>
@@ -115,117 +116,106 @@
 
     
     
-<p>#Model Fit audit</p>
+<p>The half-normal plot presented in this vignette is one of the tools designed to evaluate the goodness of fit of a statistical model. It is a graphical method for comparing two probability distributions by plotting their quantiles against each other.</p>
+<p>Points on the plot correspond to ordered absolute values of model diagnostic (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.</p>
+<p>There are various implementations of half-normal plots in R. Functions for generating such plotes are available in for example in <a href="https://cran.r-project.org/package=hnp"><code>hnp</code></a> and <a href="https://cran.r-project.org/package=faraway"><code>faraway</code></a> packages. Some functions can only draw a simple half-normal plot, while some have additional functionalities like a simulated envelope and score of goodness-of-fit.</p>
+<div id="use-case---regression-problem" class="section level1">
+<h1 class="hasAnchor">
+<a href="#use-case---regression-problem" class="anchor"></a>Use-case - regression problem</h1>
+<p>We demonstrate the use of half-normal plots for a generalized linear models. We will use dataset corn from the <code>hnp</code> package. For more details on the data set and models see <a href="https://www.jstatsoft.org/article/view/v081i10">Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em></a>.</p>
+<p>By default, deviance residuals were used as diagnostic values.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(corn, <span class="dt">package =</span> <span class="st">"hnp"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(corn)</a></code></pre></div>
+<pre><code>##   extract  m  y
+## 1    leaf 35 26
+## 2    leaf 36 25
+## 3    leaf 38 21
+## 4    leaf 38 18
+## 5    leaf 39 30
+## 6    leaf 38  8</code></pre>
 <div id="half-normal-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#half-normal-plot" class="anchor"></a>Half-normal plot</h2>
-<p>The half-normal plot presented in this chapter is one of the tools designed to evaluate the goodness of fit of a statistical model. It is a graphical method for comparing two probability distributions by plotting their quantiles against each other.</p>
-<p>Points on the plot correspond to ordered absolute values of model diagnostic (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.</p>
-<p>There are various implementations of half-normal plots in R. Functions for generating such plotes are available in packages <strong>auditor</strong>, <strong>faraway</strong>, <strong>hnp</strong>, but also in others. Some functions can only draw a simple half-normal plot, while some have additional functionalities like a simulated envelope and score of goodness-of-fit.</p>
-</div>
-<div id="auditorplothalfnormal" class="section level2">
-<h2 class="hasAnchor">
-<a href="#auditorplothalfnormal" class="anchor"></a>auditor::plotHalfNormal()</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">123</span>)</a></code></pre></div>
-<p>Function <code><a href="../reference/plot_halfnormal.html">plotHalfNormal()</a></code> offers a plotting interface for half-normal plots generated by <a href="https://CRAN.R-project.org/package=hnp">hnp</a> package in a unified style using <code>ggplot2</code>. Additional functionalities not included in the hnp are scores and the possibility to draw half-normal plot on a quantile scale.</p>
-<p>Below we present example of the use of half-normal plots for a generalized linear models. Plots are generated by <code><a href="../reference/plot_halfnormal.html">plotHalfNormal()</a></code> function from package <strong>auditor</strong>.</p>
-<p>By default, deviance residuals were used as diagnostic values.</p>
-</div>
-<div id="use-case" class="section level1">
-<h1 class="hasAnchor">
-<a href="#use-case" class="anchor"></a>Use-case</h1>
-<p>We will use dataset corn from the <a href="https://CRAN.R-project.org/package=hnp"><code>hnp</code></a> package. For more details on the data set and models see <a href="https://www.jstatsoft.org/article/view/v081i10">Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em></a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"corn"</span>, <span class="dt">package =</span> <span class="st">"hnp"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(corn)</a></code></pre></div>
+<p>Function <code><a href="../reference/plot_halfnormal.html">plot_halfnormal()</a></code> offers a plotting interface for half-normal plots generated by <code>hnp</code> package in a unified style using <code>ggplot2</code>. Additional functionalities not included in the hnp are scores and the possibility to draw half-normal plot on a quantile scale.</p>
 <p>If diagnostic values are from the normal distribution, they are close to a straight line. However, if they don’t come from a normal distribution, they still show a certain trend. Simulated envelopes can be used to help verify the correctness of this trend. For a well-fitted model, diagnostic values should lay within the envelope.</p>
+</div>
 <div id="binomial-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#binomial-model" class="anchor"></a>Binomial model</h2>
-<p>First step of auditing is fitting a model and creating an <code>explainer</code> object with DALEX package which wraps up a model with meta-data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">model_bin &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">bin_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(model_bin, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)</a></code></pre></div>
-<p>Second step is creating <code>auditor_model_halfnormal</code> object that can be further used for validating a model.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">bin_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(bin_exp)</a></code></pre></div>
+<p>First step of auditing is fitting a model and creating an <code>explainer</code> object with <code>DALEX</code> package which wraps up a model with meta-data.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">model_bin &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/glm">glm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">bin_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DALEX/topics/explain">explain</a></span>(model_bin, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)</a></code></pre></div>
+<p>Second step is creating <code><a href="../reference/model_halfnormal.html">model_halfnormal()</a></code> object that can be further used for validating a model.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">bin_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(bin_exp)</a></code></pre></div>
 <pre><code>## Binomial model</code></pre>
-<p><code>auditor_model_halfnormal</code> object may be plotted.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bin_hnp, <span class="dt">sim=</span><span class="dv">500</span>)</a></code></pre></div>
+</div>
+<div id="half-normal-plot-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#half-normal-plot-1" class="anchor"></a>Half-normal plot</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bin_hnp, <span class="dt">sim =</span> <span class="dv">500</span>)</a></code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># or</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co"># plot_halfnormal(bin_hnp, sim = 500)</span></a></code></pre></div>
 <p>It doesn’t fit because of the overdispersion in data.</p>
-</div>
-<div id="quantile-scale" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quantile-scale" class="anchor"></a>Quantile scale</h2>
-<p>In function <code>plotHalfNormal</code> there is also a posibility to draw half-normal plot on a quantile scale.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bin_hnp, <span class="dt">quantiles =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>In function <code>plot_halfnormal</code> there is also a posibility to draw half-normal plot on a quantile scale:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bin_hnp, <span class="dt">quantiles =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 </div>
-<div id="classification" class="section level1">
+<div id="use-caes-classification" class="section level1">
 <h1 class="hasAnchor">
-<a href="#classification" class="anchor"></a>Classification</h1>
-<p>HalfNormal plots works also for classification random Forest.</p>
-<p>In this case we consider the differences between observed class and predicted probabilities to be residuals.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">iris_rf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>iris)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">iris_rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(iris_rf, <span class="dt">data =</span> iris, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(iris<span class="op">$</span>Species)<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## Preparation of a new explainer is initiated
-##   -&gt; model label       :  randomForest  ([33mdefault[39m)
-##   -&gt; data              :  150  rows  5  cols 
-##   -&gt; target variable   :  150  values 
-##   -&gt; predict function  :  yhat.randomForest  will be used ([33mdefault[39m)
-##   -&gt; predicted values  :  numerical, min =  0 , mean =  0.3333333 , max =  1  
-##   -&gt; residual function :  difference between y and yhat ([33mdefault[39m)
-##   -&gt; residuals         :  numerical, min =  -1 , mean =  0.6666667 , max =  2  
-## [32mA new explainer has been created![39m</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">iris_rf_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(iris_rf_exp)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="../reference/plot_halfnormal.html">plot_halfnormal</a></span>(iris_rf_hnp)</a></code></pre></div>
+<a href="#use-caes-classification" class="anchor"></a>Use-caes (classification)</h1>
+<p>Half-normal plots work also for classification tasks. In this case we consider the differences between observed class and predicted probabilities to be residuals.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(randomForest)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">iris_rf &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">iris_rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DALEX/topics/explain">explain</a></span>(iris_rf, <span class="dt">data =</span> iris, <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric</a></span>(iris<span class="op">$</span>Species) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">iris_rf_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(iris_rf_exp)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw"><a href="../reference/plot_halfnormal.html">plot_halfnormal</a></span>(iris_rf_hnp)</a></code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-</div>
-<div id="other-methods" class="section level1">
-<h1 class="hasAnchor">
-<a href="#other-methods" class="anchor"></a>Other methods</h1>
+<div id="other-methods" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-methods" class="anchor"></a>Other methods</h2>
 <p>Other methods and plots are described in vignettes:</p>
 <ul>
-<li><p><a href="https://modeloriented.github.io/auditor/articles/model_residuals_audit.html">Model Residuals audit</a></p></li>
-<li><p><a href="https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html">Model Evaluation audit</a></p></li>
-<li><p><a href="https://modeloriented.github.io/auditor/articles/model_performance_audit.html">Model Performance audit</a></p></li>
-<li><p><a href="https://modeloriented.github.io/auditor/articles/observation_influence_audit.html">Observation Influence audit</a></p></li>
+<li><a href="https://modeloriented.github.io/auditor/articles/model_residuals_audit.html">Model residuals audit</a></li>
+<li><a href="https://modeloriented.github.io/auditor/articles/model_evaluation_audit.html">Model evaluation audit</a></li>
+<li><a href="https://modeloriented.github.io/auditor/articles/model_performance_audit.html">Model performance audit</a></li>
+<li><a href="https://modeloriented.github.io/auditor/articles/observation_influence_audit.html">Observation influence audit</a></li>
 </ul>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
-<p>Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em>. Journal of Statistical Software, 81(10), 1 - 23. <a href="doi:http://dx.doi.org/10.18637/jss.v081.i10" class="uri">doi:http://dx.doi.org/10.18637/jss.v081.i10</a></p>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em>. Journal of Statistical Software, 81(10), 1-23. <a href="doi:http://dx.doi.org/10.18637/jss.v081.i10" class="uri">doi:http://dx.doi.org/10.18637/jss.v081.i10</a></p>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+<li>
+<a href="#use-case---regression-problem">Use-case - regression problem</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#half-normal-plot">Half-normal plot</a></li>
-      <li><a href="#auditorplothalfnormal">auditor::plotHalfNormal()</a></li>
-      <li>
-<a href="#use-case">Use-case</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#binomial-model">Binomial model</a></li>
-      <li><a href="#quantile-scale">Quantile scale</a></li>
+      <li><a href="#binomial-model">Binomial model</a></li>
+      <li><a href="#half-normal-plot-1">Half-normal plot</a></li>
       </ul>
 </li>
-      <li><a href="#classification">Classification</a></li>
-      <li><a href="#other-methods">Other methods</a></li>
+      <li>
+<a href="#use-caes-classification">Use-caes (classification)</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#other-methods">Other methods</a></li>
       <li><a href="#references">References</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>
 
 </div>
-
 
 
       <footer><div class="author">
@@ -234,12 +224,10 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
-
       </footer>
 </div>
 
   
-
 
   </body>
 </html>
