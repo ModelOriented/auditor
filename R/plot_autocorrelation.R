@@ -44,21 +44,16 @@ plot_autocorrelation <- function(object, ..., variable = "_y_hat_", smooth = FAL
   # data frame for ggplot object
   df_temp <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  if (is.null(variable)) {
-    variable <- "Observations"
-  }
-
   # set value for label of the X axis
-  if (variable == "Observations") {
+  if (is.null(variable)) {
     x_lab <- "Observations"
   } else if (variable == "_y_")  {
     x_lab <- "Target variable"
   } else if (variable == "_y_hat_") {
     x_lab <- "Actual response"
   } else {
-    x_lab <- as.character(df$`_variable_`[1])
+    x_lab <- as.character(df_temp$`_variable_`[1])
   }
-
 
   df <- data.frame(x_val = numeric(), y_val = numeric(), label = character())
   for (label in levels(df_temp$`_label_`)) {
@@ -73,7 +68,7 @@ plot_autocorrelation <- function(object, ..., variable = "_y_hat_", smooth = FAL
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
 
   # main chart
   p <- ggplot(df, aes(x_val, y_val))
@@ -89,7 +84,7 @@ plot_autocorrelation <- function(object, ..., variable = "_y_hat_", smooth = FAL
   p <- p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3"),
           plot.subtitle = element_text(vjust = -1)) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1))
 
   chart_title <- "Autocorrelation "
 
@@ -118,5 +113,5 @@ return(p)
 #' @export
 plotAutocorrelation <- function(object, ..., variable, smooth = FALSE) {
   message("Please note that 'plotAutocorrelation()' is now deprecated, it is better to use 'plot_autocorrelation()' instead.")
-  plot_autocorrelation(object, ..., smooth)
+  plot_autocorrelation(object, ..., smooth = smooth)
 }

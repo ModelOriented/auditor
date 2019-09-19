@@ -1,6 +1,6 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 0.4.0
+Version: 1.0.0
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-6563-5742")),
@@ -36,5 +36,5 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-URL: https://github.com/MI2DataLab/auditor
-BugReports: https://github.com/MI2DataLab/auditor/issues
+URL: https://github.com/ModelOriented/auditor
+BugReports: https://github.com/ModelOriented/auditor/issues

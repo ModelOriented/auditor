@@ -129,7 +129,10 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
   if (single_plot == TRUE) {
 
     r2d3::r2d3(data = temp, script = system.file("d3js/plotAutocorrelationSingle.js", package = "auditor"),
-               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               dependencies = list(
+                 system.file("d3js/colorsDrWhy.js", package = "auditor"),
+                 system.file("d3js/hackHead.js", package = "auditor")
+               ),
                css = system.file("d3js/themeDrWhy.css", package = "auditor"),
                d3_version = 4,
                options = options)
@@ -139,7 +142,10 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
     options['background'] <- background
 
     r2d3::r2d3(data = temp, script = system.file("d3js/plotAutocorrelationMany.js", package = "auditor"),
-               dependencies = system.file("d3js/colorsDrWhy.js", package = "auditor"),
+               dependencies = list(
+                 system.file("d3js/colorsDrWhy.js", package = "auditor"),
+                 system.file("d3js/hackHead.js", package = "auditor")
+               ),
                css = system.file("d3js/themeDrWhy.css", package = "auditor"),
                d3_version = 4,
                options = options)

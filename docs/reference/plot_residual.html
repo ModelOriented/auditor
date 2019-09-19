@@ -38,6 +38,8 @@
 <meta property="og:title" content="Plot Residuals vs Observed, Fitted or Variable Values — plot_residual" />
 
 <meta property="og:description" content="A plot of residuals against fitted values, observed values or any variable." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -51,13 +53,13 @@
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -82,7 +84,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">0.4.0</span>
+          <span class="version version-default">1.0.0</span>
         </div>
       </div>
     </div>
@@ -105,19 +107,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -125,7 +127,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/MI2DataLab/auditor">
+  <a href="https://github.com/ModelOriented/auditor">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -143,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Residuals vs Observed, Fitted or Variable Values</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MI2DataLab/auditor/blob/master/R/plot_residual.R'><code>R/plot_residual.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/plot_residual.R'><code>R/plot_residual.R</code></a></small>
     <div class="hidden name"><code>plot_residual.Rd</code></div>
     </div>
 
@@ -222,9 +224,9 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  762.7052 , mean =  1342.216 , max =  2453.76  
+#&gt;   -&gt; predicted values  :  numerical, min =  760.2834 , mean =  1341.98 , max =  2447.92  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -175.7866 , mean =  5.570594 , max =  444.6607  
+#&gt;   -&gt; residuals         :  numerical, min =  -172.0483 , mean =  5.807022 , max =  450.5004  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_residual</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_residual-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>mr_rf</span>, <span class='no'>mr_rf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"residual"</span>)</div><div class='img'><img src='plot_residual-4.png' alt='' width='700' height='433' /></div><div class='input'>
 

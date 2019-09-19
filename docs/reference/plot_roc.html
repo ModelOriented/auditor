@@ -39,6 +39,8 @@
 
 <meta property="og:description" content="Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -52,13 +54,13 @@ It is useful for measuring and comparing the accuracy of the classificators." />
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -83,7 +85,7 @@ It is useful for measuring and comparing the accuracy of the classificators." />
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">0.4.0</span>
+          <span class="version version-default">1.0.0</span>
         </div>
       </div>
     </div>
@@ -106,19 +108,19 @@ It is useful for measuring and comparing the accuracy of the classificators." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -126,7 +128,7 @@ It is useful for measuring and comparing the accuracy of the classificators." />
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/MI2DataLab/auditor">
+  <a href="https://github.com/ModelOriented/auditor">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -144,7 +146,7 @@ It is useful for measuring and comparing the accuracy of the classificators." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Receiver Operating Characteristic (ROC)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MI2DataLab/auditor/blob/master/R/plot_roc.R'><code>R/plot_roc.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/plot_roc.R'><code>R/plot_roc.R</code></a></small>
     <div class="hidden name"><code>plot_roc.Rd</code></div>
     </div>
 
@@ -195,12 +197,14 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 <span class='co'># use DALEX package to wrap up a model into explainer</span>
 <span class='no'>exp_glm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DALEX/topics/explain'>explain</a></span>(<span class='no'>model_glm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic</span>$<span class='no'>survived</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  (<span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; data              :  2099  rows  9  cols (extracted from model)
+#&gt;   -&gt; data              :  2099  rows  9  cols (</span><span style='color: #BBBB00;'>extracted from the model</span><span>)
 #&gt;   -&gt; target variable   :  2099  values 
+#&gt;   -&gt; data              :  A column identical to the target variable `y` has been found in the `data`.  (</span><span style='color: #BB0000;'>WARNING</span><span>)
+#&gt;   -&gt; data              :  It is highly recommended to pass `data` without the target variable column
 #&gt;   -&gt; predict function  :  yhat.glm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.68201e-09 , max =  0.9666502  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.682008e-09 , max =  0.9666502  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>auditor</span>)
@@ -214,10 +218,12 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 #&gt;   -&gt; model label       :  glm2 
 #&gt;   -&gt; data              :  2099  rows  9  cols 
 #&gt;   -&gt; target variable   :  2099  values 
+#&gt;   -&gt; data              :  A column identical to the target variable `y` has been found in the `data`.  (</span><span style='color: #BB0000;'>WARNING</span><span>)
+#&gt;   -&gt; data              :  It is highly recommended to pass `data` without the target variable column
 #&gt;   -&gt; predict function  :  yhat.glm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
 #&gt;   -&gt; predicted values  :  numerical, min =  1.431371e-08 , mean =  0.3244402 , max =  0.9999999  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9457109 , mean =  -1.684502e-09 , max =  0.9665453  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9457109 , mean =  -1.684517e-09 , max =  0.9665453  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>eva_glm_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_evaluation.html'>model_evaluation</a></span>(<span class='no'>exp_glm_2</span>)
 
 <span class='fu'>plot_roc</span>(<span class='no'>eva_glm</span>, <span class='no'>eva_glm_2</span>)</div><div class='img'><img src='plot_roc-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>eva_glm</span>, <span class='no'>eva_glm_2</span>)</div><div class='img'><img src='plot_roc-4.png' alt='' width='700' height='433' /></div><div class='input'>

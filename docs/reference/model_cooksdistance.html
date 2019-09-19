@@ -37,7 +37,10 @@
 
 <meta property="og:title" content="Cook's distances — model_cooksdistance" />
 
-<meta property="og:description" content="Calculates Cook's distances for each observation." />
+<meta property="og:description" content="Calculates Cook's distances for each observation.
+Please, note that it will work only for functions with specified 'update' method." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -51,13 +54,13 @@
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -82,7 +85,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">0.4.0</span>
+          <span class="version version-default">1.0.0</span>
         </div>
       </div>
     </div>
@@ -105,19 +108,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -125,7 +128,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/MI2DataLab/auditor">
+  <a href="https://github.com/ModelOriented/auditor">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -143,13 +146,14 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Cook's distances</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MI2DataLab/auditor/blob/master/R/model_cooksdistance.R'><code>R/model_cooksdistance.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/model_cooksdistance.R'><code>R/model_cooksdistance.R</code></a></small>
     <div class="hidden name"><code>model_cooksdistance.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculates Cook's distances for each observation.</p>
+    <p>Calculates Cook's distances for each observation.
+Please, note that it will work only for functions with specified 'update' method.</p>
     
     </div>
 
@@ -189,25 +193,27 @@
 #&gt;   -&gt; target variable   :  Please note that 'y' is a factor.  (</span><span style='color: #BB0000;'>WARNING</span><span>)
 #&gt;   -&gt; target variable   :  Consider changing the 'y' to a logical or numerical vector.
 #&gt;   -&gt; target variable   :  Otherwise I will not be able to calculate residuals or loss function.
+#&gt;   -&gt; data              :  A column identical to the target variable `y` has been found in the `data`.  (</span><span style='color: #BB0000;'>WARNING</span><span>)
+#&gt;   -&gt; data              :  It is highly recommended to pass `data` without the target variable column
 #&gt;   -&gt; predict function  :  yhat.glm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
-#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: '-' nie ma sensu dla czynników</span></div><div class='output co'>#&gt;   -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: ‘-’ not meaningful for factors</span></div><div class='output co'>#&gt;   -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>auditor</span>)
 <span class='fu'>model_cooksdistance</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; Model label:  lm 
 #&gt; 
 #&gt; Observations with the largest Cook's distances:
-#&gt;      Cook's distance index
-#&gt; 1543    9.941222e+19  1438
-#&gt; 924     8.699862e+19   848
-#&gt; 870     3.214367e+19   795
+#&gt;     Cook's distance index
+#&gt; 924    7.677289e+19   848
+#&gt; 870    3.214367e+19   795
+#&gt; 522    9.071796e+18   481
 #&gt; 
 #&gt; Quantiles of Cook's distances:
 #&gt;           0%          10%          20%          30%          40%          50% 
-#&gt; 1.735978e-12 6.090284e-06 1.005907e-05 1.424874e-05 2.053961e-05 3.428032e-05 
+#&gt; 1.735978e-12 6.090284e-06 1.005814e-05 1.424874e-05 2.053477e-05 3.426320e-05 
 #&gt;          60%          70%          80%          90%         100% 
-#&gt; 8.013246e-05 1.744884e-04 2.851670e-04 7.223557e-04 9.941222e+19 </div><div class='input'>
+#&gt; 7.991737e-05 1.744884e-04 2.837646e-04 7.210318e-04 7.677289e+19 </div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

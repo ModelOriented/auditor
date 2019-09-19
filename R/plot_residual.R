@@ -54,12 +54,8 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  if (is.null(variable)) {
-    variable <- "Observations"
-  }
-
   # set value for label of the X axis
-  if (variable == "Observations") {
+  if (is.null(variable)) {
     x_lab <- "Observations"
   } else if (variable == "_y_")  {
     x_lab <- "Target variable"
@@ -81,7 +77,7 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
   }
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
 
   # main chart
   p <- ggplot(data = df, aes(`_val_`, `_residuals_`))
@@ -106,7 +102,7 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
   p <- p +
     theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1))
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1))
 
   chart_title <- "Residuals"
   if (x_lab != "Observations") {
@@ -124,8 +120,7 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
 
 #' @rdname plot_residual
 #' @export
-plotResidual <-  function(object, ..., variable = NULL, smooth = FALSE,
-                           std_residuals = FALSE, nlabel = 0) {
-  message("Please note that 'plotACF()' is now deprecated, it is better to use 'plot_acf()' instead.")
-  plot_residual(object, ..., variable, smooth, std_residuals, nlabel)
+plotResidual <-  function(object, ..., variable = NULL, smooth = FALSE, std_residuals = FALSE, nlabel = 0) {
+  message("Please note that 'plotResidual()' is now deprecated, it is better to use 'plot_residual()' instead.")
+  plot_residual(object, ..., variable = variable, smooth = smooth, std_residuals = std_residuals, nlabel = nlabel)
 }

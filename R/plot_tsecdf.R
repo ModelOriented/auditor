@@ -32,7 +32,6 @@
 #' mr_rf <- model_residual(exp_rf)
 #' plot_tsecdf(mr_lm, mr_rf, reverse_y = TRUE)
 #'
-#' @seealso \code{\link{plot.model_audit}}
 #'
 #' @import ggplot2
 #' @importFrom ggrepel geom_text_repel
@@ -41,7 +40,7 @@
 plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
                              residuals = TRUE, reverse_y = FALSE) {
   # some safeguard
-  res <- ecd <- `_label_` <- big <- no.obs <- NULL
+  res <- ecd <- `_label_` <- big <- no.obs <- ord <- NULL
 
   # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
@@ -51,23 +50,26 @@ plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
                        reverse_y = reverse_y)
 
   # new varibale to set an order o curves
-  df <- df[order(-as.numeric(factor(df$ecd))), ]
+  df$ord <- paste(rev(as.numeric(factor(df$`_label_`))), df$`_label_`)
+
   # colors for model(s)
-  colours <- theme_drwhy_colors(length(levels(df$`_label_`)))
+  colours <- theme_drwhy_colors(nlevels(df$`_label_`))
+
   # main chart
-  p <- ggplot(df, aes(x = res, y = ecd, colour = `_label_`, group = `_label_`)) +
+  p <- ggplot(df, aes(x = res, y = ecd, colour = `_label_`, group = ord)) +
     geom_step() +
     scale_colour_manual(values = colours, breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
     scale_x_continuous(breaks = scales::pretty_breaks()) +
     scale_y_continuous(expand = c(0, 0), limits = c(0, max(df$ecd) * 1.05), labels = scales::percent) +
     theme_drwhy() +
-    theme(axis.line.x = element_line(color = "#371ea3")) +
+    theme(axis.line.x = element_line(color = "#371ea3"),
+          plot.subtitle = element_text(vjust = -1)) +
     xlab("Residuals") +
-    ylab("What ?") +
-    ggtitle("Two-sided Cumulative Distribution Function")
+    ylab("") +
+    ggtitle("Two-sided cumulative distribution function", subtitle = " ")
 
   if (residuals == TRUE) {
-    df <- df[order(-as.numeric(factor(df$label))), ]
+    df <- df[order(-as.numeric(factor(df$`_label_`))), ]
     p + geom_point(data = df, show.legend = FALSE, size = 1) +
       geom_text_repel(data = subset(df, big == TRUE),
                       aes(label = as.character(no.obs)),

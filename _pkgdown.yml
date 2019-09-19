@@ -1,7 +1,86 @@
 template:
   package: DrWhyTemplate
   default_assets: false
-home:
-  links:
-  - text: Source code
-    href: https://github.com/MI2DataLab/auditor
+reference:
+  - title: Computational functions
+    desc: functions creating tidy data frames from DALEX explainers according to specific objectives
+    contents:
+    - model_cooksdistance
+    - model_evaluation
+    - model_halfnormal
+    - model_performance
+    - model_residual
+  - title: Plots
+    desc: ploting functions
+    contents:
+    - plot_acf
+    - plotD3_acf
+    - plotACF
+    - plotD3ACF
+    - plot_autocorrelation
+    - plotD3_autocorrelation
+    - plotAutocorrelation
+    - plotD3Autocorrelation
+    - plot_cooksdistance
+    - plotD3_cooksdistance
+    - plotCooksDistance
+    - plotD3CooksDistance
+    - plot_correlation
+    - plotModelCorrelation
+    - plot_halfnormal
+    - plotD3_halfnormal
+    - plotHalfNormal
+    - plotD3HalfNormal
+    - plot_lift
+    - plotD3_lift
+    - plotLIFT
+    - plotD3LIFT
+    - plot_pca
+    - plotModelPCA
+    - plot_prediction
+    - plotD3_prediction
+    - plotPrediction
+    - plotD3Prediction
+    - plot_radar
+    - plotModelRanking
+    - plot_rec
+    - plotD3_rec
+    - plotREC
+    - plotD3REC
+    - plot_residual
+    - plotD3_residual
+    - plotResidual
+    - plotD3Residual
+    - plot_residual_boxplot
+    - plotResidualBoxplot
+    - plot_residual_density
+    - plotResidualDensity
+    - plot_roc
+    - plotD3_roc
+    - plotROC
+    - plot_rroc
+    - plotD3_rroc
+    - plotRROC
+    - plot_scalelocation
+    - plotD3_scalelocation
+    - plotScaleLocation
+    - plotD3ScaleLocation
+    - plot_tsecdf
+    - plotTwoSidedECDF
+  - title: Scores
+    desc: Scores for model and plot functions
+    contents:
+    - score_auc
+    - score_cooksdistance
+    - score_dw
+    - score_halfnormal
+    - score_mae
+    - score_mse
+    - score_peak
+    - score_rec
+    - score_rmse
+    - score_rroc
+    - score_runs
+  - title: Misc
+    contents:
+    - audit

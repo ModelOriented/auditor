@@ -39,6 +39,8 @@
 
 <meta property="og:description" content="Principal Component Analysis of models residuals.
 PCA can be used to assess the similarity of the models." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -52,13 +54,13 @@ PCA can be used to assess the similarity of the models." />
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -83,7 +85,7 @@ PCA can be used to assess the similarity of the models." />
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">0.4.0</span>
+          <span class="version version-default">1.0.0</span>
         </div>
       </div>
     </div>
@@ -106,19 +108,19 @@ PCA can be used to assess the similarity of the models." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -126,7 +128,7 @@ PCA can be used to assess the similarity of the models." />
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/MI2DataLab/auditor">
+  <a href="https://github.com/ModelOriented/auditor">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -144,7 +146,7 @@ PCA can be used to assess the similarity of the models." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Principal Component Analysis of models</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MI2DataLab/auditor/blob/master/R/plot_pca.R'><code>R/plot_pca.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/plot_pca.R'><code>R/plot_pca.R</code></a></small>
     <div class="hidden name"><code>plot_pca.Rd</code></div>
     </div>
 
@@ -208,9 +210,9 @@ PCA can be used to assess the similarity of the models.</p>
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  769.5381 , mean =  1344.423 , max =  2478.199  
+#&gt;   -&gt; predicted values  :  numerical, min =  759.001 , mean =  1343.348 , max =  2494.455  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -200.8936 , mean =  3.364124 , max =  420.222  
+#&gt;   -&gt; residuals         :  numerical, min =  -201.0208 , mean =  4.439141 , max =  403.9657  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 
 <span class='co'># plot results</span>

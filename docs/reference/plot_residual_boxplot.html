@@ -38,6 +38,8 @@
 <meta property="og:title" content="Plot Boxplots of Residuals — plot_residual_boxplot" />
 
 <meta property="og:description" content="A boxplot of residuals." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -51,13 +53,13 @@
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -82,7 +84,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">0.4.0</span>
+          <span class="version version-default">1.0.0</span>
         </div>
       </div>
     </div>
@@ -105,19 +107,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -125,7 +127,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/MI2DataLab/auditor">
+  <a href="https://github.com/ModelOriented/auditor">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -143,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Boxplots of Residuals</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MI2DataLab/auditor/blob/master/R/plot_residual_boxplot.R'><code>R/plot_residual_boxplot.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/plot_residual_boxplot.R'><code>R/plot_residual_boxplot.R</code></a></small>
     <div class="hidden name"><code>plot_residual_boxplot.Rd</code></div>
     </div>
 
@@ -172,7 +174,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='plot.model_audit.html'>plot.model_audit</a></code></p></div>
+    <div class='dont-index'><p><code><a href='plot_residual.html'>plot_residual</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -204,9 +206,9 @@
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  768.7053 , mean =  1342.366 , max =  2461.581  
+#&gt;   -&gt; predicted values  :  numerical, min =  768.4038 , mean =  1342.884 , max =  2461.394  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -180.4701 , mean =  5.420884 , max =  436.8392  
+#&gt;   -&gt; residuals         :  numerical, min =  -181.8626 , mean =  4.902737 , max =  437.0271  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_residual_boxplot</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_residual_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_residual_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>

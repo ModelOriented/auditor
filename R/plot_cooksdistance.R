@@ -49,8 +49,9 @@ plot_cooksdistance <- function(object, ..., nlabel = 3) {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., type = "infl", nlabel = nlabel)
+
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
   # main chart
   p <- ggplot(data = df, aes(`_index_`, `_cooks_dist_`))
 
@@ -79,5 +80,5 @@ plot_cooksdistance <- function(object, ..., nlabel = 3) {
 #' @export
 plotCooksDistance <- function(object, ..., nlabel = 3) {
   message("Please note that 'plotCookDistance()' is now deprecated, it is better to use 'plot_cooksdistance()' instead.")
-  plot_cooksdistance(object, ..., nlabel)
+  plot_cooksdistance(object, ..., nlabel = nlabel)
 }

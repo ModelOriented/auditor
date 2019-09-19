@@ -38,6 +38,8 @@
 <meta property="og:title" content="Model Ranking Plot — plot_radar" />
 
 <meta property="og:description" content="Radar plot with model score. score are scaled to [0,1], each score is inversed and divided by maximum score value." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -51,13 +53,13 @@
 <![endif]-->
 
 <!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+ gtag('config', 'UA-5650686-14');
 </script>
   </head>
 
@@ -82,7 +84,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">0.4.0</span>
+          <span class="version version-default">1.0.0</span>
         </div>
       </div>
     </div>
@@ -105,19 +107,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/model_evaluation_audit.html">Model Evaluation Audit</a>
+      <a href="../articles/model_evaluation_audit.html">Model evaluation audit</a>
     </li>
     <li>
-      <a href="../articles/model_fit_audit.html">Model Fit Audit</a>
+      <a href="../articles/model_fit_audit.html">Model fit audit</a>
     </li>
     <li>
-      <a href="../articles/model_performance_audit.html">Model Performance Audit</a>
+      <a href="../articles/model_performance_audit.html">Model performance audit</a>
     </li>
     <li>
-      <a href="../articles/model_residuals_audit.html">Model Residuals Audit</a>
+      <a href="../articles/model_residuals_audit.html">Model residuals audit</a>
     </li>
     <li>
-      <a href="../articles/observation_influence_audit.html">Observation Influence Audit</a>
+      <a href="../articles/observation_influence_audit.html">Observation influence audit</a>
     </li>
   </ul>
 </li>
@@ -125,7 +127,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/MI2DataLab/auditor">
+  <a href="https://github.com/ModelOriented/auditor">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -143,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Model Ranking Plot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MI2DataLab/auditor/blob/master/R/plot_radar.R'><code>R/plot_radar.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/plot_radar.R'><code>R/plot_radar.R</code></a></small>
     <div class="hidden name"><code>plot_radar.Rd</code></div>
     </div>
 
@@ -153,11 +155,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_radar</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"mae"</span>, <span class='st'>"mse"</span>, <span class='st'>"rec"</span>, <span class='st'>"rroc"</span>),
-  <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>plot_radar</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>plotModelRanking</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"MAE"</span>, <span class='st'>"MSE"</span>, <span class='st'>"REC"</span>, <span class='st'>"RROC"</span>),
-  <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>plotModelRanking</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,15 +171,7 @@
       <td><p>Other auditor_model_performance' objects to be plotted together.</p></td>
     </tr>
     <tr>
-      <th>score</th>
-      <td><p>Vector of score names to be plotted.</p></td>
-    </tr>
-    <tr>
-      <th>new_score</th>
-      <td><p>A named list of functions that take one argument: object of class ModelAudit and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.</p></td>
-    </tr>
-    <tr>
-      <th>print</th>
+      <th>verbose</th>
       <td><p>Logical, indicates whether values of scores should be printed.</p></td>
     </tr>
     </table>
@@ -217,14 +209,13 @@
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; predicted values  :  numerical, min =  767.6671 , mean =  1344.276 , max =  2494.033  
+#&gt;   -&gt; predicted values  :  numerical, min =  763.7116 , mean =  1345.099 , max =  2493.841  
 #&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
-#&gt;   -&gt; residuals         :  numerical, min =  -187.9356 , mean =  3.511072 , max =  404.3873  
+#&gt;   -&gt; residuals         :  numerical, min =  -193.2317 , mean =  2.687604 , max =  404.5802  
 #&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'><span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_rf</span>)
 
 <span class='co'># plot results</span>
 <span class='fu'>plot_radar</span>(<span class='no'>mp_lm</span>, <span class='no'>mp_rf</span>)</div><div class='output co'>#&gt; <span class='error'>Error in check_object(object, type = "prfm"): The function requires an object created with function model_performance().</span></div><div class='input'>
-
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

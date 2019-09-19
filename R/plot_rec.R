@@ -47,7 +47,7 @@
 plot_rec <- function(object, ...) {
 
   # some safeguard
-  rec_x <- rec_y <- label <- ord <- NULL
+  `_rec_x_` <- `_rec_y_` <- `_label_` <- ord <- NULL
 
   # check if passed object is of class "auditor_model_residual"
   check_object(object, type = "res")
@@ -56,21 +56,21 @@ plot_rec <- function(object, ...) {
   df <- make_dataframe(object, ..., type = "rec")
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(df$label)), df$label)
+  df$ord <- paste(rev(as.numeric(df$`_label_`)), df$`_label_`)
 
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
 
   # main chart
-  p <- ggplot(data = df, aes(x = rec_x, y = rec_y)) +
-    geom_line(aes(colour = label, group = ord))
+  p <- ggplot(data = df, aes(x = `_rec_x_`, y = `_rec_y_`)) +
+    geom_line(aes(colour = `_label_`, group = ord))
 
   # theme, colours, titles, axes, scales, etc.
   p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
-    scale_color_manual(values = rev(colours), breaks = levels(df$label), guide = guide_legend(nrow = 1)) +
-    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df$rec_x) * 1.1)) +
-    scale_y_continuous(expand = c(0, 0), limits = c(0, max(df$rec_y) * 1.1), labels = scales::percent) +
+    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df$`_rec_x_`) * 1.1)) +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, max(df$`_rec_y_`) * 1.1), labels = scales::percent) +
     xlab("Error tolerance") +
     ylab("") +
     ggtitle("REC Curve")

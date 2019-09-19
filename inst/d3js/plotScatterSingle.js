@@ -7,7 +7,7 @@ var points = options.points, smooth = options.smooth,
     yTitle = options.yTitle, chartTitle = options.chartTitle;
 
 var plotHeight, plotWidth,
-    margin = {top: 98, right: 30, bottom: 71, left: 60, inner: 42},
+    margin = {top: 78, right: 30, bottom: 71, left: 60, inner: 42},
     h = height - margin.top - margin.bottom;
 
 if (options.scalePlot === true) {
@@ -66,7 +66,7 @@ function singlePlot(modelName, pData, sData, i) {
       svg.append("text")
           .attr("class", "bigTitle")
           .attr("x", margin.left)
-          .attr("y", margin.top - 60)
+          .attr("y", margin.top - 40)
           .text(chartTitle);
 
       svg.append("text")

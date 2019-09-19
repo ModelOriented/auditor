@@ -11,8 +11,8 @@
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smooth line should be added.
-#' @param abline Logical, indicates whenever function y = x should be added. Works only
-#' with \code{variable = NULL} which is a default option.
+#' @param abline Logical, indicates whenever function `y = x` should be added. Works only
+#' with \code{variable = "_y_"} (which is a default option) or when `variable` equals actual response variable.
 #'
 #' @return A ggplot2 object.
 #'
@@ -51,16 +51,11 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
   # check if passed object is of class "model_residual" or "model_audit"
   check_object(object, type = "res")
 
-
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  if (is.null(variable)) {
-    variable <- "Observations"
-  }
-
   # set value for label of the X axis
-  if (variable == "Observations") {
+  if (is.null(variable)) {
     x_lab <- "Observations"
   } else if (variable == "_y_")  {
     x_lab <- "Target variable"
@@ -73,17 +68,16 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
   # data frame for extra geoms
   maybe_smooth <- if (smooth == TRUE) df else df[0, ]
 
-
   # colors for model(s)
-  colours <- rev(theme_drwhy_colors(length(levels(df$`_label_`))))
+  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
+
   # main chart
   p <- ggplot(data = df, aes(`_val_`, `_y_hat_`))
 
   # scatter plot for the main model
   p <- p + drwhy_geom_point(df, smooth, alpha_val = 0.65)
 
-
-  p# smoot curve for the main model
+  # smoot curve for the main model
   if (smooth == TRUE)
     p <- p + drwhy_geom_smooth(maybe_smooth)
 
@@ -114,5 +108,5 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
 #' @export
 plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = FALSE) {
   message("Please note that 'plotPrediction()' is now deprecated, it is better to use 'plot_prediction()' instead.")
-  plot_prediction(object, ..., variable, smooth, abline)
+  plot_prediction(object, ..., variable = variable, smooth = smooth, abline = abline)
 }

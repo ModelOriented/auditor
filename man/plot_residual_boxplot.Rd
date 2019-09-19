@@ -43,5 +43,5 @@ plot(mr_lm, mr_rf)
 
 }
 \seealso{
-\code{\link{plot.model_audit}}
+\code{\link{plot_residual}}
 }

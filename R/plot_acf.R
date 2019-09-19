@@ -53,18 +53,32 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  resultDF <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
+  result_df <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
   for (label in unique(df$`_label_`)) {
     orderedResiduals <- df[which(df$`_label_` == label), "_residuals_"]
     acf <- acf(orderedResiduals, plot = FALSE)
-    resultDF <- rbind(resultDF, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
+    result_df <- rbind(result_df, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
+  }
+
+  df <- result_df
+
+  # set value for label of the X axis
+  if (is.null(variable)) {
+    x_lab <- "Observations"
+  } else if (variable == "_y_")  {
+    x_lab <- "target variable"
+  } else if (variable == "_y_hat_") {
+    x_lab <- "actual response"
+  } else {
+    x_lab <- as.character(variable)
   }
 
   conf_lims <- c(-1, 1) * qnorm((1 + alpha) / 2) / sqrt(nrow(object))
-  # colors for model(s)
-  colours <- rev(theme_drwhy_colors(nlevels(df$`_label_`)))
 
-  p <- ggplot(resultDF, aes(x = lag)) +
+  # colors for model(s)
+  colours <- rev(theme_drwhy_colors(nlevels(df$label)))
+
+  p <- ggplot(df, aes(x = lag)) +
     geom_segment(aes(x = lag, xend = lag, y = ymin, yend = acf, colour = label), size = 1, alpha = 0.65) +
     geom_hline(yintercept = conf_lims, color = "darkgrey", linetype = "dashed") +
     facet_wrap(. ~ label, scales = "free_y", ncol = 1)
@@ -77,12 +91,13 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
           legend.text = element_text(margin = margin(r = 5, l = 3)),
           legend.key = element_rect(colour = NA, fill = NA),
           legend.position = "none") +
-    scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1))
+    scale_color_manual(values = rev(colours), breaks = levels(result_df$label), guide = guide_legend(nrow = 1))
 
   p <- p + scale_x_continuous(breaks = scales::pretty_breaks())
 
-  p + xlab(ifelse(!is.null(variable) & nchar(variable) > 1, paste0("Lag of ", variable))) +
-    ylab("") + ggtitle("ACF plot")
+  if (x_lab != "Observations") x_lab <- paste0("Lag by ", x_lab)
+
+  p + xlab(x_lab) + ylab("") + ggtitle("ACF plot")
 
 }
 
@@ -90,5 +105,5 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
 #' @export
 plotACF <- function(object, ..., variable = NULL, alpha = 0.95) {
   message("Please note that 'plotACF()' is now deprecated, it is better to use 'plot_acf()' instead.")
-  plot_acf(object, ..., variable, alpha)
+  plot_acf(object, ..., variable = variable, alpha = alpha)
 }
