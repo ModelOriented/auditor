@@ -1,4 +1,4 @@
-#' @title F1 score
+#' @title F1 Score
 #'
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
@@ -16,13 +16,13 @@
 #' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 #'
 #' # calculate score
-#' score_F1(exp_glm)
+#' score_f1(exp_glm)
 #'
 #'
 #' @export
 
 
-score_F1 <- function(object){
+score_f1 <- function(object){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   conf <- confusionmatrix(object)
@@ -39,7 +39,7 @@ score_F1 <- function(object){
 }
 
 
-#' @title One minus F1 score
+#' @title One Minus F1 Score
 #'
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
@@ -57,13 +57,13 @@ score_F1 <- function(object){
 #' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 #'
 #' # calculate score
-#' score_one_minus_F1(exp_glm)
+#' score_one_minus_f1(exp_glm)
 #'
 #'
 #' @export
 
 
-score_one_minus_F1 <- function(object){
+score_one_minus_f1 <- function(object){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   conf <- confusionmatrix(object)

@@ -156,3 +156,30 @@ print.auditor_model_performance <- function(x, ...) {
   print(x[,c(1,3)])
   return(invisible(NULL))
 }
+
+
+
+
+#' Prints of Models Scores
+#'
+#' @param x an object 'auditor_score' created with \code{\link{score}} function.
+#' @param ... other parameters
+#'
+#' @export
+#'
+#' @examples
+#' titanic <- na.omit(DALEX::titanic)
+#' titanic$survived <- titanic$survived == "yes"
+#' # fit a model
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' # create an explainer
+#' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
+#' # calculate score
+#' score(exp_glm, score= "auc")
+#'
+#' @export
+print.auditor_score <- function(x, ...) {
+  cat(x$name, ":", x$score, "\n")
+  return(invisible(NULL))
+}
+

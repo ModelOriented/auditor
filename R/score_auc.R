@@ -37,7 +37,7 @@ score_auc <- function(object){
   auc = sum((x[2:length(roc_y)]-x[1:length(roc_y)-1])*y[2:length(roc_y)])
 
   roc_results <- list(
-    name = "roc",
+    name = "auc",
     score = auc
   )
 
