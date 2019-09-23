@@ -32,7 +32,7 @@ score_mae <- function(object){
     score = mean(abs(object$y - object$y_hat))
     )
 
-  class(MAEResults) <- "score_audit"
+  class(MAEResults) <- "auditor_score"
   return(MAEResults)
 }
 

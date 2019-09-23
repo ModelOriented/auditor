@@ -3,12 +3,9 @@ bibentry(bibtype = "Article",
       person(given = "Alicja", family = "Gosiewska"),
       person(given = "Przemysław", family = "Biecek")
             ),
-  title = "{auditor}: an {R} Package for Model-Agnostic Visual Validation and Diagnostic",
-  journal = "ArXiv e-prints",
-  archivePrefix = "arXiv",
-  eprint = "1809.07763",
-  primaryClass = "stat.CO",
-  year = "2018",
-  url = "http://adsabs.harvard.edu/abs/2018arXiv180907763G",
-  note = "Provided by the SAO/NASA Astrophysics Data System"
+  title = "{auditor}: an {R} Package for Model-Agnostic Visual Validation and Diagnostics",
+  year = "2019",
+  journal = "The R Journal",
+  doi = "10.32614/RJ-2019-036",
+  url = "https://journal.r-project.org/archive/2019/RJ-2019-036/index.html"
 )

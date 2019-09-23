@@ -31,7 +31,7 @@ score_mse <- function(object){
     score = mean((object$y - object$y_hat)^2)
     )
 
-  class(mse_results) <- "score_audit"
+  class(mse_results) <- "auditor_score"
   mse_results
 }
 

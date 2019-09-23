@@ -70,17 +70,28 @@ reference:
   - title: Scores
     desc: Scores for model and plot functions
     contents:
+    - score_acc
     - score_auc
     - score_cooksdistance
     - score_dw
+    - score_f1
     - score_halfnormal
     - score_mae
     - score_mse
     - score_peak
+    - score_precision
     - score_rec
+    - score_recall
     - score_rmse
     - score_rroc
     - score_runs
+    - score_specificity
+    - score_one_minus_acc
+    - score_one_minus_auc
+    - score_one_minus_f1
+    - score_one_minus_precision
+    - score_one_minus_specificity
+    - score_one_minus_recall
   - title: Misc
     contents:
     - audit

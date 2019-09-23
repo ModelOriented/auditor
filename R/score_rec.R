@@ -46,7 +46,7 @@ score_rec <- function(object) {
     score = aoc
     )
 
-  class(rec_results) <- "score_audit"
+  class(rec_results) <- "auditor_score"
   rec_results
 }
 

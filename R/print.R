@@ -179,7 +179,7 @@ print.auditor_model_performance <- function(x, ...) {
 #'
 #' @export
 print.auditor_score <- function(x, ...) {
-  cat(x$name, ":", x$score, "\n")
+  cat(x$name, ": ", x$score, sep="")
   return(invisible(NULL))
 }
 
