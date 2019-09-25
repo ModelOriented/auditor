@@ -4,8 +4,7 @@
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" />
 [![Build
 Status](https://travis-ci.org/ModelOriented/auditor.svg?branch=master)](https://travis-ci.org/ModelOriented/auditor)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/modeloriented/auditor/master.svg)](https://codecov.io/github/modeloriented/auditor?branch=master)
+[![codecov](https://codecov.io/gh/modeloriented/auditor/branch/master/graph/badge.svg)](https://codecov.io/gh/modeloriented/auditor)
 [![DrWhy-eXtrAI](https://img.shields.io/badge/DrWhy-eXtrAI-4378bf)](http://drwhy.ai/#eXtraAI)
 
 ## Overview
