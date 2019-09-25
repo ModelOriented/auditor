@@ -77,6 +77,8 @@ plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
 
   - A [preprint of the article about
     auditor](https://arxiv.org/abs/1809.07763) is available on arxiv.
+    
+  - A [Cheatsheet](https://github.com/ModelOriented/auditor/blob/master/materials/auditor_cheatsheet.pdf)
 
 
 ### A short overview of plots
