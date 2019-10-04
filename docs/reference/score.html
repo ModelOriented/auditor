@@ -36,12 +36,11 @@
 
 
 <meta property="og:title" content="Model Scores computations — score" />
-
 <meta property="og:description" content="This function provides several scores for model validation and performance assessment.
 Scores can be also used to compare models." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -150,14 +149,12 @@ Scores can be also used to compare models." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function provides several scores for model validation and performance assessment.
 Scores can be also used to compare models.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"mse"</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -176,19 +173,17 @@ Scores can be also used to compare models.</p>
       <td><p>Other arguments dependent on the type of score.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class 'auditor_score', except Cooks distance, where numeric vector is returned.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='score_auc.html'>score_auc</a></code>, <code><a href='score_cooksdistance.html'>score_cooksdistance</a></code>, <code><a href='score_dw.html'>score_dw</a></code>, <code><a href='score_peak.html'>score_peak</a></code>, <code><a href='score_halfnormal.html'>score_halfnormal</a></code>, <code><a href='score_mae.html'>score_mae</a></code>,
-<code><a href='score_mse.html'>score_mse</a></code>, <code><a href='score_rec.html'>score_rec</a></code>, <code><a href='score_rroc.html'>score_rroc</a></code>, <code><a href='score_runs.html'>score_runs</a></code>, <code><a href='score_one_minus_auc.html'>score_one_minus_auc</a></code>, <code><a href='score_one_minus_acc.html'>score_one_minus_acc</a></code>,
-<code><a href='score_one_minus_f1.html'>score_one_minus_f1</a></code>, <code><a href='score_one_minus_precision.html'>score_one_minus_precision</a></code>,
-<code><a href='score_one_minus_recall.html'>score_one_minus_recall</a></code>, <code><a href='score_one_minus_specificity.html'>score_one_minus_specificity</a></code>, <code><a href='score_acc.html'>score_acc</a></code>, <code><a href='score_f1.html'>score_f1</a></code>, <code><a href='score_precision.html'>score_precision</a></code>,
-<code><a href='score_recall.html'>score_recall</a></code>, <code><a href='score_specificity.html'>score_specificity</a></code></p></div>
-    
+<code><a href='score_mse.html'>score_mse</a></code>, <code><a href='score_rec.html'>score_rec</a></code>, <code><a href='score_rroc.html'>score_rroc</a></code>, <code><a href='score_runs.html'>score_runs</a></code>, <code>score_one_minus_auc</code>, <code>score_one_minus_acc</code>,
+<code>score_one_minus_f1</code>, <code>score_one_minus_precision</code>,
+<code>score_one_minus_recall</code>, <code>score_one_minus_specificity</code>, <code>score_acc</code>, <code>score_f1</code>, <code>score_precision</code>,
+<code>score_recall</code>, <code>score_specificity</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -198,14 +193,14 @@ Scores can be also used to compare models.</p>
 
 <span class='co'># use DALEX package to wrap up a model into explainer</span>
 <span class='no'>exp_lm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
-#&gt;   -&gt; model label       :  lm  (<span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
-#&gt;   -&gt; predict function  :  yhat.lm  will be used (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; predict function  :  yhat.lm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
-#&gt;   -&gt; residual function :  difference between y and yhat (</span><span style='color: #BBBB00;'>default</span><span>)
+#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
-#&gt; </span><span style='color: #00BB00;'>A new explainer has been created!</span><span></div><div class='input'>
+#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># calculate score</span>
 <span class='fu'>score</span>(<span class='no'>exp_lm</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>'mae'</span>)</div><div class='output co'>#&gt; mae: 31.81926</div><div class='input'>
 </div></span></pre>
@@ -214,11 +209,8 @@ Scores can be also used to compare models.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

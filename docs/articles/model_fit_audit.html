@@ -106,7 +106,7 @@
       <h1>Model fit audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-09-23</h4>
+            <h4 class="date">2019-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_fit_audit.Rmd"><code>vignettes/model_fit_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_fit_audit.Rmd</code></div>
@@ -123,8 +123,8 @@
 <a href="#use-case---regression-problem" class="anchor"></a>Use-case - regression problem</h1>
 <p>We demonstrate the use of half-normal plots for a generalized linear models. We will use dataset corn from the <code>hnp</code> package. For more details on the data set and models see <a href="https://www.jstatsoft.org/article/view/v081i10">Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em></a>.</p>
 <p>By default, deviance residuals were used as diagnostic values.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(corn, <span class="dt">package =</span> <span class="st">"hnp"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(corn)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(corn, <span class="dt">package =</span> <span class="st">"hnp"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(corn)</a></code></pre></div>
 <pre><code>##   extract  m  y
 ## 1    leaf 35 26
 ## 2    leaf 36 25
@@ -142,24 +142,24 @@
 <h2 class="hasAnchor">
 <a href="#binomial-model" class="anchor"></a>Binomial model</h2>
 <p>First step of auditing is fitting a model and creating an <code>explainer</code> object with <code>DALEX</code> package which wraps up a model with meta-data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">model_bin &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)</a>
-<a class="sourceLine" id="cb3-3" title="3">bin_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(model_bin, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">model_bin &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(y, m <span class="op">-</span><span class="st"> </span>y) <span class="op">~</span><span class="st"> </span>extract, <span class="dt">family =</span> binomial, <span class="dt">data =</span> corn)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">bin_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(model_bin, <span class="dt">data =</span> corn, <span class="dt">y =</span> corn<span class="op">$</span>y)</a></code></pre></div>
 <p>Second step is creating <code><a href="../reference/model_halfnormal.html">model_halfnormal()</a></code> object that can be further used for validating a model.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
-<a class="sourceLine" id="cb4-2" title="2">bin_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(bin_exp)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">bin_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(bin_exp)</a></code></pre></div>
 <pre><code>## Binomial model</code></pre>
 </div>
 <div id="half-normal-plot-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#half-normal-plot-1" class="anchor"></a>Half-normal plot</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bin_hnp, <span class="dt">sim =</span> <span class="dv">500</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bin_hnp, <span class="dt">sim =</span> <span class="dv">500</span>)</a></code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="co"># plot_halfnormal(bin_hnp, sim = 500)</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co"># plot_halfnormal(bin_hnp, sim = 500)</span></a></code></pre></div>
 <p>It doesn’t fit because of the overdispersion in data.</p>
 <p>In function <code>plot_halfnormal</code> there is also a posibility to draw half-normal plot on a quantile scale:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bin_hnp, <span class="dt">quantiles =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bin_hnp, <span class="dt">quantiles =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 </div>
@@ -167,11 +167,11 @@
 <h1 class="hasAnchor">
 <a href="#use-caes-classification" class="anchor"></a>Use-caes (classification)</h1>
 <p>Half-normal plots work also for classification tasks. In this case we consider the differences between observed class and predicted probabilities to be residuals.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
-<a class="sourceLine" id="cb9-2" title="2">iris_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris)</a>
-<a class="sourceLine" id="cb9-3" title="3">iris_rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(iris_rf, <span class="dt">data =</span> iris, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(iris<span class="op">$</span>Species) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb9-4" title="4">iris_rf_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(iris_rf_exp)</a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="kw"><a href="../reference/plot_halfnormal.html">plot_halfnormal</a></span>(iris_rf_hnp)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">iris_rf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">iris_rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(iris_rf, <span class="dt">data =</span> iris, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(iris<span class="op">$</span>Species) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">iris_rf_hnp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(iris_rf_exp)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw"><a href="../reference/plot_halfnormal.html">plot_halfnormal</a></span>(iris_rf_hnp)</a></code></pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div id="other-methods" class="section level2">
 <h2 class="hasAnchor">
@@ -193,6 +193,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
