@@ -5,17 +5,19 @@
 \alias{scoreDW}
 \title{Durbin-Watson Score}
 \usage{
-score_dw(object, variable = NULL)
+score_dw(object, variable = NULL, data = NULL)
 
 scoreDW(object, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{variable}{Name of model variable to order residuals.}
+
+\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 }
 \value{
-An object of class 'auditor_score'.
+An object of class \code{auditor_score}.
 }
 \description{
 Score based on Durbin-Watson test statistic.

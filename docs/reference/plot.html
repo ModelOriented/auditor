@@ -36,13 +36,14 @@
 
 
 <meta property="og:title" content="Model Diagnostic Plots — plot_auditor" />
+
 <meta property="og:description" content="This function provides several diagnostic plots for regression and classification models.
 Provide object created with one of aduditor's computational functions, model_residual,
 model_cooksdistance, model_evaluation, model_performance,
 model_evaluation." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -151,10 +152,12 @@ model_evaluation." />
     </div>
 
     <div class="ref-description">
+    
     <p>This function provides several diagnostic plots for regression and classification models.
 Provide object created with one of aduditor's computational functions, <code><a href='model_residual.html'>model_residual</a></code>,
 <code><a href='model_cooksdistance.html'>model_cooksdistance</a></code>, <code><a href='model_evaluation.html'>model_evaluation</a></code>, <code><a href='model_performance.html'>model_performance</a></code>,
 <code><a href='model_evaluation.html'>model_evaluation</a></code>.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>plot_auditor</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"residual"</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
@@ -178,7 +181,7 @@ Provide object created with one of aduditor's computational functions, <code><a 
 <span class='co'># S3 method for auditor_model_cooksdistance</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"residual"</span>,
   <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -210,7 +213,7 @@ or 'auditor_model_halfnormal' (created with <code><a href='model_halfnormal.html
       <td><p>logical; if TRUE plots will be plotted on the grid.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plot_acf.html'>plot_acf</a>, <a href='plot_autocorrelation.html'>plot_autocorrelation</a>, <a href='plot_cooksdistance.html'>plot_cooksdistance</a>,
@@ -218,6 +221,7 @@ or 'auditor_model_halfnormal' (created with <code><a href='model_halfnormal.html
 <a href='plot_radar.html'>plot_radar</a>, <a href='plot_correlation.html'>plot_correlation</a>,
 <a href='plot_prediction.html'>plot_prediction</a>, <a href='plot_rec.html'>plot_rec</a>, <a href='plot_residual_density.html'>plot_residual_density</a>, <a href='plot_residual.html'>plot_residual</a>, <a href='plot_roc.html'>plot_roc</a>,
 <a href='plot_rroc.html'>plot_rroc</a>, <a href='plot_scalelocation.html'>plot_scalelocation</a>, <a href='plot_tsecdf.html'>plot_tsecdf</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -249,9 +253,9 @@ or 'auditor_model_halfnormal' (created with <code><a href='model_halfnormal.html
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  764.3799 , mean =  1344.786 , max =  2469.5  
+#&gt;   -&gt; predicted values  :  numerical, min =  771.4386 , mean =  1343.187 , max =  2473.604  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -182.3733 , mean =  3.001182 , max =  428.9207  
+#&gt;   -&gt; residuals         :  numerical, min =  -189.2592 , mean =  4.600239 , max =  424.8169  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_rf</span>)
 <span class='no'>mp_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_lm</span>)
@@ -263,7 +267,9 @@ or 'auditor_model_halfnormal' (created with <code><a href='model_halfnormal.html
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

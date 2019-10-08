@@ -36,11 +36,12 @@
 
 
 <meta property="og:title" content="Model Scores computations — score" />
+
 <meta property="og:description" content="This function provides several scores for model validation and performance assessment.
 Scores can be also used to compare models." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -149,41 +150,52 @@ Scores can be also used to compare models." />
     </div>
 
     <div class="ref-description">
+    
     <p>This function provides several scores for model validation and performance assessment.
 Scores can be also used to compare models.</p>
+    
     </div>
 
-    <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"mse"</span>, <span class='no'>...</span>)</pre>
-
+    <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"mse"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'explainer' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>score</th>
-      <td><p>The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
-'one_minus_auc', 'one_minus_acc', 'one_minus_f1', 'one_minus_precision', 'one_minus_recall', 'one_minus_specificity', 'acc', 'f1', 'precision', 'recall', 'specificity'
+      <td><p>The score to  be calculated. Possible values: <code>acc</code>, <code>auc</code>, <code>cookdistance</code>, <code>dw</code>, <code>f1</code>,
+<code>halfnormal</code>, <code>mae</code>, <code>mse</code>, <code>peak</code>, <code>precision</code>, <code>rec</code>, <code>recall</code>,
+<code>rmse</code>, <code>rroc</code>, <code>runs</code>, <code>specificity</code>,  <code>one_minus_acc</code>, <code>one_minus_auc</code>,
+<code>one_minus_f1</code>, <code>one_minus_precision</code>, <code>one_minus_recall</code>, <code>one_minus_specificity</code>
 (for detailed description see functions in see also section).</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>New data that will be used to calcuate the score. Pass <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Other arguments dependent on the type of score.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class 'auditor_score', except Cooks distance, where numeric vector is returned.</p>
+    <p>An object of class <code>auditor_score</code>, except Cooks distance, where numeric vector is returned.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='score_auc.html'>score_auc</a></code>, <code><a href='score_cooksdistance.html'>score_cooksdistance</a></code>, <code><a href='score_dw.html'>score_dw</a></code>, <code><a href='score_peak.html'>score_peak</a></code>, <code><a href='score_halfnormal.html'>score_halfnormal</a></code>, <code><a href='score_mae.html'>score_mae</a></code>,
-<code><a href='score_mse.html'>score_mse</a></code>, <code><a href='score_rec.html'>score_rec</a></code>, <code><a href='score_rroc.html'>score_rroc</a></code>, <code><a href='score_runs.html'>score_runs</a></code>, <code>score_one_minus_auc</code>, <code>score_one_minus_acc</code>,
-<code>score_one_minus_f1</code>, <code>score_one_minus_precision</code>,
-<code>score_one_minus_recall</code>, <code>score_one_minus_specificity</code>, <code>score_acc</code>, <code>score_f1</code>, <code>score_precision</code>,
-<code>score_recall</code>, <code>score_specificity</code></p></div>
+    <div class='dont-index'><p><code><a href='score_acc.html'>score_acc</a></code>, <code><a href='score_auc.html'>score_auc</a></code>, <code><a href='score_cooksdistance.html'>score_cooksdistance</a></code>, <code><a href='score_dw.html'>score_dw</a></code>, <code><a href='score_f1.html'>score_f1</a></code>,
+<code><a href='score_halfnormal.html'>score_halfnormal</a></code>, <code><a href='score_mae.html'>score_mae</a></code>, <code><a href='score_mse.html'>score_mse</a></code>,
+<code><a href='score_peak.html'>score_peak</a></code>, <code><a href='score_precision.html'>score_precision</a></code>, <code><a href='score_rec.html'>score_rec</a></code>, <code><a href='score_recall.html'>score_recall</a></code>, <code><a href='score_rmse.html'>score_rmse</a></code>,
+<code><a href='score_rroc.html'>score_rroc</a></code>, <code><a href='score_runs.html'>score_runs</a></code>, <code><a href='score_specificity.html'>score_specificity</a></code>,
+<code><a href='score_one_minus_acc.html'>score_one_minus_acc</a></code>, <code><a href='score_one_minus_auc.html'>score_one_minus_auc</a></code>, <code><a href='score_one_minus_f1.html'>score_one_minus_f1</a></code>, <code><a href='score_one_minus_precision.html'>score_one_minus_precision</a></code>,
+<code><a href='score_one_minus_recall.html'>score_one_minus_recall</a></code>, <code><a href='score_one_minus_specificity.html'>score_one_minus_specificity</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -209,8 +221,11 @@ Scores can be also used to compare models.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

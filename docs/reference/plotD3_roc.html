@@ -36,11 +36,12 @@
 
 
 <meta property="og:title" content="Receiver Operating Characteristic (ROC) in D3 with r2d3 package. — plotD3_roc" />
+
 <meta property="og:description" content="Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -149,12 +150,14 @@ It is useful for measuring and comparing the accuracy of the classificators." />
     </div>
 
     <div class="ref-description">
+    
     <p>Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>plotD3_roc</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>nlabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale_plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -175,13 +178,15 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
       <td><p>Logical, indicates whenever the plot should scale with height. By default it's FALSE.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a `r2d3` object</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plot_roc.html'>plot_roc</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
@@ -200,7 +205,7 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.682008e-09 , max =  0.9666502  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.68201e-09 , max =  0.9666502  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
@@ -220,7 +225,7 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  1.431371e-08 , mean =  0.3244402 , max =  0.9999999  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9457109 , mean =  -1.684517e-09 , max =  0.9665453  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9457109 , mean =  -1.684502e-09 , max =  0.9665453  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>eva_glm_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_evaluation.html'>model_evaluation</a></span>(<span class='no'>exp_glm_2</span>)
 
 <span class='fu'>plotD3_roc</span>(<span class='no'>eva_glm</span>, <span class='no'>eva_glm_2</span>)</div></span></pre>
@@ -229,8 +234,11 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

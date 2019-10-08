@@ -106,7 +106,7 @@
       <h1>Model residuals audit</h1>
                         <h4 class="author">Alicja Gosiewska, Tomasz Mikołajczyk</h4>
             
-            <h4 class="date">2019-10-04</h4>
+            <h4 class="date">2019-10-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_residuals_audit.Rmd"><code>vignettes/model_residuals_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_residuals_audit.Rmd</code></div>
@@ -127,9 +127,9 @@
 <a href="#data" class="anchor"></a>Data</h2>
 <p>Use case - predicting a length of life</p>
 <p>To illustrate application of <code>auditor</code> we will use dataset “dragons” available in the <a href="https://github.com/pbiecek/DALEX"><code>DALEX</code></a> package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(DALEX)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(dragons)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(dragons)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(DALEX)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(dragons)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(dragons)</a></code></pre></div>
 <pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
 ## 1         -1291 59.40365 15.32391     7    red              1700
 ## 2          1589 46.21374 11.80819     5    red              1700
@@ -149,24 +149,24 @@
 <h2 class="hasAnchor">
 <a href="#models" class="anchor"></a>Models</h2>
 <p>First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables, while random forest should be able to capture also non-linear relationships between variables.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Linear regression</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Random forest</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">59</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">rf_model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Linear regression</span></a>
+<a class="sourceLine" id="cb3-2" title="2">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co"># Random forest</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">59</span>)</a>
+<a class="sourceLine" id="cb3-7" title="7">rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
 </div>
 <div id="preparation-for-residual-error-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preparation-for-residual-error-analysis" class="anchor"></a>Preparation for residual (error) analysis</h2>
 <p>Analysis begins with creation of an explainer object with <code>explain</code> function from <code>DALEX</code> package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">lm_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">lm_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a>
+<a class="sourceLine" id="cb4-2" title="2">rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
 <p>Next step requires creation of <code>model_residual</code> objects of each explainer. From this step on, only <code>auditor</code> functions will be used.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">lm_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_residual.html">model_residual</a></span>(lm_exp)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_residual.html">model_residual</a></span>(rf_exp)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb5-2" title="2">lm_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_residual.html">model_residual</a></span>(lm_exp)</a>
+<a class="sourceLine" id="cb5-3" title="3">rf_mr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_residual.html">model_residual</a></span>(rf_exp)</a></code></pre></div>
 </div>
 <div id="plots" class="section level2">
 <h2 class="hasAnchor">
@@ -176,14 +176,14 @@
 <h3 class="hasAnchor">
 <a href="#observed-vs-predicted" class="anchor"></a>Observed vs predicted</h3>
 <p>First plot is a basic plot comparising predicted versus observed values. The red line corresponds to the <code>y = x</code> function. The patterns for both models are non-random around the diagonal line. The points corresponding to a random forest (darker dots) show the tendency to underprediction for large values of observed response. Points for linear model (lighter dots) are located more or less around diagonal line which means that this model predicts quite well.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"prediction"</span>, <span class="dt">abline =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"prediction"</span>, <span class="dt">abline =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># alternatives:</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co"># plot_prediction(rf_mr, lm_mr, abline = TRUE)</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co"># plot_prediction(rf_mr, lm_mr, variable = "life_length")</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># alternatives:</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co"># plot_prediction(rf_mr, lm_mr, abline = TRUE)</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co"># plot_prediction(rf_mr, lm_mr, variable = "life_length")</span></a></code></pre></div>
 <p>Function <code>plot_prediction</code> presents observed values on the x-axis. However, on the x-axis there may be values of any model variable or observations ordered by index (<code>variable = NULL</code>).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">variable =</span> <span class="st">"scars"</span>, <span class="dt">type =</span> <span class="st">"prediction"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">variable =</span> <span class="st">"height"</span>, <span class="dt">type =</span> <span class="st">"prediction"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">variable =</span> <span class="st">"scars"</span>, <span class="dt">type =</span> <span class="st">"prediction"</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">variable =</span> <span class="st">"height"</span>, <span class="dt">type =</span> <span class="st">"prediction"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/dodge-st-1.png" width="50%"><img src="model_residuals_audit_files/figure-html/dodge-st-2.png" width="50%"></p>
 <p>As you can notice, on above plots, there is no relationship for variable <code>height</code> and predicted values while for increasing number of <code>scars</code> model predictions also increase of life length. This means that that model captured monotonic relationship between number of scars and length of life of dragon.</p>
 </div>
@@ -191,32 +191,32 @@
 <h3 class="hasAnchor">
 <a href="#residuals-vs-observed-fitted-or-variable-values" class="anchor"></a>Residuals vs observed, fitted or variable values</h3>
 <p>Next function (<code><a href="../reference/plot_residual.html">plot_residual()</a></code>) shows residuals versus observed values. This plot is used to detect dependence of errors, unequal error variances, and outliers. For appropriate model, residuals should not show any functional dependency. Expected mean value should be equal to 0, regardless of <span class="math inline">\(\hat{y}\)</span> values, so any structured arrangement of points suggests a problem with the model. It is worth looking at the observations that clearly differ from the others. If points on the plot are not randomly dispersed around the horizontal axis, it may be presumed that model is not appropriate for the data.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"residual"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"residual"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># plot_residual(lm_mr, rf_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="co"># plot_residual(lm_mr, rf_mr)</span></a></code></pre></div>
 <p>Values (residuals) may also be ordered by target variable, fitted values, any other variable or may be presented unordered.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"residual"</span>, <span class="dt">variable =</span> <span class="st">"_y_hat_"</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"residual"</span>, <span class="dt">variable =</span> <span class="st">"scars"</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co"># plot_residual(rf_mr, lm_mr, variable = "_y_hat_")</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co"># plot_residual(rf_mr, lm_mr, variable = "scars")</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"residual"</span>, <span class="dt">variable =</span> <span class="st">"_y_hat_"</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"residual"</span>, <span class="dt">variable =</span> <span class="st">"scars"</span>)</a>
+<a class="sourceLine" id="cb11-3" title="3"></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co"># plot_residual(rf_mr, lm_mr, variable = "_y_hat_")</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co"># plot_residual(rf_mr, lm_mr, variable = "scars")</span></a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-1.png" width="50%"><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-2.png" width="50%"></p>
 <p>In all examples above, we can see that linear model is better fitted for the data than random forest, because for the latter one greater values of selected variables residuals are also geater. Additionaly, we can identify most outlying observations:</p>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)</span></a></code></pre></div>
 </div>
 <div id="density-of-residuals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#density-of-residuals" class="anchor"></a>Density of residuals</h3>
 <p>Residual density plot (<code><a href="../reference/plot_residual_density.html">plot_residual_density()</a></code>) detects the incorrect behavior of residuals. The funcion returns plot with estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density could be derived from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals residual density plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"residual_density"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"residual_density"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># alternative</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co"># plot_residual_density(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="co"># plot_residual_density(rf_mr, lm_mr)</span></a></code></pre></div>
 <p>Residuals may be also divided by values of a choosen variable (median of a numeric variable or levels of a factor).</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/plot_residual_density.html">plot_residual_density</a></span>(rf_mr, lm_mr, <span class="dt">variable =</span> <span class="st">"colour"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/plot_residual_density.html">plot_residual_density</a></span>(rf_mr, lm_mr, <span class="dt">variable =</span> <span class="st">"colour"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div id="boxplot-of-residuals" class="section level3">
@@ -229,60 +229,60 @@
 <li>the whiskers which extend to the smallest and largest values, no further than 1.5 of interquartile.</li>
 </ul>
 <p><code>auditor</code> adds another component to the boxplot which is the root mean square error (RMSE) measure, shown as <code>X</code>. For the appropriate model, box should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spreaded (worse) than linear one.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"residual_boxplot"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_mr, rf_mr, <span class="dt">type =</span> <span class="st">"residual_boxplot"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># alternative</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co"># plot_residual_boxplot(lm_mr, rf_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co"># plot_residual_boxplot(lm_mr, rf_mr)</span></a></code></pre></div>
 </div>
 <div id="autocorrelation-function-of-residuals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#autocorrelation-function-of-residuals" class="anchor"></a>Autocorrelation function of residuals</h3>
 <p>Function <code><a href="../reference/plot_acf.html">plot_acf()</a></code> creates plot which is helpful in checking randomness of errors. If errors are random, autocorrelations should be near zero for lag separations. If they are non random, then autocorrelations will be significantly higher than zero. The vertical dashed lines indicate boundaries, where autocorrelations are significantly different than zero.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_mr, <span class="dt">type =</span> <span class="st">"acf"</span>, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_mr, <span class="dt">type =</span> <span class="st">"acf"</span>, <span class="dt">variable =</span> <span class="st">"year_of_discovery"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co"># plot_acf(lm_mr, variable = "year_of_discovery")</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="co"># plot_acf(lm_mr, variable = "year_of_discovery")</span></a></code></pre></div>
 </div>
 <div id="autocorrelation-of-residuals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#autocorrelation-of-residuals" class="anchor"></a>Autocorrelation of residuals</h3>
 <p>Autocorrelation plot (<code><a href="../reference/plot_autocorrelation.html">plot_autocorrelation()</a></code>) shows correlation of <em>i-th</em> vs <em>i+1-th</em> residuals. This plot may be useful for checking autocorrelation of residuals.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, <span class="dt">type =</span> <span class="st">"autocorrelation"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, <span class="dt">type =</span> <span class="st">"autocorrelation"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co"># plot_autocorrelation(rf_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="co"># plot_autocorrelation(rf_mr)</span></a></code></pre></div>
 <p>….. ….. ….. …. ….. Sometimes it migth be difficult to compare two models relying only on visualization. Therefore, two following additional scores may be useful for choosing a better model; scores are based on <em>Durbin-Watson</em> and <em>Runs</em> test statistics. Scores can be calculated with <code><a href="../reference/score_dw.html">score_dw()</a></code> and <code><a href="../reference/score_runs.html">score_runs()</a></code> functions (or the <code><a href="../reference/score.html">score()</a></code> function with <code>score = "dw"</code> or <code>score = "runs"</code>). ….. ….. ….. …. …..</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw"><a href="../reference/score_dw.html">score_dw</a></span>(rf_exp)<span class="op">$</span>score</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/score_dw.html">score_dw</a></span>(rf_exp)<span class="op">$</span>score</a></code></pre></div>
 <pre><code>## [1] 1.951918</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw"><a href="../reference/score_runs.html">score_runs</a></span>(rf_exp)<span class="op">$</span>score</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="../reference/score_runs.html">score_runs</a></span>(rf_exp)<span class="op">$</span>score</a></code></pre></div>
 <pre><code>## [1] -1.881788</code></pre>
 </div>
 <div id="correlation-of-models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#correlation-of-models" class="anchor"></a>Correlation of models</h3>
 <p>Function <code><a href="../reference/plot_correlation.html">plot_correlation()</a></code> returns grid of plots with correlation of dependent variable and fitted values of model(s). In the diagonal, there are estimated densities; in the upper triangle two kind of correlations: (1) between models and (2) between predicted and observed values. In the lower triangle, there are scatter plots of these values.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"correlation"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"correlation"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="co"># plot_correlation(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="co"># plot_correlation(rf_mr, lm_mr)</span></a></code></pre></div>
 </div>
 <div id="principal-component-analysis-pca-of-models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#principal-component-analysis-pca-of-models" class="anchor"></a>Principal component analysis (PCA) of models</h3>
 <p>Function <code><a href="../reference/plot_pca.html">plot_pca()</a></code> can be used to assess the similarity of the models in terms of residuals. The idea of PCA is reducing the dimension of the data set matrix by creating a set of linearly uncorrelated variables called principal components. At the same time, keeping as much variance as possible. Model PCA plot is a biplot. On axis of the plot, there are first two principal components. Grey dots represent observations. Arrows are pointing in the direction of the models projected into a two-dimensional space. The interposition of arrows provides information about the similarity of models in terms of residuals. If they are close to each other, it indicates similar residuals structures.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"pca"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"pca"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="co"># plot_pca(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="co"># plot_pca(rf_mr, lm_mr)</span></a></code></pre></div>
 </div>
 <div id="regression-error-characteristic-curve-rec" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-error-characteristic-curve-rec" class="anchor"></a>Regression error characteristic curve (REC)</h3>
 <p>Error characteristic curves are a generalization of ROC curves. On the x-axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance. REC curve estimates the cumulative distribution function (CDF) of the error. Area over the REC curve is a biased estimate of the expected error.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"rec"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"rec"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co"># plot_rec(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="co"># plot_rec(rf_mr, lm_mr)</span></a></code></pre></div>
 </div>
 <div id="regression-receiver-operating-characteristic-rroc" class="section level3">
 <h3 class="hasAnchor">
@@ -291,28 +291,28 @@
 <p>For RROC curves we use a shift which is an equvalent to the threshold for ROC curves. For each observation we calculate new prediction:  where s is the shift. Therefore, there are different error values for each shift: </p>
 <p>………………. - over-estimation is caluclates as:  - under-estimation is calculated as:  - the shift equals 0 is represented by a dot ……………….</p>
 <p>The area over the RROC curve (AOC) equals to the variance of the errors multiplied by .</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"rroc"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"rroc"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="co"># plot_rroc(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="co"># plot_rroc(rf_mr, lm_mr)</span></a></code></pre></div>
 </div>
 <div id="scale-location" class="section level3">
 <h3 class="hasAnchor">
 <a href="#scale-location" class="anchor"></a>Scale location</h3>
 <p>This plot shows if residuals are spread equally along the ranges of predictors. The presence of any trend suggests that the variance depends on fitted values, which is against the assumption of homoscedasticity. Not every model has an explicit assumption of homogeneous variance, however, the heteroscedasticity may indicates potential problems with the goodness-of-fit.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"scalelocation"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"scalelocation"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># alternative:</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="co"># plot_scalelocation(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># alternative:</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="co"># plot_scalelocation(rf_mr, lm_mr)</span></a></code></pre></div>
 </div>
 <div id="two-sided-empirical-cumulative-distribution-function-tsecdf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-sided-empirical-cumulative-distribution-function-tsecdf" class="anchor"></a>Two-sided empirical cumulative distribution function (TSECDF)</h3>
 <p>Cumulative distribution function for positive and negative residuals. The plot shows the distribution of residuals divided into groups with positive and negative values. It helps to identify the asymmetry of the residuals. Points represent residuals.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"tsecdf"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rf_mr, lm_mr, <span class="dt">type =</span> <span class="st">"tsecdf"</span>)</a></code></pre></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># alternative</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="co"># plot_tsecdf(rf_mr, lm_mr)</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># alternative</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="co"># plot_tsecdf(rf_mr, lm_mr)</span></a></code></pre></div>
 </div>
 </div>
 <div id="other-methods" class="section level2">
@@ -329,7 +329,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

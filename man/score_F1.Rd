@@ -7,10 +7,10 @@
 score_f1(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 }
 \value{
-An object of class 'auditor_score'.
+An object of class \code{auditor_score}.
 }
 \description{
 F1 Score

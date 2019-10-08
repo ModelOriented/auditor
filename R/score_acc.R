@@ -1,8 +1,9 @@
 #' @title Accuracy
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #'
-#' @return An object of class 'auditor_score'.
+#' @return An object of class \code{auditor_score}.
 #'
 #' @examples
 #' titanic <- na.omit(DALEX::titanic)
@@ -19,10 +20,12 @@
 #'
 #'
 #' @export
-
-
-score_acc <- function(object){
+#' @rdname score_acc
+score_acc <- function(object, data = NULL) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+
+  # inject new data to the explainer
+  if (!is.null(data)) object$data <- data
 
   conf <- confusionmatrix(object)
   ret <- (conf$TP + conf$TN) / (conf$TP + conf$FP + conf$TN + conf$FN)
@@ -39,9 +42,10 @@ score_acc <- function(object){
 
 #' @title One minus accuracy
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #'
-#' @return An object of class 'auditor_score'.
+#' @return An object of class \code{auditor_score}.
 #'
 #' @examples
 #' titanic <- na.omit(DALEX::titanic)
@@ -58,10 +62,12 @@ score_acc <- function(object){
 #'
 #'
 #' @export
-
-
-score_one_minus_acc <- function(object){
+#' @rdname score_one_minus_acc
+score_one_minus_acc <- function(object, data = NULL) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+
+  # inject new data to the explainer
+  if (!is.null(data)) object$data <- data
 
   conf <- confusionmatrix(object)
   ret <- 1 - (conf$TP + conf$TN) / (conf$TP + conf$FP + conf$TN + conf$FN)
