@@ -5,15 +5,17 @@
 \alias{scoreROC}
 \title{Area Under ROC Curve (AUC)}
 \usage{
-score_auc(object)
+score_auc(object, data = NULL)
 
 scoreROC(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+
+\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 }
 \value{
-An object of class 'auditor_score'.
+An object of class \code{auditor_score}.
 }
 \description{
 Area Under Curve (AUC) for Receiver Operating Characteristic.

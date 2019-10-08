@@ -36,10 +36,11 @@
 
 
 <meta property="og:title" content="Score based on Cooks Distance — score_cooksdistance" />
+
 <meta property="og:description" content="Cook’s distance are used for estimate of the influence of an single observation." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -81,7 +82,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -148,30 +149,33 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Cook’s distance are used for estimate of the influence of an single observation.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>score_cooksdistance</span>(<span class='no'>object</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>scoreCooksDistance</span>(<span class='no'>object</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'explainer' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>If TRUE progress is printed.</p></td>
+      <td><p>If <code>TRUE</code> progress is printed.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vector of Cook's distances for each observation.</p>
 <p>numeric vector</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Cook’s distance is a tool for identifying observations that may negatively affect the model.
@@ -181,9 +185,11 @@ Data points indicated by Cook’s distances are worth checking for validity.</p>
 It shows how much all the values in the model change when the i-th observation is removed.</p>
 <p>Models of classes other than lm and glm the distances are computed directly from the definition,
 so this may take a while.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='score.html'>score</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -243,9 +249,13 @@ so this may take a while.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

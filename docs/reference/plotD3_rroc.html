@@ -36,12 +36,13 @@
 
 
 <meta property="og:title" content="Regression Receiver Operating Characteristic (RROC) in D3 with r2d3 package. — plotD3_rroc" />
+
 <meta property="og:description" content="The basic idea of the ROC curves for regression is to show model asymmetry.
 The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 under-estimation." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -83,7 +84,7 @@ under-estimation." />
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -150,13 +151,15 @@ under-estimation." />
     </div>
 
     <div class="ref-description">
+    
     <p>The basic idea of the ROC curves for regression is to show model asymmetry.
 The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 under-estimation.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>plotD3_rroc</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale_plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -173,10 +176,11 @@ under-estimation.</p>
       <td><p>Logical, indicates whenever the plot should scale with height. By default it's FALSE.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a `r2d3` object</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For RROC curves we use a shift, which is an equivalent to the threshold for ROC curves.
@@ -186,12 +190,15 @@ Therefore, there are different error values for each shift: \(e_i = \hat{y_i}' -
 <p>Under-estimation is calculated as: \(UNDER = \sum(e_i|e_i&lt;0)\).</p>
 <p>The shift equals 0 is represented by a dot.</p>
 <p>The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \(frac{n^2}{2}\).</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code> plotD3_rroc</code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -233,10 +240,15 @@ Therefore, there are different error values for each shift: \(e_i = \hat{y_i}' -
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
       <li><a href="#references">References</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

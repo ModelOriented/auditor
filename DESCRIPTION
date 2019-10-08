@@ -1,12 +1,13 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Alicja", "Gosiewska", , "alicjagosiewska@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-6563-5742")),
     person("Przemyslaw", "Biecek", role =  c("aut", "ths"),
       comment = c(ORCID = "0000-0001-8423-1823")),
-    person("Hubert", "Baniecki", role =  c("aut")),
+    person("Hubert", "Baniecki", role =  c("aut"),
+      comment = c(ORCID = "0000-0001-6661-5364")),
     person("Tomasz", "Mikołajczyk", role =  c("aut")),
     person("Michal", "Burdukiewicz", role =  c("ctb")),
     person("Szymon", "Maksymiuk", role =  c("ctb"))

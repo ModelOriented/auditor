@@ -36,11 +36,12 @@
 
 
 <meta property="og:title" content="Cook's distances — model_cooksdistance" />
+
 <meta property="og:description" content="Calculates Cook's distances for each observation.
 Please, note that it will work only for functions with specified 'update' method." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -82,7 +83,7 @@ Please, note that it will work only for functions with specified 'update' method
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -149,14 +150,16 @@ Please, note that it will work only for functions with specified 'update' method
     </div>
 
     <div class="ref-description">
+    
     <p>Calculates Cook's distances for each observation.
 Please, note that it will work only for functions with specified 'update' method.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>model_cooksdistance</span>(<span class='no'>object</span>)
 
 <span class='fu'>observationInfluence</span>(<span class='no'>object</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -165,13 +168,15 @@ Please, note that it will work only for functions with specified 'update' method
       <td><p>An object of class 'explain' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class 'auditor_model_cooksdistance'.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
@@ -191,31 +196,34 @@ Please, note that it will work only for functions with specified 'update' method
 #&gt;   -&gt; data              :  It is highly recommended to pass `data` without the target variable column
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
-#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )</div><div class='output co'>#&gt; <span class='warning'>Warning: ‘-’ not meaningful for factors</span></div><div class='output co'>#&gt;   -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )</div><div class='output co'>#&gt; <span class='warning'>Warning: '-' nie ma sensu dla czynników</span></div><div class='output co'>#&gt;   -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
 <span class='fu'>model_cooksdistance</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; Model label:  lm 
 #&gt; 
 #&gt; Observations with the largest Cook's distances:
-#&gt;     Cook's distance index
-#&gt; 924    7.677289e+19   848
-#&gt; 870    3.214367e+19   795
-#&gt; 522    9.071796e+18   481
+#&gt;      Cook's distance index
+#&gt; 1543    9.941222e+19  1438
+#&gt; 924     8.699862e+19   848
+#&gt; 870     3.214367e+19   795
 #&gt; 
 #&gt; Quantiles of Cook's distances:
 #&gt;           0%          10%          20%          30%          40%          50% 
-#&gt; 1.735978e-12 6.090284e-06 1.005814e-05 1.424874e-05 2.053477e-05 3.426320e-05 
+#&gt; 1.735978e-12 6.090284e-06 1.005907e-05 1.424874e-05 2.053961e-05 3.428032e-05 
 #&gt;          60%          70%          80%          90%         100% 
-#&gt; 7.991737e-05 1.744884e-04 2.837646e-04 7.210318e-04 7.677289e+19 </div><div class='input'>
+#&gt; 8.013246e-05 1.744884e-04 2.851670e-04 7.223557e-04 9.941222e+19 </div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#references">References</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

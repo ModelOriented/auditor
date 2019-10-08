@@ -36,14 +36,15 @@
 
 
 <meta property="og:title" content="Half-Normal Score — score_halfnormal" />
+
 <meta property="og:description" content="Score is approximately:
 \( \sum{\#[res_i \leq simres_{i,j}] - n } \)
 with the distinction that each element of sum is also scaled to take values from [0,1].
 \(res_i\) is a residual for i-th observation, \(simres_{i,j}\) is the residual of j-th simulation for i-th observation, and \(n\) is the number of simulations for each observation.
 Scores are calculated on the basis of simulated data, so they may differ between function calls." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -85,7 +86,7 @@ Scores are calculated on the basis of simulated data, so they may differ between
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -152,33 +153,36 @@ Scores are calculated on the basis of simulated data, so they may differ between
     </div>
 
     <div class="ref-description">
+    
     <p>Score is approximately:
 \( \sum{\#[res_i \leq simres_{i,j}] - n } \)
 with the distinction that each element of sum is also scaled to take values from [0,1].</p>
 <p>\(res_i\) is a residual for i-th observation, \(simres_{i,j}\) is the residual of j-th simulation for i-th observation, and \(n\) is the number of simulations for each observation.
 Scores are calculated on the basis of simulated data, so they may differ between function calls.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>score_halfnormal</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='fu'>scoreHalfNormal</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'explainer' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Extra arguments passed to <a href='https://rdrr.io/pkg/hnp/man/hnp.html'>hnp</a>.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class 'score_audit'.</p>
+    <p>An object of class <code>auditor_score</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -198,13 +202,16 @@ Scores are calculated on the basis of simulated data, so they may differ between
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># calculate score</span>
 <span class='fu'>score_halfnormal</span>(<span class='no'>exp_lm</span>)</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='output co'>#&gt; halfnormal: 99.72</div><div class='input'>
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

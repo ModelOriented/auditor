@@ -1,3 +1,6 @@
+# auditor 1.1.1
+* Add `data` and `cutoff` parameter to several `score_x` functions.
+
 # auditor 1.1.0
 * Szymon Maksymiuk is now contributor
 * New score functions: `score_acc`, `score_f1`, `score_precision`, `score_recall`, `score_specificity`,
@@ -6,11 +9,12 @@
 
 # auditor 1.0.0
 * Tomasz Mikołajczyk, Hubert Baniecki, and Michał Burdukiewicz are now contributors :)
-* New names of functions #95, the old ones are now depreciated.
+* *New names of functions #95, the old ones are now depreciated.*
 * All plots gained new drWhy theme.
 * `modelEvaluation()` return one consistent data frame.
 * Unnecessary Imports and Suggests removed from DESCRIPTION.
 * Interactive D3 plots were added.
+* Repository with the `auditor` package was moved to new GitHub organization ([ModelOriented](https://github.com/ModelOriented/auditor)).
 
 # auditor 0.3.2
 * Automated checks for residuals are added. See the `check_residuals()` function.

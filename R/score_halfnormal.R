@@ -7,9 +7,10 @@
 #' \eqn{res_i} is a residual for i-th observation, \eqn{simres_{i,j}} is the residual of j-th simulation for i-th observation, and \eqn{n} is the number of simulations for each observation.
 #' Scores are calculated on the basis of simulated data, so they may differ between function calls.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param ... Extra arguments passed to \link[hnp]{hnp}.
 #'
+#' @return An object of class \code{auditor_score}.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
@@ -23,13 +24,12 @@
 #' # calculate score
 #' score_halfnormal(exp_lm)
 #'
-#' @return An object of class 'score_audit'.
 #'
 #' @importFrom hnp hnp
 #'
 #' @export
 
-score_halfnormal <- function(object, ...){
+score_halfnormal <- function(object, ... ) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
   object <- model_halfnormal(object)
 
@@ -44,14 +44,14 @@ score_halfnormal <- function(object, ...){
 
 
 # Calculating Likelihood for each residual
-calculate_kde <- function(res, simres){
+calculate_kde <- function(res, simres) {
   simres <- as.numeric(simres)
   (abs(sum(res<=simres) - length(simres)/2))/(length(simres)/2)
 }
 
 
 # Calculating PDF score
-calculate_score_pdf <- function(hnpObject){
+calculate_score_pdf <- function(hnpObject) {
   res <- hnpObject$`_residuals_`
   simres <- as.data.frame(t(hnpObject[,6:ncol(hnpObject)]))
   n <- length(res)
@@ -61,7 +61,7 @@ calculate_score_pdf <- function(hnpObject){
 
 #' @rdname score_halfnormal
 #' @export
-scoreHalfNormal <- function(object, ...){
+scoreHalfNormal <- function(object, ...) {
   message("Please note that 'scoreHalfNormal()' is now deprecated, it is better to use 'score_halfnormal()' instead.")
   score_halfnormal(object, ...)
 }

@@ -36,12 +36,13 @@
 
 
 <meta property="og:title" content="Correlation of Model's Residuals Plot — plot_correlation" />
+
 <meta property="og:description" content="Matrix of plots. Left-down triangle consists of plots of fitted values (aternatively residuals),
 on the diagonal there are density plots of fitted values (alternatively residuals), in the right-top triangle
 there are correlations between fitte dvalues (alternatively residuals)." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -83,7 +84,7 @@ there are correlations between fitte dvalues (alternatively residuals)." />
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -150,15 +151,17 @@ there are correlations between fitte dvalues (alternatively residuals)." />
     </div>
 
     <div class="ref-description">
+    
     <p>Matrix of plots. Left-down triangle consists of plots of fitted values (aternatively residuals),
 on the diagonal there are density plots of fitted values (alternatively residuals), in the right-top triangle
 there are correlations between fitte dvalues (alternatively residuals).</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>plot_correlation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"fit"</span>)
 
 <span class='fu'>plotModelCorrelation</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"fit"</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -175,10 +178,11 @@ there are correlations between fitte dvalues (alternatively residuals).</p>
       <td><p>"fit" for model fitted values or "res" for residual values.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Invisibly returns a <code><a href='https://rdrr.io/pkg/gtable/man/gtable.html'>gtable</a></code> object.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
@@ -221,7 +225,9 @@ there are correlations between fitte dvalues (alternatively residuals).</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

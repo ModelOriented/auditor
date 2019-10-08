@@ -10,9 +10,9 @@ score_cooksdistance(object, verbose = TRUE)
 scoreCooksDistance(object, verbose = TRUE)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{verbose}{If TRUE progress is printed.}
+\item{verbose}{If \code{TRUE} progress is printed.}
 }
 \value{
 A vector of Cook's distances for each observation.

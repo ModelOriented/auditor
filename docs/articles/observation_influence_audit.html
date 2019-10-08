@@ -42,7 +42,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@
       <h1>Observation influence audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-10-04</h4>
+            <h4 class="date">2019-10-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/observation_influence_audit.Rmd"><code>vignettes/observation_influence_audit.Rmd</code></a></small>
       <div class="hidden name"><code>observation_influence_audit.Rmd</code></div>
@@ -120,9 +120,9 @@
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <p>To illustrate application of <code>auditor</code> we will use dataset “dragons” available in the <a href="https://github.com/pbiecek/DALEX"><code>DALEX</code></a> package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(DALEX)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(dragons)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(dragons)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(DALEX)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(dragons)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(dragons)</a></code></pre></div>
 <pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
 ## 1         -1291 59.40365 15.32391     7    red              1700
 ## 2          1589 46.21374 11.80819     5    red              1700
@@ -142,23 +142,23 @@
 <h2 class="hasAnchor">
 <a href="#models" class="anchor"></a>Models</h2>
 <p>First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables. While random forest should be able to capture also non-linear relationships between variables.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Linear regression</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Random forest</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">59</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">rf_model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Linear regression</span></a>
+<a class="sourceLine" id="cb3-2" title="2">lm_model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co"># Random forest</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(randomForest)</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">59</span>)</a>
+<a class="sourceLine" id="cb3-7" title="7">rf_model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(life_length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dragons)</a></code></pre></div>
 </div>
 <div id="preparation-for-analysis-of-observation-influence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preparation-for-analysis-of-observation-influence" class="anchor"></a>Preparation for analysis of observation influence</h2>
 <p>Analysis begins with creation of an explainer object with <code>explain</code> function from <code>DALEX</code> package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">lm_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">lm_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(lm_model, <span class="dt">label =</span> <span class="st">"lm"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a>
+<a class="sourceLine" id="cb4-2" title="2">rf_exp &lt;-<span class="st"> </span>DALEX<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(rf_model, <span class="dt">label =</span> <span class="st">"rf"</span>, <span class="dt">data =</span> dragons, <span class="dt">y =</span> dragons<span class="op">$</span>life_length)</a></code></pre></div>
 <p>Next step requires creation of <code>model_cooksdistance</code> objects of each explained model. In the case of models of classes other than <code>lm</code> and <code>glm</code>, the distances are computed directly from the definition, so this may take a while. In this example we will compute them only for a linear model.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">lm_cd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_cooksdistance.html">model_cooksdistance</a></span>(lm_exp)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(auditor)</a>
+<a class="sourceLine" id="cb5-2" title="2">lm_cd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_cooksdistance.html">model_cooksdistance</a></span>(lm_exp)</a></code></pre></div>
 </div>
 <div id="plot-of-cooks-distances" class="section level2">
 <h2 class="hasAnchor">
@@ -166,7 +166,7 @@
 <p>Cook’s distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model.</p>
 <p>Data points indicated by Cook’s distances are worth checking for validity. Cook’s distances may be also used for indicating regions of the design space where it would be good to obtain more observations.</p>
 <p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_cd)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(lm_cd)</a></code></pre></div>
 <p><img src="observation_influence_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="other-methods" class="section level2">
@@ -183,7 +183,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

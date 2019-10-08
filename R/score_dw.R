@@ -4,8 +4,11 @@
 #' The score value is helpful in comparing models. It is worth pointing out that results of tests like p-value makes sense only
 #' when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param variable Name of model variable to order residuals.
+#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#'
+#' @return An object of class \code{auditor_score}.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
@@ -20,14 +23,15 @@
 #' score_dw(exp_lm)
 #'
 #'
-#' @return An object of class 'auditor_score'.
-#'
 #' @rdname score_dw
 #'
 #' @export
 
-score_dw <- function(object, variable = NULL){
+score_dw <- function(object, variable = NULL, data = NULL) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+
+  # inject new data to the explainer
+  if (!is.null(data)) object$data <- data
 
   object <- model_residual(object)
   if(!is.null(variable)) object <- object[order(object[ ,variable]), ]

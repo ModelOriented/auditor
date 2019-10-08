@@ -4,19 +4,23 @@
 \alias{score}
 \title{Model Scores computations}
 \usage{
-score(object, score = "mse", ...)
+score(object, score = "mse", data = NULL, ...)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{score}{The score to  be calculated. Possible values: 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
-'one_minus_auc', 'one_minus_acc', 'one_minus_f1', 'one_minus_precision', 'one_minus_recall', 'one_minus_specificity', 'acc', 'f1', 'precision', 'recall', 'specificity'
+\item{score}{The score to  be calculated. Possible values: \code{acc}, \code{auc}, \code{cookdistance}, \code{dw}, \code{f1},
+\code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{rec}, \code{recall},
+\code{rmse}, \code{rroc}, \code{runs}, \code{specificity},  \code{one_minus_acc}, \code{one_minus_auc},
+\code{one_minus_f1}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 (for detailed description see functions in see also section).}
+
+\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }
 \value{
-An object of class 'auditor_score', except Cooks distance, where numeric vector is returned.
+An object of class \code{auditor_score}, except Cooks distance, where numeric vector is returned.
 }
 \description{
 This function provides several scores for model validation and performance assessment.
@@ -36,9 +40,10 @@ score(exp_lm, score = 'mae')
 
 }
 \seealso{
-\code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}}, \code{\link{score_peak}}, \code{\link{score_halfnormal}}, \code{\link{score_mae}},
-\code{\link{score_mse}}, \code{\link{score_rec}}, \code{\link{score_rroc}}, \code{\link{score_runs}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_acc}},
-\code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_precision}},
-\code{\link{score_one_minus_recall}}, \code{\link{score_one_minus_specificity}}, \code{\link{score_acc}}, \code{\link{score_f1}}, \code{\link{score_precision}},
-\code{\link{score_recall}}, \code{\link{score_specificity}}
+\code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}}, \code{\link{score_f1}},
+\code{\link{score_halfnormal}}, \code{\link{score_mae}}, \code{\link{score_mse}},
+\code{\link{score_peak}}, \code{\link{score_precision}}, \code{\link{score_rec}}, \code{\link{score_recall}}, \code{\link{score_rmse}},
+\code{\link{score_rroc}}, \code{\link{score_runs}}, \code{\link{score_specificity}},
+\code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_precision}},
+\code{\link{score_one_minus_recall}}, \code{\link{score_one_minus_specificity}}
 }

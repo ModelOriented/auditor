@@ -37,6 +37,28 @@ test_that("score", {
   expect_is(score(exp_lm, "cooksdistance"), "numeric")
 })
 
+test_that("score_acc", {
+  expect_is(score(exp_glm, "acc", data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+  expect_is(score_acc(exp_glm, data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+})
+
+test_that("score_recall", {
+  expect_is(score(exp_glm, "recall", data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+  expect_is(score_recall(exp_glm, data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+})
+
+test_that("score_one_minus_precision", {
+  expect_is(score(exp_glm, "one_minus_precision", data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+  expect_is(score_one_minus_precision(exp_glm, data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+})
+
+test_that("score_one_minus_specificity", {
+  expect_is(score(exp_glm, "one_minus_specificity", data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+  expect_is(score_one_minus_specificity(exp_glm, data = artifficial_classif_2[1:100,], cutoff = 0.3), "auditor_score")
+})
+
+
+
 
 
 

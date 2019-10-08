@@ -10,12 +10,12 @@ score_halfnormal(object, ...)
 scoreHalfNormal(object, ...)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{...}{Extra arguments passed to \link[hnp]{hnp}.}
 }
 \value{
-An object of class 'score_audit'.
+An object of class \code{auditor_score}.
 }
 \description{
 Score is approximately:
@@ -36,5 +36,6 @@ exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
 
 # calculate score
 score_halfnormal(exp_lm)
+
 
 }

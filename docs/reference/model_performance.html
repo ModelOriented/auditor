@@ -36,10 +36,11 @@
 
 
 <meta property="og:title" content="Create Model Performance Explaination — model_performance" />
-<meta property="og:description" content="Creates 'modelPerformance'auditor_model_performance' object that can be used to plot radar with ranking of models." />
+
+<meta property="og:description" content="Creates auditor_model_performance object that can be used to plot radar with ranking of models." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -81,7 +82,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -148,40 +149,55 @@
     </div>
 
     <div class="ref-description">
-    <p>Creates 'modelPerformance'auditor_model_performance' object that can be used to plot radar with ranking of models.</p>
+    
+    <p>Creates <code>auditor_model_performance</code> object that can be used to plot radar with ranking of models.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>model_performance</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mae"</span>, <span class='st'>"mse"</span>, <span class='st'>"rec"</span>, <span class='st'>"rroc"</span>),
-  <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>modelPerformance</span>(<span class='no'>object</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mae"</span>, <span class='st'>"mse"</span>, <span class='st'>"rec"</span>, <span class='st'>"rroc"</span>),
   <span class='kw'>new_score</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'explainer' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>score</th>
-      <td><p>Vector of score names to be plotted. Possible values are 'auc' 'cookdistance', 'dw', 'peak', 'halfnormal', 'mae', 'mse', 'rec', 'rmse', 'rroc', 'runs'
-(for detailed description see functions in see also section). Pass NULL if you want to use only custom scores by 'new_score' parameter.</p></td>
+      <td><p>Vector of score names to be calculated. Possible values: <code>acc</code>, <code>auc</code>, <code>cookdistance</code>, <code>dw</code>, <code>f1</code>,
+<code>halfnormal</code>, <code>mae</code>, <code>mse</code>, <code>peak</code>, <code>precision</code>, <code>rec</code>, <code>recall</code>,
+<code>rmse</code>, <code>rroc</code>, <code>runs</code>, <code>specificity</code>,  <code>one_minus_acc</code>, <code>one_minus_auc</code>,
+<code>one_minus_f1</code>, <code>one_minus_precision</code>, <code>one_minus_recall</code>, <code>one_minus_specificity</code>
+(for detailed description see functions in see also section). Pass <code>NULL</code> if you want to use only custom scores by <code>new_score</code> parameter.</p></td>
     </tr>
     <tr>
       <th>new_score</th>
       <td><p>A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.</p></td>
     </tr>
+    <tr>
+      <th>data</th>
+      <td><p>New data that will be used to calcuate scores. Pass <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
+    </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of the class 'auditor_model_performance'.</p>
+    <p>An object of the class <code>auditor_model_performance</code>.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='score_auc.html'>score_auc</a></code>, <code><a href='score_cooksdistance.html'>score_cooksdistance</a>, <a href='score_dw.html'>score_dw</a>, <a href='score_peak.html'>score_peak</a>, <a href='score_halfnormal.html'>score_halfnormal</a>, <a href='score_mae.html'>score_mae</a>,
-<a href='score_mse.html'>score_mse</a>, <a href='score_rec.html'>score_rec</a>, <a href='score_rroc.html'>score_rroc</a>, <a href='score_runs.html'>score_runs</a></code></p></div>
+    <div class='dont-index'><p><code><a href='score_acc.html'>score_acc</a></code>, <code><a href='score_auc.html'>score_auc</a></code>, <code><a href='score_cooksdistance.html'>score_cooksdistance</a></code>, <code><a href='score_dw.html'>score_dw</a></code>, <code><a href='score_f1.html'>score_f1</a></code>,
+<code><a href='score_halfnormal.html'>score_halfnormal</a></code>, <code><a href='score_mae.html'>score_mae</a></code>, <code><a href='score_mse.html'>score_mse</a></code>,
+<code><a href='score_peak.html'>score_peak</a></code>, <code><a href='score_precision.html'>score_precision</a></code>, <code><a href='score_rec.html'>score_rec</a></code>, <code><a href='score_recall.html'>score_recall</a></code>, <code><a href='score_rmse.html'>score_rmse</a></code>,
+<code><a href='score_rroc.html'>score_rroc</a></code>, <code><a href='score_runs.html'>score_runs</a></code>, <code><a href='score_specificity.html'>score_specificity</a></code>,
+<code><a href='score_one_minus_acc.html'>score_one_minus_acc</a></code>, <code><a href='score_one_minus_auc.html'>score_one_minus_auc</a></code>, <code><a href='score_one_minus_f1.html'>score_one_minus_f1</a></code>, <code><a href='score_one_minus_precision.html'>score_one_minus_precision</a></code>,
+<code><a href='score_one_minus_recall.html'>score_one_minus_recall</a></code>, <code><a href='score_one_minus_specificity.html'>score_one_minus_specificity</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
@@ -195,10 +211,12 @@
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  2099  rows  9  cols 
 #&gt;   -&gt; target variable   :  2099  values 
+#&gt;   -&gt; data              :  A column identical to the target variable `y` has been found in the `data`.  ( </span><span style='color: #BB0000;'> WARNING </span><span> )
+#&gt;   -&gt; data              :  It is highly recommended to pass `data` without the target variable column
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.682008e-09 , max =  0.9666502  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.68201e-09 , max =  0.9666502  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
@@ -212,8 +230,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

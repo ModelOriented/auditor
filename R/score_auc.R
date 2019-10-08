@@ -2,9 +2,10 @@
 #'
 #' @description Area Under Curve (AUC) for Receiver Operating Characteristic.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #'
-#' @return An object of class 'auditor_score'.
+#' @return An object of class \code{auditor_score}.
 #'
 #' @examples
 #' titanic <- na.omit(DALEX::titanic)
@@ -24,8 +25,12 @@
 #' @export
 
 
-score_auc <- function(object){
+score_auc <- function(object, data = NULL) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+
+  # inject new data to the explainer
+  if (!is.null(data)) object$data <- data
+
   object <- model_evaluation(object)
   pred <- data.frame(y_hat = object$`_y_hat_`,
                      y = object$`_y_`)
@@ -49,9 +54,10 @@ score_auc <- function(object){
 #'
 #' @description One minus Area Under Curve (AUC) for Receiver Operating Characteristic.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #'
-#' @return An object of class 'auditor_score'.
+#' @return An object of class \code{auditor_score}.
 #'
 #' @examples
 #' titanic <- na.omit(DALEX::titanic)
@@ -68,10 +74,11 @@ score_auc <- function(object){
 #'
 #'
 #' @export
-
-
-score_one_minus_auc <- function(object){
+score_one_minus_auc <- function(object, data = NULL) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+
+  # inject new data to the explainer
+  if (!is.null(data)) object$data <- data
 
   ret <- 1 - score_auc(object)$score
   roc_results <- list(
