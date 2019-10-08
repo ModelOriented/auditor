@@ -5,15 +5,17 @@
 \alias{scoreRROC}
 \title{Area Over the Curve for RROC Curves}
 \usage{
-score_rroc(object)
+score_rroc(object, data = NULL)
 
 scoreRROC(object)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+
+\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 }
 \value{
-an object of class 'score_audit'.
+An object of class \code{auditor_score}.
 }
 \description{
 The area over the Regression Receiver Operating Characteristic.

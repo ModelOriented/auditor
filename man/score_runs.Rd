@@ -5,17 +5,19 @@
 \alias{scoreRuns}
 \title{Runs Score}
 \usage{
-score_runs(object, variable = NULL)
+score_runs(object, variable = NULL, data = NULL)
 
 scoreRuns(object, variable = NULL)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{variable}{name of model variable to order residuals.}
+
+\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 }
 \value{
-An object of class 'auditor_score'.
+An object of class \code{auditor_score}.
 }
 \description{
 Score based on Runs test statistic. Note that this test is not very strong. It utilizes only signs of the residuals.

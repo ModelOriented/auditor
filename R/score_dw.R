@@ -8,6 +8,8 @@
 #' @param variable Name of model variable to order residuals.
 #' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #'
+#' @return An object of class \code{auditor_score}.
+#'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #'
@@ -20,8 +22,6 @@
 #' # calculate score
 #' score_dw(exp_lm)
 #'
-#'
-#' @return An object of class \code{auditor_score}.
 #'
 #' @rdname score_dw
 #'

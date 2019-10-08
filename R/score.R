@@ -39,29 +39,31 @@ score <- function(object, score = 'mse', data = NULL, ...) {
 
   #:# PLEASE keep this in alfabetical order - documentation too! PLEASE #:#
   switch(score,
-         acc = { return(score_acc(object, data, ...)) },
-         auc = { return(score_auc(object, data, ...)) },
+         acc = { return(score_acc(object, data = data, ...)) },
+         auc = { return(score_auc(object, data = data, ...)) },
          cooksdistance = { return(score_cooksdistance(object, ...)) },
-         dw = { return(score_dw(object, data, ...)) },
-         f1 = {return(score_f1(object, ...))},
+         dw = { return(score_dw(object, data = data, ...)) },
+         f1 = {return(score_f1(object, data = data, ...))},
          halfnormal = { return(score_halfnormal(object, ...)) },
-         mae = { return(score_mae(object, ...)) },
-         mse = { return(score_mse(object, ...)) },
-         peak = { return(score_peak(object, ...)) },
-         precision = { return(score_precision(object, ...)) },
-         rec = { return(score_rec(object, ...)) },
-         recall = { return(score_recall(object, ...)) },
-         rmse = { return(score_rmse(object, ...)) },
-         rroc = { return(score_rroc(object, ...)) },
-         runs = { return(score_runs(object, ...)) },
-         specificity = { return(score_specificity(objec, ...)) },
-         one_minus_auc = { return(score_one_minus_auc(object, data, ...)) },
-         one_minus_acc = { return(score_one_minus_acc(object, data, ...)) },
-         one_minus_f1 = {return(score_one_minus_f1(object, ...))},
-         one_minus_precision = { return(score_one_minus_precision(object, ...)) },
-         one_minus_recall = { return(score_one_minus_recall(object, ...)) },
-         one_minus_specificity = { return(score_one_minus_specificity(object, ...)) }
+         mae = { return(score_mae(object, data = data, ...)) },
+         mse = { return(score_mse(object, data = data, ...)) },
+         peak = { return(score_peak(object, data = data, ...)) },
+         precision = { return(score_precision(object, data = data, ...)) },
+         rec = { return(score_rec(object, data = data, ...)) },
+         recall = { return(score_recall(object, data = data, ...)) },
+         rmse = { return(score_rmse(object, data = data, ...)) },
+         rroc = { return(score_rroc(object, data = data, ...)) },
+         runs = { return(score_runs(object, data = data, ...)) },
+         specificity = { return(score_specificity(object, data = data, ...)) },
+         one_minus_auc = { return(score_one_minus_auc(object, data = data, ...)) },
+         one_minus_acc = { return(score_one_minus_acc(object, data = data, ...)) },
+         one_minus_f1 = {return(score_one_minus_f1(object, data = data, ...))},
+         one_minus_precision = { return(score_one_minus_precision(object, data = data, ...)) },
+         one_minus_recall = { return(score_one_minus_recall(object, data = data, ...)) },
+         one_minus_specificity = { return(score_one_minus_specificity(object, data = data, ...)) }
   )
 
-  stop( "Wrong type of score. Possible values: 'auc', 'cooksdistance', 'dw', 'peak', 'halfnormal', 'rmse', 'mae', 'mse', 'rec', 'rroc', 'runs', 'one_minus_auc', 'one_minus_acc', 'one_minus_f1', 'one_minus_precision', 'one_minus_recall', 'one_minus_specificity', 'acc', 'f1', 'precision', 'recall', 'specificity'." )
+  stop( "Wrong type of score. Possible values: 'auc', 'acc', 'cooksdistance', 'dw', 'f1', 'halfnormal',
+        'mae', 'mse', 'peak', 'precision', 'rec', 'recall', 'rmse', 'rroc', 'runs', 'specificity',
+        'one_minus_acc', 'one_minus_auc', 'one_minus_f1', 'one_minus_precision', 'one_minus_recall', 'one_minus_specificity'." )
 }

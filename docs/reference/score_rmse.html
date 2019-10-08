@@ -82,7 +82,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.1.0</span>
+          <span class="version version-default">1.1.1</span>
         </div>
       </div>
     </div>
@@ -154,7 +154,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>score_rmse</span>(<span class='no'>object</span>)
+    <pre class="usage"><span class='fu'>score_rmse</span>(<span class='no'>object</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>scoreRMSE</span>(<span class='no'>object</span>)</pre>
     
@@ -163,13 +163,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'explainer' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>New data that will be used to calcuate the score. Pass <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class 'score_audit'.</p>
+    <p>An object of class <code>auditor_score</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
