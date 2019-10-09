@@ -11,11 +11,14 @@
 #' @param new_score A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param data New data that will be used to calcuate scores. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #'
-#' @seealso \code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}}, \code{\link{score_f1}},
+#' @seealso \code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}},
+#' \code{\link{score_f1}}, \code{\link{score_gini}},
 #' \code{\link{score_halfnormal}}, \code{\link{score_mae}}, \code{\link{score_mse}},
-#' \code{\link{score_peak}}, \code{\link{score_precision}}, \code{\link{score_rec}}, \code{\link{score_recall}}, \code{\link{score_rmse}},
+#' \code{\link{score_peak}}, \code{\link{score_precision}}, \code{\link{score_r2}},
+#' \code{\link{score_rec}}, \code{\link{score_recall}}, \code{\link{score_rmse}},
 #' \code{\link{score_rroc}}, \code{\link{score_runs}}, \code{\link{score_specificity}},
-#' \code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_precision}},
+#' \code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}},
+#' \code{\link{score_one_minus_precision}}, \code{\link{score_one_minus_gini}},
 #' \code{\link{score_one_minus_recall}}, \code{\link{score_one_minus_specificity}}
 #'
 #' @return An object of the class \code{auditor_model_performance}.

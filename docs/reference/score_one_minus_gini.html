@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Recall — score_recall • auditor</title>
+<title>One minus Gini Coefficient — score_one_minus_gini • auditor</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -35,8 +35,10 @@
 
 
 
-<meta property="og:title" content="Recall — score_recall" />
-<meta property="og:description" content="Recall" />
+<meta property="og:title" content="One minus Gini Coefficient — score_one_minus_gini" />
+<meta property="og:description" content="One minus Gini COefficient
+100
+0 expresses maximal inequality of values." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -142,16 +144,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Recall</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/score_recall.R'><code>R/score_recall.R</code></a></small>
-    <div class="hidden name"><code>score_recall.Rd</code></div>
+    <h1>One minus Gini Coefficient</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/score_gini.R'><code>R/score_gini.R</code></a></small>
+    <div class="hidden name"><code>score_one_minus_gini.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Recall</p>
+    <p>One minus Gini COefficient
+100<!-- % means perfect equality, where all values are the same. -->
+0 expresses maximal inequality of values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score_recall</span>(<span class='no'>object</span>, <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>score_one_minus_gini</span>(<span class='no'>object</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,10 +163,6 @@
     <tr>
       <th>object</th>
       <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
-    </tr>
-    <tr>
-      <th>cutoff</th>
-      <td><p>Treshold value, which divides model predicted values (y_hat) to calculate confusion matrix. By default it's <code>0.5</code>.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -194,7 +194,7 @@
 #&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.68201e-09 , max =  0.9666502  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># calculate score</span>
-<span class='fu'>score_recall</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; recall: 0.5800294</div><div class='input'>
+<span class='fu'>score_one_minus_gini</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; one_minus_gini: 0.3412865</div><div class='input'>
 
 </div></span></pre>
   </div>
