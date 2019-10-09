@@ -7,7 +7,7 @@
 \method{print}{auditor_model_residual}(x, ...)
 }
 \arguments{
-\item{x}{an object 'auditor_model_residual' created with \code{\link{model_residual}} function.}
+\item{x}{an object \code{auditor_model_residual} created with \code{\link{model_residual}} function.}
 
 \item{...}{other parameters}
 }

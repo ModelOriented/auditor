@@ -5,7 +5,7 @@
 \alias{scoreRuns}
 \title{Runs Score}
 \usage{
-score_runs(object, variable = NULL, data = NULL)
+score_runs(object, variable = NULL, data = NULL, ...)
 
 scoreRuns(object, variable = NULL)
 }
@@ -15,6 +15,8 @@ scoreRuns(object, variable = NULL)
 \item{variable}{name of model variable to order residuals.}
 
 \item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{...}{Other arguments dependent on the type of score.}
 }
 \value{
 An object of class \code{auditor_score}.

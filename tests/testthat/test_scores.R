@@ -61,7 +61,10 @@ test_that("score_one_minus_specificity", {
 })
 
 
-
+test_that("model_performance", {
+  expect_is(model_performance(exp_glm, score = c("f1","acc","auc","precision","mse"),
+                              variable = "wrongWariableShouldWork", cutoff = 0.3), "auditor_model_performance")
+})
 
 
 

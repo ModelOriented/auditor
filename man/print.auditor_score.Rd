@@ -7,7 +7,7 @@
 \method{print}{auditor_score}(x, ...)
 }
 \arguments{
-\item{x}{an object 'auditor_score' created with \code{\link{score}} function.}
+\item{x}{an object \code{auditor_score} created with \code{\link{score}} function.}
 
 \item{...}{other parameters}
 }
@@ -22,6 +22,6 @@ model_glm <- glm(survived ~ ., family = binomial, data = titanic)
 # create an explainer
 exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 # calculate score
-score(exp_glm, score= "auc")
+score(exp_glm, type = "auc")
 
 }

@@ -5,7 +5,7 @@
 \alias{scoreDW}
 \title{Durbin-Watson Score}
 \usage{
-score_dw(object, variable = NULL, data = NULL)
+score_dw(object, variable = NULL, data = NULL, ...)
 
 scoreDW(object, variable = NULL)
 }
@@ -15,6 +15,8 @@ scoreDW(object, variable = NULL)
 \item{variable}{Name of model variable to order residuals.}
 
 \item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{...}{Other arguments dependent on the type of score.}
 }
 \value{
 An object of class \code{auditor_score}.

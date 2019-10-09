@@ -7,7 +7,7 @@
 \method{print}{auditor_model_cooksdistance}(x, ...)
 }
 \arguments{
-\item{x}{an object 'auditor_model_cooksdistance' created with \code{\link{model_cooksdistance}} function.}
+\item{x}{an object \code{auditor_model_cooksdistance} created with \code{\link{model_cooksdistance}} function.}
 
 \item{...}{other parameters}
 }

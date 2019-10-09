@@ -4,8 +4,8 @@
 #' The RROC is a plot where on the x-axis we depict total over-estimation and on the y-axis total
 #' under-estimation.
 #'
-#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
-#' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.
+#' @param ... Other \code{auditor_model_residual} objects to be plotted together.
 #'
 #' @return A ggplot object.
 #'

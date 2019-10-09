@@ -4,8 +4,8 @@
 #' On the x axis of the plot there is an error tolerance and on the y axis there is a percentage
 #' of observations predicted within the given tolerance.
 #'
-#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
-#' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.
+#' @param ... Other \code{auditor_model_residual} objects to be plotted together.
 #'
 #' @return A ggplot object.
 #'

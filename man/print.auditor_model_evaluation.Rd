@@ -7,7 +7,7 @@
 \method{print}{auditor_model_evaluation}(x, ...)
 }
 \arguments{
-\item{x}{an object 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}
+\item{x}{an object \code{auditor_model_evaluation} created with \code{\link{model_evaluation}} function.}
 
 \item{...}{other parameters}
 }

@@ -7,7 +7,7 @@
 \method{print}{auditor_model_halfnormal}(x, ...)
 }
 \arguments{
-\item{x}{an object 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.}
+\item{x}{an object \code{auditor_model_halfnormal} created with \code{\link{model_halfnormal}} function.}
 
 \item{...}{other parameters}
 }
