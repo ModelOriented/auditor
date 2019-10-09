@@ -1,5 +1,6 @@
 # auditor 1.1.1
 * Add `data` and `cutoff` parameter to several `score_x` functions.
+* add `score_gini`, `score_one_minus_gini`, and `score_r2` functions
 
 # auditor 1.1.0
 * Szymon Maksymiuk is now contributor

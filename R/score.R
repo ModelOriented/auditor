@@ -5,18 +5,19 @@
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param score The score to  be calculated. Possible values: \code{acc}, \code{auc}, \code{cookdistance}, \code{dw}, \code{f1},
-#' \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{rec}, \code{recall},
+#' \code{gini}, \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{rec}, \code{recall},
 #' \code{rmse}, \code{rroc}, \code{runs}, \code{specificity},  \code{one_minus_acc}, \code{one_minus_auc},
-#' \code{one_minus_f1}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
+#' \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 #' (for detailed description see functions in see also section).
 #' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @seealso \code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}}, \code{\link{score_f1}},
-#' \code{\link{score_halfnormal}}, \code{\link{score_mae}}, \code{\link{score_mse}},
+#' \code{\link{score_gini}}  \code{\link{score_halfnormal}}, \code{\link{score_mae}}, \code{\link{score_mse}},
 #' \code{\link{score_peak}}, \code{\link{score_precision}}, \code{\link{score_rec}}, \code{\link{score_recall}}, \code{\link{score_rmse}},
 #' \code{\link{score_rroc}}, \code{\link{score_runs}}, \code{\link{score_specificity}},
-#' \code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_precision}},
+#' \code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_gini}},
+#' \code{\link{score_one_minus_precision}},
 #' \code{\link{score_one_minus_recall}}, \code{\link{score_one_minus_specificity}}
 #'
 #' @return An object of class \code{auditor_score}, except Cooks distance, where numeric vector is returned.
@@ -44,6 +45,7 @@ score <- function(object, score = 'mse', data = NULL, ...) {
          cooksdistance = { return(score_cooksdistance(object, ...)) },
          dw = { return(score_dw(object, data = data, ...)) },
          f1 = {return(score_f1(object, data = data, ...))},
+         gini = {return(score_gini(object, data = data, ...))},
          halfnormal = { return(score_halfnormal(object, ...)) },
          mae = { return(score_mae(object, data = data, ...)) },
          mse = { return(score_mse(object, data = data, ...)) },
@@ -58,12 +60,13 @@ score <- function(object, score = 'mse', data = NULL, ...) {
          one_minus_auc = { return(score_one_minus_auc(object, data = data, ...)) },
          one_minus_acc = { return(score_one_minus_acc(object, data = data, ...)) },
          one_minus_f1 = {return(score_one_minus_f1(object, data = data, ...))},
+         {return(score_one_minus_gini(object, data = data, ...))},
          one_minus_precision = { return(score_one_minus_precision(object, data = data, ...)) },
          one_minus_recall = { return(score_one_minus_recall(object, data = data, ...)) },
          one_minus_specificity = { return(score_one_minus_specificity(object, data = data, ...)) }
   )
 
-  stop( "Wrong type of score. Possible values: 'auc', 'acc', 'cooksdistance', 'dw', 'f1', 'halfnormal',
+  stop( "Wrong type of score. Possible values: 'auc', 'acc', 'cooksdistance', 'dw', 'f1', 'gini', 'halfnormal',
         'mae', 'mse', 'peak', 'precision', 'rec', 'recall', 'rmse', 'rroc', 'runs', 'specificity',
-        'one_minus_acc', 'one_minus_auc', 'one_minus_f1', 'one_minus_precision', 'one_minus_recall', 'one_minus_specificity'." )
+        'one_minus_acc', 'one_minus_auc', 'one_minus_f1', 'one_minus_gini','one_minus_precision', 'one_minus_recall', 'one_minus_specificity'." )
 }
