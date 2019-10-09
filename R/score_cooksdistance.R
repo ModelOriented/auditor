@@ -4,6 +4,7 @@
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param verbose If \code{TRUE} progress is printed.
+#' @param ... Other arguments dependent on the type of score.
 #'
 #' @details Cook’s distance is a tool for identifying observations that may negatively affect the model.
 #' They may be also used for indicating regions of the design space where it would be good to obtain more observations.
@@ -39,7 +40,7 @@
 #' @export
 #'
 
-score_cooksdistance <- function(object, verbose = TRUE){
+score_cooksdistance <- function(object, verbose = TRUE, ...){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   if(any(object$class=="lm") || any(object$class == "glm")) {
@@ -49,7 +50,7 @@ score_cooksdistance <- function(object, verbose = TRUE){
   }
 }
 
-compute_cooksdistances <- function(object, verbose){
+compute_cooksdistances <- function(object, verbose) {
 
   original_model <- object$model
   model_data <- object$data

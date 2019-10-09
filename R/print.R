@@ -1,6 +1,6 @@
 #' Prints Model Residual Summary
 #'
-#' @param x an object 'auditor_model_residual' created with \code{\link{model_residual}} function.
+#' @param x an object \code{auditor_model_residual} created with \code{\link{model_residual}} function.
 #' @param ... other parameters
 #'
 #' @examples
@@ -30,7 +30,7 @@ print.auditor_model_residual <- function(x, ...) {
 
 #' Prints Model Cook's Distances Summary
 #'
-#' @param x an object 'auditor_model_cooksdistance' created with \code{\link{model_cooksdistance}} function.
+#' @param x an object \code{auditor_model_cooksdistance} created with \code{\link{model_cooksdistance}} function.
 #' @param ... other parameters
 #'
 #' @export
@@ -64,7 +64,7 @@ print.auditor_model_cooksdistance <- function(x, ...) {
 
 #' Prints Model Evaluation Summary
 #'
-#' @param x an object 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
+#' @param x an object \code{auditor_model_evaluation} created with \code{\link{model_evaluation}} function.
 #' @param ... other parameters
 #'
 #' @export
@@ -98,7 +98,7 @@ print.auditor_model_evaluation <- function(x, ...) {
 
 #' Prints Model Halfnormal Summary
 #'
-#' @param x an object 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.
+#' @param x an object \code{auditor_model_halfnormal} created with \code{\link{model_halfnormal}} function.
 #' @param ... other parameters
 #'
 #' @export
@@ -128,7 +128,7 @@ print.auditor_model_halfnormal <- function(x, ...) {
 
 #' Prints Model Performance Summary
 #'
-#' @param x an object 'auditor_model_performance' created with \code{\link{model_performance}} function.
+#' @param x an object \code{auditor_model_performance} created with \code{\link{model_performance}} function.
 #' @param ... other parameters
 #'
 #' @export
@@ -162,7 +162,7 @@ print.auditor_model_performance <- function(x, ...) {
 
 #' Prints of Models Scores
 #'
-#' @param x an object 'auditor_score' created with \code{\link{score}} function.
+#' @param x an object \code{auditor_score} created with \code{\link{score}} function.
 #' @param ... other parameters
 #'
 #' @export
@@ -175,7 +175,7 @@ print.auditor_model_performance <- function(x, ...) {
 #' # create an explainer
 #' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
 #' # calculate score
-#' score(exp_glm, score= "auc")
+#' score(exp_glm, type = "auc")
 #'
 #' @export
 print.auditor_score <- function(x, ...) {

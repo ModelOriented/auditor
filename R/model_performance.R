@@ -4,12 +4,14 @@
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param score Vector of score names to be calculated. Possible values: \code{acc}, \code{auc}, \code{cookdistance}, \code{dw}, \code{f1},
-#' \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{rec}, \code{recall},
-#' \code{rmse}, \code{rroc}, \code{runs}, \code{specificity},  \code{one_minus_acc}, \code{one_minus_auc},
-#' \code{one_minus_f1}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
+#' \code{gini}, \code{halfnormal}, \code{mae}, \code{mse}, \code{peak},
+#' \code{precision}, \code{r2}, \code{rec}, \code{recall}, \code{rmse},
+#' \code{rroc}, \code{runs}, \code{specificity},  \code{one_minus_acc}, \code{one_minus_auc},
+#' \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 #' (for detailed description see functions in see also section). Pass \code{NULL} if you want to use only custom scores by \code{new_score} parameter.
 #' @param new_score A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
 #' @param data New data that will be used to calcuate scores. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param ... Other arguments dependent on the score list.
 #'
 #' @seealso \code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}},
 #' \code{\link{score_f1}}, \code{\link{score_gini}},
@@ -38,7 +40,7 @@
 #' model_performance(exp_glm)
 #'
 #' @export
-model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL, data = NULL) {
+model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL, data = NULL, ...) {
 
   check_object(object, type = "exp")
 
@@ -46,7 +48,7 @@ model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), ne
   if (!is.null(data)) object$data <- data
 
   if (!is.null(score)) {
-    score <- sapply(score, function(x) score(object, score = x)$score)
+    score <- sapply(score, function(x) score(object, type = x, ...)$score)
     df <- data.frame(score = score[1], label = object$label, name = names(score[1]))
     if (length(score) > 1) df <- rbind(df, data.frame(score = score[-1], label = object$label, name = names(score[-1])))
   } else {

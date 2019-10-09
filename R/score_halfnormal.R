@@ -29,7 +29,7 @@
 #'
 #' @export
 
-score_halfnormal <- function(object, ... ) {
+score_halfnormal <- function(object, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
   object <- model_halfnormal(object)
 

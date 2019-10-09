@@ -6,6 +6,7 @@
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
 #'
@@ -27,7 +28,7 @@
 #' @export
 
 
-score_gini <- function(object, data = NULL) {
+score_gini <- function(object, data = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
@@ -53,6 +54,7 @@ score_gini <- function(object, data = NULL) {
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
 #'
@@ -71,7 +73,7 @@ score_gini <- function(object, data = NULL) {
 #'
 #'
 #' @export
-score_one_minus_gini <- function(object, data = NULL) {
+score_one_minus_gini <- function(object, data = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
