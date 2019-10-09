@@ -83,6 +83,7 @@ reference:
     - score_mse
     - score_peak
     - score_precision
+    - score_r2
     - score_rec
     - score_recall
     - score_rmse

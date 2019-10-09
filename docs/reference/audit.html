@@ -36,15 +36,14 @@
 
 
 <meta property="og:title" content="Create modelAudit object — audit" />
-
 <meta property="og:description" content="Function audit create modelAudit object for further validation of a model.
 Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 which can be further processed by various error analysis functions.
 Function 'audit()' is deprecated, please, use an object of class 'explainer' created with function
 explain from the DALEX package." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -153,18 +152,16 @@ explain from the DALEX package." />
     </div>
 
     <div class="ref-description">
-    
     <p>Function <code>audit</code> create modelAudit object for further validation of a model.
 Models may have very different structures. This function creates a unified representation of a model and calculates residuals,
 which can be further processed by various error analysis functions.</p>
 <p>Function 'audit()' is deprecated, please, use an object of class 'explainer' created with function
 <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>audit</span>(<span class='no'>object</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predict.function</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>residual.function</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -193,7 +190,7 @@ which can be further processed by various error analysis functions.</p>
       <td><p>Character - the name of the model. By default it's extracted from the 'class' attribute of the model.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class ModelAudit, which contains:
@@ -210,7 +207,6 @@ which can be further processed by various error analysis functions.</p>
 <li><p><code>std.residuals</code> standardized residuals - the residuals divided by theirs standard deviation.</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
@@ -247,9 +243,7 @@ which can be further processed by various error analysis functions.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

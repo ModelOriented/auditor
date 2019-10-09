@@ -36,9 +36,9 @@
 
 
 <meta property="og:title" content="Function reference" />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -200,9 +200,81 @@
       <tr>
         
         <td>
-          <p><code><a href="plot_acf.html">plot_acf()</a></code> <code><a href="plot_acf.html">plotACF()</a></code> </p>
+          <p><code><a href="audit.html">audit()</a></code> </p>
         </td>
-        <td><p>Autocorrelation Function Plot</p></td>
+        <td><p>Create modelAudit object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="auditorData.html">auditorData</a></code> </p>
+        </td>
+        <td><p>auditorData</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="check_residuals.html">check_residuals()</a></code> </p>
+        </td>
+        <td><p>Automated tests for model residuals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="check_residuals_autocorrelation.html">check_residuals_autocorrelation()</a></code> </p>
+        </td>
+        <td><p>Checks for autocorrelation in target variable or in residuals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="check_residuals_outliers.html">check_residuals_outliers()</a></code> </p>
+        </td>
+        <td><p>Checks for outliers</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="check_residuals_trend.html">check_residuals_trend()</a></code> </p>
+        </td>
+        <td><p>Checks for trend in residuals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_cooksdistance.html">model_cooksdistance()</a></code> <code><a href="model_cooksdistance.html">observationInfluence()</a></code> </p>
+        </td>
+        <td><p>Cook's distances</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_evaluation.html">model_evaluation()</a></code> <code><a href="model_evaluation.html">modelEvaluation()</a></code> </p>
+        </td>
+        <td><p>Create Model Evaluation Explaination</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_halfnormal.html">model_halfnormal()</a></code> <code><a href="model_halfnormal.html">modelFit()</a></code> </p>
+        </td>
+        <td><p>Create Halfnormal Explanation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_performance.html">model_performance()</a></code> <code><a href="model_performance.html">modelPerformance()</a></code> </p>
+        </td>
+        <td><p>Create Model Performance Explaination</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_residual.html">model_residual()</a></code> <code><a href="model_residual.html">modelResiduals()</a></code> </p>
+        </td>
+        <td><p>Create Model Residuals Explaination</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.html">plot_auditor()</a></code> <code><a href="plot.html">plot(<i>&lt;auditor_model_residual&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;auditor_model_performance&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;auditor_model_halfnormal&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;auditor_model_evaluation&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;auditor_model_cooksdistance&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Model Diagnostic Plots</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3.html">plotD3()</a></code> <code><a href="plotD3.html">plotD3_auditor()</a></code> </p>
+        </td>
+        <td><p>Model Diagnostic Plots in D3 with r2d3 package.</p></td>
       </tr><tr>
         
         <td>
@@ -212,27 +284,81 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plot_autocorrelation.html">plot_autocorrelation()</a></code> <code><a href="plot_autocorrelation.html">plotAutocorrelation()</a></code> </p>
-        </td>
-        <td><p>Autocorrelation of Residuals Plot</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plotD3_autocorrelation.html">plotD3_autocorrelation()</a></code> <code><a href="plotD3_autocorrelation.html">plotD3Autocorrelation()</a></code> </p>
         </td>
         <td><p>Autocorrelation Plot in D3 with r2d3 package.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plot_cooksdistance.html">plot_cooksdistance()</a></code> <code><a href="plot_cooksdistance.html">plotCooksDistance()</a></code> </p>
-        </td>
-        <td><p>Influence of Observations Plot</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plotD3_cooksdistance.html">plotD3_cooksdistance()</a></code> <code><a href="plotD3_cooksdistance.html">plotD3CooksDistance()</a></code> </p>
         </td>
         <td><p>Influence of observations Plot in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_halfnormal.html">plotD3_halfnormal()</a></code> <code><a href="plotD3_halfnormal.html">plotD3HalfNormal()</a></code> </p>
+        </td>
+        <td><p>Plot Half-Normal in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_lift.html">plotD3_lift()</a></code> <code><a href="plotD3_lift.html">plotD3LIFT()</a></code> </p>
+        </td>
+        <td><p>Plot LIFT in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_prediction.html">plotD3_prediction()</a></code> <code><a href="plotD3_prediction.html">plotD3Prediction()</a></code> </p>
+        </td>
+        <td><p>Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_rec.html">plotD3_rec()</a></code> <code><a href="plotD3_rec.html">plotD3REC()</a></code> </p>
+        </td>
+        <td><p>Regression Error Characteristic Curves (REC) in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_residual.html">plotD3_residual()</a></code> <code><a href="plotD3_residual.html">plotD3Residual()</a></code> </p>
+        </td>
+        <td><p>Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_roc.html">plotD3_roc()</a></code> </p>
+        </td>
+        <td><p>Receiver Operating Characteristic (ROC) in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_rroc.html">plotD3_rroc()</a></code> </p>
+        </td>
+        <td><p>Regression Receiver Operating Characteristic (RROC) in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotD3_scalelocation.html">plotD3_scalelocation()</a></code> <code><a href="plotD3_scalelocation.html">plotD3ScaleLocation()</a></code> </p>
+        </td>
+        <td><p>Scale Location Plot in D3 with r2d3 package.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_acf.html">plot_acf()</a></code> <code><a href="plot_acf.html">plotACF()</a></code> </p>
+        </td>
+        <td><p>Autocorrelation Function Plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_autocorrelation.html">plot_autocorrelation()</a></code> <code><a href="plot_autocorrelation.html">plotAutocorrelation()</a></code> </p>
+        </td>
+        <td><p>Autocorrelation of Residuals Plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_cooksdistance.html">plot_cooksdistance()</a></code> <code><a href="plot_cooksdistance.html">plotCooksDistance()</a></code> </p>
+        </td>
+        <td><p>Influence of Observations Plot</p></td>
       </tr><tr>
         
         <td>
@@ -248,21 +374,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotD3_halfnormal.html">plotD3_halfnormal()</a></code> <code><a href="plotD3_halfnormal.html">plotD3HalfNormal()</a></code> </p>
-        </td>
-        <td><p>Plot Half-Normal in D3 with r2d3 package.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_lift.html">plot_lift()</a></code> <code><a href="plot_lift.html">plotLIFT()</a></code> </p>
         </td>
         <td><p>LIFT Chart</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotD3_lift.html">plotD3_lift()</a></code> <code><a href="plotD3_lift.html">plotD3LIFT()</a></code> </p>
-        </td>
-        <td><p>Plot LIFT in D3 with r2d3 package.</p></td>
       </tr><tr>
         
         <td>
@@ -278,12 +392,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotD3_prediction.html">plotD3_prediction()</a></code> <code><a href="plotD3_prediction.html">plotD3Prediction()</a></code> </p>
-        </td>
-        <td><p>Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_radar.html">plot_radar()</a></code> <code><a href="plot_radar.html">plotModelRanking()</a></code> </p>
         </td>
         <td><p>Model Ranking Plot</p></td>
@@ -296,21 +404,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotD3_rec.html">plotD3_rec()</a></code> <code><a href="plotD3_rec.html">plotD3REC()</a></code> </p>
-        </td>
-        <td><p>Regression Error Characteristic Curves (REC) in D3 with r2d3 package.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_residual.html">plot_residual()</a></code> <code><a href="plot_residual.html">plotResidual()</a></code> </p>
         </td>
         <td><p>Plot Residuals vs Observed, Fitted or Variable Values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotD3_residual.html">plotD3_residual()</a></code> <code><a href="plotD3_residual.html">plotD3Residual()</a></code> </p>
-        </td>
-        <td><p>Plot Residuals vs Observed, Fitted or Variable Values in D3 with r2d3 package.</p></td>
       </tr><tr>
         
         <td>
@@ -332,21 +428,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotD3_roc.html">plotD3_roc()</a></code> </p>
-        </td>
-        <td><p>Receiver Operating Characteristic (ROC) in D3 with r2d3 package.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_rroc.html">plot_rroc()</a></code> <code><a href="plot_rroc.html">plotRROC()</a></code> </p>
         </td>
         <td><p>Regression Receiver Operating Characteristic (RROC)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotD3_rroc.html">plotD3_rroc()</a></code> </p>
-        </td>
-        <td><p>Regression Receiver Operating Characteristic (RROC) in D3 with r2d3 package.</p></td>
       </tr><tr>
         
         <td>
@@ -356,24 +440,52 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotD3_scalelocation.html">plotD3_scalelocation()</a></code> <code><a href="plotD3_scalelocation.html">plotD3ScaleLocation()</a></code> </p>
-        </td>
-        <td><p>Scale Location Plot in D3 with r2d3 package.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_tsecdf.html">plot_tsecdf()</a></code> <code><a href="plot_tsecdf.html">plotTwoSidedECDF()</a></code> </p>
         </td>
         <td><p>Two-sided Cumulative Distribution Function</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-scores" class="hasAnchor"><a href="#section-scores" class="anchor"></a>Scores</h2>
-          <p class="section-desc"><p>Scores for model and plot functions</p></p>
-        </th>
-      </tr>
-      <tr>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.auditor_model_cooksdistance.html">print(<i>&lt;auditor_model_cooksdistance&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Prints Model Cook's Distances Summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.auditor_model_evaluation.html">print(<i>&lt;auditor_model_evaluation&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Prints Model Evaluation Summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.auditor_model_halfnormal.html">print(<i>&lt;auditor_model_halfnormal&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Prints Model Halfnormal Summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.auditor_model_performance.html">print(<i>&lt;auditor_model_performance&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Prints Model Performance Summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.auditor_model_residual.html">print(<i>&lt;auditor_model_residual&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Prints Model Residual Summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.auditor_score.html">print(<i>&lt;auditor_score&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Prints of Models Scores</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score.html">score()</a></code> </p>
+        </td>
+        <td><p>Model Scores computations</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="score_acc.html">score_acc()</a></code> </p>
@@ -406,6 +518,176 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="score_gini.html">score_gini()</a></code> </p>
+        </td>
+        <td><p>Gini Coefficient</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_halfnormal.html">score_halfnormal()</a></code> <code><a href="score_halfnormal.html">scoreHalfNormal()</a></code> </p>
+        </td>
+        <td><p>Half-Normal Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_mae.html">score_mae()</a></code> <code><a href="score_mae.html">scoreMAE()</a></code> </p>
+        </td>
+        <td><p>Mean Absolute Error</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_mse.html">score_mse()</a></code> <code><a href="score_mse.html">scoreMSE()</a></code> </p>
+        </td>
+        <td><p>Mean Square Error</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_acc.html">score_one_minus_acc()</a></code> </p>
+        </td>
+        <td><p>One minus accuracy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_auc.html">score_one_minus_auc()</a></code> </p>
+        </td>
+        <td><p>One minus Area Under ROC Curve (AUC)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_f1.html">score_one_minus_f1()</a></code> </p>
+        </td>
+        <td><p>One Minus F1 Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_gini.html">score_one_minus_gini()</a></code> </p>
+        </td>
+        <td><p>One minus Gini Coefficient</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_precision.html">score_one_minus_precision()</a></code> </p>
+        </td>
+        <td><p>One Minus Precision</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_recall.html">score_one_minus_recall()</a></code> </p>
+        </td>
+        <td><p>One minus recall</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_specificity.html">score_one_minus_specificity()</a></code> </p>
+        </td>
+        <td><p>One minus specificity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_peak.html">score_peak()</a></code> <code><a href="score_peak.html">scorePeak()</a></code> </p>
+        </td>
+        <td><p>Peak Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_precision.html">score_precision()</a></code> </p>
+        </td>
+        <td><p>Precision</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_r2.html">score_r2()</a></code> </p>
+        </td>
+        <td><p>R-squared</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_rec.html">score_rec()</a></code> <code><a href="score_rec.html">scoreREC()</a></code> </p>
+        </td>
+        <td><p>Area Over the Curve for REC Curves</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_recall.html">score_recall()</a></code> </p>
+        </td>
+        <td><p>Recall</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_rmse.html">score_rmse()</a></code> <code><a href="score_rmse.html">scoreRMSE()</a></code> </p>
+        </td>
+        <td><p>Root Mean Square Error</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_rroc.html">score_rroc()</a></code> <code><a href="score_rroc.html">scoreRROC()</a></code> </p>
+        </td>
+        <td><p>Area Over the Curve for RROC Curves</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_runs.html">score_runs()</a></code> <code><a href="score_runs.html">scoreRuns()</a></code> </p>
+        </td>
+        <td><p>Runs Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_specificity.html">score_specificity()</a></code> </p>
+        </td>
+        <td><p>Specificity</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-scores" class="hasAnchor"><a href="#section-scores" class="anchor"></a>Scores</h2>
+          <p class="section-desc"><p>Scores for model and plot functions</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="score.html">score()</a></code> </p>
+        </td>
+        <td><p>Model Scores computations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_acc.html">score_acc()</a></code> </p>
+        </td>
+        <td><p>Accuracy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_auc.html">score_auc()</a></code> <code><a href="score_auc.html">scoreROC()</a></code> </p>
+        </td>
+        <td><p>Area Under ROC Curve (AUC)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_cooksdistance.html">score_cooksdistance()</a></code> <code><a href="score_cooksdistance.html">scoreCooksDistance()</a></code> </p>
+        </td>
+        <td><p>Score based on Cooks Distance</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_dw.html">score_dw()</a></code> <code><a href="score_dw.html">scoreDW()</a></code> </p>
+        </td>
+        <td><p>Durbin-Watson Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_f1.html">score_f1()</a></code> </p>
+        </td>
+        <td><p>F1 Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_gini.html">score_gini()</a></code> </p>
+        </td>
+        <td><p>Gini Coefficient</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="score_halfnormal.html">score_halfnormal()</a></code> <code><a href="score_halfnormal.html">scoreHalfNormal()</a></code> </p>
         </td>
         <td><p>Half-Normal Score</p></td>
@@ -433,6 +715,12 @@
           <p><code><a href="score_precision.html">score_precision()</a></code> </p>
         </td>
         <td><p>Precision</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_r2.html">score_r2()</a></code> </p>
+        </td>
+        <td><p>R-squared</p></td>
       </tr><tr>
         
         <td>
@@ -487,6 +775,12 @@
           <p><code><a href="score_one_minus_f1.html">score_one_minus_f1()</a></code> </p>
         </td>
         <td><p>One Minus F1 Score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_one_minus_gini.html">score_one_minus_gini()</a></code> </p>
+        </td>
+        <td><p>One minus Gini Coefficient</p></td>
       </tr><tr>
         
         <td>
