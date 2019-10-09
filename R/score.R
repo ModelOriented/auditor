@@ -5,7 +5,7 @@
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param score The score to  be calculated. Possible values: \code{acc}, \code{auc}, \code{cookdistance}, \code{dw}, \code{f1},
-#' \code{gini}, \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{rec}, \code{recall},
+#' \code{gini}, \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{r2}, \code{rec}, \code{recall},
 #' \code{rmse}, \code{rroc}, \code{runs}, \code{specificity},  \code{one_minus_acc}, \code{one_minus_auc},
 #' \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 #' (for detailed description see functions in see also section).
@@ -17,7 +17,7 @@
 #' \code{\link{score_peak}}, \code{\link{score_precision}}, \code{\link{score_rec}}, \code{\link{score_recall}}, \code{\link{score_rmse}},
 #' \code{\link{score_rroc}}, \code{\link{score_runs}}, \code{\link{score_specificity}},
 #' \code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_gini}},
-#' \code{\link{score_one_minus_precision}},
+#' \code{\link{score_one_minus_precision}}, \code{\link{score_r2}},
 #' \code{\link{score_one_minus_recall}}, \code{\link{score_one_minus_specificity}}
 #'
 #' @return An object of class \code{auditor_score}, except Cooks distance, where numeric vector is returned.
@@ -51,6 +51,7 @@ score <- function(object, score = 'mse', data = NULL, ...) {
          mse = { return(score_mse(object, data = data, ...)) },
          peak = { return(score_peak(object, data = data, ...)) },
          precision = { return(score_precision(object, data = data, ...)) },
+         r2 = { return(score_r2(object, data = data, ...)) },
          rec = { return(score_rec(object, data = data, ...)) },
          recall = { return(score_recall(object, data = data, ...)) },
          rmse = { return(score_rmse(object, data = data, ...)) },
@@ -60,13 +61,13 @@ score <- function(object, score = 'mse', data = NULL, ...) {
          one_minus_auc = { return(score_one_minus_auc(object, data = data, ...)) },
          one_minus_acc = { return(score_one_minus_acc(object, data = data, ...)) },
          one_minus_f1 = {return(score_one_minus_f1(object, data = data, ...))},
-         {return(score_one_minus_gini(object, data = data, ...))},
+         one_minus_gini = {return(score_one_minus_gini(object, data = data, ...))},
          one_minus_precision = { return(score_one_minus_precision(object, data = data, ...)) },
          one_minus_recall = { return(score_one_minus_recall(object, data = data, ...)) },
          one_minus_specificity = { return(score_one_minus_specificity(object, data = data, ...)) }
   )
 
   stop( "Wrong type of score. Possible values: 'auc', 'acc', 'cooksdistance', 'dw', 'f1', 'gini', 'halfnormal',
-        'mae', 'mse', 'peak', 'precision', 'rec', 'recall', 'rmse', 'rroc', 'runs', 'specificity',
+        'mae', 'mse', 'peak', 'precision', 'r2', 'rec', 'recall', 'rmse', 'rroc', 'runs', 'specificity',
         'one_minus_acc', 'one_minus_auc', 'one_minus_f1', 'one_minus_gini','one_minus_precision', 'one_minus_recall', 'one_minus_specificity'." )
 }

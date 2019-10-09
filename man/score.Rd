@@ -10,7 +10,7 @@ score(object, score = "mse", data = NULL, ...)
 \item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{score}{The score to  be calculated. Possible values: \code{acc}, \code{auc}, \code{cookdistance}, \code{dw}, \code{f1},
-\code{gini}, \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{rec}, \code{recall},
+\code{gini}, \code{halfnormal}, \code{mae}, \code{mse}, \code{peak}, \code{precision}, \code{r2}, \code{rec}, \code{recall},
 \code{rmse}, \code{rroc}, \code{runs}, \code{specificity},  \code{one_minus_acc}, \code{one_minus_auc},
 \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 (for detailed description see functions in see also section).}
@@ -45,6 +45,6 @@ score(exp_lm, score = 'mae')
 \code{\link{score_peak}}, \code{\link{score_precision}}, \code{\link{score_rec}}, \code{\link{score_recall}}, \code{\link{score_rmse}},
 \code{\link{score_rroc}}, \code{\link{score_runs}}, \code{\link{score_specificity}},
 \code{\link{score_one_minus_acc}}, \code{\link{score_one_minus_auc}}, \code{\link{score_one_minus_f1}}, \code{\link{score_one_minus_gini}},
-\code{\link{score_one_minus_precision}},
+\code{\link{score_one_minus_precision}}, \code{\link{score_r2}},
 \code{\link{score_one_minus_recall}}, \code{\link{score_one_minus_specificity}}
 }

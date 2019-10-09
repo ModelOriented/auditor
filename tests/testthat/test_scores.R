@@ -36,6 +36,7 @@ test_that("score", {
   expect_is(score(exp_glm, "auc"), "auditor_score")
   expect_is(score(exp_glm, "gini"), "auditor_score")
   expect_is(score(exp_glm, "one_minus_gini"), "auditor_score")
+  expect_is(score(exp_lm, "r2"), "auditor_score")
   expect_is(score(exp_lm, "cooksdistance"), "numeric")
 })
 
