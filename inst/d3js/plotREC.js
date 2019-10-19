@@ -19,6 +19,112 @@ if (options.scalePlot === true) {
 
 var colors = getColors(n, "line");
 
+// get model data
+var modelData = data[0];
+var modelNames = Object.keys(modelData);
+
+// title
+svg.append("text")
+    .attr("class", "bigTitle")
+    .attr("x", margin.left)
+    .attr("y", margin.top - 40)
+    .text(chartTitle);
+
+
+/* -------------- */
+
+// add legend before rest of the plot to adjust margin.top
+var tempW = -20+14;
+var tempH = 25;
+var ti = 0;
+
+var legend = svg.selectAll(".legend")
+      .data(modelNames)
+      .enter()
+      .append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d,i) {
+        let temp = getTextWidth(d, 11, "Fira Sans, sans-serif");
+        tempW = tempW + temp + 20;
+
+        let ret;
+
+        if (margin.left + plotWidth - tempW > 0) {
+          ret = "translate(" + (margin.left+plotWidth - tempW) +
+            "," + (margin.top - tempH) + ")";
+        } else {
+          tempW = -20+14 + temp + 20;
+          tempH = tempH - 20;
+          ti++;
+          ret = "translate(" + (margin.left+plotWidth - tempW) +
+            "," + (margin.top - tempH) + ")";
+        }
+
+        return ret;
+      });
+
+legend.append("text")
+      .attr("dy", ".6em")
+      .attr("class", "legendLabel")
+      .text(d => d)
+      .attr("x", 14);
+
+legend.append("rect")
+        .attr("width", 8)
+        .attr("height", 8)
+        .attr("class", "legendBox");
+
+var greyColor = getColors(3, "point")[2];
+var is_clicked = {};
+
+for(var i = 0; i < modelNames.length; i++) {
+  let key = modelNames[i];
+  is_clicked[key.replace(/\s/g, '')] = true;
+}
+
+legend.append("circle")
+        .attr("class", "legendDot")
+        .attr("cx", 4)
+        .attr("cy", 4)
+        .attr("r", 2.5)
+        .style("fill", (d,i) => colors[i])
+        .style("stroke-width", 15)
+        .style("stroke", "red")
+        .style("stroke-opacity", 0)
+        .attr("id", d => d.replace(/\s/g, ''))
+        .on("mouseover", function() {
+          // change cursor
+          d3.select(this).style("cursor", "pointer");
+        })
+        .on("click", function(d,i) {
+
+          let clicked = this.id;
+
+          if (is_clicked[clicked]) {
+            d3.select(this)
+                .style("fill", greyColor)
+                .style("opacity", 0.5);
+
+            svg.selectAll(".line" + clicked)
+                  .style("stroke", greyColor)
+                  .style("opacity", 0.5);
+            is_clicked[clicked] = false;
+          } else {
+            d3.select(this)
+                .style("fill", colors[i])
+                .style("opacity", 1);
+
+            svg.selectAll(".line" + clicked)
+                  .style("stroke", colors[i])
+                  .style("opacity", 1);
+            is_clicked[clicked] = true;
+          }
+        });
+
+/* -------------- */
+
+margin.top = margin.top + 20*ti;
+
 // scale
 var x = d3.scaleLinear()
           .range([margin.left, margin.left + plotWidth])
@@ -27,13 +133,6 @@ var x = d3.scaleLinear()
 var y = d3.scaleLinear()
       .range([margin.top + plotHeight, margin.top])
       .domain([ymin, ymax]);
-
-// title
-svg.append("text")
-    .attr("class", "bigTitle")
-    .attr("x", margin.left)
-    .attr("y", margin.top - 40)
-    .text(chartTitle);
 
 svg.append("text")
     .attr("class", "axisTitle")
@@ -113,8 +212,6 @@ function appear(data) {
 }
 
 // add model lines
-var modelData = data[0];
-var modelNames = Object.keys(modelData);
 
 modelNames.forEach(function(key, i) {
       svg.append("path")
@@ -145,79 +242,6 @@ modelNames.forEach(function(key, i) {
           tool_tip.hide(d);
         });
   });
-
-// add legend
-var tempW = -20+14;
-
-var legend = svg.selectAll(".legend")
-      .data(modelNames)
-      .enter()
-      .append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) {
-        let temp = getTextWidth(d, 11, "Fira Sans, sans-serif");
-        tempW = tempW + temp + 20;
-        return "translate(" + (margin.left+plotWidth - tempW) +
-            "," + (margin.top - 20) + ")";
-      });
-
-legend.append("text")
-      .attr("dy", ".6em")
-      .attr("class", "legendLabel")
-      .text(d => d)
-      .attr("x", 14);
-
-legend.append("rect")
-        .attr("width", 8)
-        .attr("height", 8)
-        .attr("class", "legendBox");
-
-var greyColor = getColors(3, "point")[2];
-var is_clicked = {};
-
-for(var i = 0; i < modelNames.length; i++) {
-  let key = modelNames[i];
-  is_clicked[key.replace(/\s/g, '')] = true;
-}
-
-legend.append("circle")
-        .attr("class", "legendDot")
-        .attr("cx", 4)
-        .attr("cy", 4)
-        .attr("r", 2.5)
-        .style("fill", (d,i) => colors[i])
-        .style("stroke-width", 15)
-        .style("stroke", "red")
-        .style("stroke-opacity", 0)
-        .attr("id", d => d.replace(/\s/g, ''))
-        .on("mouseover", function() {
-          // change cursor
-          d3.select(this).style("cursor", "pointer");
-        })
-        .on("click", function(d,i) {
-
-          let clicked = this.id;
-
-          if (is_clicked[clicked]) {
-            d3.select(this)
-                .style("fill", greyColor)
-                .style("opacity", 0.5);
-
-            svg.selectAll(".line" + clicked)
-                  .style("stroke", greyColor)
-                  .style("opacity", 0.5);
-            is_clicked[clicked] = false;
-          } else {
-            d3.select(this)
-                .style("fill", colors[i])
-                .style("opacity", 1);
-
-            svg.selectAll(".line" + clicked)
-                  .style("stroke", colors[i])
-                  .style("opacity", 1);
-            is_clicked[clicked] = true;
-          }
-        });
 
 // change font
 svg.selectAll("text")
