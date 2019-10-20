@@ -60,7 +60,7 @@ plotD3_rroc <- function(object, ..., scale_plot = FALSE) {
 
   # data frame for ggplot object
   df <- make_dataframe(object, ..., type = "rroc")
-
+  colnames(df) <- c("rroc_x", "rroc_y", "label", "curve")
   df <- df[is.finite(df$rroc_x) & is.finite(df$rroc_y),]
 
   n_models  <- length(unique(df$label))
