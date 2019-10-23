@@ -57,12 +57,12 @@ plotD3_rec <- function(object, ..., scale_plot = FALSE) {
   # data frame for ggplot object
   df <- make_dataframe(object, ..., type = "rec")
 
-  #:#
-  xmax <- max(df$rec_x)
-  xmin <- min(df$rec_x)
-  model_names <- unique(df$label)
-
   colnames(df) <- c("x", "y", "label")
+
+  #:#
+  xmax <- max(df$x)
+  xmin <- min(df$x)
+  model_names <- unique(df$label)
 
   line_data <- split(df, f = df$label)
 
