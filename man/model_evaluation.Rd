@@ -3,14 +3,16 @@
 \name{model_evaluation}
 \alias{model_evaluation}
 \alias{modelEvaluation}
-\title{Create Model Evaluation Explaination}
+\title{Create model evaluation explaination}
 \usage{
-model_evaluation(object)
+model_evaluation(object, zeros = TRUE)
 
 modelEvaluation(object)
 }
 \arguments{
 \item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+
+\item{zeros}{Adding extra zeros to resulting data frame}
 }
 \value{
 An object of class 'auditor_model_evaluation'.
