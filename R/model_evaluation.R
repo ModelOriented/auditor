@@ -1,6 +1,6 @@
-#' @title Create Model Evaluation Explaination
+#' @title Create model evaluation explaination
 #'
-#' @description  Creates explanation of classification model.
+#' @description Creates explanation of classification model.
 #'
 #' Returns, among others, true positive rate (tpr), false positive rate (fpr),
 #' rate of positive prediction (rpp), and true positives (tp).
@@ -9,6 +9,7 @@
 #' Receiver Operating Characteristic (ROC) curve (plot \code{\link{plot_roc}}) and LIFT curve (plot \code{\link{plot_lift}}).
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param zeros Adding extra zeros to resulting data frame
 #'
 #' @return An object of class 'auditor_model_evaluation'.
 #'
@@ -28,57 +29,51 @@
 #'
 #'
 #' @export
-model_evaluation <- function(object) {
+model_evaluation <- function(object, zeros = TRUE) {
+
+  # checking if correct object is passed to the function
   check_object(object, type = "exp")
 
-  result <- calculate_classif_evaluation(object$y_hat, object$y, object$label)
+  df <- data.frame(y_hat = object$y_hat, y = object$y)
+  df <- df[order(df$y_hat, decreasing = TRUE), ]
 
-  class(result) <- c("auditor_model_evaluation", "data.frame")
-  return(result)
-}
+  # true & false positives
+  tp <- cumsum(df$y == TRUE)
+  fp <- cumsum(df$y == FALSE)
 
-
-
-calculate_classif_evaluation <- function(predictions, y, label) {
-
-  y <- factor(y)
-  levels <- levels(y)
-  pos_label <- levels[2]
-  neg_label <- levels[1]
-
-  pred <- data.frame(predictions = predictions, y = y)
-
-  pred_sorted <- pred[order(pred$predictions, decreasing = TRUE), ]
-  # true positives & false negatives
-  tp <- cumsum(pred_sorted$y == pos_label)
-  fp <- cumsum(pred_sorted$y == neg_label)
-  # cutoffs aka thresholds aka alpha
-  cutoffs <- pred_sorted$predictions
   # number of positives & negatives
-  n_pos <- sum(y == levels[2] )
-  n_neg <- sum(y == levels[1] )
+  n_pos <- sum(df$y == TRUE)
+  n_neg <- sum(df$y == FALSE)
+
   # false negatives & true negatives
   fn <- n_pos - tp
   tn <- n_neg - fp
+
   # number of positive predistions & number of negative predictions
   n_pos_pred <- tp + fp
   n_neg_pred <- fn + tn
+
   # true positive rate & false positive rate
   tpr <- tp / n_pos
   fpr <- fp / n_neg
+
   # rate of positive predictions
-  rpp <- (tp + fp) / (tp +fp +tn +fn)
-  res <- data.frame(fitted_values = predictions,
-             y = y,
-             cutoffs = cutoffs,
-             tpr = tpr,
-             fpr = fpr,
-             rpp = rpp,
-             tp = tp)
-  colnames(res) <- c("_y_hat_", "_y_", "_cutoffs_", "_tpr_", "_fpr_", "_rpp_", "_tp_")
-  res$`_label_` <- factor(label)
-  res
+  rpp <- (tp + fp) / (tp + fp + tn + fn)
+
+  # final data frame
+  result <- data.frame(y_hat = object$y_hat, y = object$y, cutoffs = df$y_hat, tpr = tpr,
+                       fpr = fpr, rpp = rpp, tp = tp)
+
+  if (zeros && result$rpp[1] != 0) result <- rbind(rep(0, length(result)), result)
+
+  result$label <- object$label
+  result[, c("y", "label")] <- lapply(result[, c("y", "label")], as.factor)
+  colnames(result) <- paste0("_", colnames(result), "_")
+  class(result) <- c("auditor_model_evaluation", "data.frame")
+
+  result
 }
+
 
 
 #' @rdname model_evaluation

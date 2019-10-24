@@ -40,45 +40,57 @@
 #'
 #' @export
 plot_lift <- function(object, ...) {
+
   # some safeguard
   `_rpp_` <- `_tp_` <- `_label_` <- variable <- line <- ord <- NULL
+
   # check if passed object is of class "auditor_model_evaluation"
   check_object(object, type = "eva")
 
-  df1 <- make_dataframe(object, ..., type = "eva")
+  df1 <- as.data.frame(object)
+
+  for (resp in list(...)) {
+    resp <- as.data.frame(resp)
+    df1 <- rbind(df1, resp)
+  }
 
   # take only columns required to plot LIFT curve
   df1 <- df1[, c("_rpp_", "_tp_", "_label_")]
-  df1$line <- "1"
+
+  df1$line <- "2"
+
   # prepare data frame for ideal and dummy model
   pr <- sum(object$`_y_` == levels(factor(object$`_y_`))[2]) / length(object$`_y_`)
 
   ideal_df <- data.frame(rpp = c(0, pr, 1),
                          tp = c(0, max(df1$`_tp_`), max(df1$`_tp_`)),
-                         label = c("ideal", "ideal", "ideal"))
+                         label = rep("ideal", 3))
 
   random_df <- data.frame(rpp = c(0, 1),
                           tp =  c(0, max(df1$`_tp_`)),
                           label = c("random", "random"))
+
   df2 <- rbind(ideal_df, random_df)
-  df2$line <- "2"
-  colnames(df2)[1:3] <- c("_rpp_", "_tp_", "_label_")
+  colnames(df2) <- paste0("_", colnames(df2), "_")
+  df2$line <- "1"
 
   df <- rbind(df1, df2)
 
   # new varibale to set an order o curves
-  df$ord <- paste(rev(as.numeric(factor(df$`_label_`))), df$`_label_`)
+  df$ord <- factor(paste(as.character(df$line), as.character(df$`_label_`)))
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(nlevels(df1$`_label_`)))
 
   # main plot
   p <- ggplot(df, aes(x = `_rpp_`, y = `_tp_`)) +
-    geom_line(aes(color = `_label_`, group = ord, linetype = line)) +
+    geom_line(aes(color = `_label_`,
+              group = ord,
+              linetype = line)) +
     xlab("Rate of positive prediction") +
     ylab("True positive") +
     ggtitle("LIFT Chart") +
-    scale_linetype_manual(values = c("solid", "dashed"), guide = FALSE)
+    scale_linetype_manual(values = c("dashed", "solid"), guide = FALSE)
 
   # X axis labels
   p <- p +
