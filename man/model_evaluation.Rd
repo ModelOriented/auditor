@@ -5,14 +5,12 @@
 \alias{modelEvaluation}
 \title{Create model evaluation explaination}
 \usage{
-model_evaluation(object, zeros = TRUE)
+model_evaluation(object)
 
 modelEvaluation(object)
 }
 \arguments{
 \item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
-
-\item{zeros}{Adding extra zeros to resulting data frame}
 }
 \value{
 An object of class 'auditor_model_evaluation'.
