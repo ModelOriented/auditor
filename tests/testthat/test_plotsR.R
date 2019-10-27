@@ -80,7 +80,7 @@ test_that("plot_lift", {
 
 test_that("plot_roc", {
   expect_is(plot_roc(ev_rf, ev_glm), "gg")
-  expect_is(plot_roc(ev_rf, ev_glm, nlabels = 4), "gg")
+  expect_is(plot_roc(ev_rf, ev_glm, nlabel = 4), "gg")
 })
 
 test_that("plot_rroc", {

@@ -5,7 +5,7 @@
 #'
 #' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
 #' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
-#' @param zeros Adding starting zeros for plot
+#' @param zeros Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.
 #'
 #' @return A ggplot object.
 #'

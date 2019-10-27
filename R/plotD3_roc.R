@@ -7,6 +7,7 @@
 #' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
 #' @param nlabel Number of cutoff points to show on the plot. Default is `NULL`.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
+#' @param zeros Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.
 #'
 #' @return a `r2d3` object
 #'
@@ -48,7 +49,13 @@ plotD3_roc <- function(object, ..., nlabel = NULL, scale_plot = FALSE) {
   check_object(object, type = "eva")
 
   # prepare data frame for the ggplot object
-  df <- make_dataframe(object, ..., type = "eva")
+  df <- as.data.frame(object)
+
+  for (resp in list(...)) {
+    resp <- as.data.frame(resp)
+    df <- rbind(df, resp)
+  }
+
   # if cutoff points should be placed on the chart
   n_models  <- length(unique(df$`_label_`))
   len_model <- nrow(df) / n_models
@@ -65,6 +72,19 @@ plotD3_roc <- function(object, ..., nlabel = NULL, scale_plot = FALSE) {
   colnames(df) <- c("fpr","tpr","curoffs","label")
   df$big <- FALSE
   df$big[inds] <- TRUE
+
+  if (df$tpr[1] != 0) {
+    models <- levels(df$label)
+    df$label <- as.numeric(df$label)
+
+    for (i in 1:length(models)) {
+      df <- rbind(df, c(0, 0, 0, i))
+    }
+
+    df <- df[order(df$label, df$tpr), ]
+    df$label <- factor(df$label, labels = models)
+  }
+
 
   line_data <- split(df, f = df$label)
 

@@ -14,7 +14,7 @@ plotLIFT(object, ...)
 
 \item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
 
-\item{zeros}{Adding starting zeros for plot}
+\item{zeros}{Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.}
 }
 \value{
 A ggplot object.
