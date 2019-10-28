@@ -6,6 +6,7 @@
 #' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
 #' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
+#' @param zeros Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.
 #'
 #' @return a `r2d3` object
 #'
@@ -37,7 +38,7 @@
 #' @export
 #' @rdname plotD3_lift
 
-plotD3_lift <- function(object, ..., scale_plot = FALSE) {
+plotD3_lift <- function(object, ..., scale_plot = FALSE, zeros = TRUE) {
 
   # some safeguard
   rpp <- tp <- label <- NULL
@@ -51,11 +52,28 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE) {
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")
 
-  df1 <- make_dataframe(object, ..., type = "eva")
+  df1 <- as.data.frame(object)
+
+  for (resp in list(...)) {
+    resp <- as.data.frame(resp)
+    df1 <- rbind(df1, resp)
+  }
 
   # take only columns required to plot LIFT curve
   df1 <- df1[, c("_rpp_", "_tp_","_cutoffs_", "_label_")]
   colnames(df1) <- c("rpp","tp","cutoffs","label")
+
+  if (zeros && df1$rpp[1] != 0) {
+    models <- levels(df1$label)
+    df1$label <- as.numeric(df1$label)
+
+    for (i in 1:length(models)) {
+      df1 <- rbind(df1, c(0, 0, 0, i))
+    }
+
+    df1 <- df1[order(df1$label, df1$rpp), ]
+    df1$label <- factor(df1$label, labels = models)
+  }
 
   # prepare data frame for ideal and dummy model
 

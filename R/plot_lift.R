@@ -5,6 +5,7 @@
 #'
 #' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
 #' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
+#' @param zeros Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.
 #'
 #' @return A ggplot object.
 #'
@@ -39,10 +40,10 @@
 #' @import ggplot2
 #'
 #' @export
-plot_lift <- function(object, ...) {
+plot_lift <- function(object, ..., zeros = TRUE) {
 
   # some safeguard
-  `_rpp_` <- `_tp_` <- `_label_` <- variable <- line <- ord <- NULL
+  `_rpp_` <- `_tp_` <- `_label_` <- variable <- line <- `_ord_` <- NULL
 
   # check if passed object is of class "auditor_model_evaluation"
   check_object(object, type = "eva")
@@ -56,28 +57,41 @@ plot_lift <- function(object, ...) {
 
   # take only columns required to plot LIFT curve
   df1 <- df1[, c("_rpp_", "_tp_", "_label_")]
+  df1$line <- 1
 
-  df1$line <- "2"
+  if (zeros && df1$`_rpp_`[1] != 0) {
+    models <- levels(df1$`_label_`)
+    df1$`_label_` <- as.numeric(df1$`_label_`)
+
+    for (i in 1:length(models)) {
+      df1 <- rbind(df1, c(0, 0, i, 1))
+    }
+
+    df1$line <- factor(df1$line)
+    df1$`_label_` <- factor(df1$`_label_`, labels = models)
+  }
+
+  # set the orders of curves
+  df1$`_ord_` <- 100 - as.numeric(df1$`_label_`)
 
   # prepare data frame for ideal and dummy model
   pr <- sum(object$`_y_` == levels(factor(object$`_y_`))[2]) / length(object$`_y_`)
 
   ideal_df <- data.frame(rpp = c(0, pr, 1),
                          tp = c(0, max(df1$`_tp_`), max(df1$`_tp_`)),
-                         label = rep("ideal", 3))
+                         label = rep("ideal", 3),
+                         ord = 1)
 
   random_df <- data.frame(rpp = c(0, 1),
                           tp =  c(0, max(df1$`_tp_`)),
-                          label = c("random", "random"))
+                          label = c("random", "random"),
+                          ord = 2)
 
   df2 <- rbind(ideal_df, random_df)
   colnames(df2) <- paste0("_", colnames(df2), "_")
-  df2$line <- "1"
+  df2$line <- "2"
 
   df <- rbind(df1, df2)
-
-  # new varibale to set an order o curves
-  df$ord <- factor(paste(as.character(df$line), as.character(df$`_label_`)))
 
   # colors for model(s)
   colours <- rev(theme_drwhy_colors(nlevels(df1$`_label_`)))
@@ -85,12 +99,12 @@ plot_lift <- function(object, ...) {
   # main plot
   p <- ggplot(df, aes(x = `_rpp_`, y = `_tp_`)) +
     geom_line(aes(color = `_label_`,
-              group = ord,
-              linetype = line)) +
+              group = factor(`_ord_`),
+              linetype = df$line)) +
     xlab("Rate of positive prediction") +
     ylab("True positive") +
     ggtitle("LIFT Chart") +
-    scale_linetype_manual(values = c("dashed", "solid"), guide = FALSE)
+    scale_linetype_manual(values = c("solid", "dashed"), guide = FALSE)
 
   # X axis labels
   p <- p +

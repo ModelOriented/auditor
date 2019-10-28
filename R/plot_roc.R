@@ -48,7 +48,12 @@ plot_roc <- function(object, ..., nlabel = NULL) {
   check_object(object, type = "eva")
 
   # prepare data frame for the ggplot object
-  df <- make_dataframe(object, ..., type = "eva")
+  df <- as.data.frame(object)
+
+  for (resp in list(...)) {
+    resp <- as.data.frame(resp)
+    df <- rbind(df, resp)
+  }
 
   # if cutoff points should be placed on the chart
   n_models <- nlevels(df$`_label_`)

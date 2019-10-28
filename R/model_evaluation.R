@@ -9,7 +9,6 @@
 #' Receiver Operating Characteristic (ROC) curve (plot \code{\link{plot_roc}}) and LIFT curve (plot \code{\link{plot_lift}}).
 #'
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param zeros Adding extra zeros to resulting data frame
 #'
 #' @return An object of class 'auditor_model_evaluation'.
 #'
@@ -29,7 +28,7 @@
 #'
 #'
 #' @export
-model_evaluation <- function(object, zeros = TRUE) {
+model_evaluation <- function(object) {
 
   # checking if correct object is passed to the function
   check_object(object, type = "exp")
@@ -61,13 +60,15 @@ model_evaluation <- function(object, zeros = TRUE) {
   rpp <- (tp + fp) / (tp + fp + tn + fn)
 
   # final data frame
-  result <- data.frame(y_hat = object$y_hat, y = object$y, cutoffs = df$y_hat, tpr = tpr,
-                       fpr = fpr, rpp = rpp, tp = tp)
+  result <- data.frame(y_hat = object$y_hat,
+                       y = factor(object$y),
+                       cutoffs = df$y_hat,
+                       tpr = tpr,
+                       fpr = fpr,
+                       rpp = rpp,
+                       tp = tp,
+                       label = factor(object$label))
 
-  if (zeros && result$rpp[1] != 0) result <- rbind(rep(0, length(result)), result)
-
-  result$label <- object$label
-  result[, c("y", "label")] <- lapply(result[, c("y", "label")], as.factor)
   colnames(result) <- paste0("_", colnames(result), "_")
   class(result) <- c("auditor_model_evaluation", "data.frame")
 

@@ -5,7 +5,7 @@
 \alias{plotLIFT}
 \title{LIFT Chart}
 \usage{
-plot_lift(object, ...)
+plot_lift(object, ..., zeros = TRUE)
 
 plotLIFT(object, ...)
 }
@@ -13,6 +13,8 @@ plotLIFT(object, ...)
 \item{object}{An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.}
 
 \item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
+
+\item{zeros}{Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.}
 }
 \value{
 A ggplot object.

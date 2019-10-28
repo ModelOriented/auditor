@@ -5,7 +5,7 @@
 \alias{plotD3LIFT}
 \title{Plot LIFT in D3 with r2d3 package.}
 \usage{
-plotD3_lift(object, ..., scale_plot = FALSE)
+plotD3_lift(object, ..., scale_plot = FALSE, zeros = TRUE)
 
 plotD3LIFT(object, ..., scale_plot = FALSE)
 }
@@ -15,6 +15,8 @@ plotD3LIFT(object, ..., scale_plot = FALSE)
 \item{...}{Other 'auditor_model_evaluation' objects to be plotted together.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
+
+\item{zeros}{Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.}
 }
 \value{
 a `r2d3` object
