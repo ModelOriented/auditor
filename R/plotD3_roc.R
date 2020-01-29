@@ -7,7 +7,6 @@
 #' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
 #' @param nlabel Number of cutoff points to show on the plot. Default is `NULL`.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
-#' @param zeros Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.
 #'
 #' @return a `r2d3` object
 #'

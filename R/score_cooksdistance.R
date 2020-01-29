@@ -58,7 +58,8 @@ compute_cooksdistances <- function(object, verbose) {
   n <- nrow(model_data)
   D <- numeric(n)
   y1 <- predict_function(original_model, model_data)
-  mse <- mean( (as.numeric(model_data[,1]) - y1)^2 )
+  y <- object$y
+  mse <- mean((as.numeric(y - y1)^2))
   p <- ncol(model_data)
   pmse <- p*mse
 
