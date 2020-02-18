@@ -1,5 +1,7 @@
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function
+* Fix a bug in calculating Cook's distances
+* Fix a bug in plotting Lift Charts
 
 # auditor 1.1.1
 * Add `data` and `cutoff` parameter to several `score_x` functions.
