@@ -12,7 +12,7 @@ scoreHalfNormal(object, ...)
 \arguments{
 \item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{...}{Extra arguments passed to \link[hnp]{hnp}.}
+\item{...}{...}
 }
 \value{
 An object of class \code{auditor_score}.

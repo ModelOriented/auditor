@@ -5,11 +5,19 @@
 \alias{modelPerformance}
 \title{Create Model Performance Explaination}
 \usage{
-model_performance(object, score = c("mae", "mse", "rec", "rroc"),
-  new_score = NULL, data = NULL, ...)
+model_performance(
+  object,
+  score = c("mae", "mse", "rec", "rroc"),
+  new_score = NULL,
+  data = NULL,
+  ...
+)
 
-modelPerformance(object, score = c("mae", "mse", "rec", "rroc"),
-  new_score = NULL)
+modelPerformance(
+  object,
+  score = c("mae", "mse", "rec", "rroc"),
+  new_score = NULL
+)
 }
 \arguments{
 \item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}

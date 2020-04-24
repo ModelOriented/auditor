@@ -5,13 +5,31 @@
 \alias{plotD3Prediction}
 \title{Plot Prediction vs Target, Observed or Variable Values in D3 with r2d3 package.}
 \usage{
-plotD3_prediction(object, ..., variable = "_y_", points = TRUE,
-  smooth = FALSE, abline = FALSE, point_count = NULL,
-  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
+plotD3_prediction(
+  object,
+  ...,
+  variable = "_y_",
+  points = TRUE,
+  smooth = FALSE,
+  abline = FALSE,
+  point_count = NULL,
+  single_plot = TRUE,
+  scale_plot = FALSE,
+  background = FALSE
+)
 
-plotD3Prediction(object, ..., variable = NULL, points = TRUE,
-  smooth = FALSE, abline = FALSE, point_count = NULL,
-  single_plot = TRUE, scale_plot = FALSE, background = FALSE)
+plotD3Prediction(
+  object,
+  ...,
+  variable = NULL,
+  points = TRUE,
+  smooth = FALSE,
+  abline = FALSE,
+  point_count = NULL,
+  single_plot = TRUE,
+  scale_plot = FALSE,
+  background = FALSE
+)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual.}

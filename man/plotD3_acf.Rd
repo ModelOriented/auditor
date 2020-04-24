@@ -5,11 +5,9 @@
 \alias{plotD3ACF}
 \title{Plot Autocorrelation Function in D3 with r2d3 package.}
 \usage{
-plotD3_acf(object, ..., variable = NULL, alpha = 0.95,
-  scale_plot = FALSE)
+plotD3_acf(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE)
 
-plotD3ACF(object, ..., variable = NULL, alpha = 0.95,
-  scale_plot = FALSE)
+plotD3ACF(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

@@ -13,7 +13,6 @@ reference:
   - title: Plots
     desc: ploting functions
     contents:
-    - plot
     - plot_acf
     - plotD3_acf
     - plotACF

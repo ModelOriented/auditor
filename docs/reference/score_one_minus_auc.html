@@ -8,63 +8,71 @@
 
 <title>One minus Area Under ROC Curve (AUC) — score_one_minus_auc • auditor</title>
 
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="../dalexverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- dalexverse -->
+<link href="../dalexverse.css" rel="stylesheet">
+<link href="../dalexverse-2.css" rel="stylesheet">
 
 <!-- pkgdown -->
-<link href="../dalexverse-2.css" rel="stylesheet">
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
 
 
+
+
+
 <meta property="og:title" content="One minus Area Under ROC Curve (AUC) — score_one_minus_auc" />
-
 <meta property="og:description" content="One minus Area Under Curve (AUC) for Receiver Operating Characteristic." />
-
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5650686-14""></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-5650686-14');
-</script>
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -82,7 +90,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.2.0</span>
+          <span class="version version-default">1.2.0.9000</span>
         </div>
       </div>
     </div>
@@ -125,7 +133,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ModelOriented/auditor">
+  <a href="https://github.com/ModelOriented/auditor/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -149,13 +157,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>One minus Area Under Curve (AUC) for Receiver Operating Characteristic.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>score_one_minus_auc</span>(<span class='no'>object</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -172,11 +178,10 @@
       <td><p>Other arguments dependent on the type of score.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <code>auditor_score</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
@@ -188,10 +193,9 @@
 <span class='co'>#create an explainer</span>
 <span class='no'>exp_glm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic</span>$<span class='no'>survived</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; data              :  2099  rows  9  cols (</span><span style='color: #BBBB00;'>extracted from the model</span><span>)
+#&gt;   -&gt; data              :  2099  rows  9  cols </span><span style='color: #BBBB00;'> extracted from the model </span><span> 
 #&gt;   -&gt; target variable   :  2099  values 
-#&gt;   -&gt; data              :  A column identical to the target variable `y` has been found in the `data`.  ( </span><span style='color: #BB0000;'> WARNING </span><span> )
-#&gt;   -&gt; data              :  It is highly recommended to pass `data` without the target variable column
+#&gt;   -&gt; model_info        :  package stats , ver. 3.6.3 , task classification ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
@@ -202,26 +206,21 @@
 
 </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
-      <div class="author">
-  <p>
-    Developed by Alicja Gosiewska, Przemyslaw Biecek, Hubert Baniecki, Tomasz Mikołajczyk.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
-  </p>
+      <div class="copyright">
+  <p>Developed by Alicja Gosiewska, Przemyslaw Biecek, Hubert Baniecki, Tomasz Mikołajczyk.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -5,11 +5,15 @@
 \alias{plotScaleLocation}
 \title{Scale location plot}
 \usage{
-plot_scalelocation(object, ..., variable = "_y_", smooth = FALSE,
-  peaks = FALSE)
+plot_scalelocation(
+  object,
+  ...,
+  variable = "_y_",
+  smooth = FALSE,
+  peaks = FALSE
+)
 
-plotScaleLocation(object, ..., variable = NULL, smooth = FALSE,
-  peaks = FALSE)
+plotScaleLocation(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

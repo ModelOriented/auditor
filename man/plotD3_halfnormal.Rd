@@ -5,11 +5,9 @@
 \alias{plotD3HalfNormal}
 \title{Plot Half-Normal in D3 with r2d3 package.}
 \usage{
-plotD3_halfnormal(object, ..., quantiles = FALSE, sim = 99,
-  scale_plot = FALSE)
+plotD3_halfnormal(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE)
 
-plotD3HalfNormal(object, ..., quantiles = FALSE, sim = 99,
-  scale_plot = FALSE)
+plotD3HalfNormal(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.}

@@ -8,7 +8,7 @@
 #' Scores are calculated on the basis of simulated data, so they may differ between function calls.
 #'
 #' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param ... Extra arguments passed to \link[hnp]{hnp}.
+#' @param ... ...
 #'
 #' @return An object of class \code{auditor_score}.
 #'
@@ -24,8 +24,6 @@
 #' # calculate score
 #' score_halfnormal(exp_lm)
 #'
-#'
-#' @importFrom hnp hnp
 #'
 #' @export
 

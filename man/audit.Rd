@@ -4,8 +4,14 @@
 \alias{audit}
 \title{Create modelAudit object}
 \usage{
-audit(object, data = NULL, y = NULL, predict.function = NULL,
-  residual.function = NULL, label = NULL)
+audit(
+  object,
+  data = NULL,
+  y = NULL,
+  predict.function = NULL,
+  residual.function = NULL,
+  label = NULL
+)
 }
 \arguments{
 \item{object}{An object containing a model or object of class explainer (see \code{\link[DALEX]{explain}}).}

@@ -5,11 +5,23 @@
 \alias{plotResidual}
 \title{Plot Residuals vs Observed, Fitted or Variable Values}
 \usage{
-plot_residual(object, ..., variable = "_y_", smooth = FALSE,
-  std_residuals = FALSE, nlabel = 0)
+plot_residual(
+  object,
+  ...,
+  variable = "_y_",
+  smooth = FALSE,
+  std_residuals = FALSE,
+  nlabel = 0
+)
 
-plotResidual(object, ..., variable = NULL, smooth = FALSE,
-  std_residuals = FALSE, nlabel = 0)
+plotResidual(
+  object,
+  ...,
+  variable = NULL,
+  smooth = FALSE,
+  std_residuals = FALSE,
+  nlabel = 0
+)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

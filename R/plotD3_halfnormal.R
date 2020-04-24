@@ -32,7 +32,6 @@
 #' # plot results
 #' plotD3_halfnormal(hn_lm)
 #'
-#' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density
 #'
 #' @seealso \code{\link{score_halfnormal}, \link{plot_halfnormal}}

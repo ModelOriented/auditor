@@ -33,7 +33,6 @@
 #' plot(hn_lm)
 #'
 #' @import ggplot2
-#' @importFrom hnp hnp
 #' @importFrom stats ecdf dnorm density
 #'
 #' @seealso \code{\link{score_halfnormal}}

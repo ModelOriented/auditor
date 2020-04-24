@@ -5,11 +5,23 @@
 \alias{plotTwoSidedECDF}
 \title{Two-sided Cumulative Distribution Function}
 \usage{
-plot_tsecdf(object, ..., scale_error = TRUE, outliers = NA,
-  residuals = TRUE, reverse_y = FALSE)
+plot_tsecdf(
+  object,
+  ...,
+  scale_error = TRUE,
+  outliers = NA,
+  residuals = TRUE,
+  reverse_y = FALSE
+)
 
-plotTwoSidedECDF(object, ..., scale_error = TRUE, outliers = NA,
-  residuals = TRUE, reverse_y = FALSE)
+plotTwoSidedECDF(
+  object,
+  ...,
+  scale_error = TRUE,
+  outliers = NA,
+  residuals = TRUE,
+  reverse_y = FALSE
+)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

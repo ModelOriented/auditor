@@ -1,3 +1,6 @@
+# auditor (development)
+* new default color palete `DALEX::colors_discrete_drwhy`
+
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function
 * Fix a bug in calculating Cook's distances

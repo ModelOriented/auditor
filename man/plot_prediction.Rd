@@ -5,11 +5,9 @@
 \alias{plotPrediction}
 \title{Predicted response vs Observed or Variable Values}
 \usage{
-plot_prediction(object, ..., variable = "_y_", smooth = FALSE,
-  abline = FALSE)
+plot_prediction(object, ..., variable = "_y_", smooth = FALSE, abline = FALSE)
 
-plotPrediction(object, ..., variable = NULL, smooth = FALSE,
-  abline = FALSE)
+plotPrediction(object, ..., variable = NULL, smooth = FALSE, abline = FALSE)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual.}

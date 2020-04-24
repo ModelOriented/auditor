@@ -2,7 +2,6 @@
 #'
 #' @return theme for ggplot2 objects
 #' @noRd
-#' @rdname theme_drwhy
 theme_drwhy <- function() {
   theme_bw(base_line_size = 0) %+replace%
     theme(
@@ -50,14 +49,4 @@ theme_drwhy <- function() {
 #' @param n number of colors to get
 #'
 #' @noRd
-#' @rdname theme_drwhy
-theme_drwhy_colors <- function(n = 2) {
-  if (n == 1) return(c("#371ea3"))
-  if (n == 2) return(c("#371ea3", "#8bdcbe"))
-  if (n == 3) return(c("#8bdcbe", "#f05a71", "#4378bf"))
-  if (n == 4) return(c("#8bdcbe", "#f05a71", "#4378bf", "#ffa58c"))
-  if (n == 5) return(c("#8bdcbe", "#f05a71", "#4378bf", "#ae2c87", "#ffa58c"))
-  if (n == 6) return(c("#8bdcbe", "#f05a71", "#46bac2", "#ae2c87", "#ffa58c", "#4378bf"))
-  if (n == 7) return(c("#8bdcbe", "#f05a71", "#371ea3", "#46bac2", "#ae2c87", "#ffa58c", "#4378bf"))
-  c("#8bdcbe", "#f05a71", "#371ea3", "#46bac2", "#ae2c87", "#ffa58c", "#4378bf")[((0:(n-1)) %% 7) + 1]
-}
+theme_drwhy_colors <- DALEX::colors_discrete_drwhy

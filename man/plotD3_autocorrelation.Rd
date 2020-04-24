@@ -5,13 +5,29 @@
 \alias{plotD3Autocorrelation}
 \title{Autocorrelation Plot in D3 with r2d3 package.}
 \usage{
-plotD3_autocorrelation(object, ..., variable = NULL, points = TRUE,
-  smooth = FALSE, point_count = NULL, single_plot = TRUE,
-  scale_plot = FALSE, background = FALSE)
+plotD3_autocorrelation(
+  object,
+  ...,
+  variable = NULL,
+  points = TRUE,
+  smooth = FALSE,
+  point_count = NULL,
+  single_plot = TRUE,
+  scale_plot = FALSE,
+  background = FALSE
+)
 
-plotD3Autocorrelation(object, ..., variable = NULL, points = TRUE,
-  smooth = FALSE, point_count = NULL, single_plot = TRUE,
-  scale_plot = FALSE, background = FALSE)
+plotD3Autocorrelation(
+  object,
+  ...,
+  variable = NULL,
+  points = TRUE,
+  smooth = FALSE,
+  point_count = NULL,
+  single_plot = TRUE,
+  scale_plot = FALSE,
+  background = FALSE
+)
 }
 \arguments{
 \item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}

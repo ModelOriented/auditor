@@ -22,7 +22,7 @@
 #' @references Moral, R., Hinde, J., & Demétrio, C. (2017). Half-Normal Plots and Overdispersed Models in R: The hnp Package.doi:http://dx.doi.org/10.18637/jss.v081.i10
 #'
 #' @return An object of the class 'auditor_model_halfnormal'.
-#'
+#' @importFrom hnp hnp
 #' @importFrom stats pnorm
 #'
 #' @export

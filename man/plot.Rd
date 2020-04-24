@@ -11,20 +11,15 @@
 \usage{
 plot_auditor(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 
-\method{plot}{auditor_model_residual}(x, ..., type = "residual",
-  ask = TRUE, grid = TRUE)
+\method{plot}{auditor_model_residual}(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 
-\method{plot}{auditor_model_performance}(x, ..., type = "residual",
-  ask = TRUE, grid = TRUE)
+\method{plot}{auditor_model_performance}(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 
-\method{plot}{auditor_model_halfnormal}(x, ..., type = "residual",
-  ask = TRUE, grid = TRUE)
+\method{plot}{auditor_model_halfnormal}(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 
-\method{plot}{auditor_model_evaluation}(x, ..., type = "residual",
-  ask = TRUE, grid = TRUE)
+\method{plot}{auditor_model_evaluation}(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 
-\method{plot}{auditor_model_cooksdistance}(x, ..., type = "residual",
-  ask = TRUE, grid = TRUE)
+\method{plot}{auditor_model_cooksdistance}(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 }
 \arguments{
 \item{x}{object of class 'auditor_model_residual' (created with \code{\link{model_residual}} function),
