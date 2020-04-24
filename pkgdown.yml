@@ -1,0 +1,11 @@
+pandoc: 2.7.3
+pkgdown: 1.5.1.9000
+pkgdown_sha: c181e5c9ac09b28974a97f5e32deddc36690fcf2
+articles:
+  model_evaluation_audit: model_evaluation_audit.html
+  model_fit_audit: model_fit_audit.html
+  model_performance_audit: model_performance_audit.html
+  model_residuals_audit: model_residuals_audit.html
+  observation_influence_audit: observation_influence_audit.html
+last_built: 2020-04-24T18:27Z
+
