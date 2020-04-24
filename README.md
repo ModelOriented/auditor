@@ -1,10 +1,9 @@
 # Model verification, validation, and error analysis <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/auditor)](https://cran.r-project.org/package=auditor)
-<img src="http://cranlogs.r-pkg.org/badges/grand-total/auditor" />
-[![Build
-Status](https://travis-ci.org/ModelOriented/auditor.svg?branch=master)](https://travis-ci.org/ModelOriented/auditor)
-[![codecov](https://codecov.io/gh/modeloriented/auditor/branch/master/graph/badge.svg)](https://codecov.io/gh/modeloriented/auditor)
+[![R build status](https://github.com/ModelOriented/auditor/workflows/R-CMD-check/badge.svg)](https://github.com/ModelOriented/auditor/actions)
+[![Coverage Status](https://codecov.io/gh/ModelOriented/auditor/branch/master/graph/badge.svg)](https://codecov.io/gh/ModelOriented/auditor?branch=master)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/auditor)](https://cranlogs.r-pkg.org/badges/grand-total/auditor)
 [![DrWhy-eXtrAI](https://img.shields.io/badge/DrWhy-eXtrAI-4378bf)](http://drwhy.ai/#eXtraAI)
 
 ## Overview
@@ -66,9 +65,9 @@ mr_rf <- model_residual(exp_rf)
 plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](man/figures/demo.png)<!-- -->
 
-## More
+## More Resources
 
   - [News](NEWS.md)
 
@@ -81,7 +80,7 @@ plot_residual(mr_lm, mr_rf, variable = "wt", smooth = TRUE)
   - A [Cheatsheet](https://github.com/ModelOriented/auditor/blob/master/materials/auditor_cheatsheet.pdf)
 
 
-### A short overview of plots
+## Short overview of plots
 
 Column type contains character that should be passed to parameter
 `type=` when using `plot()` function. `Regr` and `Class` columns
@@ -109,6 +108,6 @@ models.
 | Two-sided Cumulative Distribution Function          | [plot\_tsecdf()](https://modeloriented.github.io/auditor/reference/plot_tsecdf.html)                      | \-                                                                                                         | “tsecdf”            | yes  | yes   |
 
 
-###  Acknowledgments
+##  Acknowledgments
 Work on this package was financially supported by
-    the ‘NCN Opus grant 2016/21/B/ST6/02176’.
+    the `NCN Opus grant 2016/21/B/ST6/02176`.

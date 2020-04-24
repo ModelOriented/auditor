@@ -1,5 +1,6 @@
 # auditor (development)
 * new default color palete `DALEX::colors_discrete_drwhy`
+* depend on `R v3.5` to comply with `DALEX`
 
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function
