@@ -29,7 +29,6 @@ Imports:
     scales
 RoxygenNote: 7.1.0
 Suggests: 
-    e1071,
     jsonlite,
     knitr,
     mgcv,

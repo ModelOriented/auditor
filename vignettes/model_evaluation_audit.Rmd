@@ -20,24 +20,23 @@ In this vignette we present plots for evaluation of classification models.
 
 ## Data
 
-We work on `titanic` dataset form the `DALEX` package.
+We work on `titanic_imputed` dataset form the `DALEX` package.
 
 ```{r}
-titanic <- na.omit(DALEX::titanic)
-titanic$survived = as.numeric(titanic$survived)-1
-head(titanic)
+library(DALEX)
+head(titanic_imputed)
 ```
 
 
 ## Models
 
-We fit 2 models: glm and svm.
+We fit 2 models: glm and randomForest.
 
 ```{r}
-model_glm <- glm(survived ~ ., data = titanic, family = binomial)
+model_glm <- glm(survived ~ ., data = titanic_imputed, family = "binomial")
 
-library(e1071)
-model_svm <- svm(survived ~ ., data = titanic)
+library(randomForest)
+model_rf <- randomForest(survived ~ ., data = titanic_imputed)
 ```
 
 
@@ -46,8 +45,8 @@ model_svm <- svm(survived ~ ., data = titanic)
 The first step is creating `explainer` object with the `DALEX` package. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
 
 ```{r results = 'hide'}
-exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
-exp_svm <- DALEX::explain(model_svm, data = titanic, y = titanic$survived, label = "svm")
+exp_glm <- DALEX::explain(model_glm, data = titanic_imputed, y = titanic_imputed$survived)
+exp_rf <- DALEX::explain(model_rf, data = titanic_imputed, y = titanic_imputed$survived)
 ```
 
 Second step is creating `auditor_model_evaluation` object that can be further used for validating a model.
@@ -55,7 +54,7 @@ Second step is creating `auditor_model_evaluation` object that can be further us
 ```{r}
 library(auditor)
 eva_glm <- model_evaluation(exp_glm)
-eva_svm <- model_evaluation(exp_svm)
+eva_rf <- model_evaluation(exp_rf)
 ```
 
 ## Plots
@@ -67,9 +66,9 @@ Receiver operating characteristic (ROC) curve is a tool for visualising a classi
 The diagonal line `y = x` corresponds to a classifier that randomly guess the positive class half the time. Any model that appears in the lower right part of plot performs worse than random guessing. The closer the curve is to the the left border and top border of plot, the more accurate the classifier is.
 
 ```{r}
-plot(eva_glm, eva_svm, type = "roc")
+plot(eva_glm, eva_rf, type = "roc")
 # or
-# plot_roc(eva_glm, eva_svm)
+# plot_roc(eva_glm, eva_rf)
 ```
 
 ### LIFT chart
@@ -79,9 +78,9 @@ The LIFT chart is a rate of positive prediction (*RPP*) plotted against true pos
 The chart illustrates varying performance of the model for different thresholds. A random and ideal models are represented by dashed curves (lower and upper respectively). The closer the LIFT curve gets to the upper dashed curve (ideal model), the better a model is.
 
 ```{r}
-plot(eva_glm, eva_svm, type = "lift")
+plot(eva_glm, eva_rf, type = "lift")
 # or
-# plot_lift(eva_glm, eva_svm)
+# plot_lift(eva_glm, eva_rf)
 ```
 
 
