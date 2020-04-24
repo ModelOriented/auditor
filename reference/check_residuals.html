@@ -233,11 +233,9 @@
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  lm 
 #&gt;     Standardised loess fit:  +0.54      </div><div class='input'> <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"ranger"</span>)
- <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'>ranger</span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
- <span class='no'>predict_function</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>m</span>,<span class='no'>x</span>,<span class='no'>...</span>) <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>m</span>, <span class='no'>x</span>, <span class='no'>...</span>)$<span class='no'>predictions</span>
- <span class='no'>rf_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>,
-           <span class='kw'>predict_function</span> <span class='kw'>=</span> <span class='no'>predict_function</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"randomForest"</span>)
+ <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+ <span class='no'>rf_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)
  <span class='fu'>check_residuals</span>(<span class='no'>rf_exp</span>)
 }</div></span></pre>
   </div>
