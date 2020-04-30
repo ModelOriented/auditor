@@ -9,16 +9,6 @@ on:
       - 'doc*'
       - 'gh-actions'
       - 'githubactions'
-    paths:
-      - '**.R'
-      - '**.r'
-      - '*DESCRIPTION'
-      - '**.Rmd'
-      - '**.rmd'
-      - '**.rda'
-      - '**.Rda'
-      - '**.rds'
-      - '**.Rds'
   pull_request:
     branches:
       - master
