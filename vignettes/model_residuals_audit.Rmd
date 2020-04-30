@@ -100,12 +100,6 @@ plot(rf_mr, lm_mr, variable = "height", type = "prediction")
 
 As you can notice, on above plots, there is no relationship for variable `height` and predicted values while for increasing number of `scars` model predictions also increase of life length. This means that that model captured monotonic relationship between number of scars and length of life of dragon.
 
-An interactive version of a plot is also available. You can 
-
-```{r}
-plotD3_prediction(rf_mr, lm_mr, abline = TRUE)
-```
-
 
 ### Residuals vs observed, fitted or variable values
 
