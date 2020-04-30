@@ -100,6 +100,13 @@ plot(rf_mr, lm_mr, variable = "height", type = "prediction")
 
 As you can notice, on above plots, there is no relationship for variable `height` and predicted values while for increasing number of `scars` model predictions also increase of life length. This means that that model captured monotonic relationship between number of scars and length of life of dragon.
 
+An interactive version of a plot is also available. You can 
+
+```{r}
+plotD3_prediction(rf_mr, lm_mr, abline = TRUE)
+```
+
+
 ### Residuals vs observed, fitted or variable values
 
 Next function (`plot_residual()`) shows residuals versus observed values. This plot is used to detect dependence of errors, unequal error variances, and outliers. For appropriate model, residuals should not show any functional dependency. Expected mean value should be equal to 0, regardless of $\hat{y}$ values, so any structured arrangement of points suggests a problem with the model. It is worth looking at the observations that clearly differ from the others. If points on the plot are not randomly dispersed around the horizontal axis, it may be presumed that model is not appropriate for the data. 
