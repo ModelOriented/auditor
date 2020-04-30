@@ -5,12 +5,14 @@
 \alias{modelResiduals}
 \title{Create Model Residuals Explaination}
 \usage{
-model_residual(object)
+model_residual(object, ...)
 
-modelResiduals(object)
+modelResiduals(object, ...)
 }
 \arguments{
 \item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+
+\item{...}{other parameters}
 }
 \description{
 Creates 'auditor_model_residual' that contains sorted residuals.

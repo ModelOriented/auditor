@@ -30,7 +30,7 @@
 
 
 score_rec <- function(object, data = NULL, ...) {
-  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.  Please, see the current workflow in the paper https://arxiv.org/abs/1809.07763")
 
   # inject new data to the explainer
   if (!is.null(data)) object$data <- data

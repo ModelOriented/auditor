@@ -66,7 +66,8 @@ plot_auditor <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
   plotNames <- c('acf', 'autocorrelation', 'cooksdistance', 'halfnormal', 'residual', 'lift',
                  'pca', 'radar', 'correlation', 'prediction', 'rec', 'residual_boxplot', 'residual_density',
                  'roc', 'rroc', 'scalelocation', 'tsecdf')
-  if(!all(type %in% plotNames)){
+  deprecated_names <- c('ModelRanking', 'REC', "ResidualBoxplot", 'ResidualDensity')
+  if(!all(type %in% c(plotNames, deprecated_names))){
     stop(paste0("Invalid plot type. Possible values are: ", paste(plotNames, collapse = ", "),"."))
   }
 
@@ -100,6 +101,7 @@ plot_auditor <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){
 
 
 plot_selected_type <- function(x, ..., type){
+  ModelRanking <- NULL
   if("auditor_model_cooksdistance" %in% class(x)) type <- "cooksdistance"
   if("auditor_model_performance" %in% class(x)) type <- "radar"
   if("auditor_model_halfnormal" %in% class(x)) type <- "halfnormal"
@@ -113,12 +115,21 @@ plot_selected_type <- function(x, ..., type){
          halfnormal = { return(plot_halfnormal(x, ...)) },
          lift = {return(plot_lift(x, ...))},
          pca = {return(plot_pca(x, ...))},
+
          radar = {return(plot_radar(x, ...))},
+         ModelRanking = {return(ModelRanking(x, ...))},
+
          correlation = {return(plot_correlation(x, ...))},
          prediction = {return(plot_prediction(x, ...))},
          rec = { return(plot_rec(x, ...)) },
+         REC = { return(plotREC(x, ...)) },
+
          residual_boxplot = {return(plot_residual_boxplot(x, ...))},
+         ResidualBoxplot = { return(plotResidualBoxplot(x, ...)) },
+
          residual_density = { return(plot_residual_density(x, ...)) },
+         ResidualDensity = { return(plotResidualDensity(x, ...)) },
+
          residual = { return(plot_residual(x, ...)) },
          roc = { return(plot_roc(x, ...)) },
          rroc = { return(plot_rroc(x, ...)) },
