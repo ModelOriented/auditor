@@ -42,17 +42,17 @@ model_rf <- randomForest(survived ~ ., data = titanic_imputed)
 
 ## Preparation for evaluation analysis
 
-The first step is creating `explainer` object with the `DALEX` package. It’s an object that can be used to audit a model. It wraps up a model with meta-data.
+The first step is creating an object that can be used to audit a model. It wraps up a model with meta-data. An alternative way is to use `explain` function from the package `DALEX`.
 
 ```{r results = 'hide'}
-exp_glm <- DALEX::explain(model_glm, data = titanic_imputed, y = titanic_imputed$survived)
-exp_rf <- DALEX::explain(model_rf, data = titanic_imputed, y = titanic_imputed$survived)
+library(auditor)
+exp_glm <- audit(model_glm, data = titanic_imputed, y = titanic_imputed$survived)
+exp_rf <- audit(model_rf, data = titanic_imputed, y = titanic_imputed$survived)
 ```
 
 Second step is creating `auditor_model_evaluation` object that can be further used for validating a model.
 
 ```{r}
-library(auditor)
 eva_glm <- model_evaluation(exp_glm)
 eva_rf <- model_evaluation(exp_rf)
 ```
