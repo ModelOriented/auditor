@@ -50,7 +50,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.2.0.9000</span>
+          <span class="version version-default">1.2.1.0000</span>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
       <h1 data-toc-skip>Observation influence audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2020-04-24</h4>
+            <h4 class="date">2020-04-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/observation_influence_audit.Rmd"><code>vignettes/observation_influence_audit.Rmd</code></a></small>
       <div class="hidden name"><code>observation_influence_audit.Rmd</code></div>
@@ -174,7 +174,7 @@
 <p>Cook’s distance is used to estimate of the influence of an single observation. It is a tool for identifying observations that may negatively affect the model.</p>
 <p>Data points indicated by Cook’s distances are worth checking for validity. Cook’s distances may be also used for indicating regions of the design space where it would be good to obtain more observations.</p>
 <p>Cook’s Distances are calculated by removing the i-th observation from the data and recalculating the model. It shows how much all the values in the model change when the i-th observation is removed.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">lm_cd</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lm_cd</span>)</pre></body></html></div>
 <p><img src="observation_influence_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="other-methods" class="section level2">

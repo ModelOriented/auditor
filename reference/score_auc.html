@@ -98,7 +98,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.2.0.9000</span>
+          <span class="version version-default">1.2.1.0000</span>
         </div>
       </div>
     </div>
@@ -168,7 +168,7 @@
     <p>Area Under Curve (AUC) for Receiver Operating Characteristic.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score_auc</span>(<span class='no'>object</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>score_auc</span>(<span class='no'>object</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>scoreROC</span>(<span class='no'>object</span>)</pre>
 
@@ -182,6 +182,10 @@
     <tr>
       <th>data</th>
       <td><p>New data that will be used to calcuate the score. Pass <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>New y parameter will be used to calculate score.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -208,14 +212,14 @@
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  2099  rows  9  cols </span><span style='color: #BBBB00;'> extracted from the model </span><span> 
 #&gt;   -&gt; target variable   :  2099  values 
-#&gt;   -&gt; model_info        :  package stats , ver. 3.6.3 , task classification ( </span><span style='color: #BBBB00;'> default </span><span> ) 
+#&gt;   -&gt; model_info        :  package stats , ver. 4.0.0 , task classification ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.682008e-09 , max =  0.9666502  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># calculate score</span>
-<span class='fu'>score_auc</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; auc: 0.8293568</div><div class='input'>
+<span class='fu'>score_auc</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; auc: 0.8294034</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

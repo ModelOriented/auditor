@@ -50,7 +50,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.2.0.9000</span>
+          <span class="version version-default">1.2.1.0000</span>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
       <h1 data-toc-skip>Model evaluation audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2020-04-24</h4>
+            <h4 class="date">2020-04-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_evaluation_audit.Rmd"><code>vignettes/model_evaluation_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_evaluation_audit.Rmd</code></div>
@@ -166,7 +166,7 @@
 <a href="#receiver-operating-characteristic-roc" class="anchor"></a>Receiver operating characteristic (ROC)</h3>
 <p>Receiver operating characteristic (ROC) curve is a tool for visualising a classifier’s performance. It answers the question of how well the model discriminates between the two classes. The boundary between classes is determined by a threshold value. ROC illustrates the performance of a classification model at various threshold settings.</p>
 <p>The diagonal line <code>y = x</code> corresponds to a classifier that randomly guess the positive class half the time. Any model that appears in the lower right part of plot performs worse than random guessing. The closer the curve is to the the left border and top border of plot, the more accurate the classifier is.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">eva_glm</span>, <span class="no">eva_rf</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"roc"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">eva_glm</span>, <span class="no">eva_rf</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"roc"</span>)</pre></body></html></div>
 <p><img src="model_evaluation_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"># or
 # plot_roc(eva_glm, eva_rf)</pre></body></html></div>
@@ -176,7 +176,7 @@
 <a href="#lift-chart" class="anchor"></a>LIFT chart</h3>
 <p>The LIFT chart is a rate of positive prediction (<em>RPP</em>) plotted against true positive (<em>TP</em>) on a threshold <em>t</em>.</p>
 <p>The chart illustrates varying performance of the model for different thresholds. A random and ideal models are represented by dashed curves (lower and upper respectively). The closer the LIFT curve gets to the upper dashed curve (ideal model), the better a model is.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">eva_glm</span>, <span class="no">eva_rf</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"lift"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">eva_glm</span>, <span class="no">eva_rf</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"lift"</span>)</pre></body></html></div>
 <p><img src="model_evaluation_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"># or
 # plot_lift(eva_glm, eva_rf)</pre></body></html></div>
