@@ -191,11 +191,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'auditor_model_residual' created with <code><a href='model_residual.html'>model_residual</a></code> function.</p></td>
+      <td><p>An object of class <code>auditor_model_residual</code> created with <code><a href='model_residual.html'>model_residual</a></code> function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other 'auditor_model_residual' objects to be plotted together.</p></td>
+      <td><p>Other <code>auditor_model_residual</code> objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>variable</th>
@@ -207,7 +207,7 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
     </tr>
     <tr>
       <th>smooth</th>
-      <td><p>Logical, indicates whenever smoothed lines should be added. By default it's FALSE.</p></td>
+      <td><p>Logical, indicates whenever smoothed lines should be added. By default it's <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>std_residuals</th>
@@ -251,9 +251,9 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  760.2834 , mean =  1341.98 , max =  2447.92  
+#&gt;   -&gt; predicted values  :  numerical, min =  768.503 , mean =  1342.159 , max =  2458.025  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -172.0483 , mean =  5.807022 , max =  450.5004  
+#&gt;   -&gt; residuals         :  numerical, min =  -180.2679 , mean =  5.628354 , max =  440.3956  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_residual</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_residual-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr_rf</span>, <span class='no'>mr_rf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"residual"</span>)</div><div class='img'><img src='plot_residual-4.png' alt='' width='700' height='433' /></div><div class='input'>
 

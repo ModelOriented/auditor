@@ -177,11 +177,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'auditor_model_residual.</p></td>
+      <td><p>An object of class <code>auditor_model_residual</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other modelAudit or modelResiduals objects to be plotted together.</p></td>
+      <td><p>Other <code>auditor_model_residual</code> objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>variable</th>
@@ -197,8 +197,8 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
     </tr>
     <tr>
       <th>abline</th>
-      <td><p>Logical, indicates whenever function `y = x` should be added. Works only
-with <code>variable = "_y_"</code> (which is a default option) or when `variable` equals actual response variable.</p></td>
+      <td><p>Logical, indicates whenever function <code>y = x</code> should be added. Works only
+with <code>variable = "_y_"</code> (which is a default option) or when <code>variable</code> equals actual response variable.</p></td>
     </tr>
     </table>
 
@@ -237,9 +237,9 @@ with <code>variable = "_y_"</code> (which is a default option) or when `variable
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  767.5671 , mean =  1341.922 , max =  2458.882  
+#&gt;   -&gt; predicted values  :  numerical, min =  757.6292 , mean =  1344.636 , max =  2488.929  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -186.3897 , mean =  5.864748 , max =  439.5387  
+#&gt;   -&gt; residuals         :  numerical, min =  -191.8364 , mean =  3.151355 , max =  409.4919  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_prediction</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"height"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_prediction-4.png' alt='' width='700' height='433' /></div><div class='input'>
 

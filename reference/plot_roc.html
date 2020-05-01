@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Receiver Operating Characteristic (ROC) — plot_roc" />
-<meta property="og:description" content="Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
+<meta property="og:description" content="Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
+against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators." />
 <meta property="og:image" content="/logo.png" />
 
@@ -166,7 +167,8 @@ It is useful for measuring and comparing the accuracy of the classificators." />
     </div>
 
     <div class="ref-description">
-    <p>Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
+    <p>Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
+against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.</p>
     </div>
 
@@ -179,15 +181,15 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'auditor_model_evaluation' created with <code><a href='model_evaluation.html'>model_evaluation</a></code> function.</p></td>
+      <td><p>An object of class <code>auditor_model_evaluation</code> created with <code><a href='model_evaluation.html'>model_evaluation</a></code> function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other 'auditor_model_evaluation' objects to be plotted together.</p></td>
+      <td><p>Other <code>auditor_model_evaluation</code> objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>nlabel</th>
-      <td><p>Number of cutoff points to show on the plot. Default is `NULL`.</p></td>
+      <td><p>Number of cutoff points to show on the plot. Default is <code>NULL</code>.</p></td>
     </tr>
     </table>
 
@@ -199,22 +201,23 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
     <div class='dont-index'><p><code><a href='plot_rroc.html'>plot_rroc</a>, <a href='plot_rec.html'>plot_rec</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
-<span class='no'>titanic</span>$<span class='no'>survived</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>titanic</span>$<span class='no'>survived</span> <span class='kw'>==</span> <span class='st'>"yes"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>DALEX</span>)
 
 <span class='co'># fit a model</span>
-<span class='no'>model_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic</span>)
+<span class='no'>model_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>)
 
 <span class='co'># use DALEX package to wrap up a model into explainer</span>
-<span class='no'>exp_glm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic</span>$<span class='no'>survived</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>exp_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm</span>,
+                   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>,
+                   <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>$<span class='no'>survived</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; data              :  2099  rows  9  cols </span><span style='color: #BBBB00;'> extracted from the model </span><span> 
-#&gt;   -&gt; target variable   :  2099  values 
+#&gt;   -&gt; data              :  2207  rows  8  cols 
+#&gt;   -&gt; target variable   :  2207  values 
 #&gt;   -&gt; model_info        :  package stats , ver. 4.0.0 , task classification ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
+#&gt;   -&gt; predicted values  :  numerical, min =  0.008128381 , mean =  0.3221568 , max =  0.9731431  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9614217 , mean =  -1.682008e-09 , max =  0.9666502  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9628583 , mean =  -2.569729e-10 , max =  0.9663346  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
@@ -223,16 +226,19 @@ It is useful for measuring and comparing the accuracy of the classificators.</p>
 <span class='co'># plot results</span>
 <span class='fu'>plot_roc</span>(<span class='no'>eva_glm</span>)</div><div class='img'><img src='plot_roc-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>eva_glm</span>)</div><div class='img'><img src='plot_roc-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#add second model</span>
-<span class='no'>model_glm_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>-<span class='no'>age</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic</span>)
-<span class='no'>exp_glm_2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm_2</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic</span>$<span class='no'>survived</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"glm2"</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>model_glm_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>-<span class='no'>age</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>)
+<span class='no'>exp_glm_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm_2</span>,
+                     <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>,
+                     <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>$<span class='no'>survived</span>,
+                     <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"glm2"</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  glm2 
-#&gt;   -&gt; data              :  2099  rows  9  cols 
-#&gt;   -&gt; target variable   :  2099  values 
+#&gt;   -&gt; data              :  2207  rows  8  cols 
+#&gt;   -&gt; target variable   :  2207  values 
 #&gt;   -&gt; model_info        :  package stats , ver. 4.0.0 , task classification ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  1.431371e-08 , mean =  0.3244402 , max =  0.9999999  
+#&gt;   -&gt; predicted values  :  numerical, min =  0.01618585 , mean =  0.3221568 , max =  0.9628841  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -0.9457109 , mean =  -1.684517e-09 , max =  0.9665453  
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9354237 , mean =  -1.981381e-10 , max =  0.9654417  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>eva_glm_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_evaluation.html'>model_evaluation</a></span>(<span class='no'>exp_glm_2</span>)
 
 <span class='fu'>plot_roc</span>(<span class='no'>eva_glm</span>, <span class='no'>eva_glm_2</span>)</div><div class='img'><img src='plot_roc-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>eva_glm</span>, <span class='no'>eva_glm_2</span>)</div><div class='img'><img src='plot_roc-4.png' alt='' width='700' height='433' /></div><div class='input'>

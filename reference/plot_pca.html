@@ -170,7 +170,7 @@ PCA can be used to assess the similarity of the models." />
 PCA can be used to assess the similarity of the models.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>arrow_size</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
 <span class='fu'>plotModelPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
@@ -179,15 +179,19 @@ PCA can be used to assess the similarity of the models.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'auditor_model_residual' created with <code><a href='model_residual.html'>model_residual</a></code> function.</p></td>
+      <td><p>An object of class <code>auditor_model_residual</code> created with <code><a href='model_residual.html'>model_residual</a></code> function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other 'auditor_model_residual' objects to be plotted together.</p></td>
+      <td><p>Other <code>auditor_model_residual</code> objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>scale</th>
       <td><p>A logical value indicating whether the models residuals should be scaled before the analysis.</p></td>
+    </tr>
+    <tr>
+      <th>arrow_size</th>
+      <td><p>Width of the arrows.</p></td>
     </tr>
     </table>
 
@@ -224,9 +228,9 @@ PCA can be used to assess the similarity of the models.</p>
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  759.001 , mean =  1343.348 , max =  2494.455  
+#&gt;   -&gt; predicted values  :  numerical, min =  770.5787 , mean =  1342.365 , max =  2464.287  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -201.0208 , mean =  4.439141 , max =  403.9657  
+#&gt;   -&gt; residuals         :  numerical, min =  -196.5822 , mean =  5.422366 , max =  434.1335  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 
 <span class='co'># plot results</span>

@@ -196,33 +196,36 @@ Provide object created with one of aduditor's computational functions, <code><a 
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object of class 'auditor_model_residual' (created with <code><a href='model_residual.html'>model_residual</a></code> function),
-'auditor_model_performance' (created with <code><a href='model_performance.html'>model_performance</a></code> function),
-'auditor_model_evaluation' (created with <code><a href='model_evaluation.html'>model_evaluation</a></code> function),
-'auditor_model_cooksdistance' (created with <code><a href='model_cooksdistance.html'>model_cooksdistance</a></code> function),
-or 'auditor_model_halfnormal' (created with <code><a href='model_halfnormal.html'>model_halfnormal</a></code> function).</p></td>
+      <td><p>object of class <code>auditor_model_residual</code> (created with <code><a href='model_residual.html'>model_residual</a></code> function),
+<code>auditor_model_performance</code> (created with <code><a href='model_performance.html'>model_performance</a></code> function),
+<code>auditor_model_evaluation</code> (created with <code><a href='model_evaluation.html'>model_evaluation</a></code> function),
+<code>auditor_model_cooksdistance</code> (created with <code><a href='model_cooksdistance.html'>model_cooksdistance</a></code> function),
+or <code>auditor_model_halfnormal</code> (created with <code><a href='model_halfnormal.html'>model_halfnormal</a></code> function).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments dependent on the type of plot or additionl objects of classes 'auditor_model_residual',
-'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'.</p></td>
+      <td><p>other arguments dependent on the type of plot or additionl objects of classes <code>'auditor_model_residual',
+'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>the type of plot. Character or vector of characters. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
+      <td><p>the type of plot. Character or vector of characters. Possible values: <code>'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
 'lift', 'pca', 'radar', 'correlation', 'prediction', 'rec', 'resiual', 'residual_boxplot','residual_density',
-'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see corresponding functions in see also section).</p></td>
+'roc', 'rroc', 'scalelocation', 'tsecdf'</code> (for detailed description see corresponding functions in see also section).</p></td>
     </tr>
     <tr>
       <th>ask</th>
-      <td><p>logical; if TRUE, the user is asked before each plot, see <code><a href='https://rdrr.io/r/graphics/par.html'>par</a>(ask=)</code>.</p></td>
+      <td><p>logical; if <code>TRUE</code>, the user is asked before each plot, see <code><a href='https://rdrr.io/r/graphics/par.html'>par</a>(ask=)</code>.</p></td>
     </tr>
     <tr>
       <th>grid</th>
-      <td><p>logical; if TRUE plots will be plotted on the grid.</p></td>
+      <td><p>logical; if <code>TRUE</code> plots will be plotted on the grid.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A ggplot object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plot_acf.html'>plot_acf</a>, <a href='plot_autocorrelation.html'>plot_autocorrelation</a>, <a href='plot_cooksdistance.html'>plot_cooksdistance</a>,
@@ -263,14 +266,13 @@ or 'auditor_model_halfnormal' (created with <code><a href='model_halfnormal.html
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  771.4386 , mean =  1343.187 , max =  2473.604  
+#&gt;   -&gt; predicted values  :  numerical, min =  763.5432 , mean =  1343.097 , max =  2483.779  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -189.2592 , mean =  4.600239 , max =  424.8169  
+#&gt;   -&gt; residuals         :  numerical, min =  -182.6588 , mean =  4.690216 , max =  414.6413  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_rf</span>)
 <span class='no'>mp_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_lm</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mp_lm</span>, <span class='no'>mp_rf</span>)</div><div class='img'><img src='plot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

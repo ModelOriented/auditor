@@ -177,11 +177,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'auditor_model_residual' created with <code><a href='model_residual.html'>model_residual</a></code> function.</p></td>
+      <td><p>An object of class <code>auditor_model_residual</code> created with <code><a href='model_residual.html'>model_residual</a></code> function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other 'auditor_model_residual' objects to be plotted together.</p></td>
+      <td><p>Other <code>auditor_model_residual</code> objects to be plotted together.</p></td>
     </tr>
     <tr>
       <th>variable</th>
@@ -233,9 +233,9 @@ If <code>variable = NULL</code>, unordered observations are presented.</p></td>
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  755.7898 , mean =  1341.731 , max =  2472.857  
+#&gt;   -&gt; predicted values  :  numerical, min =  764.7523 , mean =  1340.961 , max =  2460.019  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -201.003 , mean =  6.055778 , max =  425.5634  
+#&gt;   -&gt; residuals         :  numerical, min =  -193.3453 , mean =  6.825612 , max =  438.4021  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_rf</span>)
 <span class='fu'>plot_acf</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_acf-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"acf"</span>)</div><div class='img'><img src='plot_acf-4.png' alt='' width='700' height='433' /></div><div class='input'>
 

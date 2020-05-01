@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Cook's distances — model_cooksdistance" />
 <meta property="og:description" content="Calculates Cook's distances for each observation.
-Please, note that it will work only for functions with specified 'update' method." />
+Please, note that it will work only for functions with specified update method." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -167,7 +167,7 @@ Please, note that it will work only for functions with specified 'update' method
 
     <div class="ref-description">
     <p>Calculates Cook's distances for each observation.
-Please, note that it will work only for functions with specified 'update' method.</p>
+Please, note that it will work only for functions with specified <code>update</code> method.</p>
     </div>
 
     <pre class="usage"><span class='fu'>model_cooksdistance</span>(<span class='no'>object</span>)
@@ -179,51 +179,53 @@ Please, note that it will work only for functions with specified 'update' method
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class 'explain' created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class 'auditor_model_cooksdistance'.</p>
+    <p>An object of the class <code>auditor_model_cooksdistance</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span>(<span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/titanic.html'>titanic</a></span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>DALEX</span>)
 
 <span class='co'># fit a model</span>
-<span class='no'>model_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic</span>)
+<span class='no'>model_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>survived</span> ~ <span class='no'>.</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>)
 
 <span class='co'># use DALEX package to wrap up a model into explainer</span>
-<span class='no'>exp_glm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic</span>$<span class='no'>survived</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>exp_glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_glm</span>,
+                   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>,
+                   <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>titanic_imputed</span>$<span class='no'>survived</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; data              :  2099  rows  9  cols 
-#&gt;   -&gt; target variable   :  2099  values 
-#&gt;   -&gt; target variable   :  Please note that 'y' is a factor.  ( </span><span style='color: #BB0000;'> WARNING </span><span> )
-#&gt;   -&gt; target variable   :  Consider changing the 'y' to a logical or numerical vector.
-#&gt;   -&gt; target variable   :  Otherwise I will not be able to calculate residuals or loss function.
+#&gt;   -&gt; data              :  2207  rows  8  cols 
+#&gt;   -&gt; target variable   :  2207  values 
 #&gt;   -&gt; model_info        :  package stats , ver. 4.0.0 , task classification ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  9.814966e-09 , mean =  0.3244402 , max =  1  
-#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )</div><div class='output co'>#&gt; <span class='warning'>Warning: ‘-’ not meaningful for factors</span></div><div class='output co'>#&gt;   -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+#&gt;   -&gt; predicted values  :  numerical, min =  0.008128381 , mean =  0.3221568 , max =  0.9731431  
+#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
+#&gt;   -&gt; residuals         :  numerical, min =  -0.9628583 , mean =  -2.569729e-10 , max =  0.9663346  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
-<span class='fu'>model_cooksdistance</span>(<span class='no'>exp_glm</span>)</div><div class='output co'>#&gt; Model label:  
+<span class='no'>mc</span> <span class='kw'>&lt;-</span> <span class='fu'>model_cooksdistance</span>(<span class='no'>exp_glm</span>)
+<span class='no'>mc</span></div><div class='output co'>#&gt; Model label:  
 #&gt; 
 #&gt; Observations with the largest Cook's distances:
-#&gt;     Cook's distance index
-#&gt; 924    7.677289e+19   848
-#&gt; 870    3.214367e+19   795
-#&gt; 522    9.071796e+18   481
+#&gt;      Cook's distance index
+#&gt; 1822      0.02389822  1822
+#&gt; 1414      0.01511206  1414
+#&gt; 1814      0.01180859  1814
 #&gt; 
 #&gt; Quantiles of Cook's distances:
 #&gt;           0%          10%          20%          30%          40%          50% 
-#&gt; 1.735978e-12 6.090284e-06 1.005814e-05 1.424874e-05 2.053477e-05 3.426320e-05 
+#&gt; 2.031914e-06 1.539554e-05 2.873834e-05 4.223091e-05 5.792713e-05 8.147818e-05 
 #&gt;          60%          70%          80%          90%         100% 
-#&gt; 7.991737e-05 1.744884e-04 2.837646e-04 7.210318e-04 7.677289e+19 </div><div class='input'>
+#&gt; 1.270102e-04 2.950550e-04 7.226472e-04 1.248593e-03 2.389822e-02 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mc</span>)</div><div class='img'><img src='model_cooksdistance-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
