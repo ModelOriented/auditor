@@ -10,9 +10,9 @@ plot_cooksdistance(object, ..., nlabel = 3)
 plotCooksDistance(object, ..., nlabel = 3)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_cooksdistance' created with \code{\link{model_cooksdistance}} function.}
+\item{object}{An object of class \code{auditor_model_cooksdistance} created with \code{\link{model_cooksdistance}} function.}
 
-\item{...}{Other objects of class 'auditor_model_cooksdistance'.}
+\item{...}{Other objects of class \code{auditor_model_cooksdistance}.}
 
 \item{nlabel}{Number of observations with the biggest Cook's distances to be labeled.}
 }

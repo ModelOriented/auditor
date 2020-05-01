@@ -1,12 +1,13 @@
 #' @title Model Ranking Plot
 #'
-#' @description Radar plot with model score. score are scaled to [0,1], each score is inversed and divided by maximum score value.
+#' @description Radar plot with model score. score are scaled to \code{[0,1]},
+#' each score is inversed and divided by maximum score value.
 #'
-#' @param object An object of class 'auditor_model_performance' created with \code{\link{model_performance}} function.
-#' @param ... Other auditor_model_performance' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_performance} created with \code{\link{model_performance}} function.
+#' @param ... Other \code{auditor_model_performance} objects to be plotted together.
 #' @param verbose Logical, indicates whether values of scores should be printed.
 #'
-#' @return ggplot object
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
@@ -29,9 +30,6 @@
 #'
 #' # plot results
 #' plot_radar(mp_lm, mp_rf)
-#'
-#' @import ggplot2
-#' @import scales
 #'
 #' @export
 plot_radar <- function(object, ..., verbose = TRUE) {

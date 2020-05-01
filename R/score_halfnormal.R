@@ -4,10 +4,12 @@
 #' \eqn{ \sum{\#[res_i \leq simres_{i,j}] - n } }
 #' with the distinction that each element of sum is also scaled to take values from [0,1].
 #'
-#' \eqn{res_i} is a residual for i-th observation, \eqn{simres_{i,j}} is the residual of j-th simulation for i-th observation, and \eqn{n} is the number of simulations for each observation.
+#' \eqn{res_i} is a residual for i-th observation, \eqn{simres_{i,j}} is the residual of j-th simulation
+#' for i-th observation, and \eqn{n} is the number of simulations for each observation.
 #' Scores are calculated on the basis of simulated data, so they may differ between function calls.
 #'
-#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function
+#'  \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param ... ...
 #'
 #' @return An object of class \code{auditor_score}.

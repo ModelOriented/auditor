@@ -10,30 +10,35 @@ model_halfnormal(object, quant = FALSE, ...)
 modelFit(object, quant = FALSE, ...)
 }
 \arguments{
-\item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
 \item{quant}{if TRUE values on axis are on quantile scale.}
 
 \item{...}{other parameters passed do \code{\link[hnp]{hnp}} function.}
 }
 \value{
-An object of the class 'auditor_model_halfnormal'.
+An object of the class \code{auditor_model_halfnormal}.
 }
 \description{
-Creates 'auditor_model_halfnormal' object that can be used for plotting halfnormal plot.
+Creates \code{auditor_model_halfnormal} object that can be used for plotting halfnormal plot.
 }
 \examples{
-titanic <- na.omit(DALEX::titanic[1:100,])
+library(DALEX)
 
 # fit a model
-model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 
 # use DALEX package to wrap up a model into explainer
-exp_glm <- DALEX::explain(model_glm)
+exp_glm <- explain(model_glm,
+                   data = titanic_imputed,
+                   y = titanic_imputed$survived)
 
 # validate a model with auditor
 library(auditor)
-model_halfnormal(exp_glm)
+mh <- model_halfnormal(exp_glm)
+mh
+
+plot(mh)
 
 }
 \references{

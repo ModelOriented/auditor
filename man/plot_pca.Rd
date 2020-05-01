@@ -5,16 +5,18 @@
 \alias{plotModelPCA}
 \title{Principal Component Analysis of models}
 \usage{
-plot_pca(object, ..., scale = TRUE)
+plot_pca(object, ..., scale = TRUE, arrow_size = 2)
 
 plotModelPCA(object, ..., scale = TRUE)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
+\item{object}{An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.}
 
-\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
+\item{...}{Other \code{auditor_model_residual} objects to be plotted together.}
 
 \item{scale}{A logical value indicating whether the models residuals should be scaled before the analysis.}
+
+\item{arrow_size}{Width of the arrows.}
 }
 \value{
 A ggplot object.

@@ -6,8 +6,8 @@
 #' Points on the plot correspond to ordered absolute values of model diagnostic
 #' (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 #'
-#' @param object An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.
-#' @param ... Other 'auditor_model_halfnormal' objects.
+#' @param object An object of class \code{auditor_model_halfnormal} created with \code{\link{model_halfnormal}} function.
+#' @param ... Other \code{auditor_model_halfnormal} objects.
 #' @param quantiles If TRUE values on axis are on quantile scale.
 #' @param sim Number of residuals to simulate.
 #'

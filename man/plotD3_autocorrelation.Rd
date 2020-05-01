@@ -53,7 +53,7 @@ By default plot all of them.}
 By default it's FALSE.}
 }
 \value{
-a `r2d3` object.
+a \code{r2d3} object
 }
 \description{
 Plot of i-th residual vs i+1-th residual.

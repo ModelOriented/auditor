@@ -5,24 +5,26 @@
 #' \code{\link{model_cooksdistance}}, \code{\link{model_evaluation}}, \code{\link{model_performance}},
 #' \code{\link{model_evaluation}}.
 #'
-#' @param x object of class 'auditor_model_residual' (created with \code{\link{model_residual}} function),
-#' 'auditor_model_performance' (created with \code{\link{model_performance}} function),
-#' 'auditor_model_evaluation' (created with \code{\link{model_evaluation}} function),
-#' 'auditor_model_cooksdistance' (created with \code{\link{model_cooksdistance}} function),
-#' or 'auditor_model_halfnormal' (created with \code{\link{model_halfnormal}} function).
-#' @param ... other arguments dependent on the type of plot or additionl objects of classes 'auditor_model_residual',
-#' 'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'.
-#' @param type the type of plot. Character or vector of characters. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
+#' @param x object of class \code{auditor_model_residual} (created with \code{\link{model_residual}} function),
+#' \code{auditor_model_performance} (created with \code{\link{model_performance}} function),
+#' \code{auditor_model_evaluation} (created with \code{\link{model_evaluation}} function),
+#' \code{auditor_model_cooksdistance} (created with \code{\link{model_cooksdistance}} function),
+#' or \code{auditor_model_halfnormal} (created with \code{\link{model_halfnormal}} function).
+#' @param ... other arguments dependent on the type of plot or additionl objects of classes \code{'auditor_model_residual',
+#' 'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'}.
+#' @param type the type of plot. Character or vector of characters. Possible values: \code{'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
 #' 'lift', 'pca', 'radar', 'correlation', 'prediction', 'rec', 'resiual', 'residual_boxplot','residual_density',
-#' 'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see corresponding functions in see also section).
-#' @param ask logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
-#' @param grid logical; if TRUE plots will be plotted on the grid.
+#' 'roc', 'rroc', 'scalelocation', 'tsecdf'} (for detailed description see corresponding functions in see also section).
+#' @param ask logical; if \code{TRUE}, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.
+#' @param grid logical; if \code{TRUE} plots will be plotted on the grid.
 #'
 #' @seealso \code{\link{plot_acf}, \link{plot_autocorrelation}, \link{plot_cooksdistance},
 #' \link{plot_halfnormal}, \link{plot_residual_boxplot}, \link{plot_lift}, \link{plot_pca},
 #' \link{plot_radar}, \link{plot_correlation},
 #' \link{plot_prediction}, \link{plot_rec}, \link{plot_residual_density}, \link{plot_residual}, \link{plot_roc},
 #' \link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
+#'
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
@@ -52,10 +54,11 @@
 #' mp_lm <- model_performance(exp_lm)
 #' plot(mp_lm, mp_rf)
 #'
-#'
+#' @import ggplot2
+#' @import grid
+#' @import gridExtra
+#' @import scales
 #' @importFrom grDevices devAskNewPage
-#' @importFrom graphics plot
-#' @importFrom gridExtra grid.arrange
 #'
 #'
 #' @rdname plot

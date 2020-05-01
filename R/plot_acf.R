@@ -2,8 +2,8 @@
 #'
 #' @description Plot Autocorrelation Function of models' residuals.
 #'
-#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
-#' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.
+#' @param ... Other \code{auditor_model_residual} objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link[DALEX]{explain}} function).

@@ -61,7 +61,7 @@ If \code{variable = NULL}, unordered observations are presented.}
 By default it's FALSE.}
 }
 \value{
-a `r2d3` object.
+a \code{r2d3} object
 }
 \description{
 Function \code{plotD3_residual} plots resudial values vs fitted, observed or variable values in the model.

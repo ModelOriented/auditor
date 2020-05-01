@@ -38,8 +38,6 @@
 #' @return numeric vector
 #'
 #' @export
-#'
-
 score_cooksdistance <- function(object, verbose = TRUE, ...){
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 

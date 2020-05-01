@@ -1,37 +1,43 @@
 #' @title Receiver Operating Characteristic (ROC) in D3 with r2d3 package.
 #'
-#' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) for the different thresholds.
+#' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
+#'  against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
-#' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
-#' @param nlabel Number of cutoff points to show on the plot. Default is `NULL`.
-#' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
+#' @param object An object of class \code{auditor_model_evaluation} created with \code{\link{model_evaluation}} function.
+#' @param ... Other \code{auditor_model_evaluation} objects to be plotted together.
+#' @param nlabel Number of cutoff points to show on the plot. Default is \code{NULL}.
+#' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's \code{FALSE}.
 #'
-#' @return a `r2d3` object
+#' @return a \code{r2d3} object
 #'
 #' @seealso \code{\link{plot_roc}}
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
-#' titanic$survived <- as.numeric(titanic$survived == "yes")
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
+#' exp_glm <- explain(model_glm,
+#'                    data = titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # validate a model with auditor
 #' library(auditor)
 #' eva_glm <- model_evaluation(exp_glm)
 #'
 #' # plot results
-#' plotD3_roc(eva_glm)
+#' plot_roc(eva_glm)
+#' plot(eva_glm)
 #'
 #' #add second model
-#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
-#' exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic_imputed)
+#' exp_glm_2 <- explain(model_glm_2,
+#'                      data = titanic_imputed,
+#'                      y = titanic_imputed$survived,
+#'                      label = "glm2")
 #' eva_glm_2 <- model_evaluation(exp_glm_2)
 #'
 #' plotD3_roc(eva_glm, eva_glm_2)

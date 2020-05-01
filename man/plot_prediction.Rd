@@ -10,9 +10,9 @@ plot_prediction(object, ..., variable = "_y_", smooth = FALSE, abline = FALSE)
 plotPrediction(object, ..., variable = NULL, smooth = FALSE, abline = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_residual.}
+\item{object}{An object of class \code{auditor_model_residual}.}
 
-\item{...}{Other modelAudit or modelResiduals objects to be plotted together.}
+\item{...}{Other \code{auditor_model_residual} objects to be plotted together.}
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
@@ -22,8 +22,8 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smooth line should be added.}
 
-\item{abline}{Logical, indicates whenever function `y = x` should be added. Works only
-with \code{variable = "_y_"} (which is a default option) or when `variable` equals actual response variable.}
+\item{abline}{Logical, indicates whenever function \code{y = x} should be added. Works only
+with \code{variable = "_y_"} (which is a default option) or when \code{variable} equals actual response variable.}
 }
 \value{
 A ggplot2 object.

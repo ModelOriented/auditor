@@ -1,27 +1,32 @@
 #' @title Create Halfnormal Explanation
 #'
-#' @description  Creates 'auditor_model_halfnormal' object that can be used for plotting halfnormal plot.
+#' @description  Creates \code{auditor_model_halfnormal} object that can be used for plotting halfnormal plot.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param quant if TRUE values on axis are on quantile scale.
 #' @param ... other parameters passed do \code{\link[hnp]{hnp}} function.
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic[1:100,])
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- DALEX::explain(model_glm)
+#' exp_glm <- explain(model_glm,
+#'                    data = titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' model_halfnormal(exp_glm)
+#' mh <- model_halfnormal(exp_glm)
+#' mh
+#'
+#' plot(mh)
 #'
 #' @references Moral, R., Hinde, J., & Demétrio, C. (2017). Half-Normal Plots and Overdispersed Models in R: The hnp Package.doi:http://dx.doi.org/10.18637/jss.v081.i10
 #'
-#' @return An object of the class 'auditor_model_halfnormal'.
+#' @return An object of the class \code{auditor_model_halfnormal}.
 #' @importFrom hnp hnp
 #' @importFrom stats pnorm
 #'

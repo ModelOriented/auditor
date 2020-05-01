@@ -22,22 +22,25 @@ plot_auditor(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 \method{plot}{auditor_model_cooksdistance}(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 }
 \arguments{
-\item{x}{object of class 'auditor_model_residual' (created with \code{\link{model_residual}} function),
-'auditor_model_performance' (created with \code{\link{model_performance}} function),
-'auditor_model_evaluation' (created with \code{\link{model_evaluation}} function),
-'auditor_model_cooksdistance' (created with \code{\link{model_cooksdistance}} function),
-or 'auditor_model_halfnormal' (created with \code{\link{model_halfnormal}} function).}
+\item{x}{object of class \code{auditor_model_residual} (created with \code{\link{model_residual}} function),
+\code{auditor_model_performance} (created with \code{\link{model_performance}} function),
+\code{auditor_model_evaluation} (created with \code{\link{model_evaluation}} function),
+\code{auditor_model_cooksdistance} (created with \code{\link{model_cooksdistance}} function),
+or \code{auditor_model_halfnormal} (created with \code{\link{model_halfnormal}} function).}
 
-\item{...}{other arguments dependent on the type of plot or additionl objects of classes 'auditor_model_residual',
-'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'.}
+\item{...}{other arguments dependent on the type of plot or additionl objects of classes \code{'auditor_model_residual',
+'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'}.}
 
-\item{type}{the type of plot. Character or vector of characters. Possible values: 'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
+\item{type}{the type of plot. Character or vector of characters. Possible values: \code{'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
 'lift', 'pca', 'radar', 'correlation', 'prediction', 'rec', 'resiual', 'residual_boxplot','residual_density',
-'roc', 'rroc', 'scalelocation', 'tsecdf' (for detailed description see corresponding functions in see also section).}
+'roc', 'rroc', 'scalelocation', 'tsecdf'} (for detailed description see corresponding functions in see also section).}
 
-\item{ask}{logical; if TRUE, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.}
+\item{ask}{logical; if \code{TRUE}, the user is asked before each plot, see \code{\link[graphics]{par}(ask=)}.}
 
-\item{grid}{logical; if TRUE plots will be plotted on the grid.}
+\item{grid}{logical; if \code{TRUE} plots will be plotted on the grid.}
+}
+\value{
+A ggplot object.
 }
 \description{
 This function provides several diagnostic plots for regression and classification models.
@@ -72,7 +75,6 @@ exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
 mp_rf <- model_performance(exp_rf)
 mp_lm <- model_performance(exp_lm)
 plot(mp_lm, mp_rf)
-
 
 }
 \seealso{

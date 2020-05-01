@@ -30,9 +30,9 @@ plotD3ScaleLocation(
 )
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
+\item{object}{An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.}
 
-\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
+\item{...}{Other \code{auditor_model_residual} objects to be plotted together.}
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
@@ -40,24 +40,24 @@ passed to the \code{\link[DALEX]{explain}} function).
 If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 If \code{variable = NULL}, unordered observations are presented.}
 
-\item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
+\item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's \code{FALSE}.}
 
-\item{peaks}{Logical, indicates whenever peak observations should be highlighted. By defaul it's FALSE.}
+\item{peaks}{Logical, indicates whenever peak observations should be highlighted. By defaul it's \code{FALSE}.}
 
 \item{point_count}{Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.}
 
-\item{single_plot}{Logical, indicates whenever single or facets should be plotted. By default it's TRUE.}
+\item{single_plot}{Logical, indicates whenever single or facets should be plotted. By default it's \code{TRUE}.}
 
-\item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
+\item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's \code{FALSE}.}
 
 \item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
 }
 \value{
-a `r2d3` object.
+a \code{r2d3} object
 }
 \description{
 Function \code{plotD3_scalelocation} plots square root of the absolute value of the residuals vs target,
-observed or variable values in the model. #' A vertical line corresponds to median.
+observed or variable values in the model. A vertical line corresponds to median.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]

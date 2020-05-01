@@ -20,7 +20,7 @@
 #'
 #' @references Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
 #'
-#' @return a `r2d3` object.
+#' @return a \code{r2d3} object
 #'
 #' @examples
 #'

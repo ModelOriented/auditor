@@ -2,8 +2,11 @@
 #'
 #' @description A boxplot of residuals.
 #'
-#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
-#' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_residual}
+#'created with \code{\link{model_residual}} function.
+#' @param ... Other \code{auditor_model_residual} objects to be plotted together.
+#'
+#' @return A ggplot object.
 #'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
@@ -33,7 +36,6 @@
 #'
 #' @rdname plot_residual_boxplot
 #'
-#' @import ggplot2
 #' @importFrom stats aggregate
 #'
 #' @export

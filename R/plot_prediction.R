@@ -3,16 +3,16 @@
 #' @description Plot of predicted response vs observed or variable Values.
 #'
 #'
-#' @param object An object of class 'auditor_model_residual.
-#' @param ... Other modelAudit or modelResiduals objects to be plotted together.
+#' @param object An object of class \code{auditor_model_residual}.
+#' @param ... Other \code{auditor_model_residual} objects to be plotted together.
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link[DALEX]{explain}} function).
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smooth line should be added.
-#' @param abline Logical, indicates whenever function `y = x` should be added. Works only
-#' with \code{variable = "_y_"} (which is a default option) or when `variable` equals actual response variable.
+#' @param abline Logical, indicates whenever function \code{y = x} should be added. Works only
+#' with \code{variable = "_y_"} (which is a default option) or when \code{variable} equals actual response variable.
 #'
 #' @return A ggplot2 object.
 #'
@@ -40,8 +40,6 @@
 #' mr_rf <- model_residual(exp_rf)
 #' plot_prediction(mr_lm, mr_rf, variable = "height", smooth = TRUE)
 #'
-#'
-#' @import ggplot2
 #'
 #' @export
 plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, abline = FALSE) {

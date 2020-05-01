@@ -1,26 +1,31 @@
 #' @title Cook's distances
 #'
 #' @description  Calculates Cook's distances for each observation.
-#' Please, note that it will work only for functions with specified 'update' method.
+#' Please, note that it will work only for functions with specified \code{update} method.
 #'
-#' @param object An object of class 'explain' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #'
 #' @references Cook, R. Dennis (1977). "Detection of Influential Observations in Linear Regression". doi:10.2307/1268249.
 #'
-#' @return An object of class 'auditor_model_cooksdistance'.
+#' @return An object of the class \code{auditor_model_cooksdistance}.
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+#' exp_glm <- explain(model_glm,
+#'                    data = titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' model_cooksdistance(exp_glm)
+#' mc <- model_cooksdistance(exp_glm)
+#' mc
+#'
+#' plot(mc)
 #'
 #' @export
 model_cooksdistance <- function(object){

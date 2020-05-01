@@ -10,9 +10,9 @@ plot_autocorrelation(object, ..., variable = "_y_hat_", smooth = FALSE)
 plotAutocorrelation(object, ..., variable, smooth = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
+\item{object}{An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.}
 
-\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
+\item{...}{Other \code{auditor_model_residual} objects to be plotted together.}
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter

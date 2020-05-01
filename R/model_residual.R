@@ -1,29 +1,35 @@
 #' @title Create Model Residuals Explaination
 #'
-#' @description  Creates 'auditor_model_residual' that contains sorted residuals.
+#' @description  Creates \code{auditor_model_residual} that contains sorted residuals.
 #'  An object can be further used to generate plots.
 #' For the list of possible plots see see also section.
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param ... other parameters
 #'
 #' @seealso \code{\link{plot_acf}, \link{plot_autocorrelation}, \link{plot_residual}, \link{plot_residual_boxplot},
 #' \link{plot_pca}, \link{plot_correlation}, \link{plot_prediction}, \link{plot_rec}, \link{plot_residual_density},
 #' \link{plot_residual}, \link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
 #'
+#' @return An object of the class \code{auditor_model_residual}.
+#'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
-#' titanic$survived <- titanic$survived == "yes"
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(m2.price ~ ., data = apartments)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+#' exp_glm <- explain(model_glm,
+#'                    data = apartments,
+#'                    y = apartments$m2.price)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' model_residual(exp_glm)
+#' mr <- model_residual(exp_glm)
+#' mr
+#'
+#' plot(mr)
 #'
 #' @rdname model_residual
 #'

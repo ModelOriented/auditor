@@ -1,10 +1,13 @@
 #' @title Peak Score
 #'
-#' @description This score is calculated on the basis of Peak test, which is used for checking for homoscedasticity of residuals in regression analyses.
+#' @description This score is calculated on the basis of Peak test,
+#'  which is used for checking for homoscedasticity of residuals in regression analyses.
 #'
-#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function
+#'  \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param variable Name of model variable to order residuals.
-#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param data New data that will be used to calcuate the score.
+#'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.

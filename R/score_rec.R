@@ -3,8 +3,10 @@
 #' @description The area over the Regression Error Characteristic curve is a measure of the expected error
 #' for the regression model.
 #'
-#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param object An object of class \code{explainer} created with function
+#'  \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score.
+#'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -24,10 +26,10 @@
 #'
 #' @seealso \code{\link{plot_rec}}
 #'
-#' @references J. Bi, and K. P. Bennet, "Regression error characteristic curves," in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50
+#' @references J. Bi, and K. P. Bennet, "Regression error characteristic curves,"
+#'  in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50
 #'
 #' @export
-
 
 score_rec <- function(object, data = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.  Please, see the current workflow in the paper https://arxiv.org/abs/1809.07763")

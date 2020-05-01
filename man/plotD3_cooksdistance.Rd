@@ -37,7 +37,7 @@ plotD3CooksDistance(
 \item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
 }
 \value{
-a `r2d3` object.
+a \code{r2d3} object
 }
 \description{
 Plot of Cook’s distances used for estimate the influence of an single observation.

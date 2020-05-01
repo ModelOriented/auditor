@@ -1,10 +1,8 @@
-# auditor (development)
-
-
 # auditor 1.2.1
 * new default color palete `DALEX::colors_discrete_drwhy` 
 * depend on `R v3.5` to comply with `DALEX`
 * Allow for some deprecated names in `plot()` function, to make it compatible with the paper [auditor: an R Package for Model-Agnostic Visual Validation and Diagnostics](https://journal.r-project.org/archive/2019/RJ-2019-036/index.html) in The R Journal, 
+* add `arrow_size` to `plot_pca` and increase the default width value to `2`
 
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function

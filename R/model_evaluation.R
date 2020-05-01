@@ -5,27 +5,30 @@
 #' Returns, among others, true positive rate (tpr), false positive rate (fpr),
 #' rate of positive prediction (rpp), and true positives (tp).
 #'
-#' Created object of class 'auditor_model_evaluation' can be used to plot
+#' Created object of class \code{auditor_model_evaluation} can be used to plot
 #' Receiver Operating Characteristic (ROC) curve (plot \code{\link{plot_roc}}) and LIFT curve (plot \code{\link{plot_lift}}).
 #'
-#' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #'
-#' @return An object of class 'auditor_model_evaluation'.
+#' @return An object of the class \code{auditor_model_evaluation}.
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
-#' titanic$survived <- titanic$survived == "yes"
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- DALEX::explain(model_glm, data= titanic, y = titanic$survived)
+#' exp_glm <- explain(model_glm,
+#'                    data= titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # validate a model with auditor
 #' library(auditor)
-#' model_evaluation(exp_glm)
+#' me <- model_evaluation(exp_glm)
+#' me
 #'
+#' plot(me)
 #'
 #' @export
 model_evaluation <- function(object) {

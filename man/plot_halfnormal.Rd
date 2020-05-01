@@ -10,9 +10,9 @@ plot_halfnormal(object, ..., quantiles = FALSE, sim = 99)
 plotHalfNormal(object, ..., quantiles = FALSE, sim = 99)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_halfnormal' created with \code{\link{model_halfnormal}} function.}
+\item{object}{An object of class \code{auditor_model_halfnormal} created with \code{\link{model_halfnormal}} function.}
 
-\item{...}{Other 'auditor_model_halfnormal' objects.}
+\item{...}{Other \code{auditor_model_halfnormal} objects.}
 
 \item{quantiles}{If TRUE values on axis are on quantile scale.}
 

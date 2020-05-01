@@ -8,7 +8,7 @@
 #' @param ... Other 'auditor_model_residual' objects to be plotted together.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
-#' @return a `r2d3` object.
+#' @return a \code{r2d3} object
 #'
 #' @details REC curve estimates the Cumulative Distribution Function (CDF) of the error
 #'

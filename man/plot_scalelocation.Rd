@@ -16,9 +16,9 @@ plot_scalelocation(
 plotScaleLocation(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.}
+\item{object}{An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.}
 
-\item{...}{Other 'auditor_model_residual' objects to be plotted together.}
+\item{...}{Other \code{auditor_model_residual} objects to be plotted together.}
 
 \item{variable}{Name of variable to order residuals on a plot.
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
@@ -26,9 +26,9 @@ passed to the \code{\link[DALEX]{explain}} function).
 If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 If \code{variable = NULL}, unordered observations are presented.}
 
-\item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
+\item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's \code{FALSE}.}
 
-\item{peaks}{A logical value. If TRUE peaks are marked on plot by black dots.}
+\item{peaks}{A logical value. If \code{TRUE} peaks are marked on plot by black dots.}
 }
 \value{
 A ggplot object.

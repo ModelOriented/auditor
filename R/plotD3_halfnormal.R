@@ -12,7 +12,7 @@
 #' @param sim Number of residuals to simulate.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
 #'
-#' @return a `r2d3` object.
+#' @return a \code{r2d3} object
 #'
 #' @seealso \code{\link{model_halfnormal}}
 #'

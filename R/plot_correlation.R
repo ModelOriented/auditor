@@ -4,8 +4,8 @@
 #' on the diagonal there are density plots of fitted values (alternatively residuals), in the right-top triangle
 #' there are correlations between fitte dvalues (alternatively residuals).
 #'
-#' @param object An object of class 'auditor_model_residual' created with \code{\link{model_residual}} function.
-#' @param ... Other 'auditor_model_residual' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.
+#' @param ... Other \code{auditor_model_residual} objects to be plotted together.
 #' @param values "fit" for model fitted values or "res" for residual values.
 #'
 #' @return Invisibly returns a \code{\link[gtable]{gtable}} object.
@@ -33,8 +33,6 @@
 #' plot(mr_lm, mr_rf, type = "correlation")
 #'
 #'
-#' @import grid
-#' @import gridExtra
 #' @importFrom stats cor
 #' @importFrom utils combn
 #'

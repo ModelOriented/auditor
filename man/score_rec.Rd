@@ -10,9 +10,11 @@ score_rec(object, data = NULL, ...)
 scoreREC(object)
 }
 \arguments{
-\item{object}{An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.}
+\item{object}{An object of class \code{explainer} created with function
+\code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+\item{data}{New data that will be used to calcuate the score.
+Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }
@@ -38,7 +40,8 @@ score_rec(lm_exp)
 
 }
 \references{
-J. Bi, and K. P. Bennet, "Regression error characteristic curves," in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50
+J. Bi, and K. P. Bennet, "Regression error characteristic curves,"
+ in Proc. 20th Int. Conf. Machine Learning, Washington DC, 2003, pp. 43-50
 }
 \seealso{
 \code{\link{plot_rec}}

@@ -49,8 +49,6 @@
 #' plot_rroc(mr_lm, mr_rf)
 #' plot(mr_lm, mr_rf, type="rroc")
 #'
-#' @import ggplot2
-#'
 #' @export
 plot_rroc <- function(object, ...) {
 

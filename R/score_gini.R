@@ -4,21 +4,24 @@
 #' A Gini coefficient equals 0 means perfect equality, where all values are the same.
 #' A Gini coefficient equals 100% expresses maximal inequality of values.
 #'
-#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param object An object of class \code{explainer} created with function
+#'  \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score.
+#'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
-#' titanic$survived <- titanic$survived == "yes"
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
-#' #create an explainer
-#' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
+#' # create an explainer
+#' exp_glm <- explain(model_glm,
+#'                    data = titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # calculate score
 #' score_gini(exp_glm)
@@ -26,8 +29,6 @@
 #' @seealso \code{\link{plot_roc}}
 #'
 #' @export
-
-
 score_gini <- function(object, data = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
@@ -52,21 +53,24 @@ score_gini <- function(object, data = NULL, ...) {
 #' 100% means perfect equality, where all values are the same.
 #' 0 expresses maximal inequality of values.
 #'
-#' @param object An object of class \code{explainer} created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param object An object of class \code{explainer} created with function
+#'  \code{\link[DALEX]{explain}} from the DALEX package.
+#' @param data New data that will be used to calcuate the score.
+#'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
-#' titanic$survived <- titanic$survived == "yes"
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
-#' #create an explainer
-#' exp_glm <- DALEX::explain(model_glm, y = titanic$survived)
+#' # create an explainer
+#' exp_glm <- explain(model_glm,
+#'                    data = titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # calculate score
 #' score_one_minus_gini(exp_glm)

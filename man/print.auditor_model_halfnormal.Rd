@@ -15,13 +15,15 @@
 Prints Model Halfnormal Summary
 }
 \examples{
-titanic <- na.omit(DALEX::titanic[1:100,])
+library(DALEX)
 
 # fit a model
-model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 
 # use DALEX package to wrap up a model into explainer
-exp_glm <- DALEX::explain(model_glm)
+exp_glm <- explain(model_glm,
+                   data = titanic_imputed,
+                   y = titanic_imputed$survived)
 
 # validate a model with auditor
 library(auditor)

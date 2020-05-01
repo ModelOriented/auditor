@@ -3,8 +3,8 @@
 #' @description LIFT is a plot of the rate of positive prediction against true positive rate for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'
-#' @param object An object of class 'auditor_model_evaluation' created with \code{\link{model_evaluation}} function.
-#' @param ... Other 'auditor_model_evaluation' objects to be plotted together.
+#' @param object An object of class \code{auditor_model_evaluation} created with \code{\link{model_evaluation}} function.
+#' @param ... Other \code{auditor_model_evaluation} objects to be plotted together.
 #' @param zeros Logical. It makes the lines start from the \code{(0,0)} point. By default it's \code{TRUE}.
 #'
 #' @return A ggplot object.
@@ -12,14 +12,15 @@
 #' @seealso \code{\link{model_evaluation}}
 #'
 #' @examples
-#' titanic <- na.omit(DALEX::titanic)
-#' titanic$survived <- titanic$survived == "yes"
+#' library(DALEX)
 #'
 #' # fit a model
-#' model_glm <- glm(survived ~ ., family = binomial, data = titanic)
+#' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- DALEX::explain(model_glm, data = titanic, y = titanic$survived)
+#' exp_glm <- explain(model_glm,
+#'                    data = titanic_imputed,
+#'                    y = titanic_imputed$survived)
 #'
 #' # validate a model with auditor
 #' library(auditor)
@@ -29,15 +30,16 @@
 #' plot_lift(eva_glm)
 #' plot(eva_glm, type ="lift")
 #'
-#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic)
-#' exp_glm_2 <- DALEX::explain(model_glm_2, data = titanic, y = titanic$survived, label = "glm2")
+#' model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic_imputed)
+#' exp_glm_2 <- explain(model_glm_2,
+#'                      data = titanic_imputed,
+#'                      y = titanic_imputed$survived,
+#'                      label = "glm2")
 #' eva_glm_2 <- model_evaluation(exp_glm_2)
 #'
 #' plot_lift(eva_glm, eva_glm_2)
 #' plot(eva_glm, eva_glm_2, type = "lift")
 #'
-#'
-#' @import ggplot2
 #'
 #' @export
 plot_lift <- function(object, ..., zeros = TRUE) {

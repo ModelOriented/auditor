@@ -20,7 +20,7 @@
 #' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
 #' By default it's FALSE.
 #'
-#' @return a `r2d3` object.
+#' @return a \code{r2d3} object
 #'
 #' @seealso \code{\link{plot_prediction}}
 #'

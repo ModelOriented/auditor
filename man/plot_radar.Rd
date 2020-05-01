@@ -10,17 +10,18 @@ plot_radar(object, ..., verbose = TRUE)
 plotModelRanking(object, ..., verbose = TRUE)
 }
 \arguments{
-\item{object}{An object of class 'auditor_model_performance' created with \code{\link{model_performance}} function.}
+\item{object}{An object of class \code{auditor_model_performance} created with \code{\link{model_performance}} function.}
 
-\item{...}{Other auditor_model_performance' objects to be plotted together.}
+\item{...}{Other \code{auditor_model_performance} objects to be plotted together.}
 
 \item{verbose}{Logical, indicates whether values of scores should be printed.}
 }
 \value{
-ggplot object
+A ggplot object.
 }
 \description{
-Radar plot with model score. score are scaled to [0,1], each score is inversed and divided by maximum score value.
+Radar plot with model score. score are scaled to \code{[0,1]},
+each score is inversed and divided by maximum score value.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]

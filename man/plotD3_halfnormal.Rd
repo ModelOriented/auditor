@@ -21,7 +21,7 @@ plotD3HalfNormal(object, ..., quantiles = FALSE, sim = 99, scale_plot = FALSE)
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 }
 \value{
-a `r2d3` object.
+a \code{r2d3} object
 }
 \description{
 The half-normal plot is one of the tools designed to evaluate the goodness of fit of a

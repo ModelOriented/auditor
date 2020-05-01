@@ -16,7 +16,6 @@
 #' @references Bi J., Bennett K.P. (2003). Regression error characteristic curves, in: Twentieth
 #' International Conference on Machine Learning (ICML-2003), Washington, DC.
 #'
-#' @import ggplot2
 #'
 #' @seealso \code{\link{plot_roc}, \link{plot_rroc}}
 #'
