@@ -168,7 +168,7 @@
     <p>One minus specificity</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score_one_minus_specificity</span>(<span class='no'>object</span>, <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>score_one_minus_specificity</span>(<span class='no'>object</span>, <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,6 +187,10 @@ By default it's <code>0.5</code>.</p></td>
       <th>data</th>
       <td><p>New data that will be used to calcuate the score.
 Pass <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>New y parameter will be used to calculate score.</p></td>
     </tr>
     <tr>
       <th>...</th>

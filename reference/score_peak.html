@@ -170,7 +170,7 @@
  which is used for checking for homoscedasticity of residuals in regression analyses.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score_peak</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>score_peak</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>scorePeak</span>(<span class='no'>object</span>)</pre>
 
@@ -190,6 +190,10 @@
       <th>data</th>
       <td><p>New data that will be used to calcuate the score.
 Pass <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>New y parameter will be used to calculate score.</p></td>
     </tr>
     <tr>
       <th>...</th>

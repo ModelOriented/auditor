@@ -172,7 +172,7 @@ The score value is helpful in comparing models. It is worth pointing out that re
 when the test assumptions are satisfied. Otherwise test statistic may be considered as a score.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score_runs</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>score_runs</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>scoreRuns</span>(<span class='no'>object</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
@@ -192,6 +192,10 @@ when the test assumptions are satisfied. Otherwise test statistic may be conside
       <th>data</th>
       <td><p>New data that will be used to calcuate the score. Pass
 <code>NULL</code> if you want to use <code>data</code> from <code>object</code>.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>New y parameter will be used to calculate score.</p></td>
     </tr>
     <tr>
       <th>...</th>
