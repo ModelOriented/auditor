@@ -76,6 +76,6 @@ plot_halfnormal <- function(object, ..., quantiles = FALSE, sim = 99) {
 #' @rdname plot_halfnormal
 #' @export
 plotHalfNormal <- function(object, ..., quantiles = FALSE, sim = 99) {
-  message("Please note that 'plotHalfNormal()' is now deprecated, it is better to use 'plot_halfnormal()' instead.")
+  warning("Please note that 'plotHalfNormal()' is now deprecated, it is better to use 'plot_halfnormal()' instead.")
   plot_halfnormal(object, ..., quantiles = quantiles, sim = sim)
 }

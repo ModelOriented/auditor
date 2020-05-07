@@ -82,6 +82,6 @@ model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), ne
 #'
 #' @export
 modelPerformance  <- function(object, score = c("mae", "mse", "rec", "rroc"), new_score = NULL) {
-  message("Please note that 'modelPerformance()' is now deprecated, it is better to use 'model_performance()' instead.")
+  warning("Please note that 'modelPerformance()' is now deprecated, it is better to use 'model_performance()' instead.")
   model_performance(object, score, new_score)
 }

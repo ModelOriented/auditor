@@ -186,7 +186,7 @@ plotD3_residual <- function(object, ..., variable = '_y_', points = TRUE, smooth
 plotD3Residual <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                            std_residuals = FALSE,point_count = NULL, single_plot = TRUE,
                            scale_plot = FALSE, background = FALSE){
-  message("Please note that 'plotD3Residual()' is now deprecated, it is better to use 'plotD3_residual()' instead.")
+  warning("Please note that 'plotD3Residual()' is now deprecated, it is better to use 'plotD3_residual()' instead.")
   plotD3_residual(object, ..., variable, points, smooth,
                   std_residuals, point_count, single_plot,
                   scale_plot, background)

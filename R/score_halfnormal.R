@@ -62,6 +62,6 @@ calculate_score_pdf <- function(hnpObject) {
 #' @rdname score_halfnormal
 #' @export
 scoreHalfNormal <- function(object, ...) {
-  message("Please note that 'scoreHalfNormal()' is now deprecated, it is better to use 'score_halfnormal()' instead.")
+  warning("Please note that 'scoreHalfNormal()' is now deprecated, it is better to use 'score_halfnormal()' instead.")
   score_halfnormal(object, ...)
 }

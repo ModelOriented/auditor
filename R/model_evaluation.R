@@ -83,6 +83,6 @@ model_evaluation <- function(object) {
 #' @rdname model_evaluation
 #' @export
 modelEvaluation <- function(object) {
-  message("Please note that 'modelEvaluation()' is now deprecated, it is better to use 'model_evaluation()' instead.")
+  warning("Please note that 'modelEvaluation()' is now deprecated, it is better to use 'model_evaluation()' instead.")
   model_evaluation(object)
 }

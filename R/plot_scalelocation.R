@@ -104,6 +104,6 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
 #' @rdname plot_scalelocation
 #' @export
 plotScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE, peaks = FALSE) {
-  message("Please note that 'plotScaleLocation()' is now deprecated, it is better to use 'plot_scalelocation()' instead.")
+  warning("Please note that 'plotScaleLocation()' is now deprecated, it is better to use 'plot_scalelocation()' instead.")
   plot_scalelocation(object, ..., variable = variable, smooth = smooth, peaks = peaks)
 }

@@ -120,6 +120,6 @@ plot_residual <- function(object, ..., variable = "_y_", smooth = FALSE,
 #' @rdname plot_residual
 #' @export
 plotResidual <-  function(object, ..., variable = NULL, smooth = FALSE, std_residuals = FALSE, nlabel = 0) {
-  message("Please note that 'plotResidual()' is now deprecated, it is better to use 'plot_residual()' instead.")
+  warning("Please note that 'plotResidual()' is now deprecated, it is better to use 'plot_residual()' instead.")
   plot_residual(object, ..., variable = variable, smooth = smooth, std_residuals = std_residuals, nlabel = nlabel)
 }

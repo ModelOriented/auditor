@@ -113,7 +113,7 @@ plotD3_cooksdistance <- function(object, ..., nlabel = 3,
 #' @export
 plotD3CooksDistance <- function(object, ..., nlabel = 3,
                     single_plot = FALSE, scale_plot = FALSE, background = FALSE){
-  message("Please note that 'plotD3CooksDistance()' is now deprecated, it is better to use 'plotD3_cooksdistance()' instead.")
+  warning("Please note that 'plotD3CooksDistance()' is now deprecated, it is better to use 'plotD3_cooksdistance()' instead.")
   plotD3_cooksdistance(object, ..., nlabel,
            single_plot, scale_plot, background)
 }

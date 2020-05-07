@@ -80,6 +80,6 @@ plot_rec <- function(object, ...) {
 #' @rdname plot_rec
 #' @export
 plotREC <- function(object, ...) {
-  message("Please note that 'plotREC()' is now deprecated, it is better to use 'plot_rec()' instead.")
+  warning("Please note that 'plotREC()' is now deprecated, it is better to use 'plot_rec()' instead.")
   plot_rec(object, ...)
 }

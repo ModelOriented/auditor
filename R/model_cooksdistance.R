@@ -46,6 +46,6 @@ model_cooksdistance <- function(object){
 #' @rdname model_cooksdistance
 #' @export
 observationInfluence <- function(object){
-  message("Please note that 'observationInfluence()' is now deprecated, it is better to use 'model_cooksdistance()' instead.")
+  warning("Please note that 'observationInfluence()' is now deprecated, it is better to use 'model_cooksdistance()' instead.")
   model_cooksdistance(object)
 }

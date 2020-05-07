@@ -64,6 +64,6 @@ score_rroc <- function(object, data = NULL, ...) {
 #' @rdname score_rroc
 #' @export
 scoreRROC<- function(object) {
-  message("Please note that 'scoreRROC()' is now deprecated, it is better to use 'score_rroc()' instead.")
+  warning("Please note that 'scoreRROC()' is now deprecated, it is better to use 'score_rroc()' instead.")
   score_rroc(object)
 }

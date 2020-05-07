@@ -99,6 +99,6 @@ plotD3_acf <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = 
 #' @rdname plotD3_acf
 #' @export
 plotD3ACF <- function(object, ..., variable = NULL, alpha = 0.95, scale_plot = FALSE) {
-  message("Please note that 'plotD3ACF()' is now deprecated, it is better to use 'plotD3_acf()' instead.")
+  warning("Please note that 'plotD3ACF()' is now deprecated, it is better to use 'plotD3_acf()' instead.")
   plotD3_acf(object, ..., variable, alpha, scale_plot)
 }

@@ -51,6 +51,5 @@ audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, 
 
 #' @export
 audit.explainer <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
-  message("The 'audit()' function is deprecated; use 'explain()' from the 'DALEX' package instead.")
   return(object)
 }

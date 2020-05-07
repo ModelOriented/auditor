@@ -164,7 +164,7 @@ plotD3ScaleLocation <- function(object, ..., variable = NULL, smooth = FALSE,
                                 peaks = FALSE, point_count = NULL, single_plot = TRUE,
                                 scale_plot = FALSE, background = FALSE){
 
-  message("Please note that 'plotD3ScaleLocation()' is now deprecated, it is better to use 'plotD3_scalelocation()' instead.")
+  warning("Please note that 'plotD3ScaleLocation()' is now deprecated, it is better to use 'plotD3_scalelocation()' instead.")
   plotD3_scalelocation(object, ..., variable, smooth,
                                   peaks, point_count, single_plot,
                                   scale_plot, background)

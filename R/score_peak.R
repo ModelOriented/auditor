@@ -50,6 +50,6 @@ score_peak <- function(object, variable = NULL, data = NULL, ...) {
 #' @rdname score_peak
 #' @export
 scorePeak<- function(object) {
-  message("Please note that 'scorePeak()' is now deprecated, it is better to use 'score_peak()' instead.")
+  warning("Please note that 'scorePeak()' is now deprecated, it is better to use 'score_peak()' instead.")
   score_peak(object)
 }

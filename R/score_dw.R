@@ -59,6 +59,6 @@ score_dw <- function(object, variable = NULL, data = NULL, ...) {
 #' @rdname score_dw
 #' @export
 scoreDW <- function(object, variable = NULL) {
-  message("Please note that 'scoreDW()' is now deprecated, it is better to use 'score_dw()' instead.")
+  warning("Please note that 'scoreDW()' is now deprecated, it is better to use 'score_dw()' instead.")
   score_dw(object, variable)
 }

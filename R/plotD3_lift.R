@@ -126,6 +126,6 @@ plotD3_lift <- function(object, ..., scale_plot = FALSE, zeros = TRUE) {
 #' @rdname plotD3_lift
 #' @export
 plotD3LIFT <- function(object, ..., scale_plot = FALSE) {
-  message("Please note that 'plotD3LIFT()' is now deprecated, it is better to use 'plotD3_lift()' instead.")
+  warning("Please note that 'plotD3LIFT()' is now deprecated, it is better to use 'plotD3_lift()' instead.")
   plotD3_lift(object, ..., scale_plot)
 }

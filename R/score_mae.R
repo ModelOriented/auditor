@@ -46,6 +46,6 @@ score_mae <- function(object, data = NULL, ...) {
 #' @rdname score_mae
 #' @export
 scoreMAE<- function(object) {
-  message("Please note that 'scoreMAE()' is now deprecated, it is better to use 'score_mae()' instead.")
+  warning("Please note that 'scoreMAE()' is now deprecated, it is better to use 'score_mae()' instead.")
   score_dw(object)
 }

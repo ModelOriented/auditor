@@ -104,6 +104,6 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
 #' @rdname plot_acf
 #' @export
 plotACF <- function(object, ..., variable = NULL, alpha = 0.95) {
-  message("Please note that 'plotACF()' is now deprecated, it is better to use 'plot_acf()' instead.")
+  warning("Please note that 'plotACF()' is now deprecated, it is better to use 'plot_acf()' instead.")
   plot_acf(object, ..., variable = variable, alpha = alpha)
 }

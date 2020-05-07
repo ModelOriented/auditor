@@ -77,7 +77,7 @@ plot_radar <- function(object, ..., verbose = TRUE) {
 #' @rdname plot_radar
 #' @export
 plotModelRanking <- function(object, ..., verbose = TRUE) {
-  message("Please note that 'plotModelRanking()' is now deprecated, it is better to use 'plot_radar()' instead.")
+  warning("Please note that 'plotModelRanking()' is now deprecated, it is better to use 'plot_radar()' instead.")
   plot_radar(object, ..., verbose = verbose)
 }
 

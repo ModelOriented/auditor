@@ -57,6 +57,6 @@ model_residual <- function(object, ...){
 #' @rdname model_residual
 #' @export
 modelResiduals <- function(object, ...){
-  message("Please note that 'modelResiduals()' is now deprecated, it is better to use 'model_residual()' instead.")
+  warning("Please note that 'modelResiduals()' is now deprecated, it is better to use 'model_residual()' instead.")
   model_residual(object)
 }

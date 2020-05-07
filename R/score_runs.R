@@ -65,6 +65,6 @@ score_runs <- function(object, variable = NULL, data = NULL, ...) {
 #' @rdname score_runs
 #' @export
 scoreRuns<- function(object,  variable = NULL) {
-  message("Please note that 'scoreRuns()' is now deprecated, it is better to use 'score_runs()' instead.")
+  warning("Please note that 'scoreRuns()' is now deprecated, it is better to use 'score_runs()' instead.")
   score_runs(object, variable)
 }

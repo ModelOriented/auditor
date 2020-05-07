@@ -76,6 +76,6 @@ compute_cooksdistances <- function(object, verbose) {
 #' @rdname score_cooksdistance
 #' @export
 scoreCooksDistance <- function(object, verbose=TRUE) {
-  message("Please note that 'scoreCooksDistance()' is now deprecated, it is better to use 'score_cooksdistance()' instead.")
+  warning("Please note that 'scoreCooksDistance()' is now deprecated, it is better to use 'score_cooksdistance()' instead.")
   score_cooksdistance(object, verbose)
 }

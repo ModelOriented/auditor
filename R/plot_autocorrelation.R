@@ -112,6 +112,6 @@ return(p)
 #' @rdname plot_autocorrelation
 #' @export
 plotAutocorrelation <- function(object, ..., variable, smooth = FALSE) {
-  message("Please note that 'plotAutocorrelation()' is now deprecated, it is better to use 'plot_autocorrelation()' instead.")
+  warning("Please note that 'plotAutocorrelation()' is now deprecated, it is better to use 'plot_autocorrelation()' instead.")
   plot_autocorrelation(object, ..., smooth = smooth)
 }

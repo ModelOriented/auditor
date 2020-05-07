@@ -105,6 +105,6 @@ plot_prediction <- function(object, ..., variable = "_y_", smooth = FALSE, ablin
 #' @rdname plot_prediction
 #' @export
 plotPrediction <- function(object, ..., variable = NULL, smooth = FALSE, abline = FALSE) {
-  message("Please note that 'plotPrediction()' is now deprecated, it is better to use 'plot_prediction()' instead.")
+  warning("Please note that 'plotPrediction()' is now deprecated, it is better to use 'plot_prediction()' instead.")
   plot_prediction(object, ..., variable = variable, smooth = smooth, abline = abline)
 }

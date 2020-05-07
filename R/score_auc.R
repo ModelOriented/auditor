@@ -118,6 +118,6 @@ score_one_minus_auc <- function(object, data = NULL, ...) {
 #' @rdname score_auc
 #' @export
 scoreROC<- function(object) {
-  message("Please note that 'scoreROC()' is now deprecated, it is better to use 'score_auc()' instead.")
+  warning("Please note that 'scoreROC()' is now deprecated, it is better to use 'score_auc()' instead.")
   score_auc(object)
 }

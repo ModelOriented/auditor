@@ -120,7 +120,7 @@ phalfnorm <- function(residuals)
 #' @rdname model_halfnormal
 #' @export
 modelFit <- function(object, quant = FALSE, ...){
-  message("Please note that 'modelfit()' is now deprecated, it is better to use 'model_halfnormal()' instead.")
+  warning("Please note that 'modelfit()' is now deprecated, it is better to use 'model_halfnormal()' instead.")
   model_halfnormal(object, quant)
 }
 

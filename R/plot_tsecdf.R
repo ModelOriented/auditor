@@ -89,6 +89,6 @@ plot_tsecdf <- function(object, ..., scale_error = TRUE, outliers = NA,
 #' @export
 plotTwoSidedECDF <- function(object, ..., scale_error = TRUE, outliers = NA,
                              residuals = TRUE, reverse_y = FALSE) {
-  message("Please note that 'plotTwosidedECDF()' is now deprecated, it is better to use 'plot_tsecdf()' instead.")
+  warning("Please note that 'plotTwosidedECDF()' is now deprecated, it is better to use 'plot_tsecdf()' instead.")
   plot_tsecdf(object, ..., scale_error, outliers, residuals, reverse_y)
 }

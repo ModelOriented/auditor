@@ -118,6 +118,6 @@ plot_residual_density <- function(object, ..., variable = "") {
 #' @rdname plot_residual_density
 #' @export
 plotResidualDensity <- function(object, ..., variable = NULL) {
-  message("Please note that 'plotResidualDensity()' is now deprecated, it is better to use 'plot_residual_density()' instead.")
+  warning("Please note that 'plotResidualDensity()' is now deprecated, it is better to use 'plot_residual_density()' instead.")
   plot_residual_density(object, ..., variable = variable)
 }

@@ -157,7 +157,7 @@ plotD3_autocorrelation <- function(object, ..., variable = NULL, points = TRUE, 
 plotD3Autocorrelation <- function(object, ..., variable = NULL, points = TRUE, smooth = FALSE,
                                   point_count = NULL, single_plot = TRUE, scale_plot = FALSE,
                                   background = FALSE) {
-  message("Please note that 'plotD3Autocorrelation()' is now deprecated, it is better to use 'plotD3_autocorrelation()' instead.")
+  warning("Please note that 'plotD3Autocorrelation()' is now deprecated, it is better to use 'plotD3_autocorrelation()' instead.")
   plotD3_autocorrelation(object, ..., variable, points, smooth,
            point_count, single_plot, scale_plot,
            background)

@@ -46,7 +46,7 @@ score_rmse <- function(object, data = NULL, ...) {
 #' @rdname score_rmse
 #' @export
 scoreRMSE<- function(object) {
-  message("Please note that 'scoreRMSE()' is now deprecated, it is better to use 'score_rmse()' instead.")
+  warning("Please note that 'scoreRMSE()' is now deprecated, it is better to use 'score_rmse()' instead.")
   score_rmse(object)
 }
 

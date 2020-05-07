@@ -62,6 +62,6 @@ score_rec <- function(object, data = NULL, ...) {
 #' @rdname score_rec
 #' @export
 scoreREC<- function(object) {
-  message("Please note that 'scoreREC()' is now deprecated, it is better to use 'score_rec()' instead.")
+  warning("Please note that 'scoreREC()' is now deprecated, it is better to use 'score_rec()' instead.")
   score_rec(object)
 }

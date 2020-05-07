@@ -79,6 +79,6 @@ plot_pca <- function(object, ..., scale = TRUE, arrow_size = 2) {
 #' @rdname plot_pca
 #' @export
 plotModelPCA <- function(object, ..., scale = TRUE) {
-  message("Please note that 'plotModelPCA()' is now deprecated, it is better to use 'plot_pca()' instead.")
+  warning("Please note that 'plotModelPCA()' is now deprecated, it is better to use 'plot_pca()' instead.")
   plot_pca(object, ..., scale = scale)
 }
