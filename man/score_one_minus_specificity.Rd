@@ -4,7 +4,7 @@
 \alias{score_one_minus_specificity}
 \title{One minus specificity}
 \usage{
-score_one_minus_specificity(object, cutoff = 0.5, data = NULL, ...)
+score_one_minus_specificity(object, cutoff = 0.5, data = NULL, y = NULL, ...)
 }
 \arguments{
 \item{object}{An object of class \code{explainer} created with function
@@ -15,6 +15,8 @@ By default it's \code{0.5}.}
 
 \item{data}{New data that will be used to calcuate the score.
 Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{y}{New y parameter will be used to calculate score.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }

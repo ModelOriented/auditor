@@ -8,6 +8,7 @@
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param data New data that will be used to calcuate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -29,11 +30,15 @@
 #' @seealso \code{\link{plot_roc}}
 #'
 #' @export
-score_gini <- function(object, data = NULL, ...) {
+score_gini <- function(object, data = NULL, y = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
-  if (!is.null(data)) object$data <- data
+  if (!is.null(data)){
+    object$data <- data
+    object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
+  }
 
   auc <- score_auc(object, data)$score
   gini <- 2 * auc - 1
@@ -57,6 +62,7 @@ score_gini <- function(object, data = NULL, ...) {
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param data New data that will be used to calcuate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -77,11 +83,15 @@ score_gini <- function(object, data = NULL, ...) {
 #'
 #'
 #' @export
-score_one_minus_gini <- function(object, data = NULL, ...) {
+score_one_minus_gini <- function(object, data = NULL, y = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
-  if (!is.null(data)) object$data <- data
+  if (!is.null(data)){
+    object$data <- data
+    object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
+  }
 
   ret <- 1 - score_gini(object)$score
   results <- list(

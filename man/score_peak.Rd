@@ -5,7 +5,7 @@
 \alias{scorePeak}
 \title{Peak Score}
 \usage{
-score_peak(object, variable = NULL, data = NULL, ...)
+score_peak(object, variable = NULL, data = NULL, y = NULL, ...)
 
 scorePeak(object)
 }
@@ -17,6 +17,8 @@ scorePeak(object)
 
 \item{data}{New data that will be used to calcuate the score.
 Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{y}{New y parameter will be used to calculate score.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }

@@ -5,7 +5,7 @@
 \alias{scoreRMSE}
 \title{Root Mean Square Error}
 \usage{
-score_rmse(object, data = NULL, ...)
+score_rmse(object, data = NULL, y = NULL, ...)
 
 scoreRMSE(object)
 }
@@ -15,6 +15,8 @@ scoreRMSE(object)
 
 \item{data}{New data that will be used to calcuate the score.
 Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{y}{New y parameter will be used to calculate score.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }

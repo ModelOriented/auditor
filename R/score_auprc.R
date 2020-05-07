@@ -60,7 +60,7 @@ score_auprc <- function(object, data = NULL, y = NULL, ...) {
 
 
   xroc <- recall
-  yrox <- precision
+  yroc <- precision
 
   auprc <- sum( 0.5* (xroc[2:length(xroc)]-xroc[1:length(xroc)-1])* (yroc[2:length(xroc)] +yroc[1:length(xroc)-1]), na.rm = TRUE )
 

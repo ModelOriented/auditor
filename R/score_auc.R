@@ -101,11 +101,8 @@ score_auc <- function(object, data = NULL, y = NULL, ...) {
 #' score_one_minus_auc(exp_glm)
 #'
 #' @export
-score_one_minus_auc <- function(object, data = NULL, y, ...) {
+score_one_minus_auc <- function(object, data = NULL, y = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
-
-  # inject new data to the explainer
-  if (!is.null(data)) object$data <- data
 
   ret <- 1 - score_auc(object, data, y, ...)$score
   roc_results <- list(

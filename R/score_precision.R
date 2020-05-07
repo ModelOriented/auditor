@@ -6,6 +6,7 @@
 #'  By default it's \code{0.5}.
 #' @param data New data that will be used to calcuate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -26,11 +27,15 @@
 #'
 #'
 #' @export
-score_precision <- function(object, cutoff = 0.5, data = NULL, ...) {
+score_precision <- function(object, cutoff = 0.5, data = NULL, y = NULL,  ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
-  if (!is.null(data)) object$data <- data
+  if (!is.null(data)){
+    object$data <- data
+    object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
+  }
 
   conf <- confusionmatrix(object, cutoff)
   ret <- conf$TP / (conf$TP + conf$FP)
@@ -53,6 +58,7 @@ score_precision <- function(object, cutoff = 0.5, data = NULL, ...) {
 #'  By default it's \code{0.5}.
 #' @param data New data that will be used to calcuate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -73,11 +79,15 @@ score_precision <- function(object, cutoff = 0.5, data = NULL, ...) {
 #'
 #'
 #' @export
-score_one_minus_precision <- function(object, cutoff = 0.5, data = NULL, ...) {
+score_one_minus_precision <- function(object, cutoff = 0.5, data = NULL, y = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
-  if (!is.null(data)) object$data <- data
+  if (!is.null(data)){
+    object$data <- data
+    object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
+  }
 
   conf <- confusionmatrix(object, cutoff)
   ret <- 1 - conf$TP / (conf$TP + conf$FP)

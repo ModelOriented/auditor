@@ -5,7 +5,7 @@
 \alias{scoreMAE}
 \title{Mean Absolute Error}
 \usage{
-score_mae(object, data = NULL, ...)
+score_mae(object, data = NULL, y = NULL, ...)
 
 scoreMAE(object)
 }
@@ -15,6 +15,8 @@ scoreMAE(object)
 
 \item{data}{New data that will be used to calcuate the score.
 Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{y}{New y parameter will be used to calculate score.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }

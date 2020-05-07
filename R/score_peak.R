@@ -8,6 +8,7 @@
 #' @param variable Name of model variable to order residuals.
 #' @param data New data that will be used to calcuate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -29,11 +30,15 @@
 #'
 #' @export
 
-score_peak <- function(object, variable = NULL, data = NULL, ...) {
+score_peak <- function(object, variable = NULL, data = NULL, y = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
-  if (!is.null(data)) object$data <- data
+  if (!is.null(data)){
+    object$data <- data
+    object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
+  }
 
   std_res <- object$residuals / sd(object$residuals)
   peaks <- sum( (abs(std_res) >= cummax(abs(std_res)))) / length(object$y)

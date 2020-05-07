@@ -4,7 +4,7 @@
 \alias{score_one_minus_auc}
 \title{One minus Area Under ROC Curve (AUC)}
 \usage{
-score_one_minus_auc(object, data = NULL, y, ...)
+score_one_minus_auc(object, data = NULL, y = NULL, ...)
 }
 \arguments{
 \item{object}{An object of class \code{explainer} created with function

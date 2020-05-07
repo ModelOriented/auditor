@@ -5,7 +5,7 @@
 \alias{scoreRuns}
 \title{Runs Score}
 \usage{
-score_runs(object, variable = NULL, data = NULL, ...)
+score_runs(object, variable = NULL, data = NULL, y = NULL, ...)
 
 scoreRuns(object, variable = NULL)
 }
@@ -17,6 +17,8 @@ scoreRuns(object, variable = NULL)
 
 \item{data}{New data that will be used to calcuate the score. Pass
 \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{y}{New y parameter will be used to calculate score.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }
