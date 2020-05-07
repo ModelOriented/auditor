@@ -32,6 +32,7 @@ score_auprc <- function(object, data = NULL, y = NULL, ...) {
   if (!is.null(data)) {
     object$data <- data
     object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
   }
 
   object <- model_evaluation(object)
@@ -58,8 +59,8 @@ score_auprc <- function(object, data = NULL, y = NULL, ...) {
   recall <- tp / positive_num
 
 
-  x <- recall
-  y <- precision
+  xroc <- recall
+  yrox <- precision
 
   auprc <- sum( 0.5* (xroc[2:length(xroc)]-xroc[1:length(xroc)-1])* (yroc[2:length(xroc)] +yroc[1:length(xroc)-1]), na.rm = TRUE )
 
@@ -107,7 +108,7 @@ score_one_minus_auprc <- function(object, data = NULL, y = NULL, ...) {
   # inject new data to the explainer
   if (!is.null(data)) object$data <- data
 
-  auprc <- score_auprc(object, n_cutoffs, data, ...)
+  auprc <- score_auprc(object, data, y, ...)$score
 
   results <- list(
     name = "one_minus_auprc",

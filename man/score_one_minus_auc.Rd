@@ -4,7 +4,7 @@
 \alias{score_one_minus_auc}
 \title{One minus Area Under ROC Curve (AUC)}
 \usage{
-score_one_minus_auc(object, data = NULL, ...)
+score_one_minus_auc(object, data = NULL, y, ...)
 }
 \arguments{
 \item{object}{An object of class \code{explainer} created with function
@@ -12,6 +12,8 @@ score_one_minus_auc(object, data = NULL, ...)
 
 \item{data}{New data that will be used to calcuate the score.
 Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+
+\item{y}{New y parameter will be used to calculate score.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }

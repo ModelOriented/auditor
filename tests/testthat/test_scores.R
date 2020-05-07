@@ -68,7 +68,7 @@ test_that("model_performance", {
 
 
 test_that("score_auc", {
-  equals(score_auc(exp_glm, data = artifficial_classif_2[1:100,]), 0.5664392)
+  equals(score_auc(exp_glm, data = artifficial_classif_2[1:100,], y = artifficial_classif_2$y[1:100]), 0.5664392)
 })
 
 

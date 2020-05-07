@@ -35,6 +35,7 @@ score_auc <- function(object, data = NULL, y = NULL, ...) {
   if (!is.null(data)){
     object$data <- data
     object$y <- y
+    object$y_hat <- object$predict_function(object$model, data)
   }
 
   object <- model_evaluation(object)
@@ -80,6 +81,7 @@ score_auc <- function(object, data = NULL, y = NULL, ...) {
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param data New data that will be used to calcuate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @return An object of class \code{auditor_score}.
@@ -99,13 +101,13 @@ score_auc <- function(object, data = NULL, y = NULL, ...) {
 #' score_one_minus_auc(exp_glm)
 #'
 #' @export
-score_one_minus_auc <- function(object, data = NULL, ...) {
+score_one_minus_auc <- function(object, data = NULL, y, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
   # inject new data to the explainer
   if (!is.null(data)) object$data <- data
 
-  ret <- 1 - score_auc(object)$score
+  ret <- 1 - score_auc(object, data, y, ...)$score
   roc_results <- list(
     name = "one_minus_auc",
     score = ret
