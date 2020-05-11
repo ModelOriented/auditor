@@ -70,7 +70,7 @@ model_evaluation <- function(object) {
                        fpr = fpr,
                        rpp = rpp,
                        tp = tp,
-                       label = factor(object$label))
+                       label = factor(object$label), stringsAsFactors = TRUE)
 
   colnames(result) <- paste0("_", colnames(result), "_")
   class(result) <- c("auditor_model_evaluation", "data.frame")

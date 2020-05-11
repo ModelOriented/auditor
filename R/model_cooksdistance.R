@@ -33,7 +33,7 @@ model_cooksdistance <- function(object){
 
   cooksDistances <- score_cooksdistance(object)
 
-  result <- data.frame(cooksDistances, object$label, 1:length(object$y))
+  result <- data.frame(cooksDistances, object$label, 1:length(object$y), stringsAsFactors = TRUE)
   colnames(result) <- c("_cooks_dist_", "_label_", "_index_")
   result <- result[order(result[,"_cooks_dist_"], decreasing = TRUE),]
 

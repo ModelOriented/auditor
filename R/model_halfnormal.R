@@ -49,7 +49,7 @@ model_halfnormal <- function(object, quant = FALSE, ...){
 
   class(result) <- c("auditor_model_halfnormal", "data.frame")
 
-  result$`_label_` <- object$label
+  result$`_label_` <- factor(object$label)
 
   return(result)
 }

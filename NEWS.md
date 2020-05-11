@@ -5,6 +5,7 @@
 * add `arrow_size` to `plot_pca` and increase the default width value to `2`
 * add `show_rugs` to `plot_residual_density` which allows to hide the rugs layer
 * add `score_auprc` function to calculate AUPRC
+* use `stringsAsFactor=TRUE` when creating `data.frame` in `model_*()` functions 
 
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function
