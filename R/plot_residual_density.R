@@ -10,6 +10,7 @@
 #' If \code{variable = NULL}, the plot will be splitted by observation index
 #' If \code{variable = ""} plot is not splitted (default option).
 #' @param ... Other \code{auditor_model_residual} objects to be plotted together.
+#' @param show_rugs Adds rugs layer to the plot. By default it's TRUE
 #'
 #' @return A ggplot object.
 #'
@@ -43,7 +44,7 @@
 #' @rdname plot_residual_density
 #'
 #' @export
-plot_residual_density <- function(object, ..., variable = "") {
+plot_residual_density <- function(object, ..., variable = "", show_rugs = TRUE) {
   # some safeguard
   `_residuals_` <- `_label_` <- label <- div <- NULL
 
@@ -90,7 +91,6 @@ plot_residual_density <- function(object, ..., variable = "") {
 
   p <- ggplot(data = df, aes(x = `_residuals_`)) +
     geom_density(alpha = 0.3, aes(fill = `_label_`)) +
-    geom_rug(aes(color = `_label_`), alpha = 0.5, show.legend = FALSE) +
     geom_vline(xintercept = 0, colour = "darkgrey") +
     annotate("segment", x = -Inf, xend = Inf,  y = -Inf, yend = -Inf, colour = "#371ea3") +
     scale_color_manual(values = colours) +
@@ -103,6 +103,10 @@ plot_residual_density <- function(object, ..., variable = "") {
           legend.position = legend_pos,
           legend.justification = legend_just) +
     xlab("") + ylab("") + ggtitle(paste0("Residuals density by ", lab))
+
+  if (show_rugs) {
+    p <- p + geom_rug(aes(color = `_label_`), alpha = 0.5, show.legend = FALSE)
+  }
 
   if (split == FALSE) {
     p
