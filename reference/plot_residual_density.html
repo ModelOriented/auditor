@@ -168,7 +168,7 @@
     <p>Density of model residuals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_residual_density</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>""</span>)
+    <pre class="usage"><span class='fu'>plot_residual_density</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>show_rugs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>plotResidualDensity</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
@@ -191,6 +191,10 @@ passed to the <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain
 If <code>variable = "_y_hat_"</code> the plot will be splitted by predicted response.
 If <code>variable = NULL</code>, the plot will be splitted by observation index
 If <code>variable = ""</code> plot is not splitted (default option).</p></td>
+    </tr>
+    <tr>
+      <th>show_rugs</th>
+      <td><p>Adds rugs layer to the plot. By default it's TRUE</p></td>
     </tr>
     </table>
 
