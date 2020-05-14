@@ -46,8 +46,9 @@ score_auprc <- function(object, data = NULL, y = NULL, ...) {
 
   positive_num <- sum(pred_sorted$y == positive_label)
 
-  tp <- cumsum(pred_sorted==positive_label)
-  fp <- cumsum(pred_sorted==negative_label)
+
+  tp <- cumsum(pred_sorted$y == positive_label)
+  fp <- cumsum(pred_sorted$y == negative_label)
   # remove duplicates
   duplicates <- rev(duplicated(rev(pred_sorted$y_hat)))
   tp <- c(0, tp[!duplicates])

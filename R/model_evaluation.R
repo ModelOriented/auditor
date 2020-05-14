@@ -39,13 +39,23 @@ model_evaluation <- function(object) {
   df <- data.frame(y_hat = object$y_hat, y = object$y)
   df <- df[order(df$y_hat, decreasing = TRUE), ]
 
+  roc_y <- factor(df$y)
+  positive_label <- levels(roc_y)[2]
+  negative_label <- levels(roc_y)[1]
+
+
   # true & false positives
-  tp <- cumsum(df$y == TRUE)
-  fp <- cumsum(df$y == FALSE)
+  tp <- cumsum(df$y == positive_label)
+  fp <- cumsum(df$y == negative_label)
+
+  # remove duplicates
+  duplicates <- rev(duplicated(rev(df$y_hat)))
+  tp <- c(0, tp[!duplicates])
+  fp <- c(0, fp[!duplicates])
 
   # number of positives & negatives
-  n_pos <- sum(df$y == TRUE)
-  n_neg <- sum(df$y == FALSE)
+  n_pos <- sum(df$y == positive_label)
+  n_neg <- sum(df$y == negative_label)
 
   # false negatives & true negatives
   fn <- n_pos - tp
@@ -62,14 +72,20 @@ model_evaluation <- function(object) {
   # rate of positive predictions
   rpp <- (tp + fp) / (tp + fp + tn + fn)
 
+  precision <- tp / (tp + fp)
+  recall <- tp / n_pos
+
+
   # final data frame
-  result <- data.frame(y_hat = object$y_hat,
-                       y = factor(object$y),
-                       cutoffs = df$y_hat,
+  result <- data.frame(y_hat = c(0, object$y_hat[!duplicates]),
+                       y = c(0, factor(object$y)[!duplicates]),
+                       cutoffs = c(0, df$y_hat[!duplicates]),
                        tpr = tpr,
                        fpr = fpr,
                        rpp = rpp,
                        tp = tp,
+                       precision = precision,
+                       recall = recall,
                        label = factor(object$label), stringsAsFactors = TRUE)
 
   colnames(result) <- paste0("_", colnames(result), "_")
