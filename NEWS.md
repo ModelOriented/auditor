@@ -6,6 +6,7 @@
 * add `show_rugs` to `plot_residual_density` which allows to hide the rugs layer
 * add `score_auprc` function to calculate AUPRC
 * use `stringsAsFactors=TRUE` when creating `data.frame` in `model_*()` functions 
+* add `coord_fixed` to `plot_coord_fixed`
 
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function

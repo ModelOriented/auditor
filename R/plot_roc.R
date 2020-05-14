@@ -83,6 +83,7 @@ plot_roc <- function(object, ..., nlabel = NULL) {
   p + theme_drwhy() +
     theme(axis.line.x = element_line(color = "#371ea3")) +
     scale_color_manual(values = rev(colours), breaks = levels(df$`_label_`), guide = guide_legend(nrow = 1)) +
+    coord_fixed() +
     xlab("False positive fraction") +
     ylab("True positive fraction") +
     ggtitle("ROC curve")
