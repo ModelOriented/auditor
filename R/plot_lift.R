@@ -77,7 +77,8 @@ plot_lift <- function(object, ..., zeros = TRUE) {
   df1$`_ord_` <- 100 - as.numeric(df1$`_label_`)
 
   # prepare data frame for ideal and dummy model
-  pr <- sum(object$`_y_` == levels(factor(object$`_y_`))[2]) / length(object$`_y_`)
+  pr <- sum(object$`_y_` == levels(factor(object$`_y_`))[3]) / length(object$`_y_`)
+
 
   ideal_df <- data.frame(rpp = c(0, pr, 1),
                          tp = c(0, max(df1$`_tp_`), max(df1$`_tp_`)),
@@ -102,7 +103,7 @@ plot_lift <- function(object, ..., zeros = TRUE) {
   p <- ggplot(df, aes(x = `_rpp_`, y = `_tp_`)) +
     geom_line(aes(color = `_label_`,
               group = factor(`_ord_`),
-              linetype = df$line)) +
+              linetype = `line`)) +
     xlab("Rate of positive prediction") +
     ylab("True positive") +
     ggtitle("LIFT Chart") +
@@ -116,7 +117,7 @@ plot_lift <- function(object, ..., zeros = TRUE) {
   # theme and colours
   p <- p + theme_drwhy() +
     scale_color_manual(values = c(rev(colours), "#4378bf", "#ae2c87"),
-                       breaks = levels(df1$`_label_`),
+                       breaks = levels(`_label_`),
                        guide = guide_legend(nrow = 1)) +
     theme(plot.margin = unit(c(0, 0.5, 0, 0), "cm"),
           plot.title = element_text(margin = margin(b = 10)),

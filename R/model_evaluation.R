@@ -45,13 +45,13 @@ model_evaluation <- function(object) {
 
 
   # true & false positives
-  tp <- cumsum(df$y == positive_label)
-  fp <- cumsum(df$y == negative_label)
+  tp_duplicates <- cumsum(df$y == positive_label)
+  fp_duplicates <- cumsum(df$y == negative_label)
 
   # remove duplicates
   duplicates <- rev(duplicated(rev(df$y_hat)))
-  tp <- c(0, tp[!duplicates])
-  fp <- c(0, fp[!duplicates])
+  tp <- c(0, tp_duplicates[!duplicates])
+  fp <- c(0, fp_duplicates[!duplicates])
 
   # number of positives & negatives
   n_pos <- sum(df$y == positive_label)
