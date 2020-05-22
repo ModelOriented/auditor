@@ -37,10 +37,8 @@ score_auc <- function(object, data = NULL, y = NULL, ...) {
     object$y <- y
     object$y_hat <- object$predict_function(object$model, data)
   }
-
-  object <- model_evaluation(object)
-  pred <- data.frame(y_hat = object$`_y_hat_`,
-                     y = object$`_y_`)
+  pred <- data.frame(y_hat = object$`y_hat`,
+                     y = object$`y`)
   pred_sorted <- pred[order(pred$y_hat, decreasing = TRUE), ]
   roc_y <- factor(pred_sorted$y)
 
