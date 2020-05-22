@@ -10,7 +10,9 @@ audit(
   y = NULL,
   predict.function = NULL,
   residual.function = NULL,
-  label = NULL
+  label = NULL,
+  predict_function = NULL,
+  residual_function = NULL
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ audit(
 \item{residual.function}{Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\eqn{y-\hat{y}}) are calculated.}
 
 \item{label}{Character - the name of the model. By default it's extracted from the 'class' attribute of the model.}
+
+\item{predict_function}{Function that takes two arguments: model and data. It should return a numeric vector with predictions.}
+
+\item{residual_function}{Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\eqn{y-\hat{y}}) are calculated.}
 }
 \value{
 An object of class \code{explainer}.

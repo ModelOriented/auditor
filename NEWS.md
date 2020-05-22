@@ -7,6 +7,7 @@
 * add `score_auprc` function to calculate AUPRC
 * use `stringsAsFactors=TRUE` when creating `data.frame` in `model_*()` functions 
 * add `coord_fixed` to `plot_coord_fixed`
+* add `predict_funcion` and `residual_function` to `audit` function
 
 # auditor 1.2.0
 * Change `score` parameter to `type` in `score()` function

@@ -43,7 +43,7 @@
 #' @export
 plot_prc <- function(object, ..., nlabel = NULL) {
 
-  `_label_` <- `_fpr_` <- `_tpr_` <- ord <- `_cutoffs_` <- NULL
+  `_label_` <- `_fpr_` <- `_tpr_` <- ord <- `_cutoffs_` <- `_recall_` <- `_precision_` <- NULL
 
   # check if passed object is of class "modelResiduals" or "modelAudit"
   check_object(object, type = "eva")

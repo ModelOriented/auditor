@@ -9,6 +9,9 @@
 #' @param predict.function Function that takes two arguments: model and data. It should return a numeric vector with predictions.
 #' @param residual.function Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\eqn{y-\hat{y}}) are calculated.
 #' @param label Character - the name of the model. By default it's extracted from the 'class' attribute of the model.
+#' @param predict_function Function that takes two arguments: model and data. It should return a numeric vector with predictions.
+#' @param residual_function Function that takes three arguments: model, data and response vector. It should return a numeric vector with model residuals for given data. If not provided, response residuals (\eqn{y-\hat{y}}) are calculated.
+
 #'
 #' @return An object of class \code{explainer}.
 #'
@@ -36,13 +39,16 @@
 #' @importFrom DALEX explain
 #'
 #' @export
-audit <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+audit <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL,
+                  predict_function = NULL, residual_function = NULL){
   UseMethod("audit")
 }
 
 #' @export
-audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
-
+audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL,
+                          predict_function = NULL, residual_function = NULL){
+  if(is.null(predict.function))   predict.function <- predict_function
+  if(is.null(residual.function)) residual.function <- residual_function
   result <- explain(object, data = data, y = y, predict_function = predict.function,
                     label = label, residual_function = residual.function)
 
@@ -50,6 +56,7 @@ audit.default <- function(object, data=NULL, y = NULL, predict.function = NULL, 
 }
 
 #' @export
-audit.explainer <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL){
+audit.explainer <- function(object, data=NULL, y = NULL, predict.function = NULL, residual.function = NULL, label=NULL,
+                            predict_function = NULL, residual_function = NULL){
   return(object)
 }
