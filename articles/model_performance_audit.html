@@ -114,7 +114,7 @@
       <h1 data-toc-skip>Model performance audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2020-05-14</h4>
+            <h4 class="date">2020-05-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_performance_audit.Rmd"><code>vignettes/model_performance_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_performance_audit.Rmd</code></div>
@@ -191,8 +191,8 @@
 ## 7 rroc    lm 3.31e+09  1.000
 ## 8 rroc    rf 4.75e+09  1.434</code></pre>
 <p><img src="model_performance_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"># alternative:
-# plot_radar(lm_mp, rf_mp, verbose = FALSE)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_radar(lm_mp, rf_mp, verbose = FALSE)</span></pre></body></html></div>
 <p>There is a possibiliy to define functions with custom model performance measure.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">new_score</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">object</span>) <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">object</span>$<span class="no">residuals</span>)))
 

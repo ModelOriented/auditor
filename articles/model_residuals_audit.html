@@ -114,7 +114,7 @@
       <h1 data-toc-skip>Model residuals audit</h1>
                         <h4 class="author">Alicja Gosiewska, Tomasz Mikołajczyk</h4>
             
-            <h4 class="date">2020-05-14</h4>
+            <h4 class="date">2020-05-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_residuals_audit.Rmd"><code>vignettes/model_residuals_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_residuals_audit.Rmd</code></div>
@@ -186,9 +186,9 @@
 <p>First plot is a basic plot comparising predicted versus observed values. The red line corresponds to the <code>y = x</code> function. The patterns for both models are non-random around the diagonal line. The points corresponding to a random forest (darker dots) show the tendency to underprediction for large values of observed response. Points for linear model (lighter dots) are located more or less around diagonal line which means that this model predicts quite well.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"prediction"</span>, <span class="kw">abline</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"># alternatives:
-# plot_prediction(rf_mr, lm_mr, abline = TRUE)
-# plot_prediction(rf_mr, lm_mr, variable = "life_length")</pre></body></html></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># alternatives:</span>
+<span class="co"># plot_prediction(rf_mr, lm_mr, abline = TRUE)</span>
+<span class="co"># plot_prediction(rf_mr, lm_mr, variable = "life_length")</span></pre></body></html></div>
 <p>Function <code>plot_prediction</code> presents observed values on the x-axis. However, on the x-axis there may be values of any model variable or observations ordered by index (<code>variable = NULL</code>).</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">variable</span> <span class="kw">=</span> <span class="st">"scars"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"prediction"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">variable</span> <span class="kw">=</span> <span class="st">"height"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"prediction"</span>)</pre></body></html></div>
@@ -201,8 +201,8 @@
 <p>Next function (<code><a href="../reference/plot_residual.html">plot_residual()</a></code>) shows residuals versus observed values. This plot is used to detect dependence of errors, unequal error variances, and outliers. For appropriate model, residuals should not show any functional dependency. Expected mean value should be equal to 0, regardless of <span class="math inline">\(\hat{y}\)</span> values, so any structured arrangement of points suggests a problem with the model. It is worth looking at the observations that clearly differ from the others. If points on the plot are not randomly dispersed around the horizontal axis, it may be presumed that model is not appropriate for the data.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lm_mr</span>, <span class="no">rf_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"residual"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"># alternative:
-# plot_residual(lm_mr, rf_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_residual(lm_mr, rf_mr)</span></pre></body></html></div>
 <p>Values (residuals) may also be ordered by target variable, fitted values, any other variable or may be presented unordered.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"residual"</span>, <span class="kw">variable</span> <span class="kw">=</span> <span class="st">"_y_hat_"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"residual"</span>, <span class="kw">variable</span> <span class="kw">=</span> <span class="st">"scars"</span>)
@@ -213,7 +213,7 @@
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-1.png" width="50%"><img src="model_residuals_audit_files/figure-html/unnamed-chunk-7-2.png" width="50%"></p>
 <p>In all examples above, we can see that linear model is better fitted for the data than random forest, because for the latter one greater values of selected variables residuals are also geater. Additionaly, we can identify most outlying observations:</p>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"># plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)</span></pre></body></html></div>
 </div>
 <div id="density-of-residuals" class="section level3">
 <h3 class="hasAnchor">
@@ -221,8 +221,8 @@
 <p>Residual density plot (<code><a href="../reference/plot_residual_density.html">plot_residual_density()</a></code>) detects the incorrect behavior of residuals. The funcion returns plot with estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density could be derived from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals residual density plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"residual_density"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"># alternative
-# plot_residual_density(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># alternative</span>
+<span class="co"># plot_residual_density(rf_mr, lm_mr)</span></pre></body></html></div>
 <p>Residuals may be also divided by values of a choosen variable (median of a numeric variable or levels of a factor).</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_residual_density.html">plot_residual_density</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">variable</span> <span class="kw">=</span> <span class="st">"colour"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
@@ -239,8 +239,8 @@
 <p><code>auditor</code> adds another component to the boxplot which is the root mean square error (RMSE) measure, shown as <code>X</code>. For the appropriate model, box should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spreaded (worse) than linear one.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lm_mr</span>, <span class="no">rf_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"residual_boxplot"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"># alternative
-# plot_residual_boxplot(lm_mr, rf_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># alternative</span>
+<span class="co"># plot_residual_boxplot(lm_mr, rf_mr)</span></pre></body></html></div>
 </div>
 <div id="autocorrelation-function-of-residuals" class="section level3">
 <h3 class="hasAnchor">
@@ -248,8 +248,8 @@
 <p>Function <code><a href="../reference/plot_acf.html">plot_acf()</a></code> creates plot which is helpful in checking randomness of errors. If errors are random, autocorrelations should be near zero for lag separations. If they are non random, then autocorrelations will be significantly higher than zero. The vertical dashed lines indicate boundaries, where autocorrelations are significantly different than zero.</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"acf"</span>, <span class="kw">variable</span> <span class="kw">=</span> <span class="st">"year_of_discovery"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"># alternative:
-# plot_acf(lm_mr, variable = "year_of_discovery")</pre></body></html></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_acf(lm_mr, variable = "year_of_discovery")</span></pre></body></html></div>
 </div>
 <div id="autocorrelation-of-residuals" class="section level3">
 <h3 class="hasAnchor">
@@ -257,8 +257,8 @@
 <p>Autocorrelation plot (<code><a href="../reference/plot_autocorrelation.html">plot_autocorrelation()</a></code>) shows correlation of <em>i-th</em> vs <em>i+1-th</em> residuals. This plot may be useful for checking autocorrelation of residuals.</p>
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"autocorrelation"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"># alternative:
-# plot_autocorrelation(rf_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_autocorrelation(rf_mr)</span></pre></body></html></div>
 <p>….. ….. ….. …. ….. Sometimes it migth be difficult to compare two models relying only on visualization. Therefore, two following additional scores may be useful for choosing a better model; scores are based on <em>Durbin-Watson</em> and <em>Runs</em> test statistics. Scores can be calculated with <code><a href="../reference/score_dw.html">score_dw()</a></code> and <code><a href="../reference/score_runs.html">score_runs()</a></code> functions (or the <code><a href="../reference/score.html">score()</a></code> function with <code>score = "dw"</code> or <code>score = "runs"</code>). ….. ….. ….. …. …..</p>
 <div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/score_dw.html">score_dw</a></span>(<span class="no">rf_exp</span>)$<span class="no">score</span></pre></body></html></div>
 <pre><code>## [1] 1.951918</code></pre>
@@ -271,8 +271,8 @@
 <p>Function <code><a href="../reference/plot_correlation.html">plot_correlation()</a></code> returns grid of plots with correlation of dependent variable and fitted values of model(s). In the diagonal, there are estimated densities; in the upper triangle two kind of correlations: (1) between models and (2) between predicted and observed values. In the lower triangle, there are scatter plots of these values.</p>
 <div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"correlation"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"># alternative:
-# plot_correlation(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_correlation(rf_mr, lm_mr)</span></pre></body></html></div>
 </div>
 <div id="principal-component-analysis-pca-of-models" class="section level3">
 <h3 class="hasAnchor">
@@ -280,8 +280,8 @@
 <p>Function <code><a href="../reference/plot_pca.html">plot_pca()</a></code> can be used to assess the similarity of the models in terms of residuals. The idea of PCA is reducing the dimension of the data set matrix by creating a set of linearly uncorrelated variables called principal components. At the same time, keeping as much variance as possible. Model PCA plot is a biplot. On axis of the plot, there are first two principal components. Grey dots represent observations. Arrows are pointing in the direction of the models projected into a two-dimensional space. The interposition of arrows provides information about the similarity of models in terms of residuals. If they are close to each other, it indicates similar residuals structures.</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"pca"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"># alternative:
-# plot_pca(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_pca(rf_mr, lm_mr)</span></pre></body></html></div>
 </div>
 <div id="regression-error-characteristic-curve-rec" class="section level3">
 <h3 class="hasAnchor">
@@ -289,8 +289,8 @@
 <p>Error characteristic curves are a generalization of ROC curves. On the x-axis of the plot there is an error tolerance and on the y axis there is a percentage of observations predicted within the given tolerance. REC curve estimates the cumulative distribution function (CDF) of the error. Area over the REC curve is a biased estimate of the expected error.</p>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"rec"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"># alternative:
-# plot_rec(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_rec(rf_mr, lm_mr)</span></pre></body></html></div>
 </div>
 <div id="regression-receiver-operating-characteristic-rroc" class="section level3">
 <h3 class="hasAnchor">
@@ -301,8 +301,8 @@
 <p>The area over the RROC curve (AOC) equals to the variance of the errors multiplied by .</p>
 <div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"rroc"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"># alternative:
-# plot_rroc(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_rroc(rf_mr, lm_mr)</span></pre></body></html></div>
 </div>
 <div id="scale-location" class="section level3">
 <h3 class="hasAnchor">
@@ -310,8 +310,8 @@
 <p>This plot shows if residuals are spread equally along the ranges of predictors. The presence of any trend suggests that the variance depends on fitted values, which is against the assumption of homoscedasticity. Not every model has an explicit assumption of homogeneous variance, however, the heteroscedasticity may indicates potential problems with the goodness-of-fit.</p>
 <div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"scalelocation"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"># alternative:
-# plot_scalelocation(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="co"># alternative:</span>
+<span class="co"># plot_scalelocation(rf_mr, lm_mr)</span></pre></body></html></div>
 </div>
 <div id="two-sided-empirical-cumulative-distribution-function-tsecdf" class="section level3">
 <h3 class="hasAnchor">
@@ -319,8 +319,8 @@
 <p>Cumulative distribution function for positive and negative residuals. The plot shows the distribution of residuals divided into groups with positive and negative values. It helps to identify the asymmetry of the residuals. Points represent residuals.</p>
 <div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rf_mr</span>, <span class="no">lm_mr</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"tsecdf"</span>)</pre></body></html></div>
 <p><img src="model_residuals_audit_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"># alternative
-# plot_tsecdf(rf_mr, lm_mr)</pre></body></html></div>
+<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="co"># alternative</span>
+<span class="co"># plot_tsecdf(rf_mr, lm_mr)</span></pre></body></html></div>
 </div>
 </div>
 <div id="other-methods" class="section level2">
