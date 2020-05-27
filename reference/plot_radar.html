@@ -201,8 +201,7 @@ each score is inversed and divided by maximum score value.</p>
 <span class='co'># fit a model</span>
 <span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
 
-<span class='co'># use DALEX package to wrap up a model into explainer</span>
-<span class='no'>exp_lm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>lm_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
@@ -213,13 +212,12 @@ each score is inversed and divided by maximum score value.</p>
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
-<span class='no'>mp_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_lm</span>)
+<span class='no'>mp_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>lm_audit</span>)
 
 
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>randomForest</span>)
 <span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='no'>life_length</span>~<span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
-<span class='no'>exp_rf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>rf_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  randomForest  ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
@@ -228,7 +226,7 @@ each score is inversed and divided by maximum score value.</p>
 #&gt;   -&gt; predicted values  :  numerical, min =  772.684 , mean =  1341.553 , max =  2468.115  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -186.118 , mean =  6.233916 , max =  430.3058  
-#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_rf</span>)
+#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>rf_audit</span>)
 
 <span class='co'># plot results</span>
 <span class='fu'>plot_radar</span>(<span class='no'>mp_lm</span>, <span class='no'>mp_rf</span>)</div><div class='output co'>#&gt; <span class='error'>Error in check_object(object, type = "prfm"): The function requires an object created with function model_performance(). Please, see the current workflow in the paper https://arxiv.org/abs/1809.07763</span></div><div class='input'>

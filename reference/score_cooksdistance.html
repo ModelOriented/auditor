@@ -213,7 +213,7 @@ so this may take a while.</p>
 <span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
 
 <span class='co'># create an explainer</span>
-<span class='no'>exp_lm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>lm_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
@@ -224,7 +224,7 @@ so this may take a while.</p>
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># calculate score</span>
-<span class='fu'>score_cooksdistance</span>(<span class='no'>exp_lm</span>)</div><div class='output co'>#&gt;            1            2            3            4            5            6 
+<span class='fu'>score_cooksdistance</span>(<span class='no'>lm_audit</span>)</div><div class='output co'>#&gt;            1            2            3            4            5            6 
 #&gt; 1.002101e-04 3.242611e-02 1.890841e-02 5.501554e-03 6.016306e-04 2.355311e-02 
 #&gt;            7            8            9           10           11           12 
 #&gt; 2.544244e-01 2.244365e-02 9.949426e-03 1.355185e-04 4.031547e-02 1.108980e-03 

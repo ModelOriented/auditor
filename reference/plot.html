@@ -240,8 +240,7 @@ or <code>auditor_model_halfnormal</code> (created with <code><a href='model_half
 <span class='co'># fit a model</span>
 <span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
 
-<span class='co'># use DALEX package to wrap up a model into explainer</span>
-<span class='no'>exp_lm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>lm_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
@@ -252,15 +251,14 @@ or <code>auditor_model_halfnormal</code> (created with <code><a href='model_half
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
-<span class='no'>mr_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>exp_lm</span>)
+<span class='no'>mr_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>lm_audit</span>)
 
 <span class='co'># plot results</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr_lm</span>)</div><div class='img'><img src='plot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr_lm</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prediction"</span>)</div><div class='img'><img src='plot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>hn_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_halfnormal.html'>model_halfnormal</a></span>(<span class='no'>exp_lm</span>)</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>hn_lm</span>)</div><div class='img'><img src='plot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>hn_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_halfnormal.html'>model_halfnormal</a></span>(<span class='no'>lm_audit</span>)</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>hn_lm</span>)</div><div class='img'><img src='plot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>randomForest</span>)
 <span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='no'>life_length</span>~<span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
-<span class='no'>exp_rf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>rf_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  randomForest  ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
@@ -270,8 +268,8 @@ or <code>auditor_model_halfnormal</code> (created with <code><a href='model_half
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -182.6588 , mean =  4.690216 , max =  414.6413  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
-<span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_rf</span>)
-<span class='no'>mp_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>exp_lm</span>)
+<span class='no'>mp_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>rf_audit</span>)
+<span class='no'>mp_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_performance.html'>model_performance</a></span>(<span class='no'>lm_audit</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mp_lm</span>, <span class='no'>mp_rf</span>)</div><div class='img'><img src='plot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>
   </div>

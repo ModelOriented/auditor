@@ -194,10 +194,9 @@
     <p>list with statistics for particualar checks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>DALEX</span>)
-<span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+    <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
 <span class='no'>lm_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
-<span class='no'>lm_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='no'>lm_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>lm_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
@@ -206,8 +205,7 @@
 #&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
-#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>auditor</span>)
-<span class='fu'>check_residuals</span>(<span class='no'>lm_exp</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
+#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='fu'>check_residuals</span>(<span class='no'>lm_audit</span>)</div><div class='output co'>#&gt;   -----------------------------------------------
 #&gt;    Checks for autocorrelation
 #&gt;   -----------------------------------------------
 #&gt;     Model name:  lm 
@@ -230,8 +228,8 @@
 #&gt;     Standardised loess fit:  +0.54      </div><div class='input'> <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"randomForest"</span>)
  <span class='no'>rf_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
- <span class='no'>rf_exp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)
- <span class='fu'>check_residuals</span>(<span class='no'>rf_exp</span>)
+ <span class='no'>rf_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>rf_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)
+ <span class='fu'>check_residuals</span>(<span class='no'>rf_audit</span>)
 }</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
