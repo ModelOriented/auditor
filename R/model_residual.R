@@ -19,14 +19,12 @@
 #' # fit a model
 #' model_glm <- glm(m2.price ~ ., data = apartments)
 #'
-#' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- explain(model_glm,
+#' glm_audit <- explain(model_glm,
 #'                    data = apartments,
 #'                    y = apartments$m2.price)
 #'
 #' # validate a model with auditor
-#' library(auditor)
-#' mr <- model_residual(exp_glm)
+#' mr <- model_residual(glm_audit)
 #' mr
 #'
 #' plot(mr)

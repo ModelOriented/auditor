@@ -39,7 +39,7 @@ An object of class \code{explainer}.
 The \code{audit()} function is deprecated, use \code{\link[DALEX]{explain}} from the \code{DALEX} package instead.
 }
 \examples{
-library(DALEX)
+data(titanic_imputed, package = "DALEX")
 
 model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 audit_glm <- audit(model_glm,

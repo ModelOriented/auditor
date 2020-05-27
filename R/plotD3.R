@@ -27,18 +27,16 @@
 #' # fit a model
 #' model_lm <- lm(life_length ~ ., data = dragons)
 #'
-#' # use DALEX package to wrap up a model into explainer
-#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
-#' library(auditor)
-#' mr_lm <- model_residual(exp_lm)
+#' mr_lm <- model_residual(lm_audit)
 #'
 #' # plot results
 #' plotD3(mr_lm)
 #' plotD3(mr_lm, type = "prediction")
 #'
-#' hn_lm <- model_halfnormal(exp_lm)
+#' hn_lm <- model_halfnormal(lm_audit)
 #' plotD3(hn_lm)
 #'
 #'

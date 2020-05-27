@@ -18,7 +18,7 @@
 #' @importFrom stats model.frame sd
 #'
 #' @examples
-#' library(DALEX)
+#' data(titanic_imputed, package = "DALEX")
 #'
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #' audit_glm <- audit(model_glm,

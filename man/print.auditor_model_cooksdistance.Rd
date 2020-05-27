@@ -21,9 +21,9 @@ dragons <- DALEX::dragons[1:100, ]
 model_lm <- lm(life_length ~ ., data = dragons)
 
 # create an explainer
-exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 
 # calculate score
-model_cooksdistance(exp_lm)
+model_cooksdistance(lm_audit)
 
 }

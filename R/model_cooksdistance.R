@@ -10,19 +10,18 @@
 #' @return An object of the class \code{auditor_model_cooksdistance}.
 #'
 #' @examples
-#' library(DALEX)
+#' data(titanic_imputed, package = "DALEX")
 #'
 #' # fit a model
 #' model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_glm <- explain(model_glm,
+#' glm_audit <- audit(model_glm,
 #'                    data = titanic_imputed,
 #'                    y = titanic_imputed$survived)
 #'
 #' # validate a model with auditor
-#' library(auditor)
-#' mc <- model_cooksdistance(exp_glm)
+#' mc <- model_cooksdistance(glm_audit)
 #' mc
 #'
 #' plot(mc)

@@ -20,19 +20,18 @@ Calculates Cook's distances for each observation.
 Please, note that it will work only for functions with specified \code{update} method.
 }
 \examples{
-library(DALEX)
+data(titanic_imputed, package = "DALEX")
 
 # fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 
 # use DALEX package to wrap up a model into explainer
-exp_glm <- explain(model_glm,
+glm_audit <- audit(model_glm,
                    data = titanic_imputed,
                    y = titanic_imputed$survived)
 
 # validate a model with auditor
-library(auditor)
-mc <- model_cooksdistance(exp_glm)
+mc <- model_cooksdistance(glm_audit)
 mc
 
 plot(mc)

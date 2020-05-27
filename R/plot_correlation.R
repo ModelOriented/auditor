@@ -17,16 +17,15 @@
 #' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
-#' library(auditor)
-#' mr_lm <- model_residual(exp_lm)
+#' mr_lm <- model_residual(lm_audit)
 #'
 #' library(randomForest)
 #' model_rf <- randomForest(life_length~., data = dragons)
-#' exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
-#' mr_rf <- model_residual(exp_rf)
+#' rf_audit <- audit(model_rf, data = dragons, y = dragons$life_length)
+#' mr_rf <- model_residual(rf_audit)
 #'
 #' # plot results
 #' plot_correlation(mr_lm, mr_rf)

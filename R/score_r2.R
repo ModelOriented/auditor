@@ -20,11 +20,10 @@
 #' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # use DALEX package to wrap up a model into explainer
-#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # calculate score with auditor
-#' library(auditor)
-#' score_r2(exp_lm)
+#' score_r2(lm_audit)
 #'
 #' @seealso \code{\link{score}}
 #'

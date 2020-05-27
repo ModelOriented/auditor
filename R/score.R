@@ -29,11 +29,10 @@
 #' # fit a model
 #' model_lm <- lm(life_length ~ ., data = dragons)
 #'
-#' # use DALEX package to wrap up a model into explainer
-#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # calculate score
-#' score(exp_lm, type = 'mae')
+#' score(lm_audit, type = 'mae')
 #'
 #' @export
 #' @rdname score

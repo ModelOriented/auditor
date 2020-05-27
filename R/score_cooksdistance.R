@@ -25,10 +25,10 @@
 #' model_lm <- lm(life_length ~ ., data = dragons)
 #'
 #' # create an explainer
-#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # calculate score
-#' score_cooksdistance(exp_lm)
+#' score_cooksdistance(lm_audit)
 #'
 #'
 #' @importFrom stats cooks.distance update

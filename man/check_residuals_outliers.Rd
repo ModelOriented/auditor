@@ -18,10 +18,8 @@ indexes of lowest and highest standardized  residuals
 Checks for outliers
 }
 \examples{
-library(DALEX)
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-library(auditor)
-lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
-check_residuals_outliers(lm_exp)
+lm_audit <- audit(lm_model, data = dragons, y = dragons$life_length)
+check_residuals_outliers(lm_audit)
 }

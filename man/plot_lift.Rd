@@ -24,30 +24,28 @@ LIFT is a plot of the rate of positive prediction against true positive rate for
 It is useful for measuring and comparing the accuracy of the classificators.
 }
 \examples{
-library(DALEX)
+data(titanic_imputed, package = "DALEX")
 
 # fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 
-# use DALEX package to wrap up a model into explainer
-exp_glm <- explain(model_glm,
+glm_audit <- audit(model_glm,
                    data = titanic_imputed,
                    y = titanic_imputed$survived)
 
 # validate a model with auditor
-library(auditor)
-eva_glm <- model_evaluation(exp_glm)
+eva_glm <- model_evaluation(glm_audit)
 
 # plot results
 plot_lift(eva_glm)
 plot(eva_glm, type ="lift")
 
 model_glm_2 <- glm(survived ~ .-age, family = binomial, data = titanic_imputed)
-exp_glm_2 <- explain(model_glm_2,
+glm_audit_2 <- audit(model_glm_2,
                      data = titanic_imputed,
                      y = titanic_imputed$survived,
                      label = "glm2")
-eva_glm_2 <- model_evaluation(exp_glm_2)
+eva_glm_2 <- model_evaluation(glm_audit_2)
 
 plot_lift(eva_glm, eva_glm_2)
 plot(eva_glm, eva_glm_2, type = "lift")

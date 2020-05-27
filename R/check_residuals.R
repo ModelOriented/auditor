@@ -14,17 +14,15 @@
 #' @importFrom  utils head tail
 #'
 #' @examples
-#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
-#' library(auditor)
-#' check_residuals(lm_exp)
+#' lm_audit <- audit(lm_model, data = dragons, y = dragons$life_length)
+#' check_residuals(lm_audit)
 #'  \dontrun{
 #'  library("randomForest")
 #'  rf_model <- randomForest(life_length ~ ., data = dragons)
-#'  rf_exp <- explain(rf_model, data = dragons, y = dragons$life_length)
-#'  check_residuals(rf_exp)
+#'  rf_audit <- audit(rf_model, data = dragons, y = dragons$life_length)
+#'  check_residuals(rf_audit)
 #' }
 check_residuals <- function(object, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
@@ -47,14 +45,12 @@ check_residuals <- function(object, ...) {
 #' @export
 #'
 #' @examples
-#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' library(auditor)
-#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
-#' check_residuals_outliers(lm_exp)
+#' lm_audit <- audit(lm_model, data = dragons, y = dragons$life_length)
+#' check_residuals_outliers(lm_audit)
 check_residuals_outliers <- function(object, n = 5) {
-  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with audit() function.")
 
 
   model_name <- object$label
@@ -95,14 +91,12 @@ check_residuals_outliers <- function(object, n = 5) {
 #' @export
 #'
 #' @examples
-#' library(DALEX)
 #' dragons <- DALEX::dragons[1:100, ]
 #' lm_model <- lm(life_length ~ ., data = dragons)
-#' lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
-#' library(auditor)
-#' check_residuals_autocorrelation(lm_exp)
+#' lm_audit <- audit(lm_model, data = dragons, y = dragons$life_length)
+#' check_residuals_autocorrelation(lm_audit)
 check_residuals_autocorrelation <- function(object, method = "pearson") {
-  if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
+  if(!("explainer" %in% class(object))) stop("The function requires an object created with audit().")
 
   model_name <- object$label
 

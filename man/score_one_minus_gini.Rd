@@ -26,18 +26,17 @@ One minus Gini COefficient
 0 expresses maximal inequality of values.
 }
 \examples{
-library(DALEX)
+data(titanic_imputed, package = "DALEX")
 
 # fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 
-# create an explainer
-exp_glm <- explain(model_glm,
+glm_audit <- audit(model_glm,
                    data = titanic_imputed,
                    y = titanic_imputed$survived)
 
 # calculate score
-score_one_minus_gini(exp_glm)
+score_one_minus_gini(glm_audit)
 
 
 }

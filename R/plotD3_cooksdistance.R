@@ -29,12 +29,10 @@
 #' # fit a model
 #' model_lm <- lm(life_length ~ ., data = dragons)
 #'
-#' # use DALEX package to wrap up a model into explainer
-#' exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 #'
 #' # validate a model with auditor
-#' library(auditor)
-#' cd_lm <- model_cooksdistance(exp_lm)
+#' cd_lm <- model_cooksdistance(lm_audit)
 #'
 #' # plot results
 #' plotD3_cooksdistance(cd_lm, nlabel = 5)

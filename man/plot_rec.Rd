@@ -34,18 +34,17 @@ dragons <- DALEX::dragons[1:100, ]
 model_lm <- lm(life_length ~ ., data = dragons)
 
 # use DALEX package to wrap up a model into explainer
-exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 
 # validate a model with auditor
-library(auditor)
-mr_lm <- model_residual(exp_lm)
+mr_lm <- model_residual(lm_audit)
 plot_rec(mr_lm)
 plot(mr_lm, type = "rec")
 
 library(randomForest)
 model_rf <- randomForest(life_length~., data = dragons)
-exp_rf <- DALEX::explain(model_rf, data = dragons, y = dragons$life_length)
-mr_rf <- model_residual(exp_rf)
+rf_audit <- audit(model_rf, data = dragons, y = dragons$life_length)
+mr_rf <- model_residual(rf_audit)
 plot_rec(mr_lm, mr_rf)
 plot(mr_lm, mr_rf, type = "rec")
 

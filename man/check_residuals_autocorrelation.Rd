@@ -18,10 +18,8 @@ autocorrelation between target variable and between residuals
 Checks for autocorrelation in target variable or in residuals
 }
 \examples{
-library(DALEX)
 dragons <- DALEX::dragons[1:100, ]
 lm_model <- lm(life_length ~ ., data = dragons)
-lm_exp <- explain(lm_model, data = dragons, y = dragons$life_length)
-library(auditor)
-check_residuals_autocorrelation(lm_exp)
+lm_audit <- audit(lm_model, data = dragons, y = dragons$life_length)
+check_residuals_autocorrelation(lm_audit)
 }

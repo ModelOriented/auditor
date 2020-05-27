@@ -32,11 +32,10 @@ dragons <- DALEX::dragons[1:100, ]
 # fit a model
 model_lm <- lm(life_length ~ ., data = dragons)
 
-# create an explainer
-exp_lm <- DALEX::explain(model_lm, data = dragons, y = dragons$life_length)
+lm_audit <- audit(model_lm, data = dragons, y = dragons$life_length)
 
 # calculate score
-score_mse(exp_lm)
+score_mse(lm_audit)
 
 }
 \seealso{

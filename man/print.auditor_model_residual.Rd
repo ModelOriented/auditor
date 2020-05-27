@@ -15,18 +15,16 @@
 Prints Model Residual Summary
 }
 \examples{
-library(DALEX)
+data(titanic_imputed, package = "DALEX")
 
 # fit a model
 model_glm <- glm(survived ~ ., family = binomial, data = titanic_imputed)
 
-# use DALEX package to wrap up a model into explainer
-exp_glm <- explain(model_glm,
+glm_audit <- audit(model_glm,
                    data = titanic_imputed,
                    y = titanic_imputed$survived)
 
 # validate a model with auditor
-library(auditor)
-model_residual(exp_glm)
+model_residual(glm_audit)
 
 }

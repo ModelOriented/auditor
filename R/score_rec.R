@@ -19,10 +19,10 @@
 #' lm_model <- lm(life_length ~ ., data = dragons)
 #'
 #' # create an explainer
-#' lm_exp <- DALEX::explain(lm_model, data = dragons, y = dragons$life_length)
+#' lm_audit <- audit(lm_model, data = dragons, y = dragons$life_length)
 #'
 #' # calculate score
-#' score_rec(lm_exp)
+#' score_rec(lm_audit)
 #'
 #'
 #' @seealso \code{\link{plot_rec}}
