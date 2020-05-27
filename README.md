@@ -16,6 +16,8 @@ influential observations. The examination is carried out by diagnostic
 scores and visual verification. Due to the flexible and consistent
 grammar, it is simple to validate models of any classes.
 
+[An up-to-date paper about auditor](https://arxiv.org/abs/1809.07763) and [a shorter version in The R-Journal](https://journal.r-project.org/).
+
 `auditor` is a part of [DrWhy](drwhy.ai) collection of tools for Visual
 Exploration, Explanation and Debugging of Predictive Models.
 
