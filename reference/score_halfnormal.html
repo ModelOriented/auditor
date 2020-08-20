@@ -178,9 +178,9 @@ for i-th observation, and \(n\) is the number of simulations for each observatio
 Scores are calculated on the basis of simulated data, so they may differ between function calls.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score_halfnormal</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>score_halfnormal</span>(<span class='kw'>object</span>, <span class='kw'>...</span>)
 
-<span class='fu'>scoreHalfNormal</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>scoreHalfNormal</span>(<span class='kw'>object</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,25 +201,24 @@ Scores are calculated on the basis of simulated data, so they may differ between
     <p>An object of class <code>auditor_score</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+    <pre class="examples"><div class='input'><span class='kw'>dragons</span> <span class='op'>&lt;-</span> <span class='kw'>DALEX</span>::<span class='kw'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, ]
 
 <span class='co'># fit a model</span>
-<span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+<span class='kw'>model_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>life_length</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>dragons</span>)
 
 <span class='co'># create an explainer</span>
-<span class='no'>lm_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='kw'>lm_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='kw'>model_lm</span>, data = <span class='kw'>dragons</span>, y = <span class='kw'>dragons</span><span class='op'>$</span><span class='kw'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
-#&gt;   -&gt; model_info        :  package stats , ver. 4.0.0 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.lm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
+#&gt;   -&gt; model_info        :  package stats , ver. 4.0.2 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># calculate score</span>
-<span class='fu'>score_halfnormal</span>(<span class='no'>lm_audit</span>)</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='output co'>#&gt; halfnormal: NA</div><div class='input'>
-
+<span class='fu'>score_halfnormal</span>(<span class='kw'>lm_audit</span>)</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='output co'>#&gt; halfnormal: NA</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

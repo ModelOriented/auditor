@@ -170,9 +170,9 @@ PCA can be used to assess the similarity of the models." />
 PCA can be used to assess the similarity of the models.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>arrow_size</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='kw'>object</span>, <span class='kw'>...</span>, scale = <span class='fl'>TRUE</span>, arrow_size = <span class='fl'>2</span>)
 
-<span class='fu'>plotModelPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>plotModelPCA</span>(<span class='kw'>object</span>, <span class='kw'>...</span>, scale = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,40 +200,39 @@ PCA can be used to assess the similarity of the models.</p>
     <p>A ggplot object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dragons</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DALEX</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+    <pre class="examples"><div class='input'><span class='kw'>dragons</span> <span class='op'>&lt;-</span> <span class='kw'>DALEX</span>::<span class='kw'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, ]
 
 <span class='co'># fit a model</span>
-<span class='no'>model_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>life_length</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
+<span class='kw'>model_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>life_length</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>dragons</span>)
 
-<span class='no'>lm_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='kw'>lm_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='kw'>model_lm</span>, data = <span class='kw'>dragons</span>, y = <span class='kw'>dragons</span><span class='op'>$</span><span class='kw'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
-#&gt;   -&gt; model_info        :  package stats , ver. 4.0.0 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.lm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
+#&gt;   -&gt; model_info        :  package stats , ver. 4.0.2 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
 #&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
-<span class='no'>mr_lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>lm_audit</span>)
+<span class='kw'>mr_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='kw'>lm_audit</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>randomForest</span>)
-<span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='no'>life_length</span>~<span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>)
-<span class='no'>rf_audit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dragons</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>dragons</span>$<span class='no'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://www.stat.berkeley.edu/~breiman/RandomForests'>randomForest</a></span>)
+<span class='kw'>model_rf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='kw'>life_length</span><span class='op'>~</span><span class='kw'>.</span>, data = <span class='kw'>dragons</span>)
+<span class='kw'>rf_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='kw'>model_rf</span>, data = <span class='kw'>dragons</span>, y = <span class='kw'>dragons</span><span class='op'>$</span><span class='kw'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
 #&gt;   -&gt; model label       :  randomForest  ( </span><span style='color: #BBBB00;'> default </span><span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
-#&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; predicted values  :  numerical, min =  770.6337 , mean =  1341.729 , max =  2461.573  
+#&gt;   -&gt; predicted values  :  numerical, min =  770.5787 , mean =  1342.365 , max =  2464.287  
+#&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
 #&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -198.4193 , mean =  6.057629 , max =  436.8473  
-#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='no'>mr_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='no'>rf_audit</span>)
+#&gt;   -&gt; residuals         :  numerical, min =  -196.5822 , mean =  5.422366 , max =  434.1335  
+#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'><span class='kw'>mr_rf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='kw'>rf_audit</span>)
 
 <span class='co'># plot results</span>
-<span class='fu'>plot_pca</span>(<span class='no'>mr_lm</span>, <span class='no'>mr_rf</span>)</div><div class='img'><img src='plot_pca-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></span></pre>
+<span class='fu'>plot_pca</span>(<span class='kw'>mr_lm</span>, <span class='kw'>mr_rf</span>)</div><div class='img'><img src='plot_pca-1.png' alt='' width='700' height='433' /></div><div class='input'></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

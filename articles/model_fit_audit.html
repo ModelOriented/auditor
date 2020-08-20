@@ -108,13 +108,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="model_fit_audit_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Model fit audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2020-05-28</h4>
+            <h4 class="date">2020-08-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_fit_audit.Rmd"><code>vignettes/model_fit_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_fit_audit.Rmd</code></div>
@@ -131,8 +131,10 @@
 <a href="#use-case---regression-problem" class="anchor"></a>Use-case - regression problem</h1>
 <p>We demonstrate the use of half-normal plots for a generalized linear models. We will use dataset corn from the <code>hnp</code> package. For more details on the data set and models see <a href="https://www.jstatsoft.org/article/view/v081i10">Moral, R., Hinde, J., &amp; Demétrio, C. (2017). <em>Half-Normal Plots and Overdispersed Models in R: The hnp Package</em></a>.</p>
 <p>By default, deviance residuals were used as diagnostic values.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">corn</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"hnp"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">corn</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">corn</span>, package = <span class="st">"hnp"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">corn</span>)
+</pre></div>
 <pre><code>##   extract  m  y
 ## 1    leaf 35 26
 ## 2    leaf 36 25
@@ -150,24 +152,34 @@
 <h2 class="hasAnchor">
 <a href="#binomial-model" class="anchor"></a>Binomial model</h2>
 <p>First step of auditing is fitting a model and creating an <code>explainer</code> object with <code>DALEX</code> package which wraps up a model with meta-data.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123</span>)
-<span class="no">model_bin</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">y</span>, <span class="no">m</span> - <span class="no">y</span>) ~ <span class="no">extract</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="no">binomial</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">corn</span>)
-<span class="no">bin_exp</span> <span class="kw">&lt;-</span> <span class="kw pkg">DALEX</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="no">model_bin</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">corn</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">corn</span>$<span class="no">y</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123</span>)
+<span class="kw">model_bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="kw">y</span>, <span class="kw">m</span> <span class="op">-</span> <span class="kw">y</span>) <span class="op">~</span> <span class="kw">extract</span>, family = <span class="kw">binomial</span>, data = <span class="kw">corn</span>)
+<span class="kw">bin_exp</span> <span class="op">&lt;-</span> <span class="kw">DALEX</span>::<span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="kw">model_bin</span>, data = <span class="kw">corn</span>, y = <span class="kw">corn</span><span class="op">$</span><span class="kw">y</span>)
+</pre></div>
 <p>Second step is creating <code><a href="../reference/model_halfnormal.html">model_halfnormal()</a></code> object that can be further used for validating a model.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">auditor</span>)
-<span class="no">bin_hnp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(<span class="no">bin_exp</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/ModelOriented/auditor">auditor</a></span>)
+<span class="kw">bin_hnp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(<span class="kw">bin_exp</span>)
+</pre></div>
 <pre><code>## Binomial model</code></pre>
 </div>
 <div id="half-normal-plot-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#half-normal-plot-1" class="anchor"></a>Half-normal plot</h2>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bin_hnp</span>, <span class="kw">sim</span> <span class="kw">=</span> <span class="fl">500</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">bin_hnp</span>, sim = <span class="fl">500</span>)
+</pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># or</span>
-<span class="co"># plot_halfnormal(bin_hnp, sim = 500)</span></pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="co"># or</span>
+<span class="co"># plot_halfnormal(bin_hnp, sim = 500)</span>
+</pre></div>
 <p>It doesn’t fit because of the overdispersion in data.</p>
 <p>In function <code>plot_halfnormal</code> there is also a posibility to draw half-normal plot on a quantile scale:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bin_hnp</span>, <span class="kw">quantiles</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">bin_hnp</span>, quantiles = <span class="fl">TRUE</span>)
+</pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 </div>
@@ -175,11 +187,13 @@
 <h1 class="hasAnchor">
 <a href="#use-caes-classification" class="anchor"></a>Use-caes (classification)</h1>
 <p>Half-normal plots work also for classification tasks. In this case we consider the differences between observed class and predicted probabilities to be residuals.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">randomForest</span>)
-<span class="no">iris_rf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(<span class="no">Species</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">iris</span>)
-<span class="no">iris_rf_exp</span> <span class="kw">&lt;-</span> <span class="kw pkg">DALEX</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="no">iris_rf</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">iris</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">iris</span>$<span class="no">Species</span>) - <span class="fl">1</span>)
-<span class="no">iris_rf_hnp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(<span class="no">iris_rf_exp</span>)
-<span class="fu"><a href="../reference/plot_halfnormal.html">plot_halfnormal</a></span>(<span class="no">iris_rf_hnp</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests">randomForest</a></span>)
+<span class="kw">iris_rf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(<span class="kw">Species</span> <span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">iris</span>)
+<span class="kw">iris_rf_exp</span> <span class="op">&lt;-</span> <span class="kw">DALEX</span>::<span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="kw">iris_rf</span>, data = <span class="kw">iris</span>, y = <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="kw">iris</span><span class="op">$</span><span class="kw">Species</span>) <span class="op">-</span> <span class="fl">1</span>)
+<span class="kw">iris_rf_hnp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_halfnormal.html">model_halfnormal</a></span>(<span class="kw">iris_rf_exp</span>)
+<span class="fu"><a href="../reference/plot_halfnormal.html">plot_halfnormal</a></span>(<span class="kw">iris_rf_hnp</span>)
+</pre></div>
 <p><img src="model_fit_audit_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div id="other-methods" class="section level2">
 <h2 class="hasAnchor">

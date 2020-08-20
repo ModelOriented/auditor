@@ -108,13 +108,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="model_performance_audit_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Model performance audit</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2020-05-28</h4>
+            <h4 class="date">2020-08-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/auditor/blob/master/vignettes/model_performance_audit.Rmd"><code>vignettes/model_performance_audit.Rmd</code></a></small>
       <div class="hidden name"><code>model_performance_audit.Rmd</code></div>
@@ -127,9 +127,11 @@
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <p>To illustrate application of <code>auditor</code> we will use dataset “dragons” available in the <a href="https://github.com/pbiecek/DALEX"><code>DALEX</code></a> package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">DALEX</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">dragons</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">dragons</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://ModelOriented.github.io/DALEX">DALEX</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">dragons</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">dragons</span>)
+</pre></div>
 <pre><code>##   year_of_birth   height   weight scars colour year_of_discovery
 ## 1         -1291 59.40365 15.32391     7    red              1700
 ## 2          1589 46.21374 11.80819     5    red              1700
@@ -149,26 +151,32 @@
 <h2 class="hasAnchor">
 <a href="#models" class="anchor"></a>Models</h2>
 <p>First, we need models to compare. We selected linear regression and random forest because of their different structures. Linear regression model linear relationships between target response and independent variables. While random forest should be able to capture also non-linear relationships between variables.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Linear regression</span>
-<span class="no">lm_model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">life_length</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dragons</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># Linear regression</span>
+<span class="kw">lm_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">life_length</span> <span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">dragons</span>)
 
 <span class="co"># Random forest</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">randomForest</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests">randomForest</a></span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">59</span>)
-<span class="no">rf_model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(<span class="no">life_length</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dragons</span>)</pre></body></html></div>
+<span class="kw">rf_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span>(<span class="kw">life_length</span> <span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">dragons</span>)
+</pre></div>
 </div>
 <div id="preparation-for-analysis-of-performance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preparation-for-analysis-of-performance" class="anchor"></a>Preparation for analysis of performance</h2>
 <p>Analysis begins with creation of an explainer object with <code>explain</code> function from <code>DALEX</code> package. Explainer wraps a model with its meta-data, such as dataset that was used for training or observed response.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">lm_exp</span> <span class="kw">&lt;-</span> <span class="kw pkg">DALEX</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="no">lm_model</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="st">"lm"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dragons</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">dragons</span>$<span class="no">life_length</span>)
-<span class="no">rf_exp</span> <span class="kw">&lt;-</span> <span class="kw pkg">DALEX</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="no">rf_model</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="st">"rf"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dragons</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">dragons</span>$<span class="no">life_length</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">lm_exp</span> <span class="op">&lt;-</span> <span class="kw">DALEX</span>::<span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="kw">lm_model</span>, label = <span class="st">"lm"</span>, data = <span class="kw">dragons</span>, y = <span class="kw">dragons</span><span class="op">$</span><span class="kw">life_length</span>)
+<span class="kw">rf_exp</span> <span class="op">&lt;-</span> <span class="kw">DALEX</span>::<span class="fu"><a href="https://rdrr.io/pkg/DALEX/man/explain.html">explain</a></span>(<span class="kw">rf_model</span>, label = <span class="st">"rf"</span>, data = <span class="kw">dragons</span>, y = <span class="kw">dragons</span><span class="op">$</span><span class="kw">life_length</span>)
+</pre></div>
 <p>Next step requires creation of <code>model_performance</code> objects of each explained model. The function computes chosen performance measures for passed model.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">auditor</span>)
-<span class="no">lm_mp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="no">lm_exp</span>)
-<span class="no">rf_mp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="no">rf_exp</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/ModelOriented/auditor">auditor</a></span>)
+<span class="kw">lm_mp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="kw">lm_exp</span>)
+<span class="kw">rf_mp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="kw">rf_exp</span>)
 
-<span class="no">lm_mp</span></pre></body></html></div>
+<span class="kw">lm_mp</span>
+</pre></div>
 <pre><code>## Model label:  lm 
 ##             score name
 ## mae  3.334652e+01  mae
@@ -180,7 +188,9 @@
 <h2 class="hasAnchor">
 <a href="#model-ranking-radar-plot" class="anchor"></a>Model ranking radar plot</h2>
 <p>Model performance measures may be plotted together to easily compare model performances. A result further from the center of the plot means a better model performance. Parameter <code>verbose</code> indicates whether the table with scores should be generated. On the plot scores are inversed and scaled to [0,1].</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lm_mp</span>, <span class="no">rf_mp</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">lm_mp</span>, <span class="kw">rf_mp</span>)
+</pre></div>
 <pre><code>##   name label    value scaled
 ## 1  mae    lm 3.33e+01  1.000
 ## 2  mae    rf 2.79e+01  0.835
@@ -191,20 +201,24 @@
 ## 7 rroc    lm 3.31e+09  1.000
 ## 8 rroc    rf 4.75e+09  1.434</code></pre>
 <p><img src="model_performance_audit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># alternative:</span>
-<span class="co"># plot_radar(lm_mp, rf_mp, verbose = FALSE)</span></pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="co"># alternative:</span>
+<span class="co"># plot_radar(lm_mp, rf_mp, verbose = FALSE)</span>
+</pre></div>
 <p>There is a possibiliy to define functions with custom model performance measure.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">new_score</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">object</span>) <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">object</span>$<span class="no">residuals</span>)))
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="kw">new_score</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">object</span>) <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">object</span><span class="op">$</span><span class="kw">residuals</span>)))
 
-<span class="no">lm_mp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="no">lm_exp</span>,
-                          <span class="kw">score</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mae"</span>, <span class="st">"mse"</span>, <span class="st">"rec"</span>, <span class="st">"rroc"</span>),
-                          <span class="kw">new_score</span> <span class="kw">=</span> <span class="no">new_score</span>)
+<span class="kw">lm_mp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="kw">lm_exp</span>,  
+                          score = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mae"</span>, <span class="st">"mse"</span>, <span class="st">"rec"</span>, <span class="st">"rroc"</span>), 
+                          new_score = <span class="kw">new_score</span>)
 
-<span class="no">rf_mp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="no">rf_exp</span>,
-                          <span class="kw">score</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mae"</span>, <span class="st">"mse"</span>, <span class="st">"rec"</span>, <span class="st">"rroc"</span>),
-                          <span class="kw">new_score</span> <span class="kw">=</span> <span class="no">new_score</span>)
+<span class="kw">rf_mp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_performance.html">model_performance</a></span>(<span class="kw">rf_exp</span>,  
+                          score = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mae"</span>, <span class="st">"mse"</span>, <span class="st">"rec"</span>, <span class="st">"rroc"</span>), 
+                          new_score = <span class="kw">new_score</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lm_mp</span>, <span class="no">rf_mp</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">lm_mp</span>, <span class="kw">rf_mp</span>)
+</pre></div>
 <pre><code>##         name label    value scaled
 ## 1        mae    lm 3.33e+01  1.000
 ## 2        mae    rf 2.79e+01  0.835
