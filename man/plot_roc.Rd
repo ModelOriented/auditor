@@ -28,7 +28,7 @@ A ggplot object.
 Precision-Recall Curve summarize the trade-off between the true positive rate and the positive predictive
 value for a model. It is useful for measuring performance and comparing classificators.
 
-Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
+Receiver Operating Characteristic Curve is a plot of the true positive rate (TPR)
 against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.
 }

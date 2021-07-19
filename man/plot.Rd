@@ -28,7 +28,7 @@ plot_auditor(x, ..., type = "residual", ask = TRUE, grid = TRUE)
 \code{auditor_model_cooksdistance} (created with \code{\link{model_cooksdistance}} function),
 or \code{auditor_model_halfnormal} (created with \code{\link{model_halfnormal}} function).}
 
-\item{...}{other arguments dependent on the type of plot or additionl objects of classes \code{'auditor_model_residual',
+\item{...}{other arguments dependent on the type of plot or additional objects of classes \code{'auditor_model_residual',
 'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'}.}
 
 \item{type}{the type of plot. Character or vector of characters. Possible values: \code{'acf', 'autocorrelation', 'cooksdistance', 'halfnormal',
@@ -44,7 +44,7 @@ A ggplot object.
 }
 \description{
 This function provides several diagnostic plots for regression and classification models.
-Provide object created with one of aduditor's computational functions, \code{\link{model_residual}},
+Provide object created with one of auditor's computational functions, \code{\link{model_residual}},
 \code{\link{model_cooksdistance}}, \code{\link{model_evaluation}}, \code{\link{model_performance}},
 \code{\link{model_evaluation}}.
 }

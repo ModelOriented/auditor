@@ -10,7 +10,7 @@
 #' \code{rroc}, \code{runs}, \code{specificity}, \code{one_minus_acc}, \code{one_minus_auc},
 #' \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 #' (for detailed description see functions in see also section).
-#' @param data New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param data New data that will be used to calculate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the type of score.
 #'
 #' @seealso \code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}}, \code{\link{score_f1}},

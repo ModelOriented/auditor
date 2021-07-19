@@ -1,8 +1,8 @@
 #' @title Correlation of Model's Residuals Plot
 #'
-#' @description Matrix of plots. Left-down triangle consists of plots of fitted values (aternatively residuals),
+#' @description Matrix of plots. Left-down triangle consists of plots of fitted values (alternatively residuals),
 #' on the diagonal there are density plots of fitted values (alternatively residuals), in the right-top triangle
-#' there are correlations between fitte dvalues (alternatively residuals).
+#' there are correlations between fitted values (alternatively residuals).
 #'
 #' @param object An object of class \code{auditor_model_residual} created with \code{\link{model_residual}} function.
 #' @param ... Other \code{auditor_model_residual} objects to be plotted together.

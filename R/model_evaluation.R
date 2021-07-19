@@ -1,4 +1,4 @@
-#' @title Create model evaluation explaination
+#' @title Create model evaluation explanation
 #'
 #' @description Creates explanation of classification model.
 #'

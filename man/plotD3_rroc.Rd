@@ -57,7 +57,7 @@ plotD3_rroc(mr_lm, mr_rf)
 
 }
 \references{
-Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
+Hernández-Orallo, José. 2013. "ROC Curves for Regression". Pattern Recognition 46 (12): 3395–3411.
 }
 \seealso{
 \code{ \link{plotD3_rroc}}

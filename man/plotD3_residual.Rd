@@ -43,7 +43,7 @@ passed to the \code{\link[DALEX]{explain}} function).
 If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 If \code{variable = NULL}, unordered observations are presented.}
 
-\item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
+\item{points}{Logical, indicates whenever observations should be added as points. By default it's TRUE.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
@@ -57,14 +57,14 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 
-\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
+\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted.
 By default it's FALSE.}
 }
 \value{
 a \code{r2d3} object
 }
 \description{
-Function \code{plotD3_residual} plots resudial values vs fitted, observed or variable values in the model.
+Function \code{plotD3_residual} plots residual values vs fitted, observed or variable values in the model.
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]

@@ -1,12 +1,12 @@
 #' @title R-squared
 #'
 #' @description The R2 is the coefficient of determination,
-#' An R2 coefficient equals 0 means that model explaines none of the variability of the response.
+#' An R2 coefficient equals 0 means that model explains none of the variability of the response.
 #' An R2 coefficient equals 1 means that model explains all the variability of the response.
 #'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param data New data that will be used to calcuate the score.
+#' @param data New data that will be used to calculate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.

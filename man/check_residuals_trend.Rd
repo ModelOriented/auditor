@@ -9,7 +9,7 @@ check_residuals_trend(object, B = 20)
 \arguments{
 \item{object}{An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{B}{number fo samplings}
+\item{B}{number of samplings}
 }
 \value{
 standardized   loess fit for residuals

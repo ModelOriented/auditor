@@ -3,7 +3,7 @@
 \name{model_evaluation}
 \alias{model_evaluation}
 \alias{modelEvaluation}
-\title{Create model evaluation explaination}
+\title{Create model evaluation explanation}
 \usage{
 model_evaluation(object)
 

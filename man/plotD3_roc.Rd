@@ -19,7 +19,7 @@ plotD3_roc(object, ..., nlabel = NULL, scale_plot = FALSE)
 a \code{r2d3} object
 }
 \description{
-Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
+Receiver Operating Characteristic Curve is a plot of the true positive rate (TPR)
  against the false positive rate (FPR) for the different thresholds.
 It is useful for measuring and comparing the accuracy of the classificators.
 }

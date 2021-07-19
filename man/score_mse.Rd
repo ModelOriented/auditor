@@ -13,7 +13,7 @@ scoreMSE(object)
 \item{object}{An object of class \code{explainer} created with function
 \code{\link[DALEX]{explain}} from the DALEX package.}
 
-\item{data}{New data that will be used to calcuate the score.
+\item{data}{New data that will be used to calculate the score.
 Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 
 \item{y}{New y parameter will be used to calculate score.}

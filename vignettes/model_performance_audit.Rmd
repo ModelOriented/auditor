@@ -73,7 +73,7 @@ plot(lm_mp, rf_mp)
 
 ```
 
-There is a possibiliy to define functions with custom model performance measure.
+There is a possibility to define functions with custom model performance measure.
 
 ```{r}
 new_score <- function(object) sum(sqrt(abs(object$residuals)))

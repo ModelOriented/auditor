@@ -21,7 +21,7 @@
 #'
 #'  The Area Over the RROC Curve (AOC) equals to the variance of the errors multiplied by \eqn{frac{n^2}{2}}.
 #'
-#' @references Hernández-Orallo, José. 2013. ‘ROC Curves for Regression’. Pattern Recognition 46 (12): 3395–3411.
+#' @references Hernández-Orallo, José. 2013. "ROC Curves for Regression". Pattern Recognition 46 (12): 3395–3411.
 #'
 #' @seealso \code{ \link{plot_roc}, \link{plot_rec}}
 #'

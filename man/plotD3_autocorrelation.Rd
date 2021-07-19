@@ -38,7 +38,7 @@ plotD3Autocorrelation(
 If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 passed to the \code{\link[DALEX]{explain}} function).}
 
-\item{points}{Logical, indicates whenever observations should be added as points. By defaul it's TRUE.}
+\item{points}{Logical, indicates whenever observations should be added as points. By default it's TRUE.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's FALSE.}
 
@@ -49,7 +49,7 @@ By default plot all of them.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 
-\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
+\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted.
 By default it's FALSE.}
 }
 \value{

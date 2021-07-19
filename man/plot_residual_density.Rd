@@ -15,11 +15,11 @@ plotResidualDensity(object, ..., variable = NULL)
 \item{...}{Other \code{auditor_model_residual} objects to be plotted together.}
 
 \item{variable}{Split plot by variable's factor level or median.
-If \code{variable="_y_"}, the plot will be splitted by actual response (\code{y} parameter
+If \code{variable="_y_"}, the plot will be split by actual response (\code{y} parameter
 passed to the \code{\link[DALEX]{explain}} function).
-If \code{variable = "_y_hat_"} the plot will be splitted by predicted response.
-If \code{variable = NULL}, the plot will be splitted by observation index
-If \code{variable = ""} plot is not splitted (default option).}
+If \code{variable = "_y_hat_"} the plot will be split by predicted response.
+If \code{variable = NULL}, the plot will be split by observation index
+If \code{variable = ""} plot is not split (default option).}
 
 \item{show_rugs}{Adds rugs layer to the plot. By default it's TRUE}
 }

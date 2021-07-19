@@ -6,7 +6,7 @@
 #'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param data New data that will be used to calcuate the score.
+#' @param data New data that will be used to calculate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
@@ -54,13 +54,13 @@ score_gini <- function(object, data = NULL, y = NULL, ...) {
 
 #' @title One minus Gini Coefficient
 #'
-#' @description One minus Gini COefficient
+#' @description One minus Gini Coefficient
 #' 100% means perfect equality, where all values are the same.
 #' 0 expresses maximal inequality of values.
 #'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param data New data that will be used to calcuate the score.
+#' @param data New data that will be used to calculate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.

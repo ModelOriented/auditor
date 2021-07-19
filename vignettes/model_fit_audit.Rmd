@@ -21,7 +21,7 @@ The half-normal plot presented in this vignette is one of the tools designed to 
 
 Points on the plot correspond to ordered absolute values of model diagnostic (i.e. standardized residuals) plotted against theoretical order statistics from a half-normal distribution.
 
-There are various implementations of half-normal plots in R. Functions for generating such plotes are available in for example in  [`hnp`](https://cran.r-project.org/package=hnp) and [`faraway`](https://cran.r-project.org/package=faraway) packages. Some functions can only draw a simple half-normal plot, while some have additional functionalities like a simulated envelope and score of goodness-of-fit. 
+There are various implementations of half-normal plots in R. Functions for generating such plots are available in for example in  [`hnp`](https://cran.r-project.org/package=hnp) and [`faraway`](https://cran.r-project.org/package=faraway) packages. Some functions can only draw a simple half-normal plot, while some have additional functionalities like a simulated envelope and score of goodness-of-fit. 
 
 
 # Use-case - regression problem
@@ -74,13 +74,13 @@ plot(bin_hnp, sim = 500)
 It doesn't fit because of the overdispersion in data.
 
 
-In function `plot_halfnormal` there is also a posibility to draw half-normal plot on a quantile scale:
+In function `plot_halfnormal` there is also a possibility to draw half-normal plot on a quantile scale:
 
 ```{r}
 plot(bin_hnp, quantiles = TRUE)
 ```
 
-# Use-caes (classification)
+# Use-cases (classification)
 
 Half-normal plots work also for classification tasks. In this case we consider the differences between observed class and predicted probabilities to be residuals. 
 

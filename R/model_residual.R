@@ -1,4 +1,4 @@
-#' @title Create Model Residuals Explaination
+#' @title Create Model Residuals Explanation
 #'
 #' @description  Creates \code{auditor_model_residual} that contains sorted residuals.
 #'  An object can be further used to generate plots.

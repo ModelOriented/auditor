@@ -1,4 +1,4 @@
-#' @title Create Model Performance Explaination
+#' @title Create Model Performance Explanation
 #'
 #' @description  Creates \code{auditor_model_performance} object that can be used to plot radar with ranking of models.
 #'
@@ -10,7 +10,7 @@
 #' \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 #' (for detailed description see functions in see also section). Pass \code{NULL} if you want to use only custom scores by \code{new_score} parameter.
 #' @param new_score A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.
-#' @param data New data that will be used to calcuate scores. Pass \code{NULL} if you want to use \code{data} from \code{object}.
+#' @param data New data that will be used to calculate scores. Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param ... Other arguments dependent on the score list.
 #'
 #' @seealso \code{\link{score_acc}}, \code{\link{score_auc}}, \code{\link{score_cooksdistance}}, \code{\link{score_dw}},

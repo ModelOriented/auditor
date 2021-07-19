@@ -8,7 +8,7 @@
 #' @param object An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param ... other parameters that will be passed to further functions.
 #'
-#' @return list with statistics for particualar checks
+#' @return list with statistics for particular checks
 #' @export
 #' @importFrom  stats cor.test loess
 #' @importFrom  utils head tail
@@ -123,7 +123,7 @@ check_residuals_autocorrelation <- function(object, method = "pearson") {
 #' Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend
 #'
 #' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param B number fo samplings
+#' @param B number of samplings
 #'
 #' @return standardized   loess fit for residuals
 #' @export

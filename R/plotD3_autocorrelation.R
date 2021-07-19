@@ -7,13 +7,13 @@
 #' @param variable Name of variable to order residuals on a plot.
 #' If \code{variable="_y_"}, the data is ordered by a vector of actual response (\code{y} parameter
 #' passed to the \code{\link[DALEX]{explain}} function).
-#' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
+#' @param points Logical, indicates whenever observations should be added as points. By default it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly.
 #' By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
-#' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
+#' @param background Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted.
 #' By default it's FALSE.
 #'
 #' @return a \code{r2d3} object

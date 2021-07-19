@@ -1,6 +1,6 @@
 #' @title Receiver Operating Characteristic (ROC) in D3 with r2d3 package.
 #'
-#' @description Receiver Operating Characterstic Curve is a plot of the true positive rate (TPR)
+#' @description Receiver Operating Characteristic Curve is a plot of the true positive rate (TPR)
 #'  against the false positive rate (FPR) for the different thresholds.
 #' It is useful for measuring and comparing the accuracy of the classificators.
 #'

@@ -42,7 +42,7 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{smooth}{Logical, indicates whenever smoothed lines should be added. By default it's \code{FALSE}.}
 
-\item{peaks}{Logical, indicates whenever peak observations should be highlighted. By defaul it's \code{FALSE}.}
+\item{peaks}{Logical, indicates whenever peak observations should be highlighted. By default it's \code{FALSE}.}
 
 \item{point_count}{Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.}
 
@@ -50,7 +50,7 @@ If \code{variable = NULL}, unordered observations are presented.}
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's \code{FALSE}.}
 
-\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
+\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted. By default it's FALSE.}
 }
 \value{
 a \code{r2d3} object

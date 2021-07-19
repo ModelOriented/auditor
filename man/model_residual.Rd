@@ -3,7 +3,7 @@
 \name{model_residual}
 \alias{model_residual}
 \alias{modelResiduals}
-\title{Create Model Residuals Explaination}
+\title{Create Model Residuals Explanation}
 \usage{
 model_residual(object, ...)
 

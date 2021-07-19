@@ -12,7 +12,7 @@ check_residuals(object, ...)
 \item{...}{other parameters that will be passed to further functions.}
 }
 \value{
-list with statistics for particualar checks
+list with statistics for particular checks
 }
 \description{
 Currently three tests are performed

@@ -34,7 +34,7 @@ plotD3CooksDistance(
 
 \item{scale_plot}{Logical, indicates whenever the plot should scale with height. By default it's FALSE.}
 
-\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.}
+\item{background}{Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted. By default it's FALSE.}
 }
 \value{
 a \code{r2d3} object

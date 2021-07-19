@@ -7,7 +7,7 @@
 #' @param nlabel Number of observations with the biggest Cook's distances to be labeled.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's FALSE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
-#' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.
+#' @param background Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted. By default it's FALSE.
 #'
 #' @details Cook’s distance is a tool for identifying observations that may negatively affect the model.
 #' They may be also used for indicating regions of the design space where it would be good to obtain more observations.

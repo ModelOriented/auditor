@@ -61,7 +61,7 @@ eva_rf <- model_evaluation(exp_rf)
 
 ### Receiver operating characteristic (ROC)
 
-Receiver operating characteristic (ROC) curve is a tool for visualising a classifier’s performance. It answers the question of how well the model discriminates between the two classes. The boundary between classes is determined by a threshold value. ROC illustrates the performance of a classification model at various threshold settings. 
+Receiver operating characteristic (ROC) curve is a tool for visualizing a classifier’s performance. It answers the question of how well the model discriminates between the two classes. The boundary between classes is determined by a threshold value. ROC illustrates the performance of a classification model at various threshold settings. 
 
 The diagonal line `y = x` corresponds to a classifier that randomly guess the positive class half the time. Any model that appears in the lower right part of plot performs worse than random guessing. The closer the curve is to the the left border and top border of plot, the more accurate the classifier is.
 

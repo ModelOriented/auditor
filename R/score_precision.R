@@ -2,9 +2,9 @@
 #'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param cutoff Treshold value, which divides model predicted values (y_hat) to calculate confusion matrix.
+#' @param cutoff Threshold value, which divides model predicted values (y_hat) to calculate confusion matrix.
 #'  By default it's \code{0.5}.
-#' @param data New data that will be used to calcuate the score.
+#' @param data New data that will be used to calculate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.
@@ -53,9 +53,9 @@ score_precision <- function(object, cutoff = 0.5, data = NULL, y = NULL,  ...) {
 #'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
-#' @param cutoff Treshold value, which divides model predicted values (y_hat) to calculate confusion matrix.
+#' @param cutoff Threshold value, which divides model predicted values (y_hat) to calculate confusion matrix.
 #'  By default it's \code{0.5}.
-#' @param data New data that will be used to calcuate the score.
+#' @param data New data that will be used to calculate the score.
 #'  Pass \code{NULL} if you want to use \code{data} from \code{object}.
 #' @param y New y parameter will be used to calculate score.
 #' @param ... Other arguments dependent on the type of score.

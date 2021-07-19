@@ -3,7 +3,7 @@
 \name{model_performance}
 \alias{model_performance}
 \alias{modelPerformance}
-\title{Create Model Performance Explaination}
+\title{Create Model Performance Explanation}
 \usage{
 model_performance(
   object,
@@ -31,7 +31,7 @@ modelPerformance(
 
 \item{new_score}{A named list of functions that take one argument: object of class 'explainer' and return a numeric value. The measure calculated by the function should have the property that lower score value indicates better model.}
 
-\item{data}{New data that will be used to calcuate scores. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+\item{data}{New data that will be used to calculate scores. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 
 \item{...}{Other arguments dependent on the score list.}
 }

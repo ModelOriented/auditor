@@ -12,11 +12,11 @@
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's \code{FALSE}.
-#' @param peaks Logical, indicates whenever peak observations should be highlighted. By defaul it's \code{FALSE}.
+#' @param peaks Logical, indicates whenever peak observations should be highlighted. By default it's \code{FALSE}.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's \code{TRUE}.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's \code{FALSE}.
-#' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted. By default it's FALSE.
+#' @param background Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted. By default it's FALSE.
 #'
 #' @return a \code{r2d3} object
 #'

@@ -20,9 +20,9 @@ plotModelCorrelation(object, ..., values = "fit")
 Invisibly returns a \code{\link[gtable]{gtable}} object.
 }
 \description{
-Matrix of plots. Left-down triangle consists of plots of fitted values (aternatively residuals),
+Matrix of plots. Left-down triangle consists of plots of fitted values (alternatively residuals),
 on the diagonal there are density plots of fitted values (alternatively residuals), in the right-top triangle
-there are correlations between fitte dvalues (alternatively residuals).
+there are correlations between fitted values (alternatively residuals).
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]

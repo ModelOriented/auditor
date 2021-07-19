@@ -10,14 +10,14 @@
 #' passed to the \code{\link[DALEX]{explain}} function).
 #' If \code{variable = "_y_hat_"} the data on the plot will be ordered by predicted response.
 #' If \code{variable = NULL}, unordered observations are presented.
-#' @param points Logical, indicates whenever observations should be added as points. By defaul it's TRUE.
+#' @param points Logical, indicates whenever observations should be added as points. By default it's TRUE.
 #' @param smooth Logical, indicates whenever smoothed lines should be added. By default it's FALSE.
 #' @param abline Logical, indicates whenever function y = x should be added. Works only
 #' with \code{variable = NULL} which is a default option.
 #' @param point_count Number of points to be plotted per model. Points will be chosen randomly. By default plot all of them.
 #' @param single_plot Logical, indicates whenever single or facets should be plotted. By default it's TRUE.
 #' @param scale_plot Logical, indicates whenever the plot should scale with height. By default it's FALSE.
-#' @param background Logical, available only if single_plot = FALSE. Indicates whenever backgroud plots should be plotted.
+#' @param background Logical, available only if single_plot = FALSE. Indicates whenever background plots should be plotted.
 #' By default it's FALSE.
 #'
 #' @return a \code{r2d3} object

@@ -16,7 +16,7 @@ score(object, type = "mse", data = NULL, ...)
 \code{one_minus_f1}, \code{one_minus_gini}, \code{one_minus_precision}, \code{one_minus_recall}, \code{one_minus_specificity}
 (for detailed description see functions in see also section).}
 
-\item{data}{New data that will be used to calcuate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
+\item{data}{New data that will be used to calculate the score. Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 
 \item{...}{Other arguments dependent on the type of score.}
 }

@@ -123,7 +123,7 @@ plot(rf_mr, lm_mr, type = "residual", variable = "scars")
 # plot_residual(rf_mr, lm_mr, variable = "scars")
 ```
 
-In all examples above, we can see that linear model is better fitted for the data than random forest, because for the latter one greater values of selected variables residuals are also geater. Additionaly, we can identify most outlying observations:
+In all examples above, we can see that linear model is better fitted for the data than random forest, because for the latter one greater values of selected variables residuals are also greater. Additionally, we can identify most outlying observations:
 
 ``` {r echo = FALSE}
 plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)
@@ -136,7 +136,7 @@ plot_residual(rf_mr, variable = "_y_hat_", nlabel = 10)
 
 ### Density of residuals
 
-Residual density plot (`plot_residual_density()`) detects the incorrect behavior of residuals. The funcion returns plot with estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density could be derived from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals residual density plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.
+Residual density plot (`plot_residual_density()`) detects the incorrect behavior of residuals. The function returns plot with estimated densities of residuals. Their values are displayed as marks along the x axis. For some models, the expected shape of density could be derived from the model assumptions. For example, simple linear model residuals should be normally distributed. However, even if the model does not have an assumption about the distribution of residuals residual density plot may be informative. If most of the residuals are not concentrated around zero, it is likely that the model predictions are biased.
 
 
 ```{r}
@@ -146,7 +146,7 @@ plot(rf_mr, lm_mr, type = "residual_density")
 # plot_residual_density(rf_mr, lm_mr)
 ```
 
-Residuals may be also divided by values of a choosen variable (median of a numeric variable or levels of a factor).
+Residuals may be also divided by values of a chosen variable (median of a numeric variable or levels of a factor).
 
 ```{r}
 plot_residual_density(rf_mr, lm_mr, variable = "colour")
@@ -161,7 +161,7 @@ Residual boxplot (`plotResidualBoxplot()`) shows the distribution of the absolut
 - vertical line which reflects median, 
 - the whiskers which extend to the smallest and largest values, no further than 1.5 of interquartile.
 
-`auditor` adds another component to the boxplot which is the root mean square error (RMSE) measure, shown as `X`. For the appropriate model, box should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spreaded (worse) than linear one.
+`auditor` adds another component to the boxplot which is the root mean square error (RMSE) measure, shown as `X`. For the appropriate model, box should lay near zero. A large spread of values indicates problems with a model. Comparing our two models we can see that random forest model is much more spread (worse) than linear one.
 
 
 ```{r}
@@ -196,7 +196,7 @@ plot(rf_mr, type = "autocorrelation")
 ```
 
 ..... ..... ..... .... ..... 
-Sometimes it migth be difficult to compare two models relying only on visualization. Therefore, two following additional scores may be useful for choosing a better model; scores are based on *Durbin-Watson* and *Runs* test statistics. Scores can be calculated with `score_dw()` and `score_runs()` functions (or the `score()` function with `score = "dw"` or `score = "runs"`).
+Sometimes it might be difficult to compare two models relying only on visualization. Therefore, two following additional scores may be useful for choosing a better model; scores are based on *Durbin-Watson* and *Runs* test statistics. Scores can be calculated with `score_dw()` and `score_runs()` functions (or the `score()` function with `score = "dw"` or `score = "runs"`).
 ..... ..... ..... .... ..... 
 
 
@@ -244,10 +244,10 @@ plot(rf_mr, lm_mr, type = "rec")
 
 The basic idea of the ROC curve for regression is to show model asymmetry. The RROC is a plot where on x-axis total over-estimation is depicted and on the y-axis total under-estimation. 
 
-For RROC curves we use a shift which is an equvalent to the threshold for ROC curves. For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift. Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
+For RROC curves we use a shift which is an equivalent to the threshold for ROC curves. For each observation we calculate new prediction: \eqn{\hat{y}'=\hat{y}+s} where s is the shift. Therefore, there are different error values for each shift: \eqn{e_i = \hat{y_i}' - y_i}
 
 ...................
-- over-estimation is caluclates as: \eqn{OVER= \sum(e_i|e_i>0)} 
+- over-estimation is calculated as: \eqn{OVER= \sum(e_i|e_i>0)} 
 - under-estimation is calculated as: \eqn{UNDER = \sum(e_i|e_i<0)}
 - the shift equals 0 is represented by a dot
 ...................
