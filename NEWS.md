@@ -2,6 +2,7 @@
 * bugfix: `score_auc()`
 * add spellcheck
 * fix spelling
+* markdown added to suggests
 
 # auditor 1.3.0
 * new default color palette `DALEX::colors_discrete_drwhy` 

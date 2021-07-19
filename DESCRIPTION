@@ -1,6 +1,6 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 1.3.2
+Version: 1.3.3
 Authors@R: c(
     person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-6563-5742")),
@@ -31,6 +31,7 @@ RoxygenNote: 7.1.1
 Suggests: 
     jsonlite,
     knitr,
+    markdown,
     mgcv,
     r2d3,
     randomForest,
