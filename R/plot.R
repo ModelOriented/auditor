@@ -25,7 +25,7 @@
 #' \link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
 #'
 #' @return A ggplot object.
-#'
+#' @keywords internal
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #'
