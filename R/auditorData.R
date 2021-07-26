@@ -1,4 +1,4 @@
-#' Artifficial auditorData
+#' Artificial auditorData
 #'
 #' The auditor Data is an artificial data set.
 #' It consists of 2000 observations.

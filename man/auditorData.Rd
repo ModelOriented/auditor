@@ -3,7 +3,7 @@
 \docType{data}
 \name{auditorData}
 \alias{auditorData}
-\title{Artifficial auditorData}
+\title{Artificial auditorData}
 \format{
 a data frame with 2000 rows and 5 columns
 }

@@ -44,7 +44,7 @@
 * Automated checks for residuals are added. See the `check_residuals()` function.
 
 # auditor 0.3.1
-* Repository with the `auditor` package was moved to new GitHub organization ([MI^2 DataLab](https://github.com/MI2DataLab/auditor)).
+* Repository with the `auditor` package was moved to new GitHub organization ([MI^2 DataLab](https://github.com/MI2DataLab)).
 
 # auditor 0.3.0
 * New five vignettes with examples.

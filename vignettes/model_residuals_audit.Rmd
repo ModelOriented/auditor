@@ -32,7 +32,7 @@ Most methods provided in auditor package are model-agnostic, what means that the
 
 Use case - predicting a length of life
 
-To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/pbiecek/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).
+To illustrate application of `auditor` we will use dataset "dragons" available in the [`DALEX`](https://github.com/ModelOriented/DALEX) package. The dataset contains characteristics of fictional creatures (dragons), like year of birth, height, weight, etc (see below). The goal is to predict the length of life of dragons (a regression problem).
 
 
 ```{r}
