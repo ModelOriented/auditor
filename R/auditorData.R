@@ -7,7 +7,6 @@
 #' @name auditorData
 #' @docType data
 #' @usage data(auditorData)
-#' @keywords auditorData
 #'
 #' @keywords internal
 #'
