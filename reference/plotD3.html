@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Model Diagnostic Plots in D3 with r2d3 package. — plotD3" />
 <meta property="og:description" content="This function provides several diagnostic plots for regression and classification models.
-Provide object created with one of aduditor's computational functions, model_residual,
+Provide object created with one of auditor's computational functions, model_residual,
 model_cooksdistance, model_evaluation, model_performance,
 model_evaluation." />
 <meta property="og:image" content="/logo.png" />
@@ -101,7 +101,7 @@ model_evaluation." />
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.3.0</span>
+          <span class="version version-default">1.3.3</span>
         </div>
       </div>
     </div>
@@ -109,7 +109,7 @@ model_evaluation." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -145,7 +145,7 @@ model_evaluation." />
 </li>
         <li>
   <a href="https://github.com/ModelOriented/auditor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -169,26 +169,26 @@ model_evaluation." />
 
     <div class="ref-description">
     <p>This function provides several diagnostic plots for regression and classification models.
-Provide object created with one of aduditor's computational functions, <code><a href='model_residual.html'>model_residual</a></code>,
+Provide object created with one of auditor's computational functions, <code><a href='model_residual.html'>model_residual</a></code>,
 <code><a href='model_cooksdistance.html'>model_cooksdistance</a></code>, <code><a href='model_evaluation.html'>model_evaluation</a></code>, <code><a href='model_performance.html'>model_performance</a></code>,
 <code><a href='model_evaluation.html'>model_evaluation</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotD3</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotD3_auditor</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, type = <span class='st'>"residual"</span>)
+<span class='fu'>plotD3_auditor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, type <span class='op'>=</span> <span class='st'>"residual"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for auditor_model_residual</span>
-<span class='fu'>plotD3</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, type = <span class='st'>"residual"</span>)
+<span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, type <span class='op'>=</span> <span class='st'>"residual"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for auditor_model_halfnormal</span>
-<span class='fu'>plotD3</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, type = <span class='st'>"residual"</span>)
+<span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, type <span class='op'>=</span> <span class='st'>"residual"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for auditor_model_evaluation</span>
-<span class='fu'>plotD3</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, type = <span class='st'>"residual"</span>)
+<span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, type <span class='op'>=</span> <span class='st'>"residual"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for auditor_model_cooksdistance</span>
-<span class='fu'>plotD3</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, type = <span class='st'>"residual"</span>)</pre>
+<span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, type <span class='op'>=</span> <span class='st'>"residual"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,7 +203,7 @@ or <code>auditor_model_halfnormal</code> (created with <code><a href='model_half
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments dependent on the type of plot or additionl objects of classes <code>'auditor_model_residual',
+      <td><p>other arguments dependent on the type of plot or additional objects of classes <code>'auditor_model_residual',
 'auditor_model_performance', 'auditor_model_evaluation', 'auditor_model_cooksdistance', 'auditor_model_halfnormal'</code>.</p></td>
     </tr>
     <tr>
@@ -222,31 +222,35 @@ or <code>auditor_model_halfnormal</code> (created with <code><a href='model_half
 <a href='plotD3_rroc.html'>plotD3_rroc</a>, <a href='plotD3_scalelocation.html'>plotD3_scalelocation</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>dragons</span> <span class='op'>&lt;-</span> <span class='kw'>DALEX</span>::<span class='kw'><a href='https://rdrr.io/pkg/DALEX/man/dragons.html'>dragons</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, ]
+    <pre class="examples"><div class='input'><span class='va'>dragons</span> <span class='op'>&lt;-</span> <span class='fu'>DALEX</span><span class='fu'>::</span><span class='va'><a href='https://dalex.drwhy.ai/reference/dragons.html'>dragons</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='op'>]</span>
 
 <span class='co'># fit a model</span>
-<span class='kw'>model_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>life_length</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>dragons</span>)
+<span class='va'>model_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>life_length</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>dragons</span><span class='op'>)</span>
 
-<span class='kw'>lm_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span>(<span class='kw'>model_lm</span>, data = <span class='kw'>dragons</span>, y = <span class='kw'>dragons</span><span class='op'>$</span><span class='kw'>life_length</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
-#&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
+<span class='va'>lm_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='audit.html'>audit</a></span><span class='op'>(</span><span class='va'>model_lm</span>, data <span class='op'>=</span> <span class='va'>dragons</span>, y <span class='op'>=</span> <span class='va'>dragons</span><span class='op'>$</span><span class='va'>life_length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+#&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; data              :  100  rows  8  cols 
 #&gt;   -&gt; target variable   :  100  values 
-#&gt;   -&gt; predict function  :  yhat.lm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
+#&gt;   -&gt; predict function  :  yhat.lm  will be used ( <span style='color: #BBBB00;'> default </span> )
+#&gt;   -&gt; predicted values  :  No value for predict function target column. ( <span style='color: #BBBB00;'> default </span> )
+#&gt;   -&gt; model_info        :  package stats , ver. 4.1.0 , task regression ( <span style='color: #BBBB00;'> default </span> ) 
 #&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
-#&gt;   -&gt; model_info        :  package stats , ver. 4.0.2 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
-#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
+#&gt;   -&gt; residual function :  difference between y and yhat ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
-#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
+#&gt;  <span style='color: #00BB00;'> A new explainer has been created! </span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
-<span class='kw'>mr_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span>(<span class='kw'>lm_audit</span>)
+<span class='va'>mr_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span><span class='op'>(</span><span class='va'>lm_audit</span><span class='op'>)</span>
 
 <span class='co'># plot results</span>
-<span class='fu'>plotD3</span>(<span class='kw'>mr_lm</span>)
-<span class='fu'>plotD3</span>(<span class='kw'>mr_lm</span>, type = <span class='st'>"prediction"</span>)
+<span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>mr_lm</span><span class='op'>)</span>
+<span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>mr_lm</span>, type <span class='op'>=</span> <span class='st'>"prediction"</span><span class='op'>)</span>
 
-<span class='kw'>hn_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_halfnormal.html'>model_halfnormal</a></span>(<span class='kw'>lm_audit</span>)</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='input'><span class='fu'>plotD3</span>(<span class='kw'>hn_lm</span>)
+<span class='va'>hn_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_halfnormal.html'>model_halfnormal</a></span><span class='op'>(</span><span class='va'>lm_audit</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gaussian model (lm object) </div><div class='input'><span class='fu'>plotD3</span><span class='op'>(</span><span class='va'>hn_lm</span><span class='op'>)</span>
 
-</div></span></pre>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

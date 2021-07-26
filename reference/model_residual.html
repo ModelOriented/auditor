@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Model Residuals Explaination — model_residual • auditor</title>
+<title>Create Model Residuals Explanation — model_residual • auditor</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Create Model Residuals Explaination — model_residual" />
+<meta property="og:title" content="Create Model Residuals Explanation — model_residual" />
 <meta property="og:description" content="Creates auditor_model_residual that contains sorted residuals.
  An object can be further used to generate plots.
 For the list of possible plots see see also section." />
@@ -100,7 +100,7 @@ For the list of possible plots see see also section." />
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.3.0</span>
+          <span class="version version-default">1.3.3</span>
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@ For the list of possible plots see see also section." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -144,7 +144,7 @@ For the list of possible plots see see also section." />
 </li>
         <li>
   <a href="https://github.com/ModelOriented/auditor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -161,7 +161,7 @@ For the list of possible plots see see also section." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Model Residuals Explaination</h1>
+    <h1>Create Model Residuals Explanation</h1>
     <small class="dont-index">Source: <a href='https://github.com/ModelOriented/auditor/blob/master/R/model_residual.R'><code>R/model_residual.R</code></a></small>
     <div class="hidden name"><code>model_residual.Rd</code></div>
     </div>
@@ -172,16 +172,16 @@ For the list of possible plots see see also section." />
 For the list of possible plots see see also section.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>model_residual</span>(<span class='kw'>object</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>model_residual</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>modelResiduals</span>(<span class='kw'>object</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>modelResiduals</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></code> from the DALEX package.</p></td>
+      <td><p>An object of class <code>explainer</code> created with function <code><a href='https://dalex.drwhy.ai/reference/explain.html'>explain</a></code> from the DALEX package.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -199,32 +199,37 @@ For the list of possible plots see see also section.</p>
 <a href='plot_residual.html'>plot_residual</a>, <a href='plot_rroc.html'>plot_rroc</a>, <a href='plot_scalelocation.html'>plot_scalelocation</a>, <a href='plot_tsecdf.html'>plot_tsecdf</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://ModelOriented.github.io/DALEX'>DALEX</a></span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dalex.drwhy.ai'>DALEX</a></span><span class='op'>)</span>
 
 <span class='co'># fit a model</span>
-<span class='kw'>model_glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>m2.price</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>apartments</span>)
+<span class='va'>model_glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>m2.price</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>apartments</span><span class='op'>)</span>
 
-<span class='kw'>glm_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DALEX/man/explain.html'>explain</a></span>(<span class='kw'>model_glm</span>,
-                   data = <span class='kw'>apartments</span>,
-                   y = <span class='kw'>apartments</span><span class='op'>$</span><span class='kw'>m2.price</span>)</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
-#&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span><span> )
+<span class='va'>glm_audit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dalex.drwhy.ai/reference/explain.html'>explain</a></span><span class='op'>(</span><span class='va'>model_glm</span>,
+                   data <span class='op'>=</span> <span class='va'>apartments</span>,
+                   y <span class='op'>=</span> <span class='va'>apartments</span><span class='op'>$</span><span class='va'>m2.price</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Preparation of a new explainer is initiated
+#&gt;   -&gt; model label       :  lm  ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; data              :  1000  rows  6  cols 
 #&gt;   -&gt; target variable   :  1000  values 
-#&gt;   -&gt; predict function  :  yhat.glm  will be used ( </span><span style='color: #BBBB00;'> default </span><span> )
+#&gt;   -&gt; predict function  :  yhat.glm  will be used ( <span style='color: #BBBB00;'> default </span> )
+#&gt;   -&gt; predicted values  :  No value for predict function target column. ( <span style='color: #BBBB00;'> default </span> )
+#&gt;   -&gt; model_info        :  package stats , ver. 4.1.0 , task regression ( <span style='color: #BBBB00;'> default </span> ) 
 #&gt;   -&gt; predicted values  :  numerical, min =  1781.848 , mean =  3487.019 , max =  6176.032  
-#&gt;   -&gt; model_info        :  package stats , ver. 4.0.2 , task regression ( </span><span style='color: #BBBB00;'> default </span><span> ) 
-#&gt;   -&gt; residual function :  difference between y and yhat ( </span><span style='color: #BBBB00;'> default </span><span> )
+#&gt;   -&gt; residual function :  difference between y and yhat ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -247.4728 , mean =  2.093656e-14 , max =  469.0023  
-#&gt;  </span><span style='color: #00BB00;'> A new explainer has been created! </span><span> </div><div class='input'>
+#&gt;  <span style='color: #00BB00;'> A new explainer has been created! </span> </div><div class='input'>
 <span class='co'># validate a model with auditor</span>
-<span class='kw'>mr</span> <span class='op'>&lt;-</span> <span class='fu'>model_residual</span>(<span class='kw'>glm_audit</span>)
-<span class='kw'>mr</span></div><div class='output co'>#&gt; Model label:  lm 
+<span class='va'>mr</span> <span class='op'>&lt;-</span> <span class='fu'>model_residual</span><span class='op'>(</span><span class='va'>glm_audit</span><span class='op'>)</span>
+<span class='va'>mr</span>
+</div><div class='output co'>#&gt; Model label:  lm 
 #&gt; Quantiles of Residuals:
 #&gt;        0%       10%       20%       30%       40%       50%       60%       70% 
 #&gt; -247.4728 -219.5419 -209.7820 -196.5370 -183.8511 -172.7964 -162.0042  368.5918 
 #&gt;       80%       90%      100% 
 #&gt;  391.1693  420.3496  469.0023 </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mr</span>)</div><div class='img'><img src='model_residual-1.png' alt='' width='700' height='433' /></div><div class='input'></div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mr</span><span class='op'>)</span>
+</div><div class='img'><img src='model_residual-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
