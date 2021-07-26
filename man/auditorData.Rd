@@ -4,6 +4,12 @@
 \name{auditorData}
 \alias{auditorData}
 \title{auditorData}
+\format{
+a data frame with 2000 rows and 5 columns
+}
+\usage{
+data(auditorData)
+}
 \description{
 The auditor Data is an artificial data set.
 It consists of 2000 observations.
@@ -13,3 +19,4 @@ First four of simulated variables are treated as continuous while the fifth one 
 data("auditorData", package = "auditor")
 head(auditorData)
 }
+\keyword{auditorData}
