@@ -1,3 +1,6 @@
+# auditor 1.3.3
+* updated documentation
+
 # auditor 1.3.1
 * bugfix: `score_auc()`
 * add spellcheck
