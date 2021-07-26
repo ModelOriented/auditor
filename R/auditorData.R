@@ -9,6 +9,8 @@
 #' @usage data(auditorData)
 #' @keywords auditorData
 #'
+#' @keywords internal
+#'
 #' @examples
 #' data("auditorData", package = "auditor")
 #' head(auditorData)

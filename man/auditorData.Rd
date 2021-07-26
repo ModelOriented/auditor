@@ -3,7 +3,7 @@
 \docType{data}
 \name{auditorData}
 \alias{auditorData}
-\title{auditorData}
+\title{Artifficial auditorData}
 \format{
 a data frame with 2000 rows and 5 columns
 }
@@ -20,3 +20,4 @@ data("auditorData", package = "auditor")
 head(auditorData)
 }
 \keyword{auditorData}
+\keyword{internal}
