@@ -25,7 +25,7 @@
 #' \link{plot_rroc}, \link{plot_scalelocation}, \link{plot_tsecdf}}
 #'
 #' @return A ggplot object.
-#' @keywords internal
+#'
 #' @examples
 #' dragons <- DALEX::dragons[1:100, ]
 #'
@@ -58,6 +58,7 @@
 #' @import scales
 #' @importFrom grDevices devAskNewPage
 #'
+#' @export
 #'
 #' @rdname plot
 plot_auditor <- function(x, ..., type="residual", ask = TRUE, grid = TRUE){

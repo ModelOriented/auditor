@@ -2,7 +2,12 @@
 % Please edit documentation in R/check_residuals.R
 \name{check_residuals}
 \alias{check_residuals}
-\title{Automated tests for model residuals}
+\title{Automated tests for model residuals
+
+Currently three tests are performed
+ - for outliers in residuals
+ - for autocorrelation in target variable or in residuals
+ - for trend in residuals as a function of target variable (detection of bias)}
 \usage{
 check_residuals(object, ...)
 }
@@ -15,6 +20,8 @@ check_residuals(object, ...)
 list with statistics for particular checks
 }
 \description{
+Automated tests for model residuals
+
 Currently three tests are performed
  - for outliers in residuals
  - for autocorrelation in target variable or in residuals

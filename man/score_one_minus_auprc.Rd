@@ -21,7 +21,7 @@ Pass \code{NULL} if you want to use \code{data} from \code{object}.}
 An object of class \code{auditor_score}.
 }
 \description{
-One Minus area under precision-recall curve
+One Minus Area under precision-recall (AUPRC) curve.
 }
 \examples{
 data(titanic_imputed, package = "DALEX")

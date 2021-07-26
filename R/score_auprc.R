@@ -1,5 +1,8 @@
 #' @title Area under precision-recall curve
 #'
+#' @description Area under precision-recall (AUPRC) curve.
+#'
+#'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param data New data that will be used to calculate the score.
@@ -77,6 +80,8 @@ score_auprc <- function(object, data = NULL, y = NULL, ...) {
 
 
 #' @title One Minus area under precision-recall curve
+#'
+#' @description One Minus Area under precision-recall (AUPRC) curve.
 #'
 #' @param object An object of class \code{explainer} created with function
 #'  \code{\link[DALEX]{explain}} from the DALEX package.

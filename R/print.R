@@ -1,4 +1,4 @@
-#' Prints Model Residual Summary
+#' @title Prints Model Residual Summary
 #'
 #' @param x an object \code{auditor_model_residual} created with \code{\link{model_residual}} function.
 #' @param ... other parameters
@@ -27,7 +27,7 @@ print.auditor_model_residual <- function(x, ...) {
 }
 
 
-#' Prints Model Cook's Distances Summary
+#' @title Prints Model Cook's Distances Summary
 #'
 #' @param x an object \code{auditor_model_cooksdistance} created with \code{\link{model_cooksdistance}} function.
 #' @param ... other parameters
@@ -60,7 +60,7 @@ print.auditor_model_cooksdistance <- function(x, ...) {
 }
 
 
-#' Prints Model Evaluation Summary
+#' @title Prints Model Evaluation Summary
 #'
 #' @param x an object \code{auditor_model_evaluation} created with \code{\link{model_evaluation}} function.
 #' @param ... other parameters
@@ -90,7 +90,7 @@ print.auditor_model_evaluation <- function(x, ...) {
 }
 
 
-#' Prints Model Halfnormal Summary
+#' @title Prints Model Halfnormal Summary
 #'
 #' @param x an object \code{auditor_model_halfnormal} created with \code{\link{model_halfnormal}} function.
 #' @param ... other parameters
@@ -119,7 +119,7 @@ print.auditor_model_halfnormal <- function(x, ...) {
 }
 
 
-#' Prints Model Performance Summary
+#' @title Prints Model Performance Summary
 #'
 #' @param x an object \code{auditor_model_performance} created with \code{\link{model_performance}} function.
 #' @param ... other parameters
@@ -150,7 +150,7 @@ print.auditor_model_performance <- function(x, ...) {
 
 
 
-#' Prints of Models Scores
+#' @title Prints of Models Scores
 #'
 #' @param x an object \code{auditor_score} created with \code{\link{score}} function.
 #' @param ... other parameters
