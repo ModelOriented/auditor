@@ -1,6 +1,6 @@
 #' @title Automated tests for model residuals
 #'
-#' Currently three tests are performed
+#' @description  Currently three tests are performed
 #'  - for outliers in residuals
 #'  - for autocorrelation in target variable or in residuals
 #'  - for trend in residuals as a function of target variable (detection of bias)
@@ -37,6 +37,8 @@ check_residuals <- function(object, ...) {
 }
 
 #' @title Checks for outliers
+#'
+#' @description Outlier checks
 #'
 #' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param n number of lowest and highest standardized  residuals to be presented

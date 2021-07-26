@@ -8,7 +8,6 @@
 #' @docType data
 #' @usage data(auditorData)
 #'
-#' @keywords internal
 #'
 #' @examples
 #' data("auditorData", package = "auditor")

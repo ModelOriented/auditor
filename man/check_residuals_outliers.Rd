@@ -15,7 +15,7 @@ check_residuals_outliers(object, n = 5)
 indexes of lowest and highest standardized  residuals
 }
 \description{
-Checks for outliers
+Outlier checks
 }
 \examples{
 dragons <- DALEX::dragons[1:100, ]

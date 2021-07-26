@@ -19,5 +19,3 @@ First four of simulated variables are treated as continuous while the fifth one 
 data("auditorData", package = "auditor")
 head(auditorData)
 }
-\keyword{auditorData}
-\keyword{internal}
