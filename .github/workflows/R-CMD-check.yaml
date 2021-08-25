@@ -5,10 +5,21 @@ on:
       - 'dev*'
       - 'fix*'
       - 'issue*'
+      - 'python*'
       - 'r*'
       - 'doc*'
       - 'gh-actions'
       - 'githubactions'
+    paths:
+      - '**.R'
+      - '**.r'
+      - '*DESCRIPTION'
+      - '**.Rmd'
+      - '**.rmd'
+      - '**.rda'
+      - '**.Rda'
+      - '**.rds'
+      - '**.Rds'
   pull_request:
     branches:
       - master
@@ -35,13 +46,19 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'devel'}
+          - {os: macOS-latest,   r: '4.1'}
+          - {os: macOS-latest,   r: '4.0'}
+          - {os: windows-latest, r: 'devel'}
+          - {os: windows-latest, r: '4.1'}
           - {os: windows-latest, r: '4.0'}
-          - {os: ubuntu-16.04,   r: '4.0', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: windows-latest, r: '3.6'}
+          - {os: ubuntu-16.04, r: '4.1', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '4.0', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.6', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: '3.5', rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
 
     env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
 
@@ -76,17 +93,20 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
-
+          sudo apt-get install -y qpdf
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
+          # remotes::install_github("ModelOriented/ingredients")
+          # remotes::install_github("ModelOriented/iBreakDown")
+          remotes::install_cran(c("rcmdcheck", "glmnet", "parsnip", "ranger", "randomForest", "e1071", "caret", "gbm", "rms", "rpart", "kernlab"))
         shell: Rscript {0}
 
       - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--run-donttest", "--run-dontrun"), error_on = "warning", check_dir = "check")
+        run: |
+          Sys.setenv(NOT_CRAN = "true")
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--run-donttest", "--run-dontrun", "--no-multiarch"),
+                               build_args = "--compact-vignettes=no", error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
