@@ -98,7 +98,7 @@
         <div class="info">
           <span class="partof">part of the <a href="https://github.com/ModelOriented/DrWhy">DrWhy.AI</a>
            developed by the <a href="https://mi2.mini.pw.edu.pl/">MI^2 DataLab</a> </span>
-          <span class="version version-default">1.3.3</span>
+          <span class="version version-default">1.3.4</span>
         </div>
       </div>
     </div>
@@ -270,7 +270,7 @@ By default it's FALSE.</p></td>
 #&gt;   -&gt; target variable   :  100  values 
 #&gt;   -&gt; predict function  :  yhat.lm  will be used ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; predicted values  :  No value for predict function target column. ( <span style='color: #BBBB00;'> default </span> )
-#&gt;   -&gt; model_info        :  package stats , ver. 4.1.0 , task regression ( <span style='color: #BBBB00;'> default </span> ) 
+#&gt;   -&gt; model_info        :  package stats , ver. 4.1.1 , task regression ( <span style='color: #BBBB00;'> default </span> ) 
 #&gt;   -&gt; predicted values  :  numerical, min =  585.8311 , mean =  1347.787 , max =  2942.307  
 #&gt;   -&gt; residual function :  difference between y and yhat ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; residuals         :  numerical, min =  -88.41755 , mean =  -1.489291e-13 , max =  77.92805  
@@ -291,9 +291,9 @@ By default it's FALSE.</p></td>
 #&gt;   -&gt; predict function  :  yhat.randomForest  will be used ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; predicted values  :  No value for predict function target column. ( <span style='color: #BBBB00;'> default </span> )
 #&gt;   -&gt; model_info        :  package randomForest , ver. 4.6.14 , task regression ( <span style='color: #BBBB00;'> default </span> ) 
-#&gt;   -&gt; predicted values  :  numerical, min =  748.7908 , mean =  1346.71 , max =  2462.369  
+#&gt;   -&gt; predicted values  :  numerical, min =  754.92 , mean =  1340.849 , max =  2470.237  
 #&gt;   -&gt; residual function :  difference between y and yhat ( <span style='color: #BBBB00;'> default </span> )
-#&gt;   -&gt; residuals         :  numerical, min =  -215.1982 , mean =  1.077381 , max =  436.0519  
+#&gt;   -&gt; residuals         :  numerical, min =  -202.9642 , mean =  6.938273 , max =  428.1842  
 #&gt;  <span style='color: #00BB00;'> A new explainer has been created! </span> </div><div class='input'><span class='va'>mr_rf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='model_residual.html'>model_residual</a></span><span class='op'>(</span><span class='va'>rf_audit</span><span class='op'>)</span>
 <span class='fu'>plotD3_residual</span><span class='op'>(</span><span class='va'>mr_lm</span>, <span class='va'>mr_rf</span><span class='op'>)</span>
 
