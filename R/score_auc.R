@@ -30,35 +30,21 @@
 score_auc <- function(object, data = NULL, y = NULL, ...) {
   if(!("explainer" %in% class(object))) stop("The function requires an object created with explain() function from the DALEX package.")
 
-  # inject new data to the explainer
+  # use new data
   if (!is.null(data)){
-    object$data <- data
     object$y <- y
     object$y_hat <- object$predict_function(object$model, data)
   }
-  pred <- data.frame(y_hat = object$`y_hat`,
-                     y = object$`y`)
-  pred_sorted <- pred[order(pred$y_hat, decreasing = TRUE), ]
-  roc_y <- factor(pred_sorted$y)
+  observed <- object$y
+  predicted <- object$y_hat
 
-  positive_label <- levels(roc_y)[2]
-  negative_label <- levels(roc_y)[1]
+  # code based on the solution from the DALEX package
+  tpr_tmp <- tapply(observed, predicted, sum)
+  TPR <- c(0,cumsum(rev(tpr_tmp)))/sum(observed)
+  fpr_tmp <- tapply(1 - observed, predicted, sum)
+  FPR <- c(0,cumsum(rev(fpr_tmp)))/sum(1 - observed)
 
-  positive_num <- sum(pred_sorted$y == positive_label)
-  negative_num <- sum(pred_sorted$y == negative_label)
-
-  tp <- cumsum(pred_sorted$y == positive_label)
-  fp <- cumsum(pred_sorted$y == negative_label)
-
-  # remove duplicates
-  duplicates <- rev(duplicated(rev(pred_sorted$y_hat)))
-  tp <- c(0, tp[!duplicates])
-  fp <- c(0, fp[!duplicates])
-
-  xroc <- fp / negative_num
-  yroc <- tp / positive_num
-
-  auc <- sum( 0.5 * (xroc[2:length(xroc)]-xroc[1:length(xroc)-1])* (yroc[2:length(xroc)] +yroc[1:length(xroc)-1]) )
+  auc <- sum(diff(FPR)*(TPR[-1] + TPR[-length(TPR)])/2)
 
   roc_results <- list(
     name = "auc",

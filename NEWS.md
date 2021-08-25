@@ -1,3 +1,6 @@
+# auditor 1.3.4 - developer version
+* more stable AUC computation #157
+
 # auditor 1.3.3
 * updated documentation
 
