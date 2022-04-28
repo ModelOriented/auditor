@@ -1,6 +1,6 @@
 Package: auditor
 Title: Model Audit - Verification, Validation, and Error Analysis 
-Version: 1.3.4
+Version: 1.3.5
 Authors@R: c(
     person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-6563-5742")),
@@ -10,7 +10,8 @@ Authors@R: c(
       comment = c(ORCID = "0000-0001-6661-5364")),
     person("Tomasz", "Mikołajczyk", role =  c("aut")),
     person("Michal", "Burdukiewicz", role =  c("ctb")),
-    person("Szymon", "Maksymiuk", role =  c("ctb"))
+    person("Szymon", "Maksymiuk", role =  c("ctb")),
+    person("Michal", "Kaminski", role =  c("ctb"))
   )
 Description: Provides an easy to use unified interface for creating validation plots for any model. 
   The 'auditor' helps to avoid repetitive work consisting of writing code needed to create residual plots. 

@@ -7,6 +7,7 @@ test_that("plot_acf", {
   expect_is(plot_acf(mr_rf, variable = "_y_"), "gg")
   expect_is(plot_acf(mr_rf, variable = "_y_hat_"), "gg")
   expect_is(plot_acf(mr_rf), "gg")
+  expect_error(plot_acf(mr_rf, mr_glm, mr_glm2), NA)
 })
 
 test_that("plot_autocorrelation", {

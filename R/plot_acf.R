@@ -51,11 +51,15 @@ plot_acf <- function(object, ..., variable = NULL, alpha = 0.95) {
   # data frame for ggplot object
   df <- make_dataframe(object, ..., variable = variable, type = "res")
 
-  result_df <- data.frame(acf = numeric(), label = character(), lag = numeric(), ymin = numeric())
-  for (label in unique(df$`_label_`)) {
+
+  result_df <- data.frame(acf = numeric(), label = factor(), lag = numeric(), ymin = numeric())
+
+  label_levels <- levels(df$`_label_`)
+
+  for (label in label_levels) {
     orderedResiduals <- df[which(df$`_label_` == label), "_residuals_"]
     acf <- acf(orderedResiduals, plot = FALSE)
-    result_df <- rbind(result_df, data.frame(acf = acf$acf[-1], label = label, lag = acf$lag[-1], ymin = 0))
+    result_df <- rbind(result_df, data.frame(acf = acf$acf[-1], label = factor(label, levels = label_levels), lag = acf$lag[-1], ymin = 0))
   }
 
   df <- result_df
