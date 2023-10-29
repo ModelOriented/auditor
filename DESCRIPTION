@@ -27,7 +27,7 @@ Imports:
     gridExtra,
     hnp,
     scales
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Suggests: 
     jsonlite,
     knitr,
