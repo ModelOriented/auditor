@@ -64,11 +64,11 @@ model_performance <- function(object, score = c("mae", "mse", "rec", "rroc"), ne
 
 
   if (!is.null(new_score)) {
-    if (class(new_score) == "function") {
+    if (inherits(new_score, "function")) {
       df <- rbind(df, data.frame(score = new_score(object), label = object$label, name = as.character(substitute(new_score)),
                                  stringsAsFactors = TRUE))
     }
-    if (class(new_score) == "list") {
+    if (inherits(new_score, "list")) {
       for (i in names(new_score)) {
         df <- rbind(df, data.frame(score = new_score[[i]](object), label = object$label, name = i,
                                    stringsAsFactors = TRUE))

@@ -93,7 +93,7 @@ plot_scalelocation <- function(object, ..., variable = "_y_", smooth = FALSE, pe
     p <- p + scale_x_continuous(breaks = 5, labels = "")
   }
 
-  p <- p + xlab(x_lab) + ylab("\u221A|Standarized residuals|") + ggtitle(chart_title)
+  p <- p + xlab(x_lab) + ylab("Sqrt|standarized residuals|") + ggtitle(chart_title)
 
   return(p)
 }

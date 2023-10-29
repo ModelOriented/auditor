@@ -1,3 +1,7 @@
+# auditor 1.3.5 
+* removed Unicode characters from plot names (as requested by CRAN)
+* fixed two instances of class(x) == "sth" instead of inherits
+
 # auditor 1.3.4 - developer version
 * more stable AUC computation #157
 

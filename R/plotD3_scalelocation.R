@@ -50,7 +50,7 @@ plotD3_scalelocation <- function(object, ..., variable = NULL, smooth = FALSE,
   df <- make_dataframe(object, ..., variable = variable, type = "scal")
 
   chart_title <- "Scale location"
-  y_title <- "\u221A|Standarized residuals|"
+  y_title <- "Sqrt|standarized residuals|"
 
   # set value for label of the X axis
   if (is.null(variable)) {
