@@ -2,9 +2,7 @@
 % Please edit documentation in R/check_residuals.R
 \name{check_residuals_trend}
 \alias{check_residuals_trend}
-\title{Checks for trend in residuals
-
-Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend}
+\title{Checks for trend in residuals}
 \usage{
 check_residuals_trend(object, B = 20)
 }
@@ -17,8 +15,6 @@ check_residuals_trend(object, B = 20)
 standardized   loess fit for residuals
 }
 \description{
-Checks for trend in residuals
-
 Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend
 }
 \examples{

@@ -122,7 +122,7 @@ check_residuals_autocorrelation <- function(object, method = "pearson") {
 
 #' @title Checks for trend in residuals
 #'
-#' Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend
+#' @description Calculates loess fit for residuals and then extracts statistics that shows how far is this fit from one without trend
 #'
 #' @param object  An object of class 'explainer' created with function \code{\link[DALEX]{explain}} from the DALEX package.
 #' @param B number of samplings
