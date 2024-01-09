@@ -40,6 +40,6 @@ Suggests:
     testthat,
     covr
 VignetteBuilder: knitr
-URL: https://github.com/ModelOriented/auditor
+URL: https://github.com/ModelOriented/auditor, https://modeloriented.github.io/auditor/
 BugReports: https://github.com/ModelOriented/auditor/issues
 Language: en-US
